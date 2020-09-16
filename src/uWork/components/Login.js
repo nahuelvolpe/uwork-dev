@@ -116,6 +116,18 @@ const Login = (props) => {
             marginBottom: theme.spacing(2),
             width: "100%",
         },
+        botonGoogle: {
+            marginTop: theme.spacing(2),
+            marginBottom: theme.spacing(2),
+            width: "100%",
+            backgroundColor: "#fafafa",
+            color: "black"
+        },
+        googlelogo: {
+            width: 28,
+            height: 28,
+            marginRight: 10
+        },
         textHasAccount: {
             marginTop: theme.spacing(2),
         },
@@ -233,7 +245,11 @@ const Login = (props) => {
                                                 color="primary"
                                                 onClick={() => handleLoginSocial(googleAuthProvider)}
                                             >
-                                                Registrate con Google                                                
+                                                <img
+                                                    src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                                                    alt="logo"
+                                                    className={classes.googlelogo}
+                                                />Registrate con Google                                                
                                             </Button>
 
                                             <p className={classes.textHasAccount}>
