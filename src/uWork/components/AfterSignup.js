@@ -4,14 +4,10 @@ import AuthenticationService from '../services/AuthenticationService';
 const AfterSignup = (props) => {
 
 
-    // const handleLogout = () => {
-    //     AuthenticationService.logout()
-    //         .then( props.history.push('/') )
-    //         .catch( error => console.log(error))
-    // }
-
     const handleLogout = () => {
-        console.log("ramita se queda sin dolares");
+        AuthenticationService.logout()
+            .then( props.history.push('/') )
+            .catch( error => console.log(error))
     }
 
     return ( 
