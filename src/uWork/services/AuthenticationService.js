@@ -6,6 +6,10 @@ class AuthenticationService {
     return auth.signInWithEmailAndPassword(email, password)
   }
 
+  loginSocial(provider){
+    return auth.signInWithPopup(provider)
+  }
+
   signupEmail(email, password) {
     return auth.createUserWithEmailAndPassword(email, password)
   }

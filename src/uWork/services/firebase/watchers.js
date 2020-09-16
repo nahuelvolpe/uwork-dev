@@ -2,7 +2,7 @@ import { auth } from './setup'
 
 export const watchUserChanges = (callback) => {
   return auth.onAuthStateChanged((user) => {
-    if (user && !user.isAnonymous) {
+    if (user) {
       console.log("IS LOGGED IN")
       callback({
         id: user.uid,

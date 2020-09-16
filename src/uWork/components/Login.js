@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, withRouter } from 'react-router-dom'
 import { Button, TextField, Grid, Paper, makeStyles } from "@material-ui/core";
 import AuthenticationService from '../services/AuthenticationService.js'
+import {auth, googleAuthProvider} from '../services/firebase/setup';
 
 const Login = (props) => {
     /* const {
@@ -32,7 +33,30 @@ const Login = (props) => {
         clearErrors();
         AuthenticationService.loginEmail(email, password)
             .then((response) => {
-                props.history.push('/dashboard')
+                props.history.push('/aftersignup')
+            }).catch((err) => {
+                switch (err.code) {
+                    case "auth/invalid-email":
+                    case "auth/user-disabled":
+                    case "auth/user-not-found":
+                        setEmailError(err.message);
+                        break;
+                    case "auth/wrong-password":
+                        setPasswordError(err.message);
+                        break;
+                    default:
+                        break;
+                }
+            });
+    };
+
+    const handleLoginSocial = (provider) => {
+
+        clearErrors();
+        auth()
+            .signInWithRedirect(provider)
+            .then((response) => {
+                props.history.push('/aftersignup')
             }).catch((err) => {
                 switch (err.code) {
                     case "auth/invalid-email":
@@ -53,6 +77,9 @@ const Login = (props) => {
         clearErrors();
         if(password == confirmPassword){
             AuthenticationService.signupEmail(email, password)
+            .then((response) => {
+                props.history.push('/aftersignup')
+            })
             .catch((err) => {
                 switch (err.code) {
                     case "auth/email-already-in-use":
@@ -173,6 +200,16 @@ const Login = (props) => {
                                             >
                                                 Ingresar
                                             </Button>
+
+                                            {/* <Button
+                                                className={classes.boton}
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={handleLoginSocial(googleAuthProvider)}
+                                            >
+                                                Ingresa con google
+                                            </Button> */}
+
                                             <p className={classes.textHasAccount}>No tienes una cuenta?
                                                 <span onClick={() => setHasAccount(!hasAccount)}>
                                                     Registrate
@@ -190,6 +227,16 @@ const Login = (props) => {
                                             >
                                                 Registrarme
                                             </Button>
+
+                                            {/* <Button
+                                                className={classes.boton}
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={handleLoginSocial(googleAuthProvider)}
+                                            >
+                                                Registrate con Google                                                
+                                            </Button> */}
+
                                             <p className={classes.textHasAccount}>
                                                 Tienes una cuenta?
                                                 <span onClick={() => setHasAccount(!hasAccount)}>
