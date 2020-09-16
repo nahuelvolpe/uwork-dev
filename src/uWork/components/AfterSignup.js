@@ -1,6 +1,15 @@
 import React from 'react';
+import AuthenticationService from '../services/AuthenticationService';
 
-const AfterSignup = ({handleLogout}) => {
+const AfterSignup = (props) => {
+
+
+    const handleLogout = () => {
+        AuthenticationService.logout()
+            .then( props.history.push('/') )
+            .catch( error => console.log(error))
+    }
+
     return ( 
         <section className="hero">
             <nav>

@@ -14,6 +14,10 @@ class AuthenticationService {
     return auth.createUserWithEmailAndPassword(email, password)
   }
 
+  logout() {
+    return auth.signOut()
+  }
+
 }
 
 export default new AuthenticationService()
