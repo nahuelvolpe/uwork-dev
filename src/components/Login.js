@@ -73,7 +73,7 @@ const Login = (props) => {
                             <TextField     
                                 className={classes.textField}                        
                                 id="standard-basic" 
-                                label="Username" 
+                                label="Email" 
                                 autoFocus
                                 required
                                 value={email}
@@ -85,12 +85,22 @@ const Login = (props) => {
                             <TextField
                                 className={classes.textField}
                                 id="standard-password-input"
-                                label="Password"
+                                label="Contraseña"
                                 type="password"
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
+
+                            <TextField
+                                className={classes.textField}
+                                id="standard-password-input"
+                                label="Confirmar contraseña"
+                                type="password"
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />  
                         
                             <p className={classes.errorMsg} >{passwordError}</p>
                             

@@ -30,6 +30,7 @@ function App() {
     fire
       .auth()
       .signInWithEmailAndPassword(email, password)
+      .then(e => console.log(e))
       .catch((err) => {
         switch(err.code) {
           case "auth/invalid-email":
@@ -51,6 +52,7 @@ function App() {
     fire
       .auth()
       .createUserWithEmailAndPassword(email, password)
+      .then( e => console.log(e))
       .catch((err) => {
         switch(err.code) {
           case "auth/email-already-in-use":
@@ -75,6 +77,7 @@ function App() {
       if(user){
         clearInputs();
         setUser(user);
+        console.log(user);
       } else {
         setUser('');
       }
@@ -110,3 +113,7 @@ function App() {
 }
 
 export default App;
+
+
+
+
