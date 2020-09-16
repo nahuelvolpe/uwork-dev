@@ -12,9 +12,11 @@ const Login = (props) => {
     //const [user, setUser] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
-    //const [hasAccount, setHasAccount] = useState(false);
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
+    const [hasAccount, setHasAccount] = useState(false);
 
     /* const clearInputs = () => {
         setEmail('');
@@ -28,7 +30,7 @@ const Login = (props) => {
 
     const handleLogin = () => {
         clearErrors();
-        AuthenticationService.login(email, password)
+        AuthenticationService.loginEmail(email, password)
             .then((response) => {
                 props.history.push('/dashboard')
             }).catch((err) => {
@@ -47,11 +49,10 @@ const Login = (props) => {
             });
     };
 
-    /* const handleSignup = () => {
+    const handleSignup = () => {
         clearErrors();
-        fire
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
+        if(password == confirmPassword){
+            AuthenticationService.signupEmail(email, password)
             .catch((err) => {
                 switch (err.code) {
                     case "auth/email-already-in-use":
@@ -65,7 +66,10 @@ const Login = (props) => {
                         break;
                 }
             });
-    }; */
+        }else {
+            setConfirmPasswordError('Las contraseñas no coinciden');
+        }
+    }; 
 
     const useStyles = makeStyles((theme) => ({
         loginContent: {
@@ -109,7 +113,7 @@ const Login = (props) => {
                     direction="column"
                     justify="space-between"
                 >
-                    <div>
+                    <div/>
                         <Paper
                             className={classes.loginContent}
                             elevation={3}
@@ -118,7 +122,7 @@ const Login = (props) => {
                             <TextField
                                 className={classes.textField}
                                 id="standard-basic"
-                                label="Username"
+                                label="Email"
                                 autoFocus
                                 required
                                 value={email}
@@ -128,22 +132,36 @@ const Login = (props) => {
                             <TextField
                                 className={classes.textField}
                                 id="standard-password-input"
-                                label="Password"
+                                label="Contraseña"
                                 type="password"
                                 required
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                            />
+                            />                           
                             <p className={classes.errorMsg}>{passwordError}</p>
-                            <Button className={classes.boton} variant="contained"
+
+                            {!hasAccount ? (
+                                <TextField
+                                className={classes.textField}
+                                id="standard-password-input"
+                                label="Confirmar contraseña"
+                                type="password"
+                                required
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                            ) : null
+                            }
+                            <p className={classes.errorMsg}>{confirmPasswordError}</p>
+
+                            {/* <Button className={classes.boton} variant="contained"
                                 color="primary" onClick={handleLogin}>
                                 Ingresar
                             </Button>
-                            <p className={classes.textHasAccount}>
-                                No tienes una cuenta?
-                                <span><Link to="/register">Registrate</Link></span>
-                            </p>
-                            {/* <div style={{ alignItems: "center", width: "100%" }}>
+                            <p className={classes.textHasAccount}>No tienes una cuenta? 
+                            <span> <Link to="/register">Registrate</Link></span>
+                            </p> */}
+                            <div style={{ alignItems: "center", width: "100%" }}>
                                 {hasAccount
                                     ? (
                                         <>
@@ -180,9 +198,9 @@ const Login = (props) => {
                                             </p>
                                         </>
                                     )}
-                            </div> */}
+                            </div>
                         </Paper>
-                    </div>
+                    <div/>
                 </Grid>
             </Grid>
         </div>

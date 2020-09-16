@@ -2,8 +2,12 @@ import { auth } from './firebase'
 
 class AuthenticationService {
 
-  login(email, password) {
+  loginEmail(email, password) {
     return auth.signInWithEmailAndPassword(email, password)
+  }
+
+  signupEmail(email, password) {
+    return auth.createUserWithEmailAndPassword(email, password)
   }
 
 }

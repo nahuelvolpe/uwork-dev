@@ -6,7 +6,7 @@ function App() {
 
   /* const handleLogout = () => {
     fire.auth().signOut();
-  }
+   }
 
   const authListener = () => {
     fire.auth().onAuthStateChanged(user => {
