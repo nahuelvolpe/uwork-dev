@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, withRouter } from 'react-router-dom'
 import { Button, TextField, Grid, Paper, makeStyles } from "@material-ui/core";
 import AuthenticationService from '../services/AuthenticationService.js'
-import {auth, googleAuthProvider} from '../services/firebase/setup';
+import { googleAuthProvider} from '../services/firebase/setup';
 
 const Login = (props) => {
     /* const {
@@ -21,7 +21,7 @@ const Login = (props) => {
 
     /* const clearInputs = () => {
         setEmail('');
-        setPassword('');
+        setPassword('');d
     } */
 
     const clearErrors = () => {
@@ -53,8 +53,7 @@ const Login = (props) => {
     const handleLoginSocial = (provider) => {
 
         clearErrors();
-        auth()
-            .signInWithRedirect(provider)
+        AuthenticationService.loginSocial(provider)
             .then((response) => {
                 props.history.push('/aftersignup')
             }).catch((err) => {
@@ -201,14 +200,14 @@ const Login = (props) => {
                                                 Ingresar
                                             </Button>
 
-                                            {/* <Button
+                                            { <Button
                                                 className={classes.boton}
                                                 variant="contained"
                                                 color="primary"
-                                                onClick={handleLoginSocial(googleAuthProvider)}
+                                                onClick={() => handleLoginSocial(googleAuthProvider)}
                                             >
                                                 Ingresa con google
-                                            </Button> */}
+                                            </Button> }
 
                                             <p className={classes.textHasAccount}>No tienes una cuenta?
                                                 <span onClick={() => setHasAccount(!hasAccount)}>
@@ -228,14 +227,14 @@ const Login = (props) => {
                                                 Registrarme
                                             </Button>
 
-                                            {/* <Button
+                                            <Button
                                                 className={classes.boton}
                                                 variant="contained"
                                                 color="primary"
-                                                onClick={handleLoginSocial(googleAuthProvider)}
+                                                onClick={() => handleLoginSocial(googleAuthProvider)}
                                             >
                                                 Registrate con Google                                                
-                                            </Button> */}
+                                            </Button>
 
                                             <p className={classes.textHasAccount}>
                                                 Tienes una cuenta?
