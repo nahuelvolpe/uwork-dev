@@ -2,12 +2,12 @@ import React from 'react';
 
 const AfterSignup = ({handleLogout}) => {
     return ( 
-        <section className="hero">
+        <div className="hero">
             <nav>
-                <h2>Welcome</h2>
-                <button onClick={handleLogout}>Logout</button>
+                <h2>Bienvenido</h2>
+                <button onClick={handleLogout}>Cerrar Sesión</button>
             </nav>
-        </section>
+        </div>
      );
 }
  
