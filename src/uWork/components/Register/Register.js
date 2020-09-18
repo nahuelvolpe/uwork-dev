@@ -1,6 +1,6 @@
-import { Button, Grid, Paper, withStyles } from "@material-ui/core";
+import { Button, Grid, Paper, makeStyles } from "@material-ui/core";
 import { Formik, Form } from "formik";
-import React, { Component } from "react"
+import React, { useState } from "react"
 import * as Yup from 'yup'
 import FormikField from "../FormikField/FormikField";
 import AuthenticationService from '../../services/AuthenticationService.js'
@@ -18,7 +18,7 @@ const RegisterSchema = Yup.object().shape({
     .required("Debes confirmar la contraseña!")
 })
 
-const useStyles = theme => ({
+const useStyles = makeStyles((theme) => ({
   loginContent: {
     margin: theme.spacing(1),
     padding: theme.spacing(3),
@@ -28,8 +28,9 @@ const useStyles = theme => ({
     minWidth: 250,
     minHeight: 350,
   },
-  title: {
-    marginBottom: theme.spacing(3),
+  textField: {
+    marginBottom: theme.spacing(2),
+    width: "100%",
   },
   boton: {
     marginTop: theme.spacing(2),
@@ -47,18 +48,19 @@ const useStyles = theme => ({
     width: 28,
     height: 28,
     marginRight: 10
-  }
-});
+  },
+  title: {
+    marginBottom: theme.spacing(3),
+  },
+}));
 
-class Register extends Component {
+const Register = (props) => {
 
-  state = {
-    email: '',
-    password: '',
-    confirmPassword: ''
-  }
+  const [email,] = useState('')
+  const [password,] = useState('')
+  const [confirmPassword,] = useState('')
 
-  onSubmit = (values) => {
+  const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.signupEmail(values.email, values.password)
       .then((response) => {
         this.props.history.push('/aftersignup')
@@ -66,19 +68,15 @@ class Register extends Component {
       .catch((err) => {
         switch (err.code) {
           case "auth/email-already-in-use":
-          case "auth/invalid-email":
-            //setEmailError(err.message);
+            setFieldError("email", "El email ingresado se encuentra en uso")
             break;
-          case "auth/weak-password":
-            //setPasswordError(err.message);
-            break
           default:
             break;
         }
       });
   }
 
-  handleLoginSocial = (provider) => {
+  const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
         this.props.history.push('/aftersignup')
@@ -97,168 +95,60 @@ class Register extends Component {
         }
       });
   }
+  const classes = useStyles();
 
-  render() {
-    const { classes } = this.props
-    let { email, password, confirmPassword } = this.state
-    return (
-      <div>
-        <Grid container style={{ minHeight: "100vh" }}>
-          <Grid
-            container
-            item
-            xs={12}
-            alignItems="center"
-            direction="column"
-            justify="space-between"
+  return (
+    <div>
+      <Grid container style={{ minHeight: "100vh" }}>
+        <Grid
+          container
+          item
+          xs={12}
+          alignItems="center"
+          direction="column"
+          justify="space-between"
+        >
+          <div></div>
+          <Paper
+            className={classes.loginContent}
+            elevation={3}
           >
-            <Paper
-              className={classes.loginContent}
-              elevation={3}
-            >
-              <h1 className={classes.title}>uWork</h1>
-              <Formik
-                initialValues={{ email, password, confirmPassword }}
-                onSubmit={this.onSubmit}
-                validationSchema={RegisterSchema}>
-                {({ dirty, isValid, errors, touched }) => (
-                  <Form>
-                    <FormikField label="Email" id="register-email" name="email" type="email" required
-                      error={errors.email && touched.email} fullWidth />
-                    <FormikField label="Contraseña" id="register-pass" name="password"
-                      type="password" required error={errors.password && touched.password} fullWidth />
-                    <FormikField label="Confirmar contraseña" id="register-conf-pass" name="confirmPassword" type="password" required
-                      error={errors.confirmPassword && touched.confirmPassword} fullWidth />
-
-                    <Button className={classes.boton}
-                      variant="contained"
-                      color="primary"
-                      type="submit"
-                      disabled={!dirty || !isValid}>
-                      Registrarme
+            <h1 className={classes.title}>uWork</h1>
+            <Formik
+              initialValues={{ email, password, confirmPassword }}
+              onSubmit={onSubmit}
+              validationSchema={RegisterSchema}>
+              {({ dirty, isValid, errors, touched }) => (
+                <Form>
+                  <FormikField className={classes.textField} label="Email" id="register-email" name="email" type="email" required
+                    error={errors.email && touched.email} fullWidth />
+                  <FormikField className={classes.textField} label="Contraseña" id="register-pass" name="password"
+                    type="password" required error={errors.password && touched.password} fullWidth />
+                  <FormikField className={classes.textField} label="Confirmar contraseña" id="register-conf-pass" name="confirmPassword" type="password" required error={errors.confirmPassword && touched.confirmPassword} fullWidth />
+                  <Button className={classes.boton}
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    disabled={!dirty || !isValid}>
+                    Registrarme
                   </Button>
-                    <Button className={classes.boton} variant="contained"
-                      color="primary" onClick={() => this.handleLoginSocial(googleAuthProvider)}>
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                        alt="logo"
-                        className={classes.googlelogo} />
+                  <Button className={classes.botonGoogle} variant="contained"
+                    color="primary" onClick={() => handleLoginSocial(googleAuthProvider)}>
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                      alt="logo"
+                      className={classes.googlelogo} />
                         Ingresar con Google
                   </Button>
-                  </Form>
-                )}
-              </Formik>
-              {/* <TextField
-              className={classes.textField}
-              id="standard-basic"
-              label="Email"
-              autoFocus
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <p className={classes.errorMsg}>{emailError}</p>
-            <TextField
-              className={classes.textField}
-              id="standard-password-input"
-              label="Contraseña"
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <p className={classes.errorMsg}>{passwordError}</p>
-
-            {!hasAccount ? (
-              <TextField
-                className={classes.textField}
-                id="standard-password-input"
-                label="Confirmar contraseña"
-                type="password"
-                required
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            ) : null
-            }
-            <p className={classes.errorMsg}>{confirmPasswordError}</p> */}
-
-              {/* <Button className={classes.boton} variant="contained"
-                    color="primary" onClick={handleLogin}>
-                    Ingresar
-                </Button>
-                <p className={classes.textHasAccount}>No tienes una cuenta? 
-                <span> <Link to="/register">Registrate</Link></span>
-                </p> */}
-              {/* <div style={{ alignItems: "center", width: "100%" }}>
-              {hasAccount
-                ? (
-                  <>
-                    <Button
-                      className={classes.boton}
-                      variant="contained"
-                      color="primary"
-                      onClick={handleLogin}
-                    >
-                      Ingresar
-                                </Button>
-
-                    {<Button
-                      className={classes.boton}
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleLoginSocial(googleAuthProvider)}
-                    >
-                      Ingresa con google
-                                </Button>}
-
-                    <p className={classes.textHasAccount}>No tienes una cuenta?
-                                    <span onClick={() => setHasAccount(!hasAccount)}>
-                        Registrate
-                                    </span>
-                    </p>
-                  </>
-                )
-                : (
-                  <>
-                    <Button
-                      className={classes.boton}
-                      variant="contained"
-                      color="primary"
-                      onClick={handleSignup}
-                    >
-                      Registrarme
-                                </Button>
-
-                    <Button
-                      className={classes.boton}
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleLoginSocial(googleAuthProvider)}
-                    >
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                        alt="logo"
-                        className={classes.googlelogo}
-                      />Registrate con Google
-                                </Button>
-
-                    <p className={classes.textHasAccount}>
-                      Tienes una cuenta?
-                                    <span onClick={() => setHasAccount(!hasAccount)}>
-                        Ingresa
-                                    </span>
-                    </p>
-                  </>
-                )}
-            </div> */}
-            </Paper>
-            <div />
-          </Grid>
+                </Form>
+              )}
+            </Formik>
+          </Paper>
+          <div></div>
         </Grid>
-      </div>
-    )
-  }
+      </Grid>
+    </div>
+  )
 }
 
-export default withStyles(useStyles)(Register)
+export default Register
