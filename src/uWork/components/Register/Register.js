@@ -1,10 +1,11 @@
-import { Button, Grid, Paper, makeStyles, Link } from "@material-ui/core";
+import { Button, Grid, Paper, makeStyles, Divider } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import React, { useState } from "react"
 import * as Yup from 'yup'
 import FormikField from "../FormikField/FormikField";
 import AuthenticationService from '../../services/AuthenticationService.js'
 import { googleAuthProvider } from '../../services/firebase/setup';
+import { Link } from 'react-router-dom'
 
 const RegisterSchema = Yup.object().shape({
   email: Yup.string()
@@ -21,12 +22,13 @@ const RegisterSchema = Yup.object().shape({
 const useStyles = makeStyles((theme) => ({
   loginContent: {
     margin: theme.spacing(1),
-    padding: theme.spacing(3),
+    padding: '8px 24px 8px 24px',
     display: "flex",
-    flexDirection: "column",
+    //flexDirection: "column",
     alignItems: "center",
     minWidth: 250,
-    minHeight: 350,
+    //minHeight: 350,
+    borderRadius: '26px'
   },
   textField: {
     marginBottom: theme.spacing(2),
@@ -46,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: "#14A7D6",
       color: '#FFF'
-  }
+    }
   },
   googlelogo: {
     width: 28,
@@ -56,6 +58,17 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginBottom: theme.spacing(3),
   },
+  divider: {
+    border: 'none',
+    height: '3px',
+    margin: 0,
+    flexShrink: 0,
+    backgroundColor: 'rgba(27, 195, 222, 100)',
+    outline: 'none',
+    borderColor: '#1bc3de',
+    boxShadow: '0 0 4px #1bc3de',
+    borderRadius: '10px 10px 10px 10px',
+  }
 }));
 
 const Register = (props) => {
@@ -113,11 +126,12 @@ const Register = (props) => {
           justify="space-between"
         >
           <div></div>
+          <h1 className={classes.title}>uWork</h1>
           <Paper
             className={classes.loginContent}
             elevation={3}
           >
-            <h1 className={classes.title}>uWork</h1>
+
             <Formik
               initialValues={{ email, password, confirmPassword }}
               onSubmit={onSubmit}
@@ -136,6 +150,7 @@ const Register = (props) => {
                     disabled={!dirty || !isValid}>
                     Registrarme
                   </Button>
+                  <Divider className={classes.divider} variant="middle" />
                   <Button className={classes.botonGoogle} variant="contained"
                     color="primary" onClick={() => handleLoginSocial(googleAuthProvider)}>
                     <img
@@ -144,13 +159,13 @@ const Register = (props) => {
                       className={classes.googlelogo} />
                         Ingresar con Google
                   </Button>
-                  <div style={{ textAlign: "center", width: "100%" }}>
-                    <p className={classes.textHasAccount}>¿Ya estás registrado? <Link style={{cursor: 'pointer'}} onClick={() => props.history.push('/login')}>Inicia Sesión</Link></p>
-                  </div>
                 </Form>
               )}
             </Formik>
           </Paper>
+          <div style={{ textAlign: "center", width: "100%" }}>
+            <p className={classes.textHasAccount}>¿Ya estás registrado? <Link style={{ cursor: 'pointer' }} to='/login'>Inicia Sesión</Link></p>
+          </div>
           <div></div>
         </Grid>
       </Grid>
