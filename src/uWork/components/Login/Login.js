@@ -41,7 +41,11 @@ const LoginSchema = Yup.object().shape({
       marginBottom: theme.spacing(2),
       width: "100%",
       backgroundColor: "#fafafa",
-      color: "black"
+      color: "black",
+      '&:hover': {
+        backgroundColor: "#14A7D6",
+        color: '#FFF'
+    }
     },
     googlelogo: {
       width: 28,
@@ -75,7 +79,7 @@ const LoginSchema = Yup.object().shape({
                     setFieldError('email', 'Usuario no encontrado' );
                     break;
                 case "auth/wrong-password":
-                    // setPasswordError(err.message);
+                    //setPasswordError(err.message);
                     break;
                 default:
                     break;

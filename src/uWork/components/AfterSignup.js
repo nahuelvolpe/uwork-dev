@@ -1,5 +1,6 @@
 import React from 'react';
 import AuthenticationService from '../services/AuthenticationService';
+import { Button } from "@material-ui/core";
 
 const AfterSignup = (props) => {
     
@@ -12,11 +13,11 @@ const AfterSignup = (props) => {
     
     
     return ( 
-        <div className="hero">
-            <nav>
-                <h2>Bienvenido</h2>
-                <button onClick={handleLogout}>Cerrar Sesión</button>
-            </nav>
+        <div class="header">
+            <h2 class="hache2">Bienvenido</h2>
+            <div class="header-right">
+                <Button variant="contained" onClick={handleLogout}>Cerrar Sesión</Button>
+             </div>
         </div>
      );
 }
