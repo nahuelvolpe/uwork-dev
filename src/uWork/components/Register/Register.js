@@ -1,4 +1,4 @@
-import { Button, Grid, Paper, makeStyles } from "@material-ui/core";
+import { Button, Grid, Paper, makeStyles, Link } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import React, { useState } from "react"
 import * as Yup from 'yup'
@@ -140,6 +140,9 @@ const Register = (props) => {
                       className={classes.googlelogo} />
                         Ingresar con Google
                   </Button>
+                  <div style={{ textAlign: "center", width: "100%" }}>
+                    <p className={classes.textHasAccount}>¿Ya estás registrado? <Link style={{cursor: 'pointer'}} onClick={() => props.history.push('/login')}>Inicia Sesión</Link></p>
+                  </div>
                 </Form>
               )}
             </Formik>
