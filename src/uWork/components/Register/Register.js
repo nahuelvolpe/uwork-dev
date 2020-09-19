@@ -42,7 +42,11 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
     width: "100%",
     backgroundColor: "#fafafa",
-    color: "black"
+    color: "black",
+    '&:hover': {
+      backgroundColor: "#14A7D6",
+      color: '#FFF'
+  }
   },
   googlelogo: {
     width: 28,
