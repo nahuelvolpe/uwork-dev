@@ -21,14 +21,10 @@ const RegisterSchema = Yup.object().shape({
 
 const useStyles = makeStyles((theme) => ({
   loginContent: {
-    //margin: theme.spacing(1),
-    //padding: theme.spacing(3),
     padding: '8px 24px 8px 24px',
     display: "flex",
-    //flexDirection: "column",
     alignItems: "center",
     maxWidth: 240,
-    //minHeight: 350,
     borderRadius: '26px'
   },
   textField: {
