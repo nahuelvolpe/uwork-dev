@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, withRouter } from 'react-router-dom'
-import { Button, Grid, Paper, makeStyles } from "@material-ui/core";
+import { Button, Grid, Paper, makeStyles, Divider } from "@material-ui/core";
 import AuthenticationService from '../../services/AuthenticationService'
 import { googleAuthProvider } from '../../services/firebase/setup';
 import * as Yup from 'yup'
@@ -19,13 +19,11 @@ const LoginSchema = Yup.object().shape({
 
 const useStyles = makeStyles((theme) => ({
   loginContent: {
-    margin: theme.spacing(1),
-    padding: theme.spacing(3),
+    padding: '8px 24px 8px 24px',
     display: "flex",
-    flexDirection: "column",
     alignItems: "center",
-    minWidth: 250,
-    minHeight: 350,
+    maxWidth: 240,
+    borderRadius: '26px'
   },
   textField: {
     marginBottom: theme.spacing(2),
@@ -35,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     width: "100%",
+    color: 'white'
   },
   botonGoogle: {
     marginTop: theme.spacing(2),
@@ -53,12 +52,33 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 10
   },
   title: {
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(2),
+    color: 'white'
   },
-  textHasAccount: {
-    marginTop: theme.spacing(2),
-    alignItems: 'center',
+  divider: {
+    border: 'none',
+    height: '3px',
+    margin: 0,
+    outline: 'none',
+    boxShadow: '0 0 4px #1bc3de',
+    flexShrink: '0',
+    borderColor: '#1bc3de',
+    borderRadius: '10px 10px 10px 10px',
+    backgroundColor: 'rgba(27, 195, 222, 100)',
   },
+  register: {
+    backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='25 50 430 100' preserveAspectRatio='none'><rect x='0' y='0' width='500' height='500' style='stroke: none; fill: %23FFFFFF;' /><path d='M0,100 C150,115 350,80 500,100 L500,00 L0,0 Z' style='stroke: none; fill: %2314A7D6;'></path></svg>");`
+  },
+  link: {
+    cursor: 'pointer',
+    textDecoration: 'none',
+    fontWeight: 600,
+    color: theme.palette.primary.main
+  },
+  // textHasAccount: {
+  //   marginTop: theme.spacing(3),
+  //   alignItems: 'center',
+  // },
 }));
 
 const Login = (props) => {
@@ -79,7 +99,7 @@ const Login = (props) => {
             setFieldError('email', 'Usuario no encontrado');
             break;
           case "auth/wrong-password":
-            //setPasswordError(err.message);
+            setFieldError('password', 'Contraseña incorrecta');
             break;
           default:
             break;
@@ -108,7 +128,7 @@ const Login = (props) => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.register}>
       <Grid container style={{ minHeight: "100vh" }}>
         <Grid
           container
@@ -116,14 +136,16 @@ const Login = (props) => {
           xs={12}
           alignItems="center"
           direction="column"
-          justify="space-between"
+          justify="center"
         >
           <div></div>
+          <div>
+            <h1 className={classes.title}>uWork</h1>
+          </div>
           <Paper
             className={classes.loginContent}
             elevation={3}
           >
-            <h1 className={classes.title}>uWork</h1>
             <Formik
               initialValues={{ email, password }}
               onSubmit={onSubmit}
@@ -143,6 +165,8 @@ const Login = (props) => {
                     Ingresar
                     </Button>
 
+                    <Divider className={classes.divider} variant="middle" />
+
                   <Button className={classes.botonGoogle} variant="contained"
                     color="primary" onClick={() => handleLoginSocial(googleAuthProvider)}>
                     <img
@@ -151,14 +175,13 @@ const Login = (props) => {
                       className={classes.googlelogo} />
                           Ingresar con Google
                     </Button>
-                  <div style={{ textAlign: "center", width: "100%" }}>
-                    <p className={classes.textHasAccount}>¿No tienes cuenta? <Link style={{ cursor: 'pointer' }} to="/register">Registrate</Link></p>
-
-                  </div>
                 </Form>
               )}
             </Formik>
           </Paper>
+                  <div style={{ textAlign: "center", width: "100%" }}>
+                    <p> ¿No tienes cuenta? <Link className={classes.link} to="/register">Registrate</Link></p>
+                  </div>
           <div></div>
         </Grid>
       </Grid>
