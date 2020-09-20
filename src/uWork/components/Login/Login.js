@@ -105,45 +105,6 @@ const Login = (props) => {
       });
   }
 
-  const onSubmit = (values, { setFieldError }) => {
-    AuthenticationService.loginEmail(values.email, values.password)
-      .then((response) => {
-        props.history.push('/aftersignup')
-      })
-      .catch((err) => {
-        switch (err.code) {
-          case "auth/invalid-email":
-          case "auth/user-disabled":
-          case "auth/user-not-found":
-            setFieldError('email', 'Usuario no encontrado');
-            break;
-          case "auth/wrong-password":
-            // setPasswordError(err.message);
-            break;
-          default:
-            break;
-        }
-      });
-  }
-
-  const handleLoginSocial = (provider) => {
-    AuthenticationService.loginSocial(provider)
-      .then((response) => {
-        this.props.history.push('/aftersignup')
-      }).catch((err) => {
-        switch (err.code) {
-          case "auth/invalid-email":
-          case "auth/user-disabled":
-          case "auth/user-not-found":
-            break;
-          case "auth/wrong-password":
-            break;
-          default:
-            break;
-        }
-      });
-  }
-
   const classes = useStyles();
 
   return (
