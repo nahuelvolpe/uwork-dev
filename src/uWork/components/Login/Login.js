@@ -99,7 +99,7 @@ const Login = (props) => {
             setFieldError('email', 'Usuario no encontrado');
             break;
           case "auth/wrong-password":
-            //setPasswordError(err.message);
+            setFieldError('password', 'Contraseña incorrecta');
             break;
           default:
             break;
