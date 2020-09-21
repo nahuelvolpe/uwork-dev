@@ -85,11 +85,13 @@ const Login = (props) => {
 
   const [email,] = useState('')
   const [password,] = useState('')
+  const [textConfirm, setTextConfirm] = useState('')
 
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.loginEmail(values.email, values.password)
       .then((response) => {
-        props.history.push('/aftersignup')
+        //props.history.push('/aftersignup')
+        setTextConfirm('ingreso');
       })
       .catch((err) => {
         switch (err.code) {
@@ -110,7 +112,8 @@ const Login = (props) => {
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
-        this.props.history.push('/aftersignup')
+        //this.props.history.push('/aftersignup')
+        
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":
@@ -158,13 +161,14 @@ const Login = (props) => {
                     type="password" required error={errors.password && touched.password} fullWidth />
 
                   <Button className={classes.boton}
+                    id="login-button"
                     variant="contained"
                     color="primary"
                     type="submit"
                     disabled={!dirty || !isValid}>
                     Ingresar
                     </Button>
-
+                    <p id="ingreso">{textConfirm}</p>
                     <Divider className={classes.divider} variant="middle" />
 
                   <Button className={classes.botonGoogle} variant="contained"

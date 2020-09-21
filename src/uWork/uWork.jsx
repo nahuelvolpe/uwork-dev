@@ -11,7 +11,7 @@ const uWorkApp = () => {
     <div>
       <BrowserRouter>
         <AuthContextProvider>
-          <Layout>
+          {/* <Layout> */}
             <Switch>
               <Route exact path="/" render={props => <Login {...props} />} />
               <Route exact path="/login" render={props => <Login {...props} />} />
@@ -20,7 +20,7 @@ const uWorkApp = () => {
               {/* <AuthenticatedRoute exact path="/news" render={props => <NewsDashboard />} /> */}
               {/* <Route render={props => <ErrorComponent />} /> */}
             </Switch>
-          </Layout>
+          {/* </Layout> */}
         </AuthContextProvider>
       </BrowserRouter>
     </div>
