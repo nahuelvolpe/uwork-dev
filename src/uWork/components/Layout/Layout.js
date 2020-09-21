@@ -48,11 +48,7 @@ const Layout = (props) => {
           </Fragment>)}
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {isLoggedIn &&
-          (<Container fixed>
-            {children}
-          </Container>)}
-        {!isLoggedIn && (<Fragment>{children}</Fragment>)}
+        {children}
       </main>
     </div>
   )
