@@ -1,16 +1,17 @@
 import React from 'react';
-import ReactDOM from "react-dom";
 import '@testing-library/react';
-import { render, fireEvent, waitFor, screen, wait } from '@testing-library/react'
+import { render, fireEvent, wait } from '@testing-library/react'
 import Login from '../uWork/components/Login/Login';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-it('renders without crashing', () => {
-    const div = document.createElement('div')
-    ReactDOM.render(<Router>
-                        <Login />
-                    </Router>, div)
-  })
+
+  describe('Login', () => {
+    test('renders Login component correctamente', () => {
+      render(<Router>
+                <Login />
+             </Router>);
+    });
+  });
 
 
  /*  it('submits correct values', async () => {
