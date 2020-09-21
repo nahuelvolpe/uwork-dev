@@ -13,7 +13,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <UWorkApp />
+        <UWorkApp data-testid="work-app" />
       </div>
     </ThemeProvider>
   );
