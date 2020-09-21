@@ -22,15 +22,16 @@ it('renders without crashing', () => {
     const submit = container.querySelector('button[id="login-button"]')
     const results = container.querySelector('p[id="ingreso"]');
 
-    console.log(email);
+    
+    console.log(email._valueTracker.getValue);
 
      await wait(() => {
         fireEvent.change(email, {
-          target: {
             value: "vnahui@outlook.com"
-          }
         })
       }) 
+
+      console.log(email.value);
 
       await wait(() => {
         fireEvent.change(password, {
