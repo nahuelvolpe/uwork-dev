@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     maxWidth: 240,
+    minHeight: 270,
     borderRadius: '26px'
   },
   textField: {
@@ -57,14 +58,14 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     border: 'none',
-    height: '3px',
+    height: '2px',
     margin: 0,
     outline: 'none',
-    boxShadow: '0 0 4px #1bc3de',
+    boxShadow: '0 0 2px #1bc3de',
     flexShrink: '0',
     borderColor: '#1bc3de',
-    borderRadius: '10px 10px 10px 10px',
-    backgroundColor: 'rgba(27, 195, 222, 100)',
+    borderRadius: '1px 1px 1px 1px',
+    backgroundColor: theme.palette.primary.main,
   },
   register: {
     backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='25 50 430 100' preserveAspectRatio='none'><rect x='0' y='0' width='500' height='500' style='stroke: none; fill: %23FFFFFF;' /><path d='M0,100 C150,115 350,80 500,100 L500,00 L0,0 Z' style='stroke: none; fill: %2314A7D6;'></path></svg>");`

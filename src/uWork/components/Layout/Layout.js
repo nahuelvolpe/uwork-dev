@@ -1,6 +1,6 @@
 import React, { useContext, Fragment } from 'react'
 import { AuthContext } from '../../context/auth'
-import { AppBar, Toolbar, IconButton, Typography, makeStyles, Container } from '@material-ui/core'
+import { AppBar, Toolbar, IconButton, Typography, makeStyles } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import MenuIcon from '@material-ui/icons/Menu'
 
