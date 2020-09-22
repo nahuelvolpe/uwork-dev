@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0 0 2px #1bc3de',
     flexShrink: '0',
     borderColor: '#1bc3de',
-    borderRadius: '10px 10px 10px 10px',
+    borderRadius: '1px 1px 1px 1px',
     backgroundColor: theme.palette.primary.main,
   },
   register: {
@@ -88,7 +88,7 @@ const Register = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.signupEmail(values.email, values.password)
       .then((response) => {
-        this.props.history.push('/aftersignup')
+        this.props.history.push('/editprofile')
       })
       .catch((err) => {
         switch (err.code) {
@@ -104,7 +104,7 @@ const Register = (props) => {
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
-        this.props.history.push('/aftersignup')
+        this.props.history.push('/editprofile')
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":

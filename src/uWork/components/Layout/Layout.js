@@ -31,7 +31,7 @@ const Layout = (props) => {
                   <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>
-                  Photos
+                  uWork
                 </Typography>
                 <div>
                   <IconButton

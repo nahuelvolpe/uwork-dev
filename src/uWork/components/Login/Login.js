@@ -75,11 +75,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     fontWeight: 600,
     color: theme.palette.primary.main
-  },
-  // textHasAccount: {
-  //   marginTop: theme.spacing(3),
-  //   alignItems: 'center',
-  // },
+  }
 }));
 
 const Login = (props) => {
@@ -90,7 +86,7 @@ const Login = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.loginEmail(values.email, values.password)
       .then((response) => {
-        props.history.push('/aftersignup')
+        props.history.push('/dashboard')
       })
       .catch((err) => {
         switch (err.code) {
@@ -111,7 +107,7 @@ const Login = (props) => {
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
-        this.props.history.push('/aftersignup')
+        this.props.history.push('/dashboard')
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":

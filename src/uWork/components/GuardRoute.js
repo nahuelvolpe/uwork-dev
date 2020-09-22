@@ -11,7 +11,7 @@ const GuardRoute = (props) => {
     if( type === 'private' && !isLoggedIn ){
         return <Redirect to="/login" />;
     }else if ( type === 'public' && isLoggedIn ){
-        return <Redirect to="/aftersignup" />;
+        return <Redirect to="/editprofile" />;
     } 
 
    return (
