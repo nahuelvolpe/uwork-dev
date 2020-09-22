@@ -1,17 +1,45 @@
 import React from 'react';
 import '@testing-library/react';
-import { render, fireEvent, wait } from '@testing-library/react'
+import { render, fireEvent, wait, cleanup } from '@testing-library/react'
 import Login from '../uWork/components/Login/Login';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Formik } from 'formik'
+import { MemoryRouter } from 'react-router';
+import { mount, configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import FormikField from '../uWork/components/FormikField/FormikField'
 
+configure({ adapter: new Adapter() });
+
+afterEach(cleanup)
 
   describe('Login', () => {
-    test('renders Login component correctamente', () => {
-      render(<Router>
-                <Login />
-             </Router>);
+    it('renders correctly', () => {
+      render(<MemoryRouter><Login /></MemoryRouter>);
     });
   });
+
+  describe('Form', () => {
+    it('renders correctly', () => {
+      const component = mount(
+        <MemoryRouter>
+          <Login />
+        </MemoryRouter>
+      )
+      expect(component.find(Formik)).toHaveLength(1)
+    })
+    it('has two fields rendered', () => {
+      const component = mount(
+        <MemoryRouter>
+          <Login />
+        </MemoryRouter>
+      )
+      expect(component.find(FormikField)).toHaveLength(2)
+    })
+  })
+
+/*   describe('', () => {
+
+  }) */
 
 
  /*  it('submits correct values', async () => {

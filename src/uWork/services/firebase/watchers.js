@@ -3,7 +3,6 @@ import { auth } from './setup'
 export const watchUserChanges = (callback) => {
   return auth.onAuthStateChanged((user) => {
     if (user) {
-      console.log("IS LOGGED IN")
       callback({
         id: user.uid,
         email: user.email,
@@ -11,7 +10,6 @@ export const watchUserChanges = (callback) => {
         avatar: user.photoURL
       })
     } else {
-      console.log("NOT LOGGED IN")
       callback(null)
     }
   })

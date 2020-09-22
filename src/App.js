@@ -2,6 +2,7 @@ import React from 'react';
 import UWorkApp from './uWork/uWork';
 import './App.css';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core';
+import { BrowserRouter } from 'react-router-dom'
 
 const theme = createMuiTheme({
   palette: {
@@ -13,7 +14,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <UWorkApp data-testid="work-app" />
+        <BrowserRouter>
+          <UWorkApp data-testid="work-app" />
+        </BrowserRouter>
       </div>
     </ThemeProvider>
   );
