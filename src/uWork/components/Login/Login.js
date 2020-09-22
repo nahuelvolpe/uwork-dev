@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     border: 'none',
-    height: '2px',
+    height: '1px',
     margin: 0,
     outline: 'none',
     boxShadow: '0 0 2px #1bc3de',
