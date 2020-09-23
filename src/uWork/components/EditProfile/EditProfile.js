@@ -11,6 +11,7 @@ const EditProfile = (props) => {
             .catch( error => console.log(error))
     }
     
+    console.log('estoy en editprofile BRRRRO')
     
     return ( 
         <div className="header">

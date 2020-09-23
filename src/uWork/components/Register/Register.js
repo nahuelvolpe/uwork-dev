@@ -88,7 +88,10 @@ const Register = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.signupEmail(values.email, values.password)
       .then((response) => {
-        this.props.history.push('/editprofile')
+        setTimeout(() => {
+          console.log('enviando a editprofile desde Register')
+          props.history.push('/editprofile')         
+        }, 3000);
       })
       .catch((err) => {
         switch (err.code) {

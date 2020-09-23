@@ -9,8 +9,11 @@ const GuardRoute = (props) => {
     const { isLoggedIn } = useContext(AuthContext)
 
     if( type === 'private' && !isLoggedIn ){
+        console.log('volvete a login puto')
         return <Redirect to="/login" />;
+        
     }else if ( type === 'public' && isLoggedIn ){
+        console.log('redirect dashboard')
         return <Redirect to="/dashboard" />;
     }
 

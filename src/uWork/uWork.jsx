@@ -17,11 +17,12 @@ const uWorkApp = () => {
         <AuthContextProvider>
           
             <Switch>          
-              <Route type="public" exact path="/login" render={props => <Login {...props} />} />              
-              <Route type="public" exact path="/register" render={props => <Register {...props} />} />    
-              <Route type="private" exact path="/dashboard" render={props => <Dashboard {...props} />} />
-              <Route type="private" exact path="/editprofile" render={props => <EditProfile {...props} />} />
-
+              <GuardRoute type="public" exact path="/login" render={props => <Login {...props} />} />              
+              <GuardRoute type="public" exact path="/register" render={props => <Register {...props} />} />    
+              <Layout>
+                <GuardRoute type="private" exact path="/editprofile" render={props => <EditProfile {...props} />} />
+                <GuardRoute type="private" exact path="/dashboard" render={props => <Dashboard {...props} />} />
+              </Layout>
               {/* <Redirect from="/" to="/login" /> */}
               {/* <Route type="public" exact path="/" render={props => <Login {...props} />} /> */}
               {/* <AuthenticatedRoute exact path="/news" render={props => <NewsDashboard />} /> */}

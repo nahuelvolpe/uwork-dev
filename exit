@@ -1,0 +1,42 @@
+[33m334eb2f[m[33m ([m[1;36mHEAD -> [m[1;32mroutes[m[33m, [m[1;31morigin/routes[m[33m)[m aftersigup renombrado a editprofile, se agrego dashboard pero las rutas mandan a editprofile por el guard route
+[33m71ce926[m rutas checkeadas
+[33m053b102[m rutas privadas
+[33mf045646[m Merge branch 'develop' of https://github.com/nahuelvolpe/uwork-dev into develop
+[33m8988962[m fix
+[33m3da3bff[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m fix layout
+[33m8a2454b[m fix layout main container
+[33m7406516[m Merge branch 'develop' of https://github.com/nahuelvolpe/uwork-dev into develop
+[33m169b1d3[m wip layout using context
+[33m689f43a[m diseño login terminado
+[33m5a8a2eb[m[33m ([m[1;31morigin/register[m[33m, [m[1;32mregister[m[33m)[m diseño de login actualizado
+[33m61d22e1[m comentarios borrados
+[33m298a9ab[m estilado de la pagina de registro
+[33m4495130[m merging errors fixed in login
+[33m6a66843[m Theme provider added
+[33m2270b00[m Revert "merge"
+[33m9386def[m merge
+[33m410831d[m Merge branch 'register' of https://github.com/nahuelvolpe/uwork-dev into register
+[33m1d24798[m agregado componente link de react router
+[33m15e1e55[m boton google celeste y aftersignup nuevo
+[33m09e6875[m[33m ([m[1;31morigin/auth[m[33m)[m login con formik
+[33m786043d[m async validations for normal register
+[33me4b37a4[m register new component
+[33mb77c090[m Merge branch 'login' of https://github.com/nahuelvolpe/uwork-dev into login
+[33m7ae0c8f[m google auth boton signup
+[33mbcc90cf[m Merge branch 'login' of https://github.com/nahuelvolpe/uwork-dev into login
+[33m4c847a9[m auth con google
+[33mde8a046[m Merge branch 'login' of https://github.com/nahuelvolpe/uwork-dev into login
+[33m2e634e2[m configurando css
+[33m4e9dfe8[m cambios minimos
+[33m0427b13[m test de git
+[33mdc55121[m Merge branch 'login' of https://github.com/nahuelvolpe/uwork-dev into login
+[33mb13543d[m logout funcionando
+[33m21e74a2[m after signup
+[33m5046502[m route a aftersignup
+[33m9d15b0e[m se agrego signup
+[33ma3a6f22[m cambios minimos
+[33me75bb63[m nuevo campo a signup
+[33m8b91d6f[m refactor app y login + modularizacion de componentes y firebase
+[33m9630597[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m Login y Signup primera version
+[33m20df145[m first commit
+[33m3a757bb[m Initialize project using Create React App
