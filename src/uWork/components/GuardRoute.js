@@ -5,6 +5,7 @@ import { AuthContext } from '../context/auth';
 
 const GuardRoute = (props) => {
 
+    console.log(props)
     const { type, ...rest} = props;
     const { isLoggedIn } = useContext(AuthContext)
 
