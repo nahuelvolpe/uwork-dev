@@ -88,10 +88,8 @@ const Register = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.signupEmail(values.email, values.password)
       .then((response) => {
-        setTimeout(() => {
           console.log('enviando a editprofile desde Register')
           props.history.push('/editprofile')         
-        }, 3000);
       })
       .catch((err) => {
         switch (err.code) {
@@ -107,7 +105,7 @@ const Register = (props) => {
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
-        this.props.history.push('/editprofile')
+        props.history.push('/editprofile')
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":
