@@ -89,7 +89,7 @@ const Register = (props) => {
     AuthenticationService.signupEmail(values.email, values.password)
       .then((response) => {
           console.log('enviando a editprofile desde Register')
-          props.history.push('/editprofile')         
+          props.history.push('/loadingscreen', {routeFrom: 'signup'})         
       })
       .catch((err) => {
         switch (err.code) {

@@ -86,7 +86,7 @@ const Login = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.loginEmail(values.email, values.password)
       .then((response) => {
-        props.history.push('/dashboard')
+        props.history.push('/loadingscreen', {routeFrom: 'signup'})
       })
       .catch((err) => {
         switch (err.code) {

@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import {
     BrowserRouter as Router,
-    Switch
+    Switch,
+    Route
   } from 'react-router-dom';
 
 import { AuthContext } from '../context/auth';
@@ -14,6 +15,7 @@ import Login  from '../components/Login/Login';
 import Register  from '../components/Register/Register';
 import Dashboard from '../components/Dashboard/Dashboard';
 import EditProfile from '../components/EditProfile/EditProfile';
+import LoadingScreen from '../components/LoadingScreen';
 
 
 const AppRouter = () => {
@@ -44,6 +46,12 @@ const AppRouter = () => {
                     <PrivateRoute 
                         exact path="/editprofile" 
                         component={ EditProfile } 
+                        isAuthenticated={ isLoggedIn }
+                    />
+                    
+                    <Route 
+                        exact path="/loadingscreen" 
+                        component={ LoadingScreen }
                         isAuthenticated={ isLoggedIn }
                     />
 
