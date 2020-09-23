@@ -105,7 +105,7 @@ const Register = (props) => {
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
-        this.props.history.push('/editprofile')
+        props.history.push('/editprofile')
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":
