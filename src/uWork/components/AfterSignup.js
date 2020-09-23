@@ -14,8 +14,8 @@ const AfterSignup = (props) => {
     
     return ( 
         <div class="header">
-            <h2 class="hache2">Bienvenido</h2>
-            <div class="header-right">
+            <h2 className="hache2">Bienvenido</h2>
+            <div className="header-right">
                 <Button variant="contained" onClick={handleLogout}>Cerrar Sesión</Button>
              </div>
         </div>
