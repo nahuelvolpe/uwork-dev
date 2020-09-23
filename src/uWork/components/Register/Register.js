@@ -88,8 +88,8 @@ const Register = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.signupEmail(values.email, values.password)
       .then((response) => {
-          console.log('enviando a editprofile desde Register')
-          props.history.push('/loadingscreen', {routeFrom: 'signup'})         
+          console.log('enviando a loadingscreen desde Register')
+          props.history.push('/loadingscreen', {routeFrom: 'register'})         
       })
       .catch((err) => {
         switch (err.code) {
