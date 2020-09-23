@@ -13,7 +13,7 @@ const AfterSignup = (props) => {
     
     
     return ( 
-        <div class="header">
+        <div className="header">
             <h2 className="hache2">Bienvenido</h2>
             <div className="header-right">
                 <Button variant="contained" onClick={handleLogout}>Cerrar Sesión</Button>
