@@ -13,6 +13,7 @@ export const PrivateRoute = ({
 
     const currentUser = auth.currentUser;
     const { authReady } = useContext(AuthContext)
+    
 
     return (
         <Fragment>

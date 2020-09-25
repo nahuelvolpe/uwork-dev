@@ -1,6 +1,5 @@
 import React from 'react';
 import AuthenticationService from '../../services/AuthenticationService';
-import { Button } from "@material-ui/core";
 
 const EditProfile = (props) => {
 
@@ -13,12 +12,6 @@ const EditProfile = (props) => {
 
     return (
         <>
-            {/* <div className="header">
-            <h2 className="hache2">Bienvenido</h2>
-            <div className="header-right">
-                <Button variant="contained" onClick={handleLogout}>Cerrar Sesión</Button>
-             </div>
-        </div> */}
             EDITAR PERFIL...
         </>
     );
