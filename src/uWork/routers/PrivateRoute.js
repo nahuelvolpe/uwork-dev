@@ -1,28 +1,34 @@
-import React from 'react';
+import React, { useContext, Fragment } from 'react';
 import PropTypes from 'prop-types';
-
+import { AuthContext } from '../context/auth'
 import { Route, Redirect } from 'react-router-dom';
+import { CircularProgress } from '@material-ui/core';
+import { auth } from '../services/firebase'
 
 
 export const PrivateRoute = ({
-    isAuthenticated,
     component: Component,
     ...rest
 }) => {
 
+    const currentUser = auth.currentUser;
+    const { authReady } = useContext(AuthContext)
+
     return (
-        <Route { ...rest }
-            component={ (props) => (
-                ( isAuthenticated )
-                    ? ( <Component { ...props } /> )
-                    : ( <Redirect to="/login" /> )
-            )}
-        
-        />
+        <Fragment>
+            { authReady ?
+                <Route {...rest}
+                    component={(props) => (
+                        (currentUser)
+                            ? (<Component {...props} />)
+                            : (<Redirect to="/login" />)
+                    )}
+
+                /> : <CircularProgress />}
+        </Fragment>
     )
 }
 
 PrivateRoute.propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
     component: PropTypes.func.isRequired
 }

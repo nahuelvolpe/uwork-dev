@@ -85,11 +85,14 @@ const Register = (props) => {
   const [password,] = useState('')
   const [confirmPassword,] = useState('')
 
+  const { history } = props;
+
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.signupEmail(values.email, values.password)
       .then((response) => {
-          console.log('enviando a loadingscreen desde Register')
-          props.history.push('/loadingscreen', {routeFrom: 'register'})         
+        //console.log('enviando a loadingscreen desde Register')
+        //props.history.push('/loadingscreen', { routeFrom: 'register' })
+        history.push('/edit_profile')
       })
       .catch((err) => {
         switch (err.code) {
@@ -105,7 +108,7 @@ const Register = (props) => {
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
-        props.history.push('/editprofile')
+        props.history.push('/edit_profile')
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":

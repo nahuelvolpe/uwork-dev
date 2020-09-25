@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 //import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { AuthContextProvider } from './context/auth'
 import AppRouter from './routers/AppRouter'
@@ -15,7 +16,9 @@ import AppRouter from './routers/AppRouter'
 const uWorkApp = () => {
   return (
     <AuthContextProvider>
-      <AppRouter />
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
     </AuthContextProvider>
     // <div>
     //   <BrowserRouter>

@@ -86,7 +86,8 @@ const Login = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.loginEmail(values.email, values.password)
       .then((response) => {
-        props.history.push('/loadingscreen', {routeFrom: 'login'})
+        //props.history.push('/loadingscreen', {routeFrom: 'login'})
+        props.history.push('/dashboard')
       })
       .catch((err) => {
         switch (err.code) {
@@ -162,7 +163,7 @@ const Login = (props) => {
                     Ingresar
                     </Button>
 
-                    <Divider className={classes.divider} variant="middle" />
+                  <Divider className={classes.divider} variant="middle" />
 
                   <Button className={classes.botonGoogle} variant="contained"
                     color="primary" onClick={() => handleLoginSocial(googleAuthProvider)}>
@@ -176,9 +177,9 @@ const Login = (props) => {
               )}
             </Formik>
           </Paper>
-                  <div style={{ textAlign: "center", width: "100%" }}>
-                    <p> ¿No tienes cuenta? <Link className={classes.link} to="/register">Registrate</Link></p>
-                  </div>
+          <div style={{ textAlign: "center", width: "100%" }}>
+            <p> ¿No tienes cuenta? <Link className={classes.link} to="/register">Registrate</Link></p>
+          </div>
           <div></div>
         </Grid>
       </Grid>
