@@ -82,6 +82,7 @@ const Login = (props) => {
 
   const [email,] = useState('')
   const [password,] = useState('')
+  const [textConfirm, setTextConfirm] = useState('')
 
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.loginEmail(values.email, values.password)
@@ -155,6 +156,7 @@ const Login = (props) => {
                     type="password" required error={errors.password && touched.password} fullWidth />
 
                   <Button className={classes.boton}
+                    id="login-button"
                     variant="contained"
                     color="primary"
                     type="submit"
