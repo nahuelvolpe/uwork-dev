@@ -3,9 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthContextProvider } from './context/auth'
 import AppRouter from './routers/AppRouter'
 
-
-
-const uWorkApp = () => {
+const UWorkApp = () => {
   return (
     <AuthContextProvider>
       <BrowserRouter>
@@ -15,4 +13,4 @@ const uWorkApp = () => {
   )
 }
 
-export default uWorkApp;
+export default UWorkApp;
