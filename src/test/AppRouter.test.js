@@ -43,7 +43,7 @@ describe('App Router', () => {
     expect(wrapper.find(Login)).toHaveLength(1);
   })
 
-  it('should render Private Route and Register component when path is /register', () => {
+  it('should render Public Route and Register component when path is /register', () => {
     const context = {
       authReady: true
     }
@@ -52,37 +52,10 @@ describe('App Router', () => {
     expect(wrapper.find(Register)).toHaveLength(1);
   })
 
-  /* it('should show Login component when path is /', () => {
-    const wrapper = mount(
-      <MemoryRouter initialEntries={['/']}>
-        <AuthContextProvider>
-          <AppRouter />
-        </AuthContextProvider>
-      </MemoryRouter>
-    );
-    //expect(wrapper.find(Login)).toHaveLength(1);
-  }); */
+  /* describe('When user is logged', () => {
+    it('should render Private Route', () => {
 
-  /* it('should show Login component when path is /login', () => {
-    const component = mount(
-      <MemoryRouter initialEntries={['/login']}>
-        <AuthContextProvider>
-          <AppRouter />
-        </AuthContextProvider>
-      </MemoryRouter>
-    );
-    expect(component.find(Login)).toHaveLength(1);
-  })
-
-  it('should show Register component when path is /register', () => {
-    const component = mount(
-      <MemoryRouter initialEntries={['/register']}>
-        <AuthContextProvider>
-          <AppRouter />
-        </AuthContextProvider>
-      </MemoryRouter>
-    );
-    expect(component.find(Register)).toHaveLength(1);
+    })
   }) */
 
 })

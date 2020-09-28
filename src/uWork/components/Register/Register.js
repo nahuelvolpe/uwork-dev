@@ -13,7 +13,7 @@ const RegisterSchema = Yup.object().shape({
     .email("Formato inválido!"),
   password: Yup.string()
     .required("Contraseña requerida!")
-    .min(6, "La contraseña debe tener como minimo 6 digitos y ser alfanumerica"),
+    .min(6, "La contraseña debe tener como minimo 6 digitos"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], "Las contraseñas no coinciden")
     .required("Debes confirmar la contraseña!")
