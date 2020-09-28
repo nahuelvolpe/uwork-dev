@@ -2,7 +2,6 @@ import React, { Fragment, useState } from 'react'
 import { AppBar, Toolbar, IconButton, Typography, makeStyles, Hidden, MenuList, MenuItem, Drawer, CssBaseline, ListItemIcon, ListItemText } from '@material-ui/core'
 import AuthenticationService from '../../services/AuthenticationService'
 import MenuIcon from '@material-ui/icons/Menu'
-import DraftsIcon from '@material-ui/icons/Drafts'
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
