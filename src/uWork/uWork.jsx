@@ -3,13 +3,13 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthContextProvider } from './context/auth'
 import AppRouter from './routers/AppRouter'
 
-const UWorkApp = () => {
+const UWorkApp = (props) => {
   return (
-    <AuthContextProvider>
-      <BrowserRouter>
+    <div data-testid={props["data-testid"]}>
+      <AuthContextProvider>
         <AppRouter />
-      </BrowserRouter>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </div>
   )
 }
 

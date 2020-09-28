@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import UWorkApp from '../uWork/uWork'
-import { mount, configure } from 'enzyme';
+import { configure } from 'enzyme';
 import { MemoryRouter } from 'react-router';
-import Login from '../uWork/components/Login/Login';
-import Register from '../uWork/components/Register/Register'
 import Adapter from 'enzyme-adapter-react-16';
+import AppRouter from '../uWork/routers/AppRouter';
+import { AuthContextProvider } from '../uWork/context/auth'
 
 configure({ adapter: new Adapter() });
 
@@ -17,7 +17,17 @@ describe('uWorkApp', () => {
     render(<MemoryRouter><UWorkApp /></MemoryRouter>)
   })
 
-  it('should show Login component when path is /', () => {
+  it('renders App Router component correctly', () => {
+    render(
+      <MemoryRouter>
+        <AuthContextProvider>
+          <AppRouter />
+        </AuthContextProvider>
+      </MemoryRouter>
+    )
+  })
+
+  /* it('should show Login component when path is /', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['/']}>
         <UWorkApp />
@@ -42,6 +52,6 @@ describe('uWorkApp', () => {
       </MemoryRouter>
     );
     expect(component.find(Register)).toHaveLength(1);
-  })
+  }) */
 
 });
