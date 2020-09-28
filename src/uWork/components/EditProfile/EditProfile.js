@@ -4,13 +4,6 @@ import { Formik, Form } from "formik";
 import FormikField from "../FormikField/FormikField";
 
 const useStyles = makeStyles((theme) => ({
-    formContent: {
-      padding: '8px 24px 8px 24px',
-      display: "flex",
-      alignItems: "center",
-      maxWidth: 400,
-      borderRadius: '26px'
-    },
     textField: {
       marginBottom: theme.spacing(2),
       width: "100%",
