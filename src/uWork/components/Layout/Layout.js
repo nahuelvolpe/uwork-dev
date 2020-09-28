@@ -3,6 +3,9 @@ import { AppBar, Toolbar, IconButton, Typography, makeStyles, Hidden, MenuList, 
 import AuthenticationService from '../../services/AuthenticationService'
 import MenuIcon from '@material-ui/icons/Menu'
 import DraftsIcon from '@material-ui/icons/Drafts'
+import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
+import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 import { Link } from 'react-router-dom'
 
 const drawerWidth = 240
@@ -66,17 +69,23 @@ const Layout = (props) => {
         <div className={classes.toolbar} />
       </Hidden>
       <MenuList>
+      <MenuItem component={Link} to="/dashboard" selected={'/dashboard' === pathname}>
+        <ListItemIcon>
+        <MenuBookRoundedIcon fontSize="small" />
+        </ListItemIcon>
+           Mis Materias
+        </MenuItem>
         <MenuItem component={Link} to="/edit_profile" selected={'/edit_profile' === pathname}>
+          <ListItemIcon>
+            <AccountCircleRoundedIcon fontSize="small" />
+          </ListItemIcon>
           Editar Perfil
         </MenuItem>
         <MenuItem onClick={handleLogout}>
-          Cerrar Sesión
-        </MenuItem>
-        <MenuItem>
           <ListItemIcon>
-            <DraftsIcon fontSize="small" />
+            <ReplyRoundedIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="Drafts" />
+          Cerrar Sesión
         </MenuItem>
       </MenuList>
     </div>
