@@ -7,7 +7,10 @@ import AppRouter from '../uWork/routers/AppRouter';
 import { AuthContext, AuthContextProvider } from '../uWork/context/auth'
 import Login from '../uWork/components/Login/Login'
 import Register from '../uWork/components/Register/Register'
-import { PublicRoute } from '../uWork/routers/PublicRoute';
+import { PublicRoute } from '../uWork/routers/PublicRoute'
+import { auth } from '../services/firebase'
+
+jest.mock('../services/firebase')
 
 configure({ adapter: new Adapter() });
 
@@ -52,11 +55,11 @@ describe('App Router', () => {
     expect(wrapper.find(Register)).toHaveLength(1);
   })
 
-  /* describe('When user is logged', () => {
+  describe('When user is logged', () => {
     it('should render Private Route', () => {
 
     })
-  }) */
+  })
 
 })
 
