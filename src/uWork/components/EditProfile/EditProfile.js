@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Button, Grid,  makeStyles } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import FormikField from "../FormikField/FormikField";
+import { db } from '../../services/firebase';
+import { AuthContext } from '../../context/auth';
+
+
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -24,9 +28,23 @@ const EditProfile = (props) => {
     const [nombre,] = useState('')
     const [apellido,] = useState('')
     const [mail,] = useState('')
+    const [userID,] = useState('')
 
 
       const classes = useStyles();
+
+      const docUserRef = props.location.state;
+
+      console.log(docUserRef);
+
+      const onSubmit = (values, { setFieldError }) => {
+        db.collection('users').doc(docUserRef).update(
+          {
+            name: values.nombre,
+            apellido: values.apellido
+          }
+        )
+      }
 
       return (
         <div>

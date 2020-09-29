@@ -87,6 +87,9 @@ const Login = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.loginEmail(values.email, values.password)
       .then((response) => {
+        console.log(response);
+        console.log(response.user.uid);
+        console.log(response.user.getIdToken());
         props.history.push('/dashboard')
       })
       .catch((err) => {

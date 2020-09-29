@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import * as Yup from 'yup'
 import FormikField from "../FormikField/FormikField";
 import AuthenticationService from '../../services/AuthenticationService.js'
-import { googleAuthProvider } from '../../services/firebase/setup';
+import { db, googleAuthProvider } from '../../services/firebase/setup';
 import { Link } from 'react-router-dom'
 
 const RegisterSchema = Yup.object().shape({
@@ -90,7 +90,8 @@ const Register = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.signupEmail(values.email, values.password)
       .then((response) => {
-        history.push('/edit_profile')
+        createUser(response);
+        //history.push('/edit_profile')
       })
       .catch((err) => {
         switch (err.code) {
@@ -106,7 +107,11 @@ const Register = (props) => {
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
-        props.history.push('/edit_profile')
+        if(response.additionalUserInfo.isNewUser){
+          createUser(response);  
+        }else{
+          props.history.push('/dashboard');
+        }      
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":
@@ -122,6 +127,23 @@ const Register = (props) => {
         }
       });
   }
+
+  const createUser = (UserCredential) => {
+    db.collection('users').add({
+      firstName: "",
+      lastName: "",
+      email: UserCredential.user.email,
+      uid: UserCredential.user.uid ,
+      photoURL: UserCredential.user.photoURL ? UserCredential.user.photoURL : ""
+    }).then( (documentUserReference) => {
+        const docUserID = documentUserReference.id;
+        props.history.push({
+        pathname: '/edit_profile',
+        state: { docUserID: docUserID }
+      });
+    });
+  }
+
   const classes = useStyles();
 
   return (
