@@ -28,22 +28,24 @@ const EditProfile = (props) => {
     const [nombre,] = useState('')
     const [apellido,] = useState('')
     const [mail,] = useState('')
-    const [userID,] = useState('')
+    const [update, setUpdate] = useState(false)
 
 
       const classes = useStyles();
 
-      const docUserRef = props.location.state;
+      const docUserID = props.location.state.docUserID;
 
-      console.log(docUserRef);
+      console.log(docUserID);
 
       const onSubmit = (values, { setFieldError }) => {
-        db.collection('users').doc(docUserRef).update(
+        db.collection('users').doc(docUserID).update(
           {
-            name: values.nombre,
-            apellido: values.apellido
+            firstName: values.nombre,
+            lastName: values.apellido
           }
-        )
+        ).then( () => {
+          setUpdate(true);
+        })
       }
 
       return (
@@ -60,7 +62,7 @@ const EditProfile = (props) => {
               <div><h1 className={classes.title}>EDITAR PERFIL</h1></div>
                 <Formik
                   initialValues={{ nombre, apellido, mail }}
-                  /*onSubmit={}*/>
+                  onSubmit={onSubmit}>
                   {({ dirty, isValid, errors, touched }) => (
                       <Form>
                       <input type="file"/> 
@@ -80,9 +82,14 @@ const EditProfile = (props) => {
                         Guardar
                       </Button>}
                       
-                    </Form>
+                    </Form>                   
                   )}
                 </Formik>
+                {update ? (
+                  <h2>Datos guardados!</h2>
+                ):(
+                  null
+                )}
             </Grid>
           </Grid>
         </div>
