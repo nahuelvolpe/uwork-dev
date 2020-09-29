@@ -70,8 +70,8 @@ const EditProfile = (props) => {
                       <FormikField className={classes.textField} label="Apellido" id="user-surname" name="apellido"
                         type="text" fullWidth />
 
-                      <FormikField className={classes.textField} label="Correo Electrónico" id="user-mail" name="mail" 
-                      type="text" fullWidth />
+                      {/* <FormikField className={classes.textField} label="Correo Electrónico" id="user-mail" name="mail" 
+                      type="text" fullWidth /> */}
 
                       {<Button className={classes.boton}
                         variant="contained"
