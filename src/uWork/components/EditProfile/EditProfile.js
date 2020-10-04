@@ -23,11 +23,12 @@ const useStyles = makeStyles((theme) => ({
       paddingBottom: theme.spacing(1),
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(2),
-      width: "50%",
+      width: "100%",
       color: 'white'
     },
     botonImagen: {     
       marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
       color: 'white'
     },
     title: {
@@ -56,17 +57,17 @@ const EditProfile = (props) => {
     const [update, setUpdate] = useState(false)
     const [progress, setProgress] = useState(0);
     const [progressFull, setProgressFull] = useState(false);
-    const [imgUserUrl, setImgUserUrl] = useState('');
 
+    const photoURL = auth.currentUser.photoURL;
 
-      const classes = useStyles();
+    const [imgUserUrl, setImgUserUrl] = useState(photoURL !== '' ? photoURL : 'https://gravatar.com/avatar/cbbf8aab01e062ed2238aafca8092dfc?s=200&d=mp&r=x' );
+      
+    const classes = useStyles();
 
-      const docUserID = props.location.state.docUserID
+      const docUserID = auth.currentUser.uid;
 
-      const currentUserID = auth.currentUser.uid;
-
-      console.log(docUserID);
-      console.log(currentUserID);
+      /* console.log(photoURL)
+      console.log(docUserID) */
 
       function LinearProgressWithLabel(props) {
         return (
@@ -87,27 +88,29 @@ const EditProfile = (props) => {
         db.collection('users').doc(docUserID).update(
           {
             firstName: values.nombre,
-            lastName: values.apellido
+            lastName: values.apellido,
+            photoURL: imgUserUrl 
           }
         ).then( () => {
-
-            setUpdate(true);
-         
+            auth.currentUser.updateProfile({
+              photoURL: imgUserUrl
+            })
+            setUpdate(true); 
+        }).catch((e) => {
+          console.log('Error al guardar los datos')
+          //HACER VISTA PARA ESTE ERROR
         })
       }
 
      const chooseFile = (e) => {
        var file = e.target.files[0];
-
-       var storageRef = storage.ref('users/' + currentUserID + '/profile.jpg');
-
-       /* storageRef.put(file).then(() => {
-         setUploader(true);
-       }).catch( (e) => {
-         console.log(e);
-       }) */
-
+       var storageRef = storage.ref('users/' + docUserID + '/profile.jpg');
        var task = storageRef.put(file);
+       /* .then( () => {
+         console.log("Imagen cargada exitosamente");
+       }).catch( (e) => {
+         console.log("Error al cargar la imagen");
+       }) */
 
        task.on('state_changed', 
         function progress(snapshot){
@@ -115,7 +118,7 @@ const EditProfile = (props) => {
           setProgress(percentage)
         },
         function error(err) {
-
+          console.log("Error mientras se cargaba la imagen")
         },
         function complete() {
           getUrlImage();
@@ -125,7 +128,7 @@ const EditProfile = (props) => {
      }
 
      const getUrlImage = () => {
-      var storageRef = storage.ref('users/' + currentUserID + '/profile.jpg');
+      var storageRef = storage.ref('users/' + docUserID + '/profile.jpg');
       storageRef.getDownloadURL().then( imgUrl =>{
         setImgUserUrl(imgUrl);
       })
@@ -143,11 +146,9 @@ const EditProfile = (props) => {
               justify="center"
             >
               <div><h1 className={classes.title}>EDITAR PERFIL</h1></div>
-                {progressFull ? (
-                  <Avatar className={classes.avatar} src={imgUserUrl} />
-                  ): (
-                  <Avatar className={classes.avatar} >U</Avatar>
-                )}
+
+                <Avatar className={classes.avatar} src={imgUserUrl} />
+
                 {/* <LinearProgressWithLabel className={classes.progress} value={progress} /> */}
                       <input
                         className={classes.input}
@@ -169,20 +170,12 @@ const EditProfile = (props) => {
                   initialValues={{ nombre, apellido, mail }}
                   onSubmit={onSubmit}>
                   {({ dirty, isValid, errors, touched }) => (
-                      <Form>
-                      
-                      
-
-                      
-
+                      <Form>                 
                       <FormikField className={classes.textField} label="Nombre" id="user-name" name="nombre" type="text"
                         fullWidth />
 
                       <FormikField className={classes.textField} label="Apellido" id="user-surname" name="apellido"
                         type="text" fullWidth />
-
-                      {/* <FormikField className={classes.textField} label="Correo Electrónico" id="user-mail" name="mail" 
-                      type="text" fullWidth /> */}
 
                       {<Button className={classes.botonGuardar}
                         variant="contained"

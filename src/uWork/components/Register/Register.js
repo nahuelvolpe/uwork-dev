@@ -90,8 +90,16 @@ const Register = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.signupEmail(values.email, values.password)
       .then((response) => {
-        createUser(response);
-        //history.push('/edit_profile')
+        if(response.additionalUserInfo.isNewUser){
+          if(createUser(response)){
+            props.history.push("/edit_profile");
+          }else{
+            console.log("Error al registrarse")
+            //CREAR UN STYLE PAR ESTOS ERROES
+          }
+        }else{
+          props.history.push('/dashboard');
+        }    
       })
       .catch((err) => {
         switch (err.code) {
@@ -108,7 +116,12 @@ const Register = (props) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
         if(response.additionalUserInfo.isNewUser){
-          createUser(response);  
+          if(createUser(response)){
+            props.history.push("/edit_profile");
+          }else{
+            console.log("Error al registrarse")
+            //CREAR UNA WEA PAR ESTOS ERROES
+          }
         }else{
           props.history.push('/dashboard');
         }      
@@ -129,20 +142,31 @@ const Register = (props) => {
   }
 
   const createUser = (UserCredential) => {
-    db.collection('users').add({
-      firstName: "",
-      lastName: "",
-      email: UserCredential.user.email,
-      uid: UserCredential.user.uid ,
-      photoURL: UserCredential.user.photoURL ? UserCredential.user.photoURL : ""
-    }).then( (documentUserReference) => {
-        const docUserID = documentUserReference.id;
-        props.history.push({
-        pathname: '/edit_profile',
-        state: { docUserID: docUserID }
-      });
-    });
+    var token = '';
+    const userId = UserCredential.user.uid;
+
+    return UserCredential.user.getIdToken()
+      .then((idtoken) => {
+        token = idtoken;
+
+        return db.collection('users').doc(userId).set({
+          firstName: "",
+          lastName: "",
+          email: UserCredential.user.email,
+          uid: UserCredential.user.uid ,
+          photoURL: UserCredential.user.photoURL ? UserCredential.user.photoURL : ""
+        })
+
+      }).then( () => {
+
+        localStorage.setItem('AuthToken', `${token}`);
+
+    }).catch((e) => {
+      console.log(e);
+      //HACER ALGUNA WEA PARA ESTE ERROR
+    })
   }
+  
 
   const classes = useStyles();
 
