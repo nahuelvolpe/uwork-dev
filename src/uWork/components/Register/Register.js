@@ -154,7 +154,8 @@ const Register = (props) => {
           lastName: "",
           email: UserCredential.user.email,
           uid: UserCredential.user.uid ,
-          photoURL: UserCredential.user.photoURL ? UserCredential.user.photoURL : ""
+          photoURL: UserCredential.user.photoURL ? UserCredential.user.photoURL : "",
+          materias: {}
         })
 
       }).then( () => {
