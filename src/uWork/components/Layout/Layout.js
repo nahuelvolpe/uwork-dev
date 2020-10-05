@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react'
-import { AppBar, Toolbar, IconButton, Typography, makeStyles, Hidden, MenuList, MenuItem, Drawer, CssBaseline, ListItemIcon, ListItemText, Box } from '@material-ui/core'
+import { AppBar, Toolbar, IconButton, Typography, makeStyles, Hidden, MenuList, MenuItem, Drawer, CssBaseline, ListItemIcon } from '@material-ui/core'
 import AuthenticationService from '../../services/AuthenticationService'
 import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
