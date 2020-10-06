@@ -1,6 +1,6 @@
-import { Grid, Paper, makeStyles, Avatar, Card, CardActions, CardContent, Button, Typography} from '@material-ui/core';
+import { Grid, Paper, makeStyles, Avatar, Card, CardActions, CardContent, Button, Typography, IconButton } from '@material-ui/core';
 import { AvatarGroup } from "@material-ui/lab"
-import { AddAlarmOutlined } from '@material-ui/icons';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, {useEffect, useState} from 'react';
 import AuthenticationService from '../../services/AuthenticationService';
 import { auth, db } from '../../services/firebase';
@@ -28,7 +28,14 @@ const useStyles = makeStyles((theme) => ({
     },
     carrera:{
         marginBottom: 0
-    }
+    },
+    floatingButton: {
+		position: 'fixed',
+        bottom: 0,
+        right: 0,
+        marginBottom: '10px',
+        marginRight: '10px'
+	}
     
   }));
 
@@ -140,7 +147,7 @@ const Dashboard = (props) => {
     
     return (
         <>
-                <Button variant="contained" color="secondary" onClick={crearMateria}>CREAR MATERIA</Button>
+                
                 <Grid container spacing={3} style={{ minHeight: "100vh" }}>
                          <Grid
                                 container
@@ -173,8 +180,18 @@ const Dashboard = (props) => {
                         )
                         })   
                     }
+                    {/* <Button className={classes.floatingButton} variant="contained" color="secondary" onClick={crearMateria}>+</Button> */}
+                    <IconButton
+                        className={classes.floatingButton}
+                        arial-label="Add"
+                        color="secondary"
+                        onClick={crearMateria}
+					>
+						<AddCircleIcon style={{fontSize: "60px"}}/>
+					</IconButton>
                     </Grid>                
                 </Grid>
+                
                 
                 
                 
