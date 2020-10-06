@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Grid, LinearProgress, Typography, Box, Avatar, makeStyles } from "@material-ui/core";
-import { AvatarGroup } from "@material-ui/lab"
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { Formik, Form } from "formik";
 import FormikField from "../FormikField/FormikField";

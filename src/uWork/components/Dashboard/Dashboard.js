@@ -1,20 +1,33 @@
-import { Grid, Paper, makeStyles, Avatar } from '@material-ui/core';
+import { Grid, Paper, makeStyles, Avatar, Card, CardActions, CardContent, Button, Typography} from '@material-ui/core';
 import { AvatarGroup } from "@material-ui/lab"
 import { AddAlarmOutlined } from '@material-ui/icons';
 import React, {useEffect, useState} from 'react';
 import AuthenticationService from '../../services/AuthenticationService';
 import { auth, db } from '../../services/firebase';
-import UserService from '../../services/UserService';
+import * as UserService from '../../services/UserService';
 
 
 const useStyles = makeStyles((theme) => ({
     materiaContent: {
-        padding: '5px 5px 5px 5px',
+        marginTop: theme.spacing(2),
         display: "flex",
-        //alignItems: "center",
-        maxWidth: 500,
+        justifyContent: "center",
+        alignItems: "center",
+        minWidth: 300,
         maxHeight: 100,
-        //borderRadius: '26px'
+        background: '#30E3CA'
+    },
+    textMateria:{
+        margin: '5px 5px',
+        textAlign: "center",
+        fontSize: '18px',
+        fontStyle: 'bold'
+    },
+    cardContent:{
+        marginTop: theme.spacing(2),
+    },
+    carrera:{
+        marginBottom: 0
     }
     
   }));
@@ -38,9 +51,12 @@ const Dashboard = (props) => {
     //cargar materias
     async function cargarMaterias(){
 
-        const user = await db.doc('/users/' + userID).get();
-        const userMaterias = user.data().materias;
+        /* const user = await db.doc('/users/' + userID).get();
+        const userMaterias = user.data().materias; */
+        let userMaterias = [];
         let userMateriasDetail = [];
+        userMaterias = await UserService.getUserMaterias(userID);
+        
         for (const rol in userMaterias){
             const materiaDetail = await db.doc('/materias/' + rol).get()
             userMateriasDetail.push({
@@ -124,35 +140,40 @@ const Dashboard = (props) => {
     
     return (
         <>
-                <button onClick={crearMateria}>CREAR MATERIA</button>
-                <Grid container style={{ minHeight: "100vh" }}>
-
-                        {materias.map( (materia) => {
-                            return (<Grid
+                <Button variant="contained" color="secondary" onClick={crearMateria}>CREAR MATERIA</Button>
+                <Grid container spacing={3} style={{ minHeight: "100vh" }}>
+                         <Grid
                                 container
                                 item
                                 xs={12}
                                 sm={6}
                                 alignItems="center"
                                 direction="column"
-                                justify="center"
-                                key={materia.materiaId}
+                                justify="flex-start"
                             >
-                            <Paper className={classes.materia} elevation={3}>
-                                <p>{materia.nombre}</p>
-                                <p>{materia.carrera}</p>
-                                {/* <AvatarGroup max={4}>
-                                    {
-                                    materia.roles.map( (user) => {
-                                        return (<Avatar key={materia.materiaId} src={user.photoURL} />)
-                                      })
-                                    }          
-                                </AvatarGroup> */}
-                            </Paper>
 
-                        </Grid>)
+                        {materias.map( (materia) => {
+                            return (
+                                <Card className={classes.cardContent} key={materia.materiaId}>
+                                    <CardContent>
+                                        <Typography variant="h5" component="h2">
+                                            {materia.nombre}
+                                        </Typography>
+                                        <Typography className={classes.carrera} color="textSecondary">
+                                            {materia.carrera}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button size="small">INGRESAR</Button>
+                                        <Button size="small" >ELIMINAR</Button>
+                                    </CardActions>
+                                </Card>
+                            
+
+                        )
                         })   
-                    }                
+                    }
+                    </Grid>                
                 </Grid>
                 
                 

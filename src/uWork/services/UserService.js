@@ -1,13 +1,7 @@
 import React from 'react';
 import { auth, db } from './firebase'
 
-
-
-class UserService {
-
-
-
-  getUserDetail (UserId) {
+  /* getUserDetail (UserId) {
     let UserDetails;
 
     db.collection('users').doc(UserId).get()
@@ -28,14 +22,15 @@ class UserService {
       console.log(UserDetails)
     
       return UserDetails;
-    }
+    } */
 
-    /* async getUserDetail (UserId) {
+    export const getUserMaterias = async (UserId) => {
+
       let UserDetails;
 
       const userDoc = await db.collection('users').doc(UserId).get()
       
-      console.log(userDoc.data());
+      //console.log(userDoc.data());
 
       if (userDoc === undefined){
         throw Error('El usuario no existe');
@@ -45,15 +40,13 @@ class UserService {
         firstName: userDoc.data().firstName,
         lastName: userDoc.data().lastName,
         id: userDoc.data().lastName,
+        materias: userDoc.data().materias,
         photoURL: userDoc.data().photoURL
       }
 
-      console.log(UserDetails)
+      //console.log(UserDetails.materias)
       
-      return UserDetails;
-    } */
-        
+      return UserDetails.materias;
     } 
-
-
-export default new UserService()
+        
+  
