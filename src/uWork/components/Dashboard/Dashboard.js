@@ -1,5 +1,4 @@
 import { Grid, Paper, makeStyles, Avatar, Card, CardActions, CardContent, Button, Typography, IconButton } from '@material-ui/core';
-import { AvatarGroup } from "@material-ui/lab"
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, {useEffect, useState} from 'react';
 import AuthenticationService from '../../services/AuthenticationService';

@@ -14,4 +14,3 @@ export const deleteMateria = async (materiaId, user) => {
         })
     return response;
 } 
-
