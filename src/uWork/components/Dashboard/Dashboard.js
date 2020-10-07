@@ -1,10 +1,10 @@
 import { Grid, Paper, makeStyles, Avatar, Card, CardActions, CardContent, Button, Typography, IconButton } from '@material-ui/core';
-import { AvatarGroup } from "@material-ui/lab"
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, {useEffect, useState} from 'react';
 import AuthenticationService from '../../services/AuthenticationService';
 import { auth, db } from '../../services/firebase';
 import * as UserService from '../../services/UserService';
+import * as MateriasService from '../../services/MateriasService';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,8 +33,9 @@ const useStyles = makeStyles((theme) => ({
 		position: 'fixed',
         bottom: 0,
         right: 0,
-        marginBottom: '10px',
-        marginRight: '10px'
+        marginBottom: '0px',
+        marginRight: '0px',
+        
 	}
     
   }));
@@ -124,6 +125,15 @@ const Dashboard = (props) => {
             
     }
 
+    const handleDelete = (materiaId) => {
+        MateriasService.deleteMateria(materiaId)
+            .then( () => {
+                console.log("materia eliminada");
+                window.location.reload();
+            })
+            .catch( (e) => { console.log(e)})
+    }
+
     
     async function getUserDetail (UserId) {
         let UserDetails;
@@ -146,21 +156,18 @@ const Dashboard = (props) => {
 
     
     return (
-        <>
-                
-                <Grid container spacing={3} style={{ minHeight: "100vh" }}>
-                         <Grid
-                                container
-                                item
-                                xs={12}
-                                sm={6}
-                                alignItems="center"
-                                direction="column"
-                                justify="flex-start"
-                            >
-
+        <div>
+            <Grid
+                container 
+                alignItems="center"
+                direction="column"
+                justify="flex-start"
+                style={{paddingBottom: "1rem"}}
+            >
+        
                         {materias.map( (materia) => {
                             return (
+                            
                                 <Card className={classes.cardContent} key={materia.materiaId}>
                                     <CardContent>
                                         <Typography variant="h5" component="h2">
@@ -172,15 +179,15 @@ const Dashboard = (props) => {
                                     </CardContent>
                                     <CardActions>
                                         <Button size="small">INGRESAR</Button>
-                                        <Button size="small" >ELIMINAR</Button>
+                                        <Button size="small" onClick={ () => {handleDelete(materia.materiaId)}}>ELIMINAR</Button>
                                     </CardActions>
                                 </Card>
                             
 
-                        )
-                        })   
-                    }
-                    {/* <Button className={classes.floatingButton} variant="contained" color="secondary" onClick={crearMateria}>+</Button> */}
+                            )
+                            })   
+                        }
+
                     <IconButton
                         className={classes.floatingButton}
                         arial-label="Add"
@@ -189,13 +196,9 @@ const Dashboard = (props) => {
 					>
 						<AddCircleIcon style={{fontSize: "60px"}}/>
 					</IconButton>
-                    </Grid>                
-                </Grid>
-                
-                
-                
-                
-        </>
+
+            </Grid>                     
+        </div>
     );
 }
 

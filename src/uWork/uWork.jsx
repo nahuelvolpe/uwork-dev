@@ -6,9 +6,7 @@ import AppRouter from './routers/AppRouter'
 const UWorkApp = () => {
   return (
     <AuthContextProvider>
-      <BrowserRouter>
-        <AppRouter />
-      </BrowserRouter>
+      <AppRouter />
     </AuthContextProvider>
   )
 }
