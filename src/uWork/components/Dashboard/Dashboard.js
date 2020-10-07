@@ -127,7 +127,7 @@ const Dashboard = (props) => {
     }
 
     const handleDelete = (materiaId) => {
-        MateriasService.deleteMateria(materiaId)
+        MateriasService.deleteMateria(materiaId, userID)
             .then( () => {
                 console.log("materia eliminada");
                 window.location.reload();
