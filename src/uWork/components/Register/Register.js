@@ -123,7 +123,10 @@ const Register = (props) => {
             //CREAR UNA WEA PAR ESTOS ERROES
           }
         }else{
-          props.history.push('/dashboard');
+          response.user.getIdToken().then( (token) => {
+            localStorage.setItem('AuthToken', `${token}`);
+            props.history.push("/dashboard");
+          })          
         }      
       }).catch((err) => {
         switch (err.code) {
