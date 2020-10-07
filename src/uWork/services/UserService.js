@@ -39,6 +39,7 @@ import { auth, db } from './firebase'
       const url = '/users/' + id
       return db.doc(url).get()
     }
+
     
     export const getUserMaterias = async (UserId) => {
 
