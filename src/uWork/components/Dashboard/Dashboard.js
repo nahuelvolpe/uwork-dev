@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
         right: 0,
         marginBottom: '0px',
         marginRight: '0px',
-        
+        color: theme.palette.primary.main
 	}
     
   }));
@@ -194,7 +194,6 @@ const Dashboard = (props) => {
                     <IconButton
                         className={classes.floatingButton}
                         arial-label="Add"
-                        color="primary"
                         onClick={crearMateria}
 					>
 						<AddCircleIcon style={{fontSize: "60px"}}/>
