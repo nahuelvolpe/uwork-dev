@@ -18,16 +18,19 @@ const useStyles = makeStyles((theme) => ({
         background: '#30E3CA'
     },
     textMateria:{
-        margin: '5px 5px',
+        /*margin: '5px 5px',
         textAlign: "center",
         fontSize: '18px',
-        fontStyle: 'bold'
+        fontStyle: 'bold',*/
+        color: '#FFFFFF'
     },
     cardContent:{
         marginTop: theme.spacing(2),
+        backgroundColor: '#30E3CA',
     },
     carrera:{
-        marginBottom: 0
+        marginBottom: 0,
+        color: '#FFFFFF'
     },
     floatingButton: {
 		position: 'fixed',
@@ -170,10 +173,10 @@ const Dashboard = (props) => {
                             
                                 <Card className={classes.cardContent} key={materia.materiaId}>
                                     <CardContent>
-                                        <Typography variant="h5" component="h2">
+                                        <Typography className={classes.textMateria} variant="h5" component="h2">
                                             {materia.nombre}
                                         </Typography>
-                                        <Typography className={classes.carrera} color="textSecondary">
+                                        <Typography className={classes.carrera}>
                                             {materia.carrera}
                                         </Typography>
                                     </CardContent>
@@ -191,7 +194,7 @@ const Dashboard = (props) => {
                     <IconButton
                         className={classes.floatingButton}
                         arial-label="Add"
-                        color="secondary"
+                        color="primary"
                         onClick={crearMateria}
 					>
 						<AddCircleIcon style={{fontSize: "60px"}}/>
