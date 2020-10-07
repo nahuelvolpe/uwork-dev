@@ -87,10 +87,10 @@ const Login = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.loginEmail(values.email, values.password)
       .then((response) => {
-        console.log(response);
-        console.log(response.user.uid);
-        console.log(response.user.getIdToken());
-        props.history.push('/dashboard')
+        return response.user.getIdToken()
+      }).then( (token) => {
+        localStorage.setItem('AuthToken', `${token}`);
+        props.history.push('/dashboard');
       })
       .catch((err) => {
         switch (err.code) {
@@ -111,7 +111,10 @@ const Login = (props) => {
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
-        props.history.push('/dashboard')
+        return response.user.getIdToken()
+      }).then( (token) => {
+        localStorage.setItem('AuthToken', `${token}`);
+        props.history.push('/dashboard');
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":
