@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cardContent:{
         marginTop: theme.spacing(2),
-        backgroundColor: '#30E3CA',
+        backgroundColor: theme.palette.info.main,
     },
     carrera:{
         marginBottom: 0,
