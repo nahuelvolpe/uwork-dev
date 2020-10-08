@@ -5,6 +5,7 @@ import AuthenticationService from '../../services/AuthenticationService';
 import { auth, db } from '../../services/firebase';
 import * as UserService from '../../services/UserService';
 import * as MateriasService from '../../services/MateriasService';
+import AddSubject from './AddSubject'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cardContent:{
         marginTop: theme.spacing(2),
-        backgroundColor: '#30E3CA',
+        backgroundColor: theme.palette.info.main,
     },
     carrera:{
         marginBottom: 0,
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
         right: 0,
         marginBottom: '0px',
         marginRight: '0px',
-        
+        color: theme.palette.primary.main
 	}
     
   }));
@@ -51,6 +52,11 @@ const Dashboard = (props) => {
 
     const [materias, setMaterias] = useState([])
     const [userDetail, setUserDetail] = useState('');
+
+    const [open, setOpen] = React.useState(false);
+    const [carrera, setCarrera] = React.useState('');
+    const [subject, setSubject] = React.useState('');
+
 
     //obtener los datos de las materias del usuario
     useEffect(() => {
@@ -155,11 +161,23 @@ const Dashboard = (props) => {
         
         return UserDetails;
       }
- 
-
+    
+      const handleClickOpen = () => {
+        setOpen(true);
+      };
+   
     
     return (
         <div>
+            <AddSubject
+                carrera={carrera}
+                subject={subject}
+                open={open}
+                setOpen={setOpen}
+                setSubject={setSubject}
+                setCarrera={setCarrera}
+            />
+
             <Grid
                 container 
                 alignItems="center"
@@ -194,8 +212,7 @@ const Dashboard = (props) => {
                     <IconButton
                         className={classes.floatingButton}
                         arial-label="Add"
-                        color="primary"
-                        onClick={crearMateria}
+                        onClick={handleClickOpen}
 					>
 						<AddCircleIcon style={{fontSize: "60px"}}/>
 					</IconButton>
