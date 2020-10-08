@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Grid, LinearProgress, Avatar, makeStyles } from "@material-ui/core";
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { Button, Grid, LinearProgress, makeStyles, ButtonBase } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import FormikField from "../FormikField/FormikField";
 import { auth, storage } from '../../services/firebase';
@@ -13,6 +12,7 @@ const EditProfileSchema = Yup.object().shape({
     .required("Nombre requerido!"),
   apellido: Yup.string()
     .required("Apellido requerido!"),
+  userImg: Yup.mixed()
 })
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   textField: {
-    //marginBottom: theme.spacing(2),
     width: "100%",
   },
   botonGuardar: {
@@ -53,6 +52,35 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     display: "none"
+  },
+  image: {
+    position: "relative",
+    height: 200,
+    "&:hover, &$focusVisible": {
+      zIndex: 1,
+      "& $imageBackdrop": {
+        backgroundColor: 'rgba(0,0,0,0.15)'
+      }
+    }
+  },
+  focusVisible: {},
+  imageSrc: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundSize: "cover",
+    backgroundPosition: "center 40%"
+  },
+  imageBackdrop: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    transition: theme.transitions.create("opacity"),
+    borderRadius: "50%"
   }
 }));
 
@@ -62,8 +90,7 @@ const EditProfile = () => {
   const [errorSaving, setErrorSaving] = useState(false)
   const [saving, setSaving] = useState(false)
   const [openSuccessBar, setOpen] = useState(false)
-  const [loadingImage, setLoadingImage] = useState(false)
-  const [imgUserUrl, setImgUserUrl] = useState('https://gravatar.com/avatar/cbbf8aab01e062ed2238aafca8092dfc?s=200&d=mp&r=x');
+  const [userImg, setuserImg] = useState('https://gravatar.com/avatar/cbbf8aab01e062ed2238aafca8092dfc?s=200&d=mp&r=x');
 
   useEffect(() => {
     const id = auth.currentUser.uid
@@ -72,20 +99,19 @@ const EditProfile = () => {
         const data = response.data()
         setNombre(data.firstName)
         setApellido(data.lastName)
-        setImgUserUrl(data.photoURL)
+        setuserImg(data.photoURL ? data.photoURL : userImg)
       })
   }, [])
 
   const classes = useStyles();
-
   const docUserID = auth.currentUser.uid;
 
   const onSubmit = (values) => {
     setSaving(true)
-    UserService.updateUser(values, imgUserUrl)
+    UserService.updateUser(values)
       .then(() => {
         auth.currentUser.updateProfile({
-          photoURL: imgUserUrl
+          photoURL: userImg
         })
         setSaving(false)
         setOpen(true)
@@ -109,35 +135,27 @@ const EditProfile = () => {
     setErrorSaving(false);
   };
 
-  const chooseFile = (e) => {
-    setLoadingImage(true)
+  const handleFileChange = (e, setFieldValue) => {
     var file = e.target.files[0];
+    setFieldValue("file", file)
     var storageRef = storage.ref('users/' + docUserID + '/profile.jpg');
     var task = storageRef.put(file);
-
     task.on('state_changed',
       null,
       function error(err) {
-        console.log("Error mientras se cargaba la imagen")
-        setLoadingImage(false)
+        setErrorSaving(true)
       },
       function complete() {
-        getUrlImage();
-        setLoadingImage(false)
+        storageRef.getDownloadURL().then(imgUrl => {
+          setFieldValue("userImg", imgUrl)
+        })
       }
     );
   }
 
-  const getUrlImage = () => {
-    var storageRef = storage.ref('users/' + docUserID + '/profile.jpg');
-    storageRef.getDownloadURL().then(imgUrl => {
-      setImgUserUrl(imgUrl);
-    })
-  }
-
   return (
     <div>
-      <Grid container style={{}}>
+      <Grid container>
         <Grid
           container
           item
@@ -146,31 +164,40 @@ const EditProfile = () => {
           direction="column"
           justify="center"
         >
-          <Avatar className={classes.avatar} src={imgUserUrl} />
-          <input
-            className={classes.input}
-            id="contained-button-file"
-            multiple
-            type="file"
-            onChange={chooseFile}
-          />
-          <label htmlFor="contained-button-file">
-            <Button className={classes.botonImagen}
-              variant="contained"
-              color="primary"
-              component="span"
-              disabled={loadingImage}
-              startIcon={<CloudUploadIcon />}>
-              {!loadingImage ? 'Subir imagen' : 'Cargando...'}
-            </Button>
-          </label>
           <Formik
             enableReinitialize
-            initialValues={{ nombre, apellido }}
+            initialValues={{ userImg, nombre, apellido }}
             validationSchema={EditProfileSchema}
             onSubmit={onSubmit}>
-            {({ dirty, isValid, errors, touched }) => (
+            {({ dirty, isValid, errors, touched, setFieldValue, values, setTouched }) => (
               <Form>
+                <label htmlFor="contained-button-file">
+                  <ButtonBase
+                    focusRipple
+                    className={classes.image}
+                    focusVisibleClassName={classes.focusVisible}
+                    style={{
+                      width: "200px",
+                      borderRadius: "50%",
+                      marginTop: "10px",
+                      marginBottom: "10px"
+                    }}
+                    component="span"
+                  >
+                    <span className={classes.imageSrc} />
+                    <img src={values.userImg} height="100%"
+                      width="100%" style={{
+                        borderRadius: "50%"
+                      }} />
+                    <span className={classes.imageBackdrop} />
+                  </ButtonBase>
+                </label>
+                <input className={classes.input} id="contained-button-file"
+                  name="file" type="file" multiple accept="image/*" onChange={(event) => handleFileChange(event, setFieldValue)} />
+                <div className={classes.input}>
+                  <FormikField label="Imagen" id="user-img" name="userImg" type="text"
+                    fullWidth onChange={() => setTouched("userImg")} />
+                </div>
                 <FormikField className={classes.textField} required label="Nombre" id="user-name" name="nombre" type="text"
                   error={errors.nombre && touched.nombre} fullWidth />
 
