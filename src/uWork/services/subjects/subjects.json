@@ -1,0 +1,222 @@
+[
+  {
+    "id": 1,
+    "career": 1,
+    "description": "Tecnología Aplicada"
+  },
+  {
+    "id": 2,
+    "career": 1,
+    "description": "Algebra y Geometría Analítica"
+  },
+  {
+    "id": 3,
+    "career": 1,
+    "description": "Algoritmo y Estructura de Datos"
+  },
+  {
+    "id": 4,
+    "career": 1,
+    "description": "Teoría de Sistemas y Organizaciones"
+  },
+  {
+    "id": 5,
+    "career": 1,
+    "description": "Arquitectura de Computadores I"
+  },
+  {
+    "id": 6,
+    "career": 1,
+    "description": "Programación con Objetos I"
+  },
+  {
+    "id": 7,
+    "career": 1,
+    "description": "Matemática Discreta"
+  },
+  {
+    "id": 8,
+    "career": 1,
+    "description": "Análisis Matemático I"
+  },
+  {
+    "id": 9,
+    "career": 1,
+    "description": "Programación con Objetos II"
+  },
+  {
+    "id": 10,
+    "career": 1,
+    "description": "Arquitectura de Computadores II"
+  },
+  {
+    "id": 11,
+    "career": 1,
+    "description": "Ingeniería de Software I"
+  },
+  {
+    "id": 12,
+    "career": 1,
+    "description": "Probabilidad y Estadística"
+  },
+  {
+    "id": 13,
+    "career": 1,
+    "description": "Sistemas Operativos I"
+  },
+  {
+    "id": 14,
+    "career": 1,
+    "description": "Base de Datos I"
+  },
+  {
+    "id": 15,
+    "career": 1,
+    "description": "Comunicación y Redes I"
+  },
+  {
+    "id": 16,
+    "career": 1,
+    "description": "Análisis Matemático II"
+  },
+  {
+    "id": 17,
+    "career": 1,
+    "description": "Base de Datos II"
+  },
+  {
+    "id": 18,
+    "career": 1,
+    "description": "Comunicación y Redes II"
+  },
+  {
+    "id": 19,
+    "career": 1,
+    "description": "Ingeniería de Software II"
+  },
+  {
+    "id": 20,
+    "career": 1,
+    "description": "Interfaces de Usuario y Tecnologías Web"
+  },
+  {
+    "id": 21,
+    "career": 1,
+    "description": "Programación con Objetos III"
+  },
+  {
+    "id": 22,
+    "career": 1,
+    "description": "Matemática Aplicada"
+  },
+  {
+    "id": 23,
+    "career": 1,
+    "description": "Explotación de Datos"
+  },
+  {
+    "id": 24,
+    "career": 1,
+    "description": "Taller de Redes"
+  },
+  {
+    "id": 25,
+    "career": 1,
+    "description": "Sistemas Operativos II"
+  },
+  {
+    "id": 26,
+    "career": 1,
+    "description": "Dir. y Eval de Proyectos Informáticos"
+  },
+  {
+    "id": 27,
+    "career": 1,
+    "description": "Arquitectura de Software"
+  },
+  {
+    "id": 28,
+    "career": 1,
+    "description": "Modelos, Simulación y Teoría de la Decisión"
+  },
+  {
+    "id": 29,
+    "career": 1,
+    "description": "Metodología de la Investigación"
+  },
+  {
+    "id": 30,
+    "career": 1,
+    "description": "Paradigmas de Programación"
+  },
+  {
+    "id": 31,
+    "career": 1,
+    "description": "Lenguajes de Programación"
+  },
+  {
+    "id": 32,
+    "career": 1,
+    "description": "Infraestructura de Sistemas"
+  },
+  {
+    "id": 33,
+    "career": 1,
+    "description": "Desarrollo de Compiladores"
+  },
+  {
+    "id": 34,
+    "career": 1,
+    "description": "Inteligencia Artificial"
+  },
+  {
+    "id": 35,
+    "career": 1,
+    "description": "Práctica Profesional"
+  },
+  {
+    "id": 36,
+    "career": 1,
+    "description": "Aspectos Legales y Sociales de la Inf."
+  },
+  {
+    "id": 37,
+    "career": 1,
+    "description": "Ingeniería de Software III"
+  },
+  {
+    "id": 38,
+    "career": 1,
+    "description": "Sistemas de Tiempo Real y Misión Crítica"
+  },
+  {
+    "id": 39,
+    "career": 1,
+    "description": "Economía I"
+  },
+  {
+    "id": 40,
+    "career": 1,
+    "description": "Seguridad y Auditoría"
+  },
+  {
+    "id": 41,
+    "career": 1,
+    "description": "Teoría de la Computación"
+  },
+  {
+    "id": 42,
+    "career": 1,
+    "description": "Adm. y Gestión de las Organizaciones"
+  },
+  {
+    "id": 43,
+    "career": 1,
+    "description": "Economía II"
+  },
+  {
+    "id": 44,
+    "career": 1,
+    "description": "Trabajo Final"
+  }
+]
