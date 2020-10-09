@@ -218,5 +218,1086 @@
     "id": 44,
     "career": 1,
     "description": "Trabajo Final"
+  },
+  {
+    "id":45,
+    "career": 2,
+    "description" : "Análisis y Producción del Discurso"
+  },
+  {
+    "id":46,
+    "career": 2,
+    "description" : "Análisis Matemático I"
+  },
+  {
+    "id":47,
+    "career": 2,
+    "description" : "Química General"
+  },
+  {
+    "id":48,
+    "career": 2,
+    "description" : "Univ., Ciencia y Sociedad"
+  },
+  {
+    "id":49,
+    "career": 2,
+    "description" : "Problemática Regional"
+  },
+  {
+    "id":50,
+    "career": 2,
+    "description" : "Física I"
+  },
+  {
+    "id":51,
+    "career": 2,
+    "description" : "Química Inorgánica"
+  },
+  {
+    "id":52,
+    "career": 2,
+    "description" : "Algebra y Geometría Analítica"
+  },
+  {
+    "id":53,
+    "career": 2,
+    "description" : "Fundamentos de Informática"
+  },
+  {
+    "id":54,
+    "career": 2,
+    "description" : "Química Orgánica I"
+  },
+  {
+    "id":55,
+    "career": 2,
+    "description" : "Análisis Matemático II"
+  },
+  {
+    "id":56,
+    "career": 2,
+    "description" : "Electiva"
+  },
+  {
+    "id":57,
+    "career": 2,
+    "description" : "Física II"
+  },
+  {
+    "id":58,
+    "career": 2,
+    "description" : "Estadística Aplicada"
+  },
+  {
+    "id":59,
+    "career": 2,
+    "description" : "Sistemas de Representación"
+  },
+  {
+    "id":60,
+    "career": 2,
+    "description" : "Termodinámica"
+  },
+  {
+    "id":61,
+    "career": 2,
+    "description" : "Análisis Matemático III"
+  },
+  {
+    "id":62,
+    "career": 2,
+    "description" : "Química Orgánica II"
+  },
+  {
+    "id":63,
+    "career": 2,
+    "description" : "Fisicoquímica"
+  },
+  {
+    "id":64,
+    "career": 2,
+    "description" : "Química Analítica I"
+  },
+  {
+    "id":65,
+    "career": 2,
+    "description" : "Fenómenos de Transporte"
+  },
+  {
+    "id":66,
+    "career": 2,
+    "description" : "Cálculo Numérico"
+  },
+  {
+    "id":67,
+    "career": 2,
+    "description" : "Química Analítica II"
+  },
+  {
+    "id":68,
+    "career": 2,
+    "description" : "Ingeniería de Procesos"
+  },
+  {
+    "id":69,
+    "career": 2,
+    "description" : "Operaciones Unitarias I"
+  },
+  {
+    "id":70,
+    "career": 2,
+    "description" : "Tec. de Electricidad y Serv. Auxiliares"
+  },
+  {
+    "id":71,
+    "career": 2,
+    "description" : "Tec. de Materiales y Mecánica"
+  },
+  {
+    "id":72,
+    "career": 2,
+    "description" : "Biotecnología"
+  },
+  {
+    "id":73,
+    "career": 2,
+    "description" : "Economía"
+  },
+  {
+    "id":74,
+    "career": 2,
+    "description" : "Organización Industrial"
+  },
+  {
+    "id":75,
+    "career": 2,
+    "description" : "Operaciones Unitarias II"
+  },
+  {
+    "id":76,
+    "career": 2,
+    "description" : "Ingeniería de las Reacciones Químicas"
+  },
+  {
+    "id":77,
+    "career": 2,
+    "description" : "Operaciones Unitarias III"
+  },
+  {
+    "id":78,
+    "career": 2,
+    "description" : "Proyecto Final"
+  },
+  {
+    "id":79,
+    "career": 2,
+    "description" : "Inst. y Control de Procesos"
+  },
+  {
+    "id":80,
+    "career": 2,
+    "description" : "Simulación y Optimización de Procesos"
+  },
+  {
+    "id":81,
+    "career": 2,
+    "description" : "Seguridad, Higiene y Gestión Ambiental"
+  },
+  {
+    "id":82,
+    "career": 2,
+    "description" : "Ingeniería de las Instalacones"
+  },
+  {
+    "id":83,
+    "career": 2,
+    "description" : "Legislación"
+  },
+  {
+    "id":84,
+    "career": 2,
+    "description" : "Optativa I"
+  },
+  {
+    "id":85,
+    "career": 2,
+    "description" : "Optativa II"
+  },
+  {
+    "id":86,
+    "career": 2,
+    "description" : "Práctica Profesional Supervisada"
+  },
+  {
+    "id": 87,
+    "career": 3,
+    "description" : "Análisis y Producción del Discurso"
+  },
+  {
+    "id": 88,
+    "career": 3,
+    "description" : "Administración I"
+  },
+  {
+    "id": 89,
+    "career": 3,
+    "description" : "Matemática I"
+  },
+  {
+    "id": 90,
+    "career": 3,
+    "description" : "Metodología de las Ciencias Sociales"
+  },
+  {
+    "id": 91,
+    "career": 3,
+    "description" : "Problemática Regional"
+  },
+  {
+    "id": 92,
+    "career": 3,
+    "description" : "Administración II"
+  },
+  {
+    "id": 93,
+    "career": 3,
+    "description" : "Estadística"
+  },
+  {
+    "id": 94,
+    "career": 3,
+    "description" : "Economía I"
+  },
+  {
+    "id": 95,
+    "career": 3,
+    "description" : "Univ., Ciencia y Sociedad"
+  },
+  {
+    "id": 96,
+    "career": 3,
+    "description" : "Matemática II"
+  },
+  {
+    "id": 97,
+    "career": 3,
+    "description" : "Sistemas Contables"
+  },
+  {
+    "id": 98,
+    "career": 3,
+    "description" : "Administración de Recursos Humanos"
+  },
+  {
+    "id": 99,
+    "career": 3,
+    "description" : "Electiva"
+  },
+  {
+    "id": 100,
+    "career": 3,
+    "description" : "Contabilidad I"
+  },
+  {
+    "id": 101,
+    "career": 3,
+    "description" : "Economía II"
+  },
+  {
+    "id": 102,
+    "career": 3,
+    "description" : "Sociología"
+  },
+  {
+    "id": 103,
+    "career": 3,
+    "description" : "Administración Pública"
+  },
+  {
+    "id": 104,
+    "career": 3,
+    "description" : "Instituciones del Derecho Público"
+  },
+  {
+    "id": 105,
+    "career": 3,
+    "description" : "Matemática III"
+  },
+  {
+    "id": 106,
+    "career": 3,
+    "description" : "Contabilidad II"
+  },
+  {
+    "id": 107,
+    "career": 3,
+    "description" : "Optativa I"
+  },
+  {
+    "id": 108,
+    "career": 3,
+    "description" : "Economía III"
+  },
+  {
+    "id": 109,
+    "career": 3,
+    "description" : "Administración de la Comercialización"
+  },
+  {
+    "id": 110,
+    "career": 3,
+    "description" : "Instituciones del Derecho Privado"
+  },
+  {
+    "id": 111,
+    "career": 3,
+    "description" : "Seminario de Gestión Empresarial"
+  },
+  {
+    "id": 112,
+    "career": 3,
+    "description" : "Práctica Profesional Supervisada I"
+  },
+  {
+    "id": 113,
+    "career": 3,
+    "description" : "Contabilidad III"
+  },
+  {
+    "id": 114,
+    "career": 3,
+    "description" : "Información Gerencial"
+  },
+  {
+    "id": 115,
+    "career": 3,
+    "description" : "Finanzas de la Empresa"
+  },
+  {
+    "id": 116,
+    "career": 3,
+    "description" : "Optativa II"
+  },
+  {
+    "id": 117,
+    "career": 3,
+    "description" : "Dirección Estratégica y Gestión Empresarial"
+  },
+  {
+    "id": 118,
+    "career": 3,
+    "description" : "Marketing Estratégico"
+  },
+  {
+    "id": 119,
+    "career": 3,
+    "description" : "Administración Financiera"
+  },
+  {
+    "id": 120,
+    "career": 3,
+    "description" : "Formulación y Evaluación de Proyectos"
+  },
+  {
+    "id": 121,
+    "career": 3,
+    "description" : "Práctica Profesional Supervisada II"
+  },
+  {
+    "id": 122,
+    "career": 4,
+    "description" : "Análisis y Producción del Discurso"
+  },
+  {
+    "id": 123,
+    "career": 4,
+    "description" : "Problemática Regional"
+  },
+  {
+    "id": 124,
+    "career": 4,
+    "description" : "Univ., Ciencia y Sociedad"
+  },
+  {
+    "id": 125,
+    "career": 4,
+    "description" : "Matemática I"
+  },
+  {
+    "id": 126,
+    "career": 4,
+    "description" : "Administración I"
+  },
+  {
+    "id": 127,
+    "career": 4,
+    "description" : "Metodología de las Ciencias Sociales"
+  },
+  {
+    "id": 128,
+    "career": 4,
+    "description" : "Estadística"
+  },
+  {
+    "id": 129,
+    "career": 4,
+    "description" : "Economía I"
+  },
+  {
+    "id": 130,
+    "career": 4,
+    "description" : "Matemática II"
+  },
+  {
+    "id": 131,
+    "career": 4,
+    "description" : "Administración II"
+  },
+  {
+    "id": 132,
+    "career": 4,
+    "description" : "Sistemas Contables"
+  },
+  {
+    "id": 133,
+    "career": 4,
+    "description" : "Sociología"
+  },
+  {
+    "id": 134,
+    "career": 4,
+    "description" : "Administración de Recursos Humanos"
+  },
+  {
+    "id": 135,
+    "career": 4,
+    "description" : "Electiva"
+  },
+  {
+    "id": 136,
+    "career": 4,
+    "description" : "Contabilidad I"
+  },
+  {
+    "id": 137,
+    "career": 4,
+    "description" : "Economía II"
+  },
+  {
+    "id": 138,
+    "career": 4,
+    "description" : "Planeamiento de Personal, selección y empleo"
+  },
+  {
+    "id": 139,
+    "career": 4,
+    "description" : "Integración económica y movilidad laboral"
+  },
+  {
+    "id": 140,
+    "career": 4,
+    "description" : "Instituciones del Derecho"
+  },
+  {
+    "id": 141,
+    "career": 4,
+    "description" : "Optativa I"
+  },
+  {
+    "id": 142,
+    "career": 4,
+    "description" : "Práctica Profesional Supervisada I"
+  },
+  {
+    "id": 143,
+    "career": 4,
+    "description" : "Dirección Estratégica y Gestión Empresarial"
+  },
+  {
+    "id": 144,
+    "career": 4,
+    "description" : "Derecho del Trabajo"
+  },
+  {
+    "id": 145,
+    "career": 4,
+    "description" : "Psicología General y Social"
+  },
+  {
+    "id": 146,
+    "career": 4,
+    "description" : "Sistemas de Información, Capacitación y Desarrollo"
+  },
+  {
+    "id": 147,
+    "career": 4,
+    "description" : "Seguridad Industrial..."
+  },
+  {
+    "id": 148,
+    "career": 4,
+    "description" : "Administración de la  Comercialización de RRHH"
+  },
+  {
+    "id": 149,
+    "career": 4,
+    "description" : "Optativa II"
+  },
+  {
+    "id": 150,
+    "career": 4,
+    "description" : "Cambio y Desarrollo Organizacional"
+  },
+  {
+    "id": 151,
+    "career": 4,
+    "description" : "Filosofía y Ética Profesional"
+  },
+  {
+    "id": 152,
+    "career": 4,
+    "description" : "Sistemas de Costos y Administración de la Producción"
+  },
+  {
+    "id": 153,
+    "career": 4,
+    "description" : "Recursos Humanos en la Adm. Pública"
+  },
+  {
+    "id": 154,
+    "career": 4,
+    "description" : "Técnicas de Negociación y Comunicación de la Empresa"
+  },
+  {
+    "id": 155,
+    "career": 4,
+    "description" : "Práctica Profesional Supervisada II"
+  },
+  {
+    "id": 156,
+    "career": 5,
+    "description" : "Análisis y Producción del Discurso"
+  },
+  {
+    "id": 157,
+    "career": 5,
+    "description" : "Problemática Regional"
+  },
+  {
+    "id": 158,
+    "career": 5,
+    "description" : "Univ., Ciencia y Sociedad"
+  },
+  {
+    "id": 159,
+    "career": 5,
+    "description" : "Matemática I"
+  },
+  {
+    "id": 160,
+    "career": 5,
+    "description" : "Administración I"
+  },
+  {
+    "id": 161,
+    "career": 5,
+    "description" : "Metodología de las Ciencias Sociales"
+  },
+  {
+    "id": 162,
+    "career": 5,
+    "description" : "Estadística"
+  },
+  {
+    "id": 163,
+    "career": 5,
+    "description" : "Economía I"
+  },
+  {
+    "id": 164,
+    "career": 5,
+    "description" : "Matemática II"
+  },
+  {
+    "id": 165,
+    "career": 5,
+    "description" : "Administración II"
+  },
+  {
+    "id": 166,
+    "career": 5,
+    "description" : "Sistemas Contables"
+  },
+  {
+    "id": 167,
+    "career": 5,
+    "description" : "Sociología"
+  },
+  {
+    "id": 168,
+    "career": 5,
+    "description" : "Administración de Recursos Humanos"
+  },
+  {
+    "id": 169,
+    "career": 5,
+    "description" : "Electiva"
+  },
+  {
+    "id": 170,
+    "career": 5,
+    "description" : "Contabilidad I"
+  },
+  {
+    "id": 171,
+    "career": 5,
+    "description" : "Economía II"
+  },
+  {
+    "id": 172,
+    "career": 5,
+    "description" : "Microeconomía Avanzada"
+  },
+  {
+    "id": 173,
+    "career": 5,
+    "description" : "Integración económica y movilidad laboral"
+  },
+  {
+    "id": 174,
+    "career": 5,
+    "description" : "Optativa I"
+  },
+  {
+    "id": 175,
+    "career": 5,
+    "description" : "Práctica Profesional Supervisada I"
+  },
+  {
+    "id": 176,
+    "career": 5,
+    "description" : "Estadística II"
+  },
+  {
+    "id": 177,
+    "career": 5,
+    "description" : "Economía Internacional"
+  },
+  {
+    "id": 178,
+    "career": 5,
+    "description" : "Historia Económica y Social"
+  },
+  {
+    "id": 179,
+    "career": 5,
+    "description" : "Cálculo Financiero y Adm. Financiera"
+  },
+  {
+    "id": 180,
+    "career": 5,
+    "description" : "Macroeconomía Avanzada"
+  },
+  {
+    "id": 181,
+    "career": 5,
+    "description" : "Econometría"
+  },
+  {
+    "id": 182,
+    "career": 5,
+    "description" : "Optativa II"
+  },
+  {
+    "id": 183,
+    "career": 5,
+    "description" : "Crecimiento Económico"
+  },
+  {
+    "id": 184,
+    "career": 5,
+    "description" : "Finanzas Públicas"
+  },
+  {
+    "id": 185,
+    "career": 5,
+    "description" : "Desarrollo Económico"
+  },
+  {
+    "id": 186,
+    "career": 5,
+    "description" : "Evaluación y Gestión de Proyectos"
+  },
+  {
+    "id": 187,
+    "career": 5,
+    "description" : "Historia del Pensamiento Económico"
+  },
+  {
+    "id": 188,
+    "career": 5,
+    "description" : "Práctica Profesional Supervisada II"
+  },
+  {
+    "id": 189,
+    "career": 6,
+    "description" : "Seminario de Universidad, Ciencia y Sociedad"
+  },
+  {
+    "id": 190,
+    "career": 6,
+    "description" : "Seminario de Problemática Regional"
+  },
+  {
+    "id": 191,
+    "career": 6,
+    "description" : "Seminario de Nuevas Identidades Juveniles"
+  },
+  {
+    "id": 192,
+    "career": 6,
+    "description" : "Fisiología Clínica del Trabajo Físico"
+  },
+  {
+    "id": 193,
+    "career": 6,
+    "description" : "Política Educativa de la Ed. Física"
+  },
+  {
+    "id": 194,
+    "career": 6,
+    "description" : "Actividad Física y Salud"
+  },
+  {
+    "id": 195,
+    "career": 6,
+    "description" : "Nutrición y Energética de la Act. Física y el Deporte"
+  },
+  {
+    "id": 196,
+    "career": 6,
+    "description" : "Electiva"
+  },
+  {
+    "id": 197,
+    "career": 6,
+    "description" : "Elaboración de Proyectos de Investigación"
+  },
+  {
+    "id": 198,
+    "career": 6,
+    "description" : "Evaluación de la Actividad Física y el Deporte"
+  },
+  {
+    "id": 199,
+    "career": 6,
+    "description" : "Diseño y Gestión de Políticas en la Ed. Física"
+  },
+  {
+    "id": 200,
+    "career": 6,
+    "description" : "Psicología de la Actividad Física"
+  },
+  {
+    "id": 201,
+    "career": 6,
+    "description" : "Metodología de la Investigación"
+  },
+  {
+    "id": 202,
+    "career": 6,
+    "description" : "Planificación y Estructuración del Entrenamiento"
+  },
+  {
+    "id": 203,
+    "career": 6,
+    "description" : "Biomecánica"
+  },
+  {
+    "id": 204,
+    "career": 6,
+    "description" : "Discapacidad e Integración en la Ed. Física"
+  },
+  {
+    "id": 205,
+    "career": 6,
+    "description" : "Seminario del Diseño de Trabajo Final"
+  },
+  {
+    "id": 206,
+    "career": 6,
+    "description" : "Trabajo Final Integrador"
+  },
+  {
+    "id": 207,
+    "career": 7,
+    "description" : "Enfermería Básica"
+  },
+  {
+    "id": 208,
+    "career": 7,
+    "description" : "Enfermería Materno-Infantil I"
+  },
+  {
+    "id": 209,
+    "career": 7,
+    "description" : "Enfermería Materno-Infantil II"
+  },
+  {
+    "id": 210,
+    "career": 7,
+    "description" : "Ciencias Biológicas I"
+  },
+  {
+    "id": 211,
+    "career": 7,
+    "description" : "Ciencias Biológicas II"
+  },
+  {
+    "id": 212,
+    "career": 7,
+    "description" : "Análisis y Producción del Discurso"
+  },
+  {
+    "id": 213,
+    "career": 7,
+    "description" : "Psicología Social Comunitaria"
+  },
+  {
+    "id": 214,
+    "career": 7,
+    "description" : "Filosofía I"
+  },
+  {
+    "id": 215,
+    "career": 7,
+    "description" : "Enfermería Comunitaria y Salud Pública"
+  },
+  {
+    "id": 216,
+    "career": 7,
+    "description" : "Enfermería del Adulto y del Anciano I"
+  },
+  {
+    "id": 217,
+    "career": 7,
+    "description" : "Enfermería del Adulto y del Anciano II"
+  },
+  {
+    "id": 218,
+    "career": 7,
+    "description" : "Farmacología"
+  },
+  {
+    "id": 219,
+    "career": 7,
+    "description" : "Microbiología"
+  },
+  {
+    "id": 220,
+    "career": 7,
+    "description" : "Sociología y Salud I"
+  },
+  {
+    "id": 221,
+    "career": 7,
+    "description" : "Nutrición y Dietoterapia"
+  },
+  {
+    "id": 222,
+    "career": 7,
+    "description" : "Antropología y Salud"
+  },
+  {
+    "id": 223,
+    "career": 7,
+    "description" : "Enfermería en Salud Mental"
+  },
+  {
+    "id": 224,
+    "career": 7,
+    "description" : "Problemática Regional"
+  },
+  {
+    "id": 225,
+    "career": 7,
+    "description" : "Enfermería del Niño y del Adolescente I"
+  },
+  {
+    "id": 226,
+    "career": 7,
+    "description" : "Enfermería del Niño y del Adolescente II"
+  },
+  {
+    "id": 227,
+    "career": 7,
+    "description" : "Univ., Ciencia y Sociedad"
+  },
+  {
+    "id": 228,
+    "career": 7,
+    "description" : "Epidemiología y Estadística"
+  },
+  {
+    "id": 229,
+    "career": 7,
+    "description" : "Investigación en Enfermería I"
+  },
+  {
+    "id": 230,
+    "career": 7,
+    "description" : "Gestión en Enfermería I"
+  },
+  {
+    "id": 231,
+    "career": 7,
+    "description" : "Bioética I"
+  },
+  {
+    "id": 232,
+    "career": 7,
+    "description" : "Prácticas Integradas I"
+  },
+  {
+    "id": 233,
+    "career": 7,
+    "description" : "Enfermería Comunitaria"
+  },
+  {
+    "id": 234,
+    "career": 7,
+    "description" : "Educación en Enfermería"
+  },
+  {
+    "id": 235,
+    "career": 7,
+    "description" : "Enfemería en Cuidados Críticos Adultos"
+  },
+  {
+    "id": 236,
+    "career": 7,
+    "description" : "Bioética II"
+  },
+  {
+    "id": 237,
+    "career": 7,
+    "description" : "Sociología y Salud II"
+  },
+  {
+    "id": 238,
+    "career": 7,
+    "description" : "Investigación en Enfermería II"
+  },
+  {
+    "id": 239,
+    "career": 7,
+    "description" : "Taller de Investigación en Enfermería I"
+  },
+  {
+    "id": 240,
+    "career": 7,
+    "description" : "Taller de Investigación en Enfermería II"
+  },
+  {
+    "id": 241,
+    "career": 7,
+    "description" : "Gestión en Enfermería II"
+  },
+  {
+    "id": 242,
+    "career": 7,
+    "description" : "Filosofía II"
+  },
+  {
+    "id": 243,
+    "career": 7,
+    "description" : "Prácticas Integradas II"
+  },
+  {
+    "id": 244,
+    "career": 8,
+    "description" : "Seminario de Universidad, Ciencia y Sociedad"
+  },
+  {
+    "id": 245,
+    "career": 8,
+    "description" : "Seminario de Problemática Regional"
+  },
+  {
+    "id": 246,
+    "career": 8,
+    "description" : "Historia de la Educación Argentina y Latinoamericana"
+  },
+  {
+    "id": 247,
+    "career": 8,
+    "description" : "Instituciones Educativas"
+  },
+  {
+    "id": 248,
+    "career": 8,
+    "description" : "Educación y Nuevas Tecnologías"
+  },
+  {
+    "id": 249,
+    "career": 8,
+    "description" : "Seminario de Nuevas Identidades Juveniles"
+  },
+  {
+    "id": 250,
+    "career": 8,
+    "description" : "Evaluación y Calidad de la Educación"
+  },
+  {
+    "id": 251,
+    "career": 8,
+    "description" : "Economía de la Educación"
+  },
+  {
+    "id": 252,
+    "career": 8,
+    "description" : "Teoría y Gestión Curricular"
+  },
+  {
+    "id": 253,
+    "career": 8,
+    "description" : "Electiva"
+  },
+  {
+    "id": 254,
+    "career": 8,
+    "description" : "Epistemología"
+  },
+  {
+    "id": 255,
+    "career": 8,
+    "description" : "Administración y Gestión de Instituciones Educativas"
+  },
+  {
+    "id": 256,
+    "career": 8,
+    "description" : "Diseño y Evaluación de Proyectos Educativos"
+  },
+  {
+    "id": 257,
+    "career": 8,
+    "description" : "Teorías de la Enseñanza y el Aprendizaje"
+  },
+  {
+    "id": 258,
+    "career": 8,
+    "description" : "Metodología de la Investigación"
+  },
+  {
+    "id": 259,
+    "career": 8,
+    "description" : "Seminario del Diseño de Trabajo Final"
+  },
+  {
+    "id": 260,
+    "career": 8,
+    "description" : "Trabajo Final Integrador"
   }
+  
 ]
