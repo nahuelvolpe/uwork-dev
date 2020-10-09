@@ -40,10 +40,7 @@ export default function AddSubject(props) {
   const [subjectOptions, setOptions] = useState([])
 
   const handleClose = () => {
-      MateriasService.addMateria()
-        .then( () => {
-            setOpen(false);
-        })
+        setOpen(false);
   };
 
   const handleCarrera = (e) => {

@@ -3,10 +3,8 @@ import { Card, CardContent, Typography, CardActions, Button, makeStyles } from '
 
 const useStyles = makeStyles((theme) => ({
     textMateria: {
-        /*margin: '5px 5px',
-        textAlign: "center",
-        fontSize: '18px',
-        fontStyle: 'bold',*/
+        fontSize: '1.4rem',
+        fontStyle: 'bold',
         color: '#FFFFFF'
     },
     cardContent: {
@@ -35,7 +33,7 @@ const Subject = (props) => {
                 </CardContent>
                 <CardActions>
                     <Button size="small">INGRESAR</Button>
-                    <Button size="small" onClick={() => { props.deleteHander(data.materiaId) }}>ELIMINAR</Button>
+                    <Button size="small" onClick={() => { props.deleteHandler(data.materiaId) }}>ELIMINAR</Button>
                 </CardActions>
             </Card>
         </div>

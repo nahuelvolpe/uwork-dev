@@ -69,55 +69,11 @@ const Dashboard = (props) => {
             });
         }
 
-        userMateriasDetail.map(materia => console.log(materia))
+        //userMateriasDetail.map(materia => console.log(materia))
         setMaterias(userMateriasDetail);
 
     }
 
-
-    //crear nueva materia
-    const crearMateria = () => {
-        let usuarioDetalles = [];
-
-        getUserDetail(userID)
-            .then((users) => {
-
-                console.log(users)
-                setUserDetail(users)
-
-                return db.collection('materias')
-                    .add({
-                        nombre: 'Matematica Discreta',
-                        carrera: 'Licenciatura en Informática',
-                        roles: {
-                            [userID]: {
-                                rol: 'admin',
-                                firstName: users.firstName,
-                                lastName: users.lastName,
-                                id: users.id,
-                                photoURL: users.photoURL
-                            }
-                        }
-                    })
-            }).then((doc) => {
-                console.log(doc);
-                return db.collection('users').doc(userID).set(
-                    {
-                        materias: {
-                            [doc.id]: 'admin',
-                        }
-                    },
-                    { merge: true }
-                )
-            }).then(() => {
-                console.log("se cargo bien la materia en usuarios");
-                window.location.reload()
-            })
-            .catch((e) => console.log(e));
-
-
-
-    }
 
     const handleDelete = (materiaId) => {
         MateriasService.deleteMateria(materiaId, userID)
@@ -204,7 +160,9 @@ const Dashboard = (props) => {
                 container spacing={3}
             >
                 {materias && materias.map((materia) =>
-                    <Grid item xs={12} sm={6} md={4} key={materia.materiaId}><Subject data={materia} deleteHandler={handleDelete} /></Grid>)
+                    <Grid item xs={12} sm={6} md={4} key={materia.materiaId}>
+                        <Subject data={materia} deleteHandler={handleDelete} />
+                    </Grid>)
                 }
                 <IconButton
                     className={classes.floatingButton}
