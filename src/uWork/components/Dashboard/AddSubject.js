@@ -37,7 +37,10 @@ export default function AddSubject({carrera, subject, open, setOpen, setCarrera,
   };
 
   const handleClose = () => {
-    setOpen(false);
+      MateriasService.addMateria()
+        .then( () => {
+            setOpen(false);
+        })
   };
 
   const handleCarrera = (e) => {
