@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "description": "Licenciatura en Informática"
+  },
+  {
+    "id": 2,
+    "description": "Ingeniería Química"
+  },
+  {
+    "id": 3,
+    "description": "Licenciatura en Administración"
+  },
+  {
+    "id": 4,
+    "description": "Licenciatura en Adm. de Recursos Humanos"
+  },
+  {
+    "id": 5,
+    "description": "Licenciatura en Economía"
+  },
+  {
+    "id": 6,
+    "description": "Licenciatura en Educación Física"
+  },
+  {
+    "id": 7,
+    "description": "Licenciatura en Enfermería"
+  },
+  {
+    "id": 8,
+    "description": "Licenciatura en Gestión Educativa"
+  }
+]

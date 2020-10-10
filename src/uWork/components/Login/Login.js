@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     maxWidth: 240,
+    minHeight: 270,
     borderRadius: '26px'
   },
   textField: {
@@ -57,14 +58,14 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     border: 'none',
-    height: '3px',
+    height: '1px',
     margin: 0,
     outline: 'none',
-    boxShadow: '0 0 4px #1bc3de',
+    boxShadow: '0 0 2px #1bc3de',
     flexShrink: '0',
     borderColor: '#1bc3de',
-    borderRadius: '10px 10px 10px 10px',
-    backgroundColor: 'rgba(27, 195, 222, 100)',
+    borderRadius: '1px 1px 1px 1px',
+    backgroundColor: theme.palette.primary.main,
   },
   register: {
     backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='25 50 430 100' preserveAspectRatio='none'><rect x='0' y='0' width='500' height='500' style='stroke: none; fill: %23FFFFFF;' /><path d='M0,100 C150,115 350,80 500,100 L500,00 L0,0 Z' style='stroke: none; fill: %2314A7D6;'></path></svg>");`
@@ -74,11 +75,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     fontWeight: 600,
     color: theme.palette.primary.main
-  },
-  // textHasAccount: {
-  //   marginTop: theme.spacing(3),
-  //   alignItems: 'center',
-  // },
+  }
 }));
 
 const Login = (props) => {
@@ -90,8 +87,10 @@ const Login = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.loginEmail(values.email, values.password)
       .then((response) => {
-        //props.history.push('/aftersignup')
-        setTextConfirm('ingreso');
+        return response.user.getIdToken()
+      }).then( (token) => {
+        localStorage.setItem('AuthToken', `${token}`);
+        props.history.push('/dashboard');
       })
       .catch((err) => {
         switch (err.code) {
@@ -112,8 +111,10 @@ const Login = (props) => {
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
-        //this.props.history.push('/aftersignup')
-        
+        return response.user.getIdToken()
+      }).then( (token) => {
+        localStorage.setItem('AuthToken', `${token}`);
+        props.history.push('/dashboard');
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":
@@ -168,8 +169,8 @@ const Login = (props) => {
                     disabled={!dirty || !isValid}>
                     Ingresar
                     </Button>
-                    <p id="ingreso">{textConfirm}</p>
-                    <Divider className={classes.divider} variant="middle" />
+
+                  <Divider className={classes.divider} variant="middle" />
 
                   <Button className={classes.botonGoogle} variant="contained"
                     color="primary" onClick={() => handleLoginSocial(googleAuthProvider)}>
@@ -183,9 +184,9 @@ const Login = (props) => {
               )}
             </Formik>
           </Paper>
-                  <div style={{ textAlign: "center", width: "100%" }}>
-                    <p> ¿No tienes cuenta? <Link className={classes.link} to="/register">Registrate</Link></p>
-                  </div>
+          <div style={{ textAlign: "center", width: "100%" }}>
+            <p> ¿No tienes cuenta? <Link className={classes.link} to="/register">Registrate</Link></p>
+          </div>
           <div></div>
         </Grid>
       </Grid>

@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import * as Yup from 'yup'
 import FormikField from "../FormikField/FormikField";
 import AuthenticationService from '../../services/AuthenticationService.js'
-import { googleAuthProvider } from '../../services/firebase/setup';
+import { db, googleAuthProvider } from '../../services/firebase/setup';
 import { Link } from 'react-router-dom'
 
 const RegisterSchema = Yup.object().shape({
@@ -13,7 +13,7 @@ const RegisterSchema = Yup.object().shape({
     .email("Formato inválido!"),
   password: Yup.string()
     .required("Contraseña requerida!")
-    .min(6, "La contraseña debe tener como minimo 6 digitos y ser alfanumerica"),
+    .min(6, "La contraseña debe tener como minimo 6 digitos"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], "Las contraseñas no coinciden")
     .required("Debes confirmar la contraseña!")
@@ -59,14 +59,14 @@ const useStyles = makeStyles((theme) => ({
   },
   divider: {
     border: 'none',
-    height: '3px',
+    height: '1px',
     margin: 0,
     outline: 'none',
-    boxShadow: '0 0 4px #1bc3de',
+    boxShadow: '0 0 2px #1bc3de',
     flexShrink: '0',
     borderColor: '#1bc3de',
-    borderRadius: '10px 10px 10px 10px',
-    backgroundColor: 'rgba(27, 195, 222, 100)',
+    borderRadius: '1px 1px 1px 1px',
+    backgroundColor: theme.palette.primary.main,
   },
   register: {
     backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='25 50 430 100' preserveAspectRatio='none'><rect x='0' y='0' width='500' height='500' style='stroke: none; fill: %23FFFFFF;' /><path d='M0,100 C150,115 350,80 500,100 L500,00 L0,0 Z' style='stroke: none; fill: %2314A7D6;'></path></svg>");`
@@ -85,10 +85,21 @@ const Register = (props) => {
   const [password,] = useState('')
   const [confirmPassword,] = useState('')
 
+  const { history } = props;
+
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.signupEmail(values.email, values.password)
       .then((response) => {
-        props.history.push('/aftersignup')
+        if(response.additionalUserInfo.isNewUser){
+          if(createUser(response)){
+            props.history.push("/edit_profile");
+          }else{
+            console.log("Error al registrarse")
+            //CREAR UN STYLE PAR ESTOS ERROES
+          }
+        }else{
+          props.history.push('/dashboard');
+        }    
       })
       .catch((err) => {
         switch (err.code) {
@@ -104,7 +115,19 @@ const Register = (props) => {
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
-        props.history.push('/aftersignup')
+        if(response.additionalUserInfo.isNewUser){
+          if(createUser(response)){
+            props.history.push("/edit_profile");
+          }else{
+            console.log("Error al registrarse")
+            //CREAR UNA WEA PAR ESTOS ERROES
+          }
+        }else{
+          response.user.getIdToken().then( (token) => {
+            localStorage.setItem('AuthToken', `${token}`);
+            props.history.push("/dashboard");
+          })          
+        }      
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":
@@ -120,6 +143,35 @@ const Register = (props) => {
         }
       });
   }
+
+  const createUser = (UserCredential) => {
+    var token = '';
+    const userId = UserCredential.user.uid;
+
+    return UserCredential.user.getIdToken()
+      .then((idtoken) => {
+        token = idtoken;
+
+        return db.collection('users').doc(userId).set({
+          firstName: "",
+          lastName: "",
+          email: UserCredential.user.email,
+          uid: UserCredential.user.uid ,
+          photoURL: UserCredential.user.photoURL ? UserCredential.user.photoURL : "",
+          materias: {}
+        })
+
+      }).then( () => {
+
+        localStorage.setItem('AuthToken', `${token}`);
+
+    }).catch((e) => {
+      console.log(e);
+      //HACER ALGUNA WEA PARA ESTE ERROR
+    })
+  }
+  
+
   const classes = useStyles();
 
   return (
@@ -150,13 +202,13 @@ const Register = (props) => {
                   <FormikField className={classes.textField} label="Contraseña" id="register-pass" name="password"
                     type="password" required error={errors.password && touched.password} fullWidth />
                   <FormikField className={classes.textField} label="Confirmar contraseña" id="register-conf-pass" name="confirmPassword" type="password" required error={errors.confirmPassword && touched.confirmPassword} fullWidth />
-                  {/* <Button className={classes.boton}
+                  {<Button className={classes.boton}
                     variant="contained"
                     color="primary"
                     type="submit"
                     disabled={!dirty || !isValid}>
                     Registrarme
-                  </Button> */}
+                  </Button>}
                   <Divider className={classes.divider} variant="middle" />
                   <Button className={classes.botonGoogle} variant="contained"
                     color="primary" onClick={() => handleLoginSocial(googleAuthProvider)}>
