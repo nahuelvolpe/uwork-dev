@@ -16,15 +16,14 @@ export const PrivateRoute = ({
 
     return (
         <Fragment>
-            { authReady ?
-                <Route {...rest}
-                    component={(props) => (
-                        (currentUser)
-                            ? (<Component {...props} />)
-                            : (<Redirect to="/login" />)
-                    )}
+            <Route {...rest}
+                component={(props) => (
+                    (currentUser)
+                        ? (<Component {...props} />)
+                        : (<Redirect to="/login" />)
+                )}
 
-                /> : <LoadingPage />}
+            />
         </Fragment>
     )
 }

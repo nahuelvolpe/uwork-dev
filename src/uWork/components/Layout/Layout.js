@@ -144,9 +144,9 @@ const Layout = (props) => {
         </div>
       </Fragment>
       <main className={classes.content}>
-        <Container fixed>
-          {children}
-        </Container>
+        {/* <Container fixed> */}
+        {children}
+        {/* </Container> */}
       </main>
     </div>
   )

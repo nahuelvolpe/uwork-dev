@@ -16,15 +16,14 @@ export const PublicRoute = ({
 
     return (
         <Fragment>
-            { authReady ?
-                <Route {...rest}
-                    component={(props) => (
-                        (!currentUser)
-                            ? (<Component {...props} />)
-                            : (<Redirect to="/dashboard" />)
-                    )}
+            <Route {...rest}
+                component={(props) => (
+                    (!currentUser)
+                        ? (<Component {...props} />)
+                        : (<Redirect to="/dashboard" />)
+                )}
 
-                /> : <LoadingPage />}
+            />
         </Fragment>
     )
 }

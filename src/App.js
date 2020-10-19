@@ -6,13 +6,13 @@ import { BrowserRouter } from 'react-router-dom'
 
 const theme = createMuiTheme({
   palette: {
-    primary: { 
+    primary: {
       light: '#18C7FF',
       main: '#14A7D6',
       dark: '#148EB5',
       contrastText: '#fff'
-     },
-    secondary: { 
+    },
+    secondary: {
       main: '#6c757d',
     },
     action: {
@@ -24,7 +24,7 @@ const theme = createMuiTheme({
     success: {
       main: '#28a745'
     },
-    info:{
+    info: {
       main: '#17a2b8'
     },
     danger: {
@@ -38,7 +38,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <div className="App">
         <BrowserRouter>
-          <UWorkApp data-testid="work-app" />
+          <UWorkApp />
         </BrowserRouter>
       </div>
     </ThemeProvider>

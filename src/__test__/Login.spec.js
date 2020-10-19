@@ -7,6 +7,7 @@ import { MemoryRouter } from 'react-router';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import FormikField from '../uWork/components/FormikField/FormikField'
+import { Button } from '@material-ui/core';
 
 configure({ adapter: new Adapter() });
 
@@ -34,6 +35,14 @@ afterEach(cleanup)
         </MemoryRouter>
       )
       expect(component.find(FormikField)).toHaveLength(2)
+    })
+    it('has submit button', () => {
+      const component = mount(
+        <MemoryRouter>
+          <Login />
+        </MemoryRouter>
+      )
+      expect(component).toHaveLength(2)
     })
   })
 

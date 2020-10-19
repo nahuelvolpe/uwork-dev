@@ -16,17 +16,17 @@ const AppRouter = () => {
 
     return (
         <div>
-            {authReady ?
-                <Switch>
-                    <PublicRoute exact path="/" component={Login} />
-                    <PublicRoute exact path="/login" component={Login} />
-                    <PublicRoute exact path="/register" component={Register} />
-                    <Layout>
-                        <PrivateRoute exact path="/edit_profile" component={EditProfile} />
-                        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                    </Layout>
-                </Switch>
-                : <LoadingPage />}
+            {/* {authReady ? */}
+            <Switch>
+                <PublicRoute exact path="/" component={Login} />
+                <PublicRoute exact path="/login" component={Login} />
+                <PublicRoute exact path="/register" component={Register} />
+                <Layout>
+                    <PrivateRoute exact path="/edit_profile" component={EditProfile} />
+                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                </Layout>
+            </Switch>
+            {/* : <LoadingPage />} */}
         </div>
     )
 }

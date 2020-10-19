@@ -97,9 +97,9 @@ const EditProfile = () => {
     UserService.getUserData(id)
       .then(response => {
         const data = response.data()
-        setNombre(data.firstName)
-        setApellido(data.lastName)
-        setuserImg(data.photoURL ? data.photoURL : userImg)
+        setNombre(data.firstName ? data.firstName : '')
+        setApellido(data.lastName ? data.lastName : '')
+        setuserImg(prevImg => data.photoURL ? data.photoURL : prevImg)
       })
   }, [])
 
@@ -186,7 +186,7 @@ const EditProfile = () => {
                   >
                     <span className={classes.imageSrc} />
                     <img src={values.userImg} height="100%"
-                      width="100%" style={{
+                      width="100%" alt="" style={{
                         borderRadius: "50%"
                       }} />
                     <span className={classes.imageBackdrop} />
