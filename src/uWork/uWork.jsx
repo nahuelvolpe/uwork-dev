@@ -5,17 +5,12 @@ import AppRouter from './routers/AppRouter'
 
 const UWorkApp = (props) => {
   return (
-<<<<<<< HEAD
-    <div data-testid={props["data-testid"]}>
+    //<div data-testid={props["data-testid"]}>
+    <div>
       <AuthContextProvider>
         <AppRouter />
       </AuthContextProvider>
     </div>
-=======
-    <AuthContextProvider>
-      <AppRouter />
-    </AuthContextProvider>
->>>>>>> dashboard
   )
 }
 
