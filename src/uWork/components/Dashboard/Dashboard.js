@@ -161,7 +161,7 @@ const Dashboard = (props) => {
             >
                 {materias && materias.map((materia) =>
                     <Grid item xs={12} sm={6} md={4} key={materia.materiaId}>
-                        <Subject data={materia} deleteHandler={handleDelete} />
+                        <Subject data={materia} deleteHandler={handleDelete} history={props.history}/>
                     </Grid>)
                 }
                 <IconButton

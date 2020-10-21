@@ -19,7 +19,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Subject = (props) => {
     const classes = useStyles()
-    const { data } = props
+    const { data, history } = props
+    const materiaId = data.materiaId;
+    console.log(materiaId)
     return (
         <div>
             <Card className={classes.cardContent} key={data.materiaId}>
@@ -32,7 +34,7 @@ const Subject = (props) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">INGRESAR</Button>
+                    <Button size="small" onClick={ ()=> { history.push({pathname: '/tasks', state: { materiaId: materiaId } }) } }>INGRESAR</Button>
                     <Button size="small" onClick={() => { props.deleteHandler(data.materiaId) }}>ELIMINAR</Button>
                 </CardActions>
             </Card>
