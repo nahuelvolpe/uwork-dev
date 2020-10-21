@@ -11,6 +11,9 @@ import Layout from '../components/Layout/Layout';
 import LoadingPage from '../components/LoadingPage/LoadingPage';
 
 const AppRouter = () => {
+
+    const { authReady } = useContext(AuthContext);
+
     return (
         <div>
             {authReady ?

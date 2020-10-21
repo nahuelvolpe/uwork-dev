@@ -202,21 +202,13 @@ const Register = (props) => {
                   <FormikField className={classes.textField} label="Contraseña" id="register-pass" name="password"
                     type="password" required error={errors.password && touched.password} fullWidth />
                   <FormikField className={classes.textField} label="Confirmar contraseña" id="register-conf-pass" name="confirmPassword" type="password" required error={errors.confirmPassword && touched.confirmPassword} fullWidth />
-<<<<<<< HEAD
-                  <Button className={classes.boton}
-=======
                   {<Button className={classes.boton}
->>>>>>> dashboard
                     variant="contained"
                     color="primary"
                     type="submit"
                     disabled={!dirty || !isValid}>
                     Registrarme
-<<<<<<< HEAD
-                  </Button>
-=======
                   </Button>}
->>>>>>> dashboard
                   <Divider className={classes.divider} variant="middle" />
                   <Button className={classes.botonGoogle} variant="contained"
                     color="primary" onClick={() => handleLoginSocial(googleAuthProvider)}>
