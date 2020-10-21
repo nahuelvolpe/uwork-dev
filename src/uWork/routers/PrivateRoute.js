@@ -2,8 +2,8 @@ import React, { useContext, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from '../context/auth'
 import { Route, Redirect } from 'react-router-dom';
-import { CircularProgress } from '@material-ui/core';
 import { auth } from '../services/firebase'
+import LoadingPage from '../components/LoadingPage/LoadingPage';
 
 
 export const PrivateRoute = ({
@@ -13,7 +13,6 @@ export const PrivateRoute = ({
 
     const currentUser = auth.currentUser;
     const { authReady } = useContext(AuthContext)
-    
 
     return (
         <Fragment>
@@ -25,7 +24,7 @@ export const PrivateRoute = ({
                             : (<Redirect to="/login" />)
                     )}
 
-                /> : <CircularProgress />}
+                /> : <LoadingPage />}
         </Fragment>
     )
 }

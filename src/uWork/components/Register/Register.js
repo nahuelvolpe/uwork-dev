@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import * as Yup from 'yup'
 import FormikField from "../FormikField/FormikField";
 import AuthenticationService from '../../services/AuthenticationService.js'
-import { googleAuthProvider } from '../../services/firebase/setup';
+import { db, googleAuthProvider } from '../../services/firebase/setup';
 import { Link } from 'react-router-dom'
 
 const RegisterSchema = Yup.object().shape({
@@ -90,7 +90,16 @@ const Register = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.signupEmail(values.email, values.password)
       .then((response) => {
-        history.push('/edit_profile')
+        if(response.additionalUserInfo.isNewUser){
+          if(createUser(response)){
+            props.history.push("/edit_profile");
+          }else{
+            console.log("Error al registrarse")
+            //CREAR UN STYLE PAR ESTOS ERROES
+          }
+        }else{
+          props.history.push('/dashboard');
+        }    
       })
       .catch((err) => {
         switch (err.code) {
@@ -106,7 +115,19 @@ const Register = (props) => {
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
       .then((response) => {
-        props.history.push('/edit_profile')
+        if(response.additionalUserInfo.isNewUser){
+          if(createUser(response)){
+            props.history.push("/edit_profile");
+          }else{
+            console.log("Error al registrarse")
+            //CREAR UNA WEA PAR ESTOS ERROES
+          }
+        }else{
+          response.user.getIdToken().then( (token) => {
+            localStorage.setItem('AuthToken', `${token}`);
+            props.history.push("/dashboard");
+          })          
+        }      
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":
@@ -122,6 +143,35 @@ const Register = (props) => {
         }
       });
   }
+
+  const createUser = (UserCredential) => {
+    var token = '';
+    const userId = UserCredential.user.uid;
+
+    return UserCredential.user.getIdToken()
+      .then((idtoken) => {
+        token = idtoken;
+
+        return db.collection('users').doc(userId).set({
+          firstName: "",
+          lastName: "",
+          email: UserCredential.user.email,
+          uid: UserCredential.user.uid ,
+          photoURL: UserCredential.user.photoURL ? UserCredential.user.photoURL : "",
+          materias: {}
+        })
+
+      }).then( () => {
+
+        localStorage.setItem('AuthToken', `${token}`);
+
+    }).catch((e) => {
+      console.log(e);
+      //HACER ALGUNA WEA PARA ESTE ERROR
+    })
+  }
+  
+
   const classes = useStyles();
 
   return (
@@ -152,13 +202,21 @@ const Register = (props) => {
                   <FormikField className={classes.textField} label="Contraseña" id="register-pass" name="password"
                     type="password" required error={errors.password && touched.password} fullWidth />
                   <FormikField className={classes.textField} label="Confirmar contraseña" id="register-conf-pass" name="confirmPassword" type="password" required error={errors.confirmPassword && touched.confirmPassword} fullWidth />
+<<<<<<< HEAD
                   <Button className={classes.boton}
+=======
+                  {<Button className={classes.boton}
+>>>>>>> dashboard
                     variant="contained"
                     color="primary"
                     type="submit"
                     disabled={!dirty || !isValid}>
                     Registrarme
+<<<<<<< HEAD
                   </Button>
+=======
+                  </Button>}
+>>>>>>> dashboard
                   <Divider className={classes.divider} variant="middle" />
                   <Button className={classes.botonGoogle} variant="contained"
                     color="primary" onClick={() => handleLoginSocial(googleAuthProvider)}>

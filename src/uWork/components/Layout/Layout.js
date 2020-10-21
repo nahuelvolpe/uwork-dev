@@ -1,8 +1,10 @@
 import React, { Fragment, useState } from 'react'
-import { AppBar, Toolbar, IconButton, Typography, makeStyles, Hidden, MenuList, MenuItem, Drawer, CssBaseline, ListItemIcon, ListItemText } from '@material-ui/core'
+import { AppBar, Container, Toolbar, IconButton, Typography, makeStyles, Hidden, MenuList, MenuItem, Drawer, CssBaseline, ListItemIcon } from '@material-ui/core'
 import AuthenticationService from '../../services/AuthenticationService'
 import MenuIcon from '@material-ui/icons/Menu'
-import DraftsIcon from '@material-ui/icons/Drafts'
+import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
+import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 import { Link } from 'react-router-dom'
 
 const drawerWidth = 240
@@ -26,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     cursor: 'pointer',
     textDecoration: 'none'
+  },
+  actualPage: {
+    flexGrow: 1,
+    color: 'white'
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
@@ -60,23 +66,43 @@ const Layout = (props) => {
       .catch(error => console.log(error))
   }
 
+  const getCurrentPageName = () => {
+    switch (pathname) {
+      case '/edit_profile':
+        return 'Editar perfil'
+        break
+      case '/dashboard':
+        return 'Materias'
+        break
+      default:
+        return ''
+        break
+    }
+  }
+
   const drawer = (
     <div>
       <Hidden smDown>
         <div className={classes.toolbar} />
       </Hidden>
       <MenuList>
+        <MenuItem component={Link} to="/dashboard" selected={'/dashboard' === pathname}>
+          <ListItemIcon>
+            <MenuBookRoundedIcon fontSize="small" />
+          </ListItemIcon>
+          Mis Materias
+        </MenuItem>
         <MenuItem component={Link} to="/edit_profile" selected={'/edit_profile' === pathname}>
+          <ListItemIcon>
+            <AccountCircleRoundedIcon fontSize="small" />
+          </ListItemIcon>
           Editar Perfil
         </MenuItem>
         <MenuItem onClick={handleLogout}>
-          Cerrar Sesión
-        </MenuItem>
-        <MenuItem>
           <ListItemIcon>
-            <DraftsIcon fontSize="small" />
+            <ReplyRoundedIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="Drafts" />
+          Cerrar Sesión
         </MenuItem>
       </MenuList>
     </div>
@@ -86,34 +112,41 @@ const Layout = (props) => {
     <div>
       <Fragment>
         <CssBaseline />
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" className={classes.title} component={Link} to="/dashboard">
-              uWork
-            </Typography>
-            <div>
-              <IconButton onClick={handleDrawerToggle} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon />
-              </IconButton>
-            </div>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          variant="temporary"
-          open={openDrawer}
-          anchor="right"
-          onClose={handleDrawerToggle}
-          classes={{
-            paper: classes.drawerPaper
-          }}
-          ModalProps={{
-            keepMounted: true
-          }}>
-          {drawer}
-        </Drawer>
+        <div className={classes.root}>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="h6" className={classes.title} component={Link} to="/dashboard">
+                uWork
+              </Typography>
+              <Typography variant="h6" className={classes.actualPage}>
+                {getCurrentPageName()}
+              </Typography>
+              <div>
+                <IconButton onClick={handleDrawerToggle} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                  <MenuIcon />
+                </IconButton>
+              </div>
+            </Toolbar>
+          </AppBar>
+          <Drawer
+            variant="temporary"
+            open={openDrawer}
+            anchor="right"
+            onClose={handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper
+            }}
+            ModalProps={{
+              keepMounted: true
+            }}>
+            {drawer}
+          </Drawer>
+        </div>
       </Fragment>
       <main className={classes.content}>
-        {children}
+        <Container fixed>
+          {children}
+        </Container>
       </main>
     </div>
   )
