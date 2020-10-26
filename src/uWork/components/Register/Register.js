@@ -92,7 +92,7 @@ const Register = (props) => {
       .then((response) => {
         if(response.additionalUserInfo.isNewUser){
           if(createUser(response)){
-            props.history.push("/edit_profile");
+            props.history.push({pathname: '/edit_profile', state: { isNewUser: true } });
           }else{
             console.log("Error al registrarse")
             //CREAR UN STYLE PAR ESTOS ERROES

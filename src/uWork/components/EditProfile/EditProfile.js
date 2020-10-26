@@ -84,7 +84,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const EditProfile = () => {
+const EditProfile = (props) => {
+
   const [nombre, setNombre] = useState('')
   const [apellido, setApellido] = useState('')
   const [errorSaving, setErrorSaving] = useState(false)
@@ -94,17 +95,23 @@ const EditProfile = () => {
 
   useEffect(() => {
     const id = auth.currentUser.uid
-    UserService.getUserData(id)
-      .then(response => {
-        const data = response.data()
-        setNombre(data.firstName)
-        setApellido(data.lastName)
-        setuserImg(data.photoURL ? data.photoURL : userImg)
-      })
+    loadData(id)
+
   }, [])
 
   const classes = useStyles();
   const docUserID = auth.currentUser.uid;
+
+  const loadData = async (userID) => {
+    const response = await UserService.getUserData(userID);
+      const data = response.data()
+      if(data !== undefined){
+        setNombre(data.firstName ? data.firstName : nombre)
+        setApellido(data.lastName ? data.lastName : apellido)
+        setuserImg(data.photoURL ? data.photoURL : userImg)
+      }
+      
+} 
 
   const onSubmit = (values) => {
     setSaving(true)

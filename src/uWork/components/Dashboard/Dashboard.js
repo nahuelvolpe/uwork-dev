@@ -55,6 +55,7 @@ const Dashboard = (props) => {
 
         /* const user = await db.doc('/users/' + userID).get();
         const userMaterias = user.data().materias; */
+        
         let userMaterias = [];
         let userMateriasDetail = [];
         userMaterias = await UserService.getUserMaterias(userID);

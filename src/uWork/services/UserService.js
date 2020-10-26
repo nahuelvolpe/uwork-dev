@@ -40,6 +40,23 @@ export const getUserData = (id) => {
   return db.doc(url).get()
 }
 
+export const getUserDetail = async(UserId) => {
+  let UserDetails;
+  const userDoc = await db.collection('users').doc(UserId).get()
+
+  if (userDoc === undefined) {
+      throw Error('El usuario no existe');
+  }
+
+  UserDetails = {
+      firstName: userDoc.data().firstName,
+      lastName: userDoc.data().lastName,
+      id: userDoc.data().lastName,
+      photoURL: userDoc.data().photoURL
+  }
+
+  return UserDetails;
+}
 
 export const getUserMaterias = async (UserId) => {
 

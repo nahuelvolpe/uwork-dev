@@ -1,60 +1,57 @@
 import React, {useState} from 'react'
-import {Button, TextField} from '@material-ui/core';
+import {Button, TextField, IconButton, makeStyles} from '@material-ui/core';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import { db} from '../../services/firebase/setup';
+import { getUserDetail } from '../../services/UserService';
+import Invite from './Invite';
+
+
+const useStyles = makeStyles((theme) => ({
+    materiaContent: {
+        marginTop: theme.spacing(2),
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minWidth: 300,
+        maxHeight: 100,
+        background: '#30E3CA'
+    },
+    floatingButton: {
+        position: 'fixed',
+        bottom: 0,
+        right: 0,
+        marginBottom: '12px',
+        marginRight: '12px',
+        color: 'white',
+        backgroundColor: theme.palette.primary.main
+    }
+
+}));
 
 const Tasks = (props) => {
 
-    const [email, setEmail] = useState('');
-
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
     const materiaId = props.location.state.materiaId;
-    console.log(materiaId)
 
-    const handleChange = (event) => {
-        setEmail(event.target.value);
+    const handleClickOpen = () => {
+        setOpen(true);
     };
-
-    //buscar usuario con ese email
-    const searchUser = () => {
-        var usersRef = db.collection("users");
-
-        var query = usersRef.where("email", "==", email);
-
-        query.get()
-            .then(function(querySnapshot) {
-                let userid = '';
-                querySnapshot.forEach(function(doc) {
-                    // doc.data() is never undefined for query doc snapshots
-                    userid = doc.id;
-                    //console.log(doc.id, " => ", doc.data());
-                });
-                return userid;
-            }).then(userID => {
-
-                return db.collection('users').doc(userID).set(
-                    {
-                        materias: {
-                            [materiaId]: 'colaborador',
-                        }
-                    },
-                    { merge: true }
-                )
-            })
-            .catch(function(error) {
-            console.log("Error getting documents: ", error);
-            });
-    
-    }
-    //agregar la materia a ese usuario
-
+   
     return (
         <>
-            <h1>Invitar colaboradores</h1>
-            <form noValidate autoComplete="off">
-                <TextField id="outlined-basic" label="Outlined" variant="outlined" value={email} onChange={handleChange} />
-                <Button variant="contained" color="primary" onClick={searchUser}>
-                    Enviar invitación
-                </Button>
-            </form>
+            <Invite 
+                open={open}
+                setOpen={setOpen}
+                materiaId={materiaId}
+            />
+            <IconButton
+                className={classes.floatingButton}
+                arial-label="Add"
+                onClick={handleClickOpen}
+            >
+                <PersonAddIcon style={{ fontSize: "40px" }} />
+            </IconButton>
             
         </>      
      );
