@@ -2,9 +2,9 @@ import React from 'react';
 import {Button, TextField, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
-const Colabs = ({openColabs, setOpenColabs, materiaId}) => {
+const Collabs = ({openColabs, setOpenColabs, materiaId}) => {
 
-    /* function Alert(props) {
+    function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
       }
 
@@ -26,14 +26,14 @@ const Colabs = ({openColabs, setOpenColabs, materiaId}) => {
 
     const handleChange = (event) => {
         setEmail(event.target.value);
-    }; */
+    }; 
 
     //buscar los ids de usuarios de la materia
     //mostrarlos
 
 
     return ( 
-        {/* <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
             <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
             <List>
                 {emails.map((email) => (
@@ -56,8 +56,8 @@ const Colabs = ({openColabs, setOpenColabs, materiaId}) => {
                 <ListItemText primary="Add account" />
                 </ListItem>
             </List>
-        </Dialog> */}
+        </Dialog> 
      );
 }
  
-export default Colabs;
+export default Collabs;
