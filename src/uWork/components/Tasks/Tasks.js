@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Button, TextField, IconButton, makeStyles} from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PeopleIcon from '@material-ui/icons/People';
 import { db} from '../../services/firebase/setup';
 import { getUserDetail } from '../../services/UserService';
 import Invite from './Invite';
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: 100,
         background: '#30E3CA'
     },
-    floatingButton: {
+    floatingButtonInvite: {
         position: 'fixed',
         bottom: 0,
         right: 0,
@@ -24,7 +25,18 @@ const useStyles = makeStyles((theme) => ({
         marginRight: '12px',
         color: 'white',
         backgroundColor: theme.palette.primary.main
-    }
+    },
+    floatingButtonColabs: {
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        marginBottom: '12px',
+        marginLeft: '12px',
+        color: 'white',
+        backgroundColor: theme.palette.primary.main
+    },
+
+
 
 }));
 
@@ -46,11 +58,19 @@ const Tasks = (props) => {
                 materiaId={materiaId}
             />
             <IconButton
-                className={classes.floatingButton}
+                className={classes.floatingButtonInvite}
                 arial-label="Add"
                 onClick={handleClickOpen}
             >
                 <PersonAddIcon style={{ fontSize: "40px" }} />
+            </IconButton>
+
+            <IconButton
+                className={classes.floatingButtonColabs}
+                arial-label="Add"
+                onClick={handleClickOpen}
+            >
+                <PeopleIcon style={{ fontSize: "40px" }} />
             </IconButton>
             
         </>      
