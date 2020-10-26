@@ -3,16 +3,32 @@ import {Button, TextField, Snackbar, Dialog, DialogTitle, DialogContent, DialogC
 import MuiAlert from '@material-ui/lab/Alert';
 import { db } from '../../services/firebase';
 
+const Collabs = ({open, setOpenColabs}) => {
 
-const Collabs = ({openCollabs, setOpenCollabs}) => {
 
-    /* const { materiaId } = useParams(); */
+    //const {materiaId} = useParams();
 
-    const handleClose = () => {
-        setOpenCollabs(false);
+    const handleClick = () => {
+        //setOpenSnack(true);
     };
 
+    const handleSnackClose = (event, reason) => {
+        if (reason === 'clickaway') {
+        return;
+        }
 
+        //setOpenSnack(false);
+    };
+
+    const handleClose = () => {
+        open = false;
+    };
+
+    const handleChange = (event) => {
+        //setEmail(event.target.value);
+    }; 
+
+    const handleListItemClick = (event) => {}
     //buscar los ids de usuarios de la materia
     useEffect(() => {
         /* cargarUsuarios(); */
@@ -27,7 +43,7 @@ const Collabs = ({openCollabs, setOpenCollabs}) => {
 
     return ( 
         <div>
-            <Dialog open={openCollabs} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Colaboradores</DialogTitle>
                 <DialogContent>
                 <DialogContentText>
@@ -42,5 +58,5 @@ const Collabs = ({openCollabs, setOpenCollabs}) => {
         </div>
      );
 }
- 
+
 export default Collabs;

@@ -6,7 +6,7 @@ import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 import { Link } from 'react-router-dom'
-import Collabs from '../Subject/Collabs';
+import Collabs from '../Subject/Collabs'
 
 const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
@@ -54,13 +54,13 @@ const useStyles = makeStyles((theme) => ({
 const Layout = (props) => {
 
   const [openDrawer, setOpenDrawer] = useState(false)
-  const [openCollabs, setOpenCollabs] = useState(false)
+  const [openPopCollab, setOpenCollab] = useState(false)
   const classes = useStyles();
   const { location: { pathname }, children } = props;
 
-  const handleClickOpen = () => {
-    setOpenCollabs(true);
-  };
+  const handleOpenCollab = () => {
+    setOpenCollab(!openPopCollab)
+  }
 
   const handleDrawerToggle = () => {
     setOpenDrawer(!openDrawer)
@@ -106,11 +106,12 @@ const Layout = (props) => {
         </MenuItem>
         {
           pathname.includes('/subject') ?
-          <MenuItem onClick={handleClickOpen}>
+          <MenuItem onClick={handleOpenCollab}>
             <ListItemIcon>
               <AccountCircleRoundedIcon fontSize="small" />
             </ListItemIcon>
             Ver colaboradores
+            <Collabs open={openPopCollab}/>
           </MenuItem>
         : []
         }
