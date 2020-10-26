@@ -1,24 +1,24 @@
 
-import { auth } from './firebase'
+import { auth } from './firebase/setup'
 
 
 
 class AuthenticationService {
 
   loginEmail(email, password) {
-     return auth.signInWithEmailAndPassword(email, password)
+     return auth().signInWithEmailAndPassword(email, password)
   }
 
   loginSocial(provider){
-    return auth.signInWithPopup(provider)
+    return auth().signInWithPopup(provider)
   }
 
   signupEmail(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password)
+    return auth().createUserWithEmailAndPassword(email, password)
   }
 
   logout() {
-    return auth.signOut()
+    return auth().signOut()
   }
 
   authMiddleWare(history){

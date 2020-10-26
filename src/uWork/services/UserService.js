@@ -1,5 +1,5 @@
 import React from 'react';
-import { auth, db } from './firebase'
+import { auth, db } from './firebase/setup'
 
 /* getUserDetail (UserId) {
   let UserDetails;
@@ -25,7 +25,7 @@ import { auth, db } from './firebase'
   } */
 
 export const updateUser = (values) => {
-  const docUserID = auth.currentUser.uid;
+  const docUserID = auth().currentUser.uid;
   return db.collection('users').doc(docUserID).update(
     {
       firstName: values.nombre,

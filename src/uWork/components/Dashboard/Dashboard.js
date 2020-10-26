@@ -2,7 +2,7 @@ import { Grid, Paper, makeStyles, Avatar, Card, CardActions, CardContent, Button
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, { useEffect, useState } from 'react';
 import AuthenticationService from '../../services/AuthenticationService';
-import { auth, db } from '../../services/firebase';
+import { auth, db } from '../../services/firebase/setup';
 import * as UserService from '../../services/UserService';
 import * as MateriasService from '../../services/MateriasService';
 import AddSubject from './AddSubject'
@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = (props) => {
 
     const classes = useStyles();
-    const userID = auth.currentUser.uid;
+    const userID = auth().currentUser.uid;
 
     const [materias, setMaterias] = useState([])
     const [userDetail, setUserDetail] = useState('');

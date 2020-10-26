@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Grid, LinearProgress, makeStyles, ButtonBase } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import FormikField from "../FormikField/FormikField";
-import { auth, storage } from '../../services/firebase';
+import { auth, storage } from '../../services/firebase/setup';
 import * as UserService from '../../services/UserService'
 import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar';
 import * as Yup from 'yup'
@@ -93,7 +93,7 @@ const EditProfile = () => {
   const [userImg, setuserImg] = useState('https://gravatar.com/avatar/cbbf8aab01e062ed2238aafca8092dfc?s=200&d=mp&r=x');
 
   useEffect(() => {
-    const id = auth.currentUser.uid
+    const id = auth().currentUser.uid
     UserService.getUserData(id)
       .then(response => {
         const data = response.data()
@@ -104,13 +104,13 @@ const EditProfile = () => {
   }, [])
 
   const classes = useStyles();
-  const docUserID = auth.currentUser.uid;
+  const docUserID = auth().currentUser.uid;
 
   const onSubmit = (values) => {
     setSaving(true)
     UserService.updateUser(values)
       .then(() => {
-        auth.currentUser.updateProfile({
+        auth().currentUser.updateProfile({
           photoURL: userImg
         })
         setSaving(false)

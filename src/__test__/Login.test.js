@@ -42,7 +42,7 @@ afterEach(cleanup)
           <Login />
         </MemoryRouter>
       )
-      expect(component).toHaveLength(2)
+      expect(component.find(Button)).toHaveLength(2)
     })
   })
 

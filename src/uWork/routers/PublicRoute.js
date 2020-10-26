@@ -2,7 +2,7 @@ import React, { useContext, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from '../context/auth'
 import { Route, Redirect } from 'react-router-dom';
-import { auth } from '../services/firebase'
+import { auth } from '../services/firebase/setup'
 import LoadingPage from '../components/LoadingPage/LoadingPage';
 
 
@@ -11,7 +11,7 @@ export const PublicRoute = ({
     ...rest
 }) => {
 
-    const currentUser = auth.currentUser;
+    const currentUser = auth().currentUser;
     const { authReady } = useContext(AuthContext)
 
     return (
