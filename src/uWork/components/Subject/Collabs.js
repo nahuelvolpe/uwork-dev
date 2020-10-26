@@ -1,62 +1,45 @@
-import React from 'react';
+import React, {useParams, useEffect} from 'react';
 import {Button, TextField, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
+import { db } from '../../services/firebase';
 
-const Collabs = ({openColabs, setOpenColabs, materiaId}) => {
 
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-      }
+const Collabs = ({openCollabs, setOpenCollabs}) => {
 
-    const handleClick = () => {
-        setOpenSnack(true);
-    };
-
-    const handleSnackClose = (event, reason) => {
-        if (reason === 'clickaway') {
-        return;
-        }
-
-        setOpenSnack(false);
-    };
+    /* const { materiaId } = useParams(); */
 
     const handleClose = () => {
-        setOpen(false);
+        setOpenCollabs(false);
     };
 
-    const handleChange = (event) => {
-        setEmail(event.target.value);
-    }; 
 
     //buscar los ids de usuarios de la materia
+    useEffect(() => {
+        /* cargarUsuarios(); */
+    }, [])
+
+    /* const cargarUsuarios = async () => {
+        const usuarios = await db.collection('materias').doc(materiaId).get();
+        console.log(usuarios)
+    } */
     //mostrarlos
 
 
     return ( 
-        <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-            <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
-            <List>
-                {emails.map((email) => (
-                <ListItem button onClick={() => handleListItemClick(email)} key={email}>
-                    <ListItemAvatar>
-                    <Avatar className={classes.avatar}>
-                        <PersonIcon />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={email} />
-                </ListItem>
-                ))}
-
-                <ListItem autoFocus button onClick={() => handleListItemClick('addAccount')}>
-                <ListItemAvatar>
-                    <Avatar>
-                    <AddIcon />
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="Add account" />
-                </ListItem>
-            </List>
-        </Dialog> 
+        <div>
+            <Dialog open={openCollabs} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Colaboradores</DialogTitle>
+                <DialogContent>
+                <DialogContentText>
+                </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                    Cerrar
+                </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
      );
 }
  
