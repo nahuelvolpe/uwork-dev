@@ -1,46 +1,62 @@
-import React from 'react';
-import { Card, CardContent, Typography, CardActions, Button, makeStyles } from '@material-ui/core'
+import React, {useState} from 'react'
+import { useParams } from 'react-router-dom'
+import {Button, TextField, IconButton, makeStyles} from '@material-ui/core';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import { db} from '../../services/firebase/setup';
+import { getUserDetail } from '../../services/UserService';
+import Invite from '../Tasks/Invite';
+
 
 const useStyles = makeStyles((theme) => ({
-    textMateria: {
-        fontSize: '1.4rem',
-        fontStyle: 'bold',
-        color: '#FFFFFF'
-    },
-    cardContent: {
+    materiaContent: {
         marginTop: theme.spacing(2),
-        backgroundColor: theme.palette.info.main,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minWidth: 300,
+        maxHeight: 100,
+        background: '#30E3CA'
     },
-    carrera: {
-        marginBottom: 0,
-        color: '#FFFFFF'
-    },
-}))
+    floatingButton: {
+        position: 'fixed',
+        bottom: 0,
+        right: 0,
+        marginBottom: '12px',
+        marginRight: '12px',
+        color: 'white',
+        backgroundColor: theme.palette.primary.main
+    }
+
+}));
 
 const Subject = (props) => {
-    const classes = useStyles()
-    const { data, history } = props
-    const materiaId = data.materiaId;
-    console.log(materiaId)
+
+    const { materiaId } = useParams();
+    const classes = useStyles();
+    const [open, setOpen] = useState(false);
+    //const materiaId = props.location.state.materiaId;
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+   
     return (
-        <div>
-            <Card className={classes.cardContent} key={data.materiaId}>
-                <CardContent>
-                    <Typography className={classes.textMateria} variant="h5" component="h2">
-                        {data.nombre}
-                    </Typography>
-                    <Typography className={classes.carrera}>
-                        {data.carrera}
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Button size="small" onClick={ ()=> { history.push({pathname: '/tasks', state: { materiaId: materiaId } }) } }>INGRESAR</Button>
-                    <Button size="small" onClick={() => { props.deleteHandler(data.materiaId) }}>ELIMINAR</Button>
-                </CardActions>
-            </Card>
-        </div>
-    )
+        <>
+            <Invite 
+                open={open}
+                setOpen={setOpen}
+                materiaId={materiaId}
+            />
+            <IconButton
+                className={classes.floatingButton}
+                arial-label="Add"
+                onClick={handleClickOpen}
+            >
+                <PersonAddIcon style={{ fontSize: "40px" }} />
+            </IconButton>
+            
+        </>      
+     );
 }
-
+ 
 export default Subject;
-

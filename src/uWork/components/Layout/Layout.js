@@ -98,6 +98,16 @@ const Layout = (props) => {
           </ListItemIcon>
           Editar Perfil
         </MenuItem>
+        {
+          pathname.includes('/subject') ?
+          <MenuItem onClick={() => console.log("Abre popup")}>
+            <ListItemIcon>
+              <AccountCircleRoundedIcon fontSize="small" />
+            </ListItemIcon>
+            Ver colaboradores
+          </MenuItem>
+        : []
+        }
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <ReplyRoundedIcon fontSize="small" />

@@ -34,7 +34,7 @@ const CardSubject = (props) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" onClick={ ()=> { history.push({pathname: '/tasks', state: { materiaId: materiaId } }) } }>INGRESAR</Button>
+                    <Button size="small" onClick={ ()=> { history.push(`/subject/${materiaId}`) }}>INGRESAR</Button>
                     <Button size="small" onClick={() => { props.deleteHandler(data.materiaId) }}>ELIMINAR</Button>
                 </CardActions>
             </Card>
