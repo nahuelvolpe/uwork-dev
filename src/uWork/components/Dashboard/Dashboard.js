@@ -6,7 +6,7 @@ import { auth, db } from '../../services/firebase';
 import * as UserService from '../../services/UserService';
 import * as MateriasService from '../../services/MateriasService';
 import AddSubject from './AddSubject'
-import Subject from '../Subject/Subject'
+import CardSubject from '../Subject/CardSubject'
 
 const useStyles = makeStyles((theme) => ({
     materiaContent: {
@@ -161,7 +161,7 @@ const Dashboard = (props) => {
             >
                 {materias && materias.map((materia) =>
                     <Grid item xs={12} sm={6} md={4} key={materia.materiaId}>
-                        <Subject data={materia} deleteHandler={handleDelete} history={props.history}/>
+                        <CardSubject data={materia} deleteHandler={handleDelete} history={props.history}/>
                     </Grid>)
                 }
                 <IconButton

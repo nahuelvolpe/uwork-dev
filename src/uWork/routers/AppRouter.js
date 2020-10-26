@@ -9,7 +9,7 @@ import Dashboard from '../components/Dashboard/Dashboard';
 import EditProfile from '../components/EditProfile/EditProfile';
 import Layout from '../components/Layout/Layout';
 import LoadingPage from '../components/LoadingPage/LoadingPage';
-import Tasks from '../components/Tasks/Tasks';
+import Subject from '../components/Subject/Subject';
 
 const AppRouter = () => {
 
@@ -25,7 +25,7 @@ const AppRouter = () => {
                     <Layout>
                         <PrivateRoute exact path="/edit_profile" component={EditProfile} />
                         <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                        <PrivateRoute exact path="/tasks" component={Tasks} />
+                        <PrivateRoute exact path="/subject/:materiaId" component={Subject} />
                     </Layout>
                 </Switch>
                 : <LoadingPage />}
