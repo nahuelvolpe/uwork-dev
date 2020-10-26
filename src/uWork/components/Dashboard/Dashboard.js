@@ -45,26 +45,34 @@ const Dashboard = (props) => {
 
     //obtener los datos de las materias del usuario
     useEffect(() => {
-        async function cargarMaterias() {
-            /* const user = await db.doc('/users/' + userID).get();
-            const userMaterias = user.data().materias; */
-            let userMaterias = [];
-            let userMateriasDetail = [];
-            userMaterias = await UserService.getUserMaterias(userID);
-            for (const rol in userMaterias) {
-                const materiaDetail = await db.doc('/materias/' + rol).get()
-                userMateriasDetail.push({
-                    materiaId: materiaDetail.id,
-                    carrera: materiaDetail.data().carrera,
-                    nombre: materiaDetail.data().nombre,
-                    roles: materiaDetail.data().roles
-                });
-            }
-            //userMateriasDetail.map(materia => console.log(materia))
-            setMaterias(userMateriasDetail);
-        }
         cargarMaterias();
     }, [])
+
+
+    //cargar materias
+    async function cargarMaterias() {
+
+        /* const user = await db.doc('/users/' + userID).get();
+        const userMaterias = user.data().materias; */
+        
+        let userMaterias = [];
+        let userMateriasDetail = [];
+        userMaterias = await UserService.getUserMaterias(userID);
+
+        for (const rol in userMaterias) {
+            const materiaDetail = await db.doc('/materias/' + rol).get()
+            userMateriasDetail.push({
+                materiaId: materiaDetail.id,
+                carrera: materiaDetail.data().carrera,
+                nombre: materiaDetail.data().nombre,
+                roles: materiaDetail.data().roles
+            });
+        }
+
+        //userMateriasDetail.map(materia => console.log(materia))
+        setMaterias(userMateriasDetail);
+
+    }
 
 
     const handleDelete = (materiaId) => {
