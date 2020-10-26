@@ -1,15 +1,15 @@
 import React from 'react';
-import {Button, TextField, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import {Button, TextField, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, ListItem, ListItemAvatar, Avatar, List, ListItemText } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 
-const Collabs = ({openColabs, setOpenColabs, materiaId}) => {
+const Collabs = ({open, setOpenColabs, materiaId}) => {
 
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
       }
 
     const handleClick = () => {
-        setOpenSnack(true);
+        //setOpenSnack(true);
     };
 
     const handleSnackClose = (event, reason) => {
@@ -17,17 +17,18 @@ const Collabs = ({openColabs, setOpenColabs, materiaId}) => {
         return;
         }
 
-        setOpenSnack(false);
+        //setOpenSnack(false);
     };
 
     const handleClose = () => {
-        setOpen(false);
+        open = false;
     };
 
     const handleChange = (event) => {
-        setEmail(event.target.value);
+        //setEmail(event.target.value);
     }; 
 
+    const handleListItemClick = (event) => {}
     //buscar los ids de usuarios de la materia
     //mostrarlos
 
@@ -36,7 +37,7 @@ const Collabs = ({openColabs, setOpenColabs, materiaId}) => {
         <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
             <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
             <List>
-                {emails.map((email) => (
+                {/* {emails.map((email) => (
                 <ListItem button onClick={() => handleListItemClick(email)} key={email}>
                     <ListItemAvatar>
                     <Avatar className={classes.avatar}>
@@ -46,18 +47,18 @@ const Collabs = ({openColabs, setOpenColabs, materiaId}) => {
                     <ListItemText primary={email} />
                 </ListItem>
                 ))}
-
+ */}
                 <ListItem autoFocus button onClick={() => handleListItemClick('addAccount')}>
                 <ListItemAvatar>
                     <Avatar>
-                    <AddIcon />
+
                     </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary="Add account" />
                 </ListItem>
             </List>
         </Dialog> 
-     );
+    );
 }
- 
+
 export default Collabs;
