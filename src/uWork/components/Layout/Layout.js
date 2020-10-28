@@ -111,7 +111,7 @@ const Layout = (props) => {
               <AccountCircleRoundedIcon fontSize="small" />
             </ListItemIcon>
             Ver colaboradores
-            <Collabs open={openPopCollab}/>
+            {openPopCollab && <Collabs open={openPopCollab}/>}
           </MenuItem>
         : []
         }
