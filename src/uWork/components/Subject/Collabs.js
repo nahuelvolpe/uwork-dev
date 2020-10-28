@@ -1,10 +1,11 @@
-import React, { useEffect, useState} from 'react';
+import React, { useEffect, useState, useContext} from 'react';
 import {useParams} from 'react-router-dom'
 import {makeStyles, IconButton ,Button, TextField, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
 import MuiAlert from '@material-ui/lab/Alert';
 import { auth, db } from '../../services/firebase';
 import { deleteCollabMateria } from '../../services/MateriasService';
+import { SubjectContext } from '../../context/subject';
 
 const useStyles = makeStyles((theme) => ({
     large: {
@@ -21,6 +22,9 @@ const Collabs = ({open, setOpen, materiaId}) => {
     const [users, setUsers] = useState([]);
     const [admin, setAdmin] = useState(false);
 
+    //const { subjectId } = useContext(SubjectContext)
+    //const materiaId = subjectId;
+
     const handleClose = () => {
         setOpen(false);
     };
@@ -28,6 +32,8 @@ const Collabs = ({open, setOpen, materiaId}) => {
     //buscar los ids de usuarios de la materia
     useEffect(() => {
         const cargarUsuarios = async () => {
+            console.log('materia id:')
+            console.log(materiaId)
             const response = await db.collection('materias').doc(materiaId).get();
             const roles = response.data().roles;
             let usuarios = [];
@@ -97,7 +103,7 @@ const Collabs = ({open, setOpen, materiaId}) => {
                 </DialogActions>
             </Dialog>
         </div>
-     );
+    );
 }
 
 export default Collabs;

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useContext, useState } from 'react'
 import { AppBar, Container, Toolbar, IconButton, Typography, makeStyles, Hidden, MenuList, MenuItem, Drawer, CssBaseline, ListItemIcon } from '@material-ui/core'
 import AuthenticationService from '../../services/AuthenticationService'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -7,6 +7,7 @@ import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 import { Link } from 'react-router-dom'
 import Collabs from '../Subject/Collabs'
+import { SubjectContext } from '../../context/subject';
 
 const drawerWidth = 240
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +58,7 @@ const Layout = (props) => {
   const [openPopCollab, setOpenCollab] = useState(false)
   const classes = useStyles();
   const { location: { pathname }, children } = props;
+  const { subjectId } = useContext(SubjectContext)
 
   const handleOpenCollab = () => {
     setOpenCollab(!openPopCollab)
@@ -76,13 +78,10 @@ const Layout = (props) => {
     switch (pathname) {
       case '/edit_profile':
         return 'Editar perfil'
-        break
       case '/dashboard':
         return 'Materias'
-        break
       default:
         return ''
-        break
     }
   }
 
@@ -105,15 +104,15 @@ const Layout = (props) => {
           Editar Perfil
         </MenuItem>
         {
-          /* pathname.includes('/subject') ?
+           pathname.includes('/subject') ?
           <MenuItem onClick={handleOpenCollab}>
             <ListItemIcon>
               <AccountCircleRoundedIcon fontSize="small" />
             </ListItemIcon>
             Ver colaboradores
-            <Collabs open={openPopCollab}/>
+            {openPopCollab && <Collabs open={openPopCollab} subjectId={subjectId}/>}
           </MenuItem>
-        : [] */
+        : [] 
         }
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>

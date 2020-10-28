@@ -85,8 +85,6 @@ const Register = (props) => {
   const [password,] = useState('')
   const [confirmPassword,] = useState('')
 
-  const { history } = props;
-
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.signupEmail(values.email, values.password)
       .then((response) => {

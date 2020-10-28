@@ -1,13 +1,13 @@
-import React, {useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
-import {Button, TextField, IconButton, makeStyles} from '@material-ui/core';
+import { IconButton, makeStyles } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import GroupIcon from '@material-ui/icons/Group';
 import { db} from '../../services/firebase/setup';
 import { getUserDetail } from '../../services/UserService';
 import Invite from './Invite';
 import Collabs from './Collabs';
-
+import { SubjectContext } from '../../context/subject';
 
 const useStyles = makeStyles((theme) => ({
     materiaContent: {
@@ -40,13 +40,17 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Subject = (props) => {
+const Subject = () => {
 
     const { materiaId } = useParams();
+    const { setSubjectId } = useContext(SubjectContext)
     const classes = useStyles();
     const [openInvite, setOpenInvite] = useState(false);
     const [openCollabs, setOpenCollabs] = useState(false);
-    //const materiaId = props.location.state.materiaId;
+
+    useEffect(() => {
+        setSubjectId(materiaId)
+    }, [materiaId, setSubjectId])
 
     const handleClickOpenInvite = () => {
         setOpenInvite(true);
@@ -55,7 +59,7 @@ const Subject = (props) => {
     const handleClickOpenCollabs = () => {
         setOpenCollabs(true);
     };
-   
+
     return (
         <>
             <Invite 
@@ -84,7 +88,7 @@ const Subject = (props) => {
             </IconButton>
             
         </>      
-     );
+    );
 }
- 
+
 export default Subject;

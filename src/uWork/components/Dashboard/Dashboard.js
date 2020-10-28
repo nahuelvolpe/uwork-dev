@@ -1,7 +1,6 @@
-import { Grid, Paper, makeStyles, Avatar, Card, CardActions, CardContent, Button, Typography, IconButton } from '@material-ui/core';
+import { Grid, makeStyles, IconButton } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, { useEffect, useState } from 'react';
-import AuthenticationService from '../../services/AuthenticationService';
 import { auth, db } from '../../services/firebase';
 import * as UserService from '../../services/UserService';
 import * as MateriasService from '../../services/MateriasService';
@@ -36,44 +35,31 @@ const Dashboard = (props) => {
     const userID = auth.currentUser.uid;
 
     const [materias, setMaterias] = useState([])
-    const [userDetail, setUserDetail] = useState('');
+    const [, setUserDetail] = useState('');
 
     const [open, setOpen] = React.useState(false);
-    const [carrera, setCarrera] = React.useState('');
-    const [subject, setSubject] = React.useState('');
-
 
     //obtener los datos de las materias del usuario
-    useEffect(() => {        
-        cargarMaterias();
-    }, [])
+    useEffect(() => {
+        //cargar materias
+        async function cargarMaterias() {
+            let userMaterias = [];
+            let userMateriasDetail = [];
+            userMaterias = await UserService.getUserMaterias(userID);
 
-
-    //cargar materias
-    async function cargarMaterias() {
-
-        /* const user = await db.doc('/users/' + userID).get();
-        const userMaterias = user.data().materias; */
-        
-        let userMaterias = [];
-        let userMateriasDetail = [];
-        userMaterias = await UserService.getUserMaterias(userID);
-
-        for (const rol in userMaterias) {
-            const materiaDetail = await db.doc('/materias/' + rol).get()
-            userMateriasDetail.push({
-                materiaId: materiaDetail.id,
-                carrera: materiaDetail.data().carrera,
-                nombre: materiaDetail.data().nombre,
-                roles: materiaDetail.data().roles
-            });
+            for (const rol in userMaterias) {
+                const materiaDetail = await db.doc('/materias/' + rol).get()
+                userMateriasDetail.push({
+                    materiaId: materiaDetail.id,
+                    carrera: materiaDetail.data().carrera,
+                    nombre: materiaDetail.data().nombre,
+                    roles: materiaDetail.data().roles
+                });
+            }
+            setMaterias(userMateriasDetail);
         }
-
-        //userMateriasDetail.map(materia => console.log(materia))
-        setMaterias(userMateriasDetail);
-
-    }
-
+        cargarMaterias();
+    }, [userID])
 
     const handleDelete = (materiaId) => {
         MateriasService.deleteMateriaAdmin(materiaId, userID)
