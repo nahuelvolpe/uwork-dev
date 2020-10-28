@@ -12,8 +12,6 @@ const Invite = ({open, setOpen, materiaId}) => {
     const [openSnack, setOpenSnack] = useState(false);
     let user_id;
 
-    console.log(materiaId);
-
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
       }

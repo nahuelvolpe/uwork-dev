@@ -44,7 +44,7 @@ const Dashboard = (props) => {
 
 
     //obtener los datos de las materias del usuario
-    useEffect(() => {
+    useEffect(() => {        
         cargarMaterias();
     }, [])
 
@@ -76,7 +76,7 @@ const Dashboard = (props) => {
 
 
     const handleDelete = (materiaId) => {
-        MateriasService.deleteMateria(materiaId, userID)
+        MateriasService.deleteMateriaAdmin(materiaId, userID)
             .then(() => {
                 console.log("materia eliminada");
                 window.location.reload();
@@ -84,6 +84,25 @@ const Dashboard = (props) => {
             .catch((e) => { console.log(e) })
     }
 
+    
+    const handleExit = (materiaId) => {
+        MateriasService.exitMateria(materiaId, userID)
+            .then(() => {
+                console.log("exit materia");
+                window.location.reload();
+            })
+            .catch((e) => { console.log(e) })
+    }
+
+    //------NO USARLA, SOLO DE PRUEBA------
+    const handleEliminar = (materiaId) => {
+        MateriasService.eliminarMateria(materiaId, userID)
+            .then(() => {
+                console.log("exit materia");
+                window.location.reload();
+            })
+            .catch((e) => { console.log(e) })
+    }
 
     async function getUserDetail(UserId) {
         let UserDetails;
@@ -143,6 +162,8 @@ const Dashboard = (props) => {
             .catch((e) => console.log(e));
     }
 
+    
+
     return (
         <div>
             <AddSubject
@@ -161,7 +182,7 @@ const Dashboard = (props) => {
             >
                 {materias && materias.map((materia) =>
                     <Grid item xs={12} sm={6} md={4} key={materia.materiaId}>
-                        <CardSubject data={materia} deleteHandler={handleDelete} history={props.history}/>
+                        <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} eliminarHandler={handleEliminar} history={props.history}/>
                     </Grid>)
                 }
                 <IconButton
