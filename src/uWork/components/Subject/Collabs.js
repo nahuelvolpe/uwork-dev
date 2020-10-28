@@ -16,38 +16,38 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-const Collabs = ({open, setOpen, materiaId}) => {
+const Collabs = ({open}) => {
 
     const classes = useStyles();
     const [users, setUsers] = useState([]);
     const [admin, setAdmin] = useState(false);
 
-    //const { subjectId } = useContext(SubjectContext)
-    //const materiaId = subjectId;
+    const { subjectId } = useContext(SubjectContext)
 
     const handleClose = () => {
-        setOpen(false);
+        open = false;
     };
 
     //buscar los ids de usuarios de la materia
     useEffect(() => {
         const cargarUsuarios = async () => {
-            console.log('materia id:')
-            console.log(materiaId)
-            const response = await db.collection('materias').doc(materiaId).get();
-            const roles = response.data().roles;
-            let usuarios = [];
-            Object.keys(roles).forEach(e => {
-                console.log(e)
-                usuarios.push({
-                    firstName: roles[e].firstName,
-                    lastName: roles[e].lastName,
-                    id: roles[e].id,
-                    photoURL: roles[e].photoURL,
-                    rol: roles[e].rol
+            if(subjectId) {
+                console.log(subjectId)
+                const response = await db.collection('materias').doc(subjectId).get();
+                const roles = response.data().roles;
+                let usuarios = [];
+                Object.keys(roles).forEach(e => {
+                    console.log(e)
+                    usuarios.push({
+                        firstName: roles[e].firstName,
+                        lastName: roles[e].lastName,
+                        id: roles[e].id,
+                        photoURL: roles[e].photoURL,
+                        rol: roles[e].rol
+                    })
                 })
-            })
-            setUsers(usuarios);
+                setUsers(usuarios);
+            }
         }
         const verificarAdmin = async () => {
             const currentUserID = auth.currentUser.uid;
@@ -55,7 +55,7 @@ const Collabs = ({open, setOpen, materiaId}) => {
             const materias = response.data().materias;
             Object.keys(materias).forEach(e => {
                 if(materias[e] === 'admin'){
-                    if(e === materiaId){
+                    if(e === subjectId){
                         console.log('Es admin');
                         setAdmin(true);
                     }
@@ -64,10 +64,10 @@ const Collabs = ({open, setOpen, materiaId}) => {
         }
         cargarUsuarios();
         verificarAdmin(); 
-    }, [])
+    }, [subjectId])
 
     const handleDeleteCollab = (userId) => {
-        deleteCollabMateria(userId, materiaId).then( () => {
+        deleteCollabMateria(userId, subjectId).then( () => {
             console.log("colaborador eliminado")
         }).catch( (e) => {
             console.log(e)

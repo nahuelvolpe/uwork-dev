@@ -104,13 +104,13 @@ const Layout = (props) => {
           Editar Perfil
         </MenuItem>
         {
-           pathname.includes('/subject') ?
+          pathname.includes('/subject') ?
           <MenuItem onClick={handleOpenCollab}>
             <ListItemIcon>
               <AccountCircleRoundedIcon fontSize="small" />
             </ListItemIcon>
             Ver colaboradores
-            {openPopCollab && <Collabs open={openPopCollab} subjectId={subjectId}/>}
+            {openPopCollab && <Collabs open={openPopCollab}/>}
           </MenuItem>
         : [] 
         }
