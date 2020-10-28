@@ -80,15 +80,6 @@ const Dashboard = (props) => {
             .catch((e) => { console.log(e) })
     }
 
-    //------NO USARLA, SOLO DE PRUEBA------
-    const handleEliminar = (materiaId) => {
-        MateriasService.eliminarMateria(materiaId, userID)
-            .then(() => {
-                console.log("exit materia");
-                window.location.reload();
-            })
-            .catch((e) => { console.log(e) })
-    }
 
     async function getUserDetail(UserId) {
         let UserDetails;
@@ -168,7 +159,7 @@ const Dashboard = (props) => {
             >
                 {materias && materias.map((materia) =>
                     <Grid item xs={12} sm={6} md={4} key={materia.materiaId}>
-                        <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} eliminarHandler={handleEliminar} history={props.history}/>
+                        <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history}/>
                     </Grid>)
                 }
                 <IconButton

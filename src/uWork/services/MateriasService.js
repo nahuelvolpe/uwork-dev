@@ -3,16 +3,16 @@ import firebase from 'firebase';
 
 
 export const deleteMateriaAdmin = async (materiaId, user) => {
-    let userRef = db.collection('users').doc(user);
     let subjectRef = db.collection('materias').doc(materiaId);
 
     let dataMaterias = await subjectRef.get()
     const roles = dataMaterias.data().roles;
 
     Object.keys(roles).forEach( (userid) => {
+        let userRef = db.collection('users').doc(userid);
         userRef.set({
-            roles: {
-                [userid]: firebase.firestore.FieldValue.delete(),
+            materias: {
+                [materiaId]: firebase.firestore.FieldValue.delete(),
             }       
         }, {merge: true})
         .then(()=>{console.log('usuario eliminado:' + userid)})
@@ -24,24 +24,32 @@ export const deleteMateriaAdmin = async (materiaId, user) => {
     return response;
 } 
 
-export const exitMateria = async (materiaId, user) => {
-    //eliminar materia desde el usuario
+export const exitMateria = async (materiaId, userId) => {
     //eliminar usuario desde materia
+    let subjectRef = db.collection('materias').doc(materiaId);
+    let userRef = db.collection('users').doc(userId);
+
+
+    const response = subjectRef.set({
+            roles: {
+                [userId]: firebase.firestore.FieldValue.delete()
+            }       
+        }, {merge: true})
+        .then(()=>{
+            return userRef.set({
+                materias: {
+                    [materiaId]: firebase.firestore.FieldValue.delete()
+                }
+            }, {merge: true}) 
+        })
+        //.catch((e) => {console.log(e)})
+
+
+    return response;
+
+    //eliminar materia desde el usuario
 }
 
-//NO USARLA, SOLO DE PRUEBA
-export const eliminarMateria = async (materiaId, user) => {
-    let userRef = db.collection('users').doc(user);
-    const response = db.collection('materias').doc(materiaId).delete()
-        .then(() => {
-            return userRef.set({
-                    materias: {
-                        [materiaId]: firebase.firestore.FieldValue.delete()
-                    }   
-            }, {merge: true})
-        })
-    return response;
-}
 
 export const deleteCollabMateria = async (userId, materiaId) => {
     let subjectRef = db.collection('materias').doc(materiaId);
