@@ -57,10 +57,9 @@ const CardSubject = (props) => {
                 <CardActions>
                     <Button size="small" onClick={ ()=> { history.push(`/subject/${materiaId}`) }}>INGRESAR</Button>
                     {admin ? 
-                    <Button size="small" onClick={() => { /* props.deleteHandler(data.materiaId) */ }}>ELIMINAR</Button>
-                    : <Button size="small" onClick={() => { /* props.exitHandler(data.materiaId) */ }}>SALIR</Button>
-                    }
-                    {/* <Button size="small" onClick={() => { props.eliminarHandler(data.materiaId) }}>ELIMINAR</Button> */}                 
+                    <Button size="small" onClick={() => { props.deleteHandler(data.materiaId) }}>ELIMINAR</Button>
+                    : <Button size="small" onClick={() => { props.exitHandler(data.materiaId) }}>SALIR</Button>
+                    }              
                 </CardActions>
             </Card>
         </div>

@@ -2,6 +2,7 @@ import React, { Fragment, useContext, useState } from 'react'
 import { AppBar, Container, Toolbar, IconButton, Typography, makeStyles, Hidden, MenuList, MenuItem, Drawer, CssBaseline, ListItemIcon } from '@material-ui/core'
 import AuthenticationService from '../../services/AuthenticationService'
 import MenuIcon from '@material-ui/icons/Menu'
+import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
@@ -107,7 +108,7 @@ const Layout = (props) => {
           pathname.includes('/subject') ?
           <MenuItem onClick={handleOpenCollab}>
             <ListItemIcon>
-              <AccountCircleRoundedIcon fontSize="small" />
+              <GroupIcon fontSize="small" />
             </ListItemIcon>
             Ver colaboradores
             {openPopCollab && <Collabs open={openPopCollab}/>}
