@@ -1,4 +1,3 @@
-import React from 'react';
 import { auth, db } from './firebase'
 
 /* getUserDetail (UserId) {

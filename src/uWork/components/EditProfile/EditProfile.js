@@ -95,23 +95,20 @@ const EditProfile = (props) => {
 
   useEffect(() => {
     const id = auth.currentUser.uid
+    const loadData = async (userID) => {
+      const response = await UserService.getUserData(userID);
+        const data = response.data()
+        if(data !== undefined){
+          setNombre(nombre => data.firstName ? data.firstName : nombre)
+          setApellido(apellido => data.lastName ? data.lastName : apellido)
+          setuserImg(userImg => data.photoURL ? data.photoURL : userImg)
+        }
+    }
     loadData(id)
-
   }, [])
 
   const classes = useStyles();
   const docUserID = auth.currentUser.uid;
-
-  const loadData = async (userID) => {
-    const response = await UserService.getUserData(userID);
-      const data = response.data()
-      if(data !== undefined){
-        setNombre(data.firstName ? data.firstName : nombre)
-        setApellido(data.lastName ? data.lastName : apellido)
-        setuserImg(data.photoURL ? data.photoURL : userImg)
-      }
-      
-} 
 
   const onSubmit = (values) => {
     setSaving(true)
@@ -192,7 +189,7 @@ const EditProfile = (props) => {
                     component="span"
                   >
                     <span className={classes.imageSrc} />
-                    <img src={values.userImg} height="100%"
+                    <img src={values.userImg} alt="" height="100%"
                       width="100%" style={{
                         borderRadius: "50%"
                       }} />

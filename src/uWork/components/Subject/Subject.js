@@ -1,11 +1,9 @@
-import React, {useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
-import {Button, TextField, IconButton, makeStyles} from '@material-ui/core';
+import { IconButton, makeStyles } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import { db} from '../../services/firebase/setup';
-import { getUserDetail } from '../../services/UserService';
 import Invite from './Invite';
-
+import { SubjectContext } from '../../context/subject';
 
 const useStyles = makeStyles((theme) => ({
     materiaContent: {
@@ -29,17 +27,21 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-const Subject = (props) => {
+const Subject = () => {
 
     const { materiaId } = useParams();
+    const { setSubjectId } = useContext(SubjectContext)
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    //const materiaId = props.location.state.materiaId;
+
+    useEffect(() => {
+        setSubjectId(materiaId)
+    }, [materiaId, setSubjectId])
 
     const handleClickOpen = () => {
         setOpen(true);
     };
-   
+
     return (
         <>
             <Invite 
@@ -54,9 +56,8 @@ const Subject = (props) => {
             >
                 <PersonAddIcon style={{ fontSize: "40px" }} />
             </IconButton>
-            
         </>      
-     );
+    );
 }
- 
+
 export default Subject;

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Switch } from 'react-router-dom';
+import { SubjectProvider } from '../context/subject'
 import { AuthContext } from '../context/auth';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
@@ -18,16 +19,20 @@ const AppRouter = () => {
     return (
         <div>
             {authReady ?
+            <SubjectProvider>
                 <Switch>
                     <PublicRoute exact path="/" component={Login} />
                     <PublicRoute exact path="/login" component={Login} />
                     <PublicRoute exact path="/register" component={Register} />
-                    <Layout>
-                        <PrivateRoute exact path="/edit_profile" component={EditProfile} />
-                        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                        <PrivateRoute exact path="/subject/:materiaId" component={Subject} />
-                    </Layout>
+                    
+                        <Layout>
+                            <PrivateRoute exact path="/edit_profile" component={EditProfile} />
+                            <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                            <PrivateRoute exact path="/subject/:materiaId" component={Subject} />
+                        </Layout>
+                    
                 </Switch>
+            </SubjectProvider>
                 : <LoadingPage />}
         </div>
     )

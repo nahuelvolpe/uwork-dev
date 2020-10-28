@@ -8,15 +8,13 @@ import { getUserDetail } from '../../services/UserService';
 const Invite = ({open, setOpen, materiaId}) => {
 
     const [email, setEmail] = useState('');
-    const [userDetail, setUserDetail] = useState([]);
+    const [, setUserDetail] = useState([]);
     const [openSnack, setOpenSnack] = useState(false);
     let user_id;
 
-    console.log(materiaId);
-
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
-      }
+    }
 
     const handleClick = () => {
         setOpenSnack(true);
