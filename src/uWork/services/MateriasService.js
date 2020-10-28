@@ -8,7 +8,7 @@ export const deleteMateriaAdmin = async (materiaId, user) => {
 
     let dataMaterias = await subjectRef.get()
     const roles = dataMaterias.data().roles;
-
+    
     Object.keys(roles).forEach( (userid) => {
         userRef.set({
             roles: {
