@@ -59,6 +59,19 @@ export default function AddSubject(props) {
                   Descripcion: 
                   <input type="text"/>
               </label>
+              <label>
+                  Colaborador a cargo:
+                  <select>
+                    <option value="value0" selected>Todos</option>
+                    <option value="value1">Dan Suarez</option> 
+                    <option value="value2">Nahuel Volpe</option>
+                    <option value="value3">Mati Gimenez</option>
+                  </select>
+              </label>
+              <label>
+                  Fecha Límite:
+                  <input type="date"/>
+              </label>
             </FormControl>
           </form>
 

@@ -5,15 +5,15 @@ const useStyles = makeStyles((theme) => ({
     textTarea: {
         fontSize: '1.4rem',
         fontStyle: 'bold',
-        color: '#FFFFFF'
+        color: '#14A7D6'
     },
     cardContent: {
         marginTop: theme.spacing(2),
-        backgroundColor: theme.palette.info.main,
+        backgroundColor: '#FFFFFF',
     },
     descripcion: {
         marginBottom: 0,
-        color: '#FFFFFF'
+        color: 'black'
     },
 }))
 
@@ -30,6 +30,9 @@ const CardTask = (props) => {
                     </Typography>
                     <Typography className={classes.descripcion}>
                         Descripcion
+                    </Typography>
+                    <Typography className={classes.descripcion}>
+                        Fecha Límite
                     </Typography>
                 </CardContent>
                 <CardActions>

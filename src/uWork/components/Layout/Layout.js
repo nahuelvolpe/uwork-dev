@@ -80,6 +80,8 @@ const Layout = (props) => {
         return 'Editar perfil'
       case '/dashboard':
         return 'Materias'
+      case '/subject/NjGYAC7I37Kng7YXW1ow':
+        return 'Practica Profesional'
       default:
         return ''
     }

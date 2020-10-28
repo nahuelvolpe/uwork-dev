@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
-import { IconButton, makeStyles, Button, Grid } from '@material-ui/core';
+import { Grid, IconButton, makeStyles, Button } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import GroupIcon from '@material-ui/icons/Group';
 import { db} from '../../services/firebase/setup';
@@ -38,6 +38,15 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: '12px',
         color: 'white',
         backgroundColor: theme.palette.primary.main
+    },
+    floatingButtonAddTask: {
+        position: 'fixed',
+        bottom: 10,
+        right: 100,
+        color: 'white',
+        marginBottom: '12px',
+        marginRight: '12px',
+        backgroundColor: theme.palette.info.main
     }
 
 }));
@@ -49,6 +58,7 @@ const Subject = () => {
     const classes = useStyles();
     const [openInvite, setOpenInvite] = useState(false);
     const [openCollabs, setOpenCollabs] = useState(false);
+    const [openTask, setOpenTask] = useState(false);
 
     useEffect(() => {
         setSubjectId(materiaId)
@@ -61,6 +71,10 @@ const Subject = () => {
     const handleClickOpenCollabs = () => {
         setOpenCollabs(true);
     };
+
+    const handleClickOpenTask = () => {
+        setOpenTask(true);
+    }
 
     return (
         <>
@@ -75,13 +89,13 @@ const Subject = () => {
                 materiaId={materiaId}
             />
             <AddTask
-                open={open}
-                setOpen={setOpen}
+                open={openTask}
+                setOpen={setOpenTask}
             />
 
-                    <Grid item xs={12} sm={6} md={4}>
-                        <CardTask/>
-                    </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+                        <CardTask />
+            </Grid>
 
             <IconButton
                 className={classes.floatingButtonInvite}
@@ -90,12 +104,7 @@ const Subject = () => {
             >
                 <PersonAddIcon style={{ fontSize: "40px" }} />
             </IconButton>
-<<<<<<< HEAD
 
-            <Button 
-            className={classes.floatingButton}
-            onClick={handleClickOpen}> Agregar Tarea </Button>
-=======
             <IconButton
                 className={classes.floatingButtonCollabs}
                 arial-label="Ver colaboradores"
@@ -103,8 +112,13 @@ const Subject = () => {
             >
                 <GroupIcon style={{ fontSize: "40px" }} />
             </IconButton>
+
+            <Button variant="contained"
+                    className={classes.floatingButtonAddTask}
+                    onClick={handleClickOpenTask}>
+                    Agregar Tarea
+            </Button>
             
->>>>>>> 91950fb786b9267c596025a3a5299ede707537d0
         </>      
     );
 }
