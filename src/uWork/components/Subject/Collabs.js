@@ -1,4 +1,5 @@
-import React, {useParams, useEffect} from 'react';
+import React, {useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 import {Button, TextField, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import { db } from '../../services/firebase';
