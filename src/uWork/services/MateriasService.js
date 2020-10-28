@@ -40,10 +40,9 @@ export const exitMateria = async (materiaId, userId) => {
                 materias: {
                     [materiaId]: firebase.firestore.FieldValue.delete()
                 }
-            }, {merge: true})
-        
+            }, {merge: true}) 
         })
-        .catch((e) => {console.log(e)})
+        //.catch((e) => {console.log(e)})
 
 
     return response;
