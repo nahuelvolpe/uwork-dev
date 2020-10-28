@@ -1,33 +1,101 @@
-import React, { useEffect } from 'react';
-import {Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import React, { useEffect, useState, useContext} from 'react';
+import {useParams} from 'react-router-dom'
+import {makeStyles, IconButton ,Button, TextField, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import ClearIcon from '@material-ui/icons/Clear';
+import MuiAlert from '@material-ui/lab/Alert';
+import { auth, db } from '../../services/firebase';
+import { deleteCollabMateria } from '../../services/MateriasService';
+import { SubjectContext } from '../../context/subject';
+
+const useStyles = makeStyles((theme) => ({
+    large: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+      marginRight: '5px'
+    },
+  }));
 
 
-const Collabs = ({open, subjectId}) => {
+const Collabs = ({open, setOpen, materiaId}) => {
+
+    const classes = useStyles();
+    const [users, setUsers] = useState([]);
+    const [admin, setAdmin] = useState(false);
+
+    //const { subjectId } = useContext(SubjectContext)
+    //const materiaId = subjectId;
 
     const handleClose = () => {
-        open = false;
+        setOpen(false);
     };
 
     //buscar los ids de usuarios de la materia
     useEffect(() => {
-        /* cargarUsuarios(); */
+        const cargarUsuarios = async () => {
+            console.log('materia id:')
+            console.log(materiaId)
+            const response = await db.collection('materias').doc(materiaId).get();
+            const roles = response.data().roles;
+            let usuarios = [];
+            Object.keys(roles).forEach(e => {
+                console.log(e)
+                usuarios.push({
+                    firstName: roles[e].firstName,
+                    lastName: roles[e].lastName,
+                    id: roles[e].id,
+                    photoURL: roles[e].photoURL,
+                    rol: roles[e].rol
+                })
+            })
+            setUsers(usuarios);
+        }
+        const verificarAdmin = async () => {
+            const currentUserID = auth.currentUser.uid;
+            const response = await db.collection('users').doc(currentUserID).get();
+            const materias = response.data().materias;
+            Object.keys(materias).forEach(e => {
+                if(materias[e] === 'admin'){
+                    if(e === materiaId){
+                        console.log('Es admin');
+                        setAdmin(true);
+                    }
+                }
+            })
+        }
+        cargarUsuarios();
+        verificarAdmin(); 
     }, [])
 
-    /* const cargarUsuarios = async () => {
-        const usuarios = await db.collection('materias').doc(materiaId).get();
-        console.log(usuarios)
-    } */
-    //mostrarlos
-
+    const handleDeleteCollab = (userId) => {
+        deleteCollabMateria(userId, materiaId).then( () => {
+            console.log("colaborador eliminado")
+        }).catch( (e) => {
+            console.log(e)
+        })
+    }
 
     return ( 
         <div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Colaboradores</DialogTitle>
-                <DialogContent>
-                <DialogContentText>
-                </DialogContentText>
-                </DialogContent>
+                <List>
+                    {users.map((user) => (
+                        <ListItem key={user.id}>
+                            <ListItemAvatar>
+                                <Avatar src={user.photoURL} className={classes.large}/>
+                            </ListItemAvatar>
+                            <ListItemText 
+                                primary={`${user.firstName} ${user.lastName}`} 
+                                secondary={user.rol}
+                            />
+                            <ListItemSecondaryAction>
+                                <IconButton onClick={() => { /* handleDeleteCollab(user.id) */ }} edge="end" aria-label="delete" disabled={!admin}>
+                                    <ClearIcon />
+                                </IconButton>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    ))}
+                </List>
                 <DialogActions>
                 <Button onClick={handleClose} color="primary">
                     Cerrar

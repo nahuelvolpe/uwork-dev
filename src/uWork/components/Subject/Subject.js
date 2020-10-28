@@ -2,7 +2,11 @@ import React, {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import { IconButton, makeStyles, Button, Grid } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import GroupIcon from '@material-ui/icons/Group';
+import { db} from '../../services/firebase/setup';
+import { getUserDetail } from '../../services/UserService';
 import Invite from './Invite';
+import Collabs from './Collabs';
 import { SubjectContext } from '../../context/subject';
 import AddTask from '../Task/AddTask';
 import CardTask from '../Task/CardTask';
@@ -17,12 +21,21 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: 100,
         background: '#30E3CA'
     },
-    floatingButton: {
+    floatingButtonInvite: {
         position: 'fixed',
         bottom: 0,
         right: 0,
         marginBottom: '12px',
         marginRight: '12px',
+        color: 'white',
+        backgroundColor: theme.palette.primary.main
+    },
+    floatingButtonCollabs: {
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        marginBottom: '12px',
+        marginLeft: '12px',
         color: 'white',
         backgroundColor: theme.palette.primary.main
     }
@@ -34,21 +47,31 @@ const Subject = () => {
     const { materiaId } = useParams();
     const { setSubjectId } = useContext(SubjectContext)
     const classes = useStyles();
-    const [open, setOpen] = useState(false);
+    const [openInvite, setOpenInvite] = useState(false);
+    const [openCollabs, setOpenCollabs] = useState(false);
 
     useEffect(() => {
         setSubjectId(materiaId)
     }, [materiaId, setSubjectId])
 
-    const handleClickOpen = () => {
-        setOpen(true);
+    const handleClickOpenInvite = () => {
+        setOpenInvite(true);
+    };
+
+    const handleClickOpenCollabs = () => {
+        setOpenCollabs(true);
     };
 
     return (
         <>
             <Invite 
-                open={open}
-                setOpen={setOpen}
+                open={openInvite}
+                setOpen={setOpenInvite}
+                materiaId={materiaId}
+            />
+            <Collabs 
+                open={openCollabs}
+                setOpen={setOpenCollabs}
                 materiaId={materiaId}
             />
             <AddTask
@@ -61,16 +84,27 @@ const Subject = () => {
                     </Grid>
 
             <IconButton
-                className={classes.floatingButton}
-                arial-label="Add"
-                onClick={handleClickOpen}
+                className={classes.floatingButtonInvite}
+                arial-label="Agregar colaborador"
+                onClick={handleClickOpenInvite}
             >
                 <PersonAddIcon style={{ fontSize: "40px" }} />
             </IconButton>
+<<<<<<< HEAD
 
             <Button 
             className={classes.floatingButton}
             onClick={handleClickOpen}> Agregar Tarea </Button>
+=======
+            <IconButton
+                className={classes.floatingButtonCollabs}
+                arial-label="Ver colaboradores"
+                onClick={handleClickOpenCollabs}
+            >
+                <GroupIcon style={{ fontSize: "40px" }} />
+            </IconButton>
+            
+>>>>>>> 91950fb786b9267c596025a3a5299ede707537d0
         </>      
     );
 }
