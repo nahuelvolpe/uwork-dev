@@ -82,7 +82,6 @@ const Login = (props) => {
 
   const [email,] = useState('')
   const [password,] = useState('')
-  const [textConfirm, setTextConfirm] = useState('')
 
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.loginEmail(values.email, values.password)

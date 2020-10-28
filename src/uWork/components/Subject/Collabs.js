@@ -1,35 +1,13 @@
-import React, {useEffect} from 'react';
-import {useParams} from 'react-router-dom';
-import {Button, TextField, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
-import { db } from '../../services/firebase';
-
-const Collabs = ({open, setOpenColabs}) => {
+import React, { useEffect } from 'react';
+import {Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 
 
-    //const {materiaId} = useParams();
-
-    const handleClick = () => {
-        //setOpenSnack(true);
-    };
-
-    const handleSnackClose = (event, reason) => {
-        if (reason === 'clickaway') {
-        return;
-        }
-
-        //setOpenSnack(false);
-    };
+const Collabs = ({open, subjectId}) => {
 
     const handleClose = () => {
         open = false;
     };
 
-    const handleChange = (event) => {
-        //setEmail(event.target.value);
-    }; 
-
-    const handleListItemClick = (event) => {}
     //buscar los ids de usuarios de la materia
     useEffect(() => {
         /* cargarUsuarios(); */
@@ -57,7 +35,7 @@ const Collabs = ({open, setOpenColabs}) => {
                 </DialogActions>
             </Dialog>
         </div>
-     );
+    );
 }
 
 export default Collabs;
