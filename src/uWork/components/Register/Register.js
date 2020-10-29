@@ -86,18 +86,9 @@ const Register = (props) => {
   const [confirmPassword,] = useState('')
 
   const onSubmit = (values, { setFieldError }) => {
-    AuthenticationService.signupEmail(values.email, values.password)
-      .then((response) => {
-        if(response.additionalUserInfo.isNewUser){
-          if(createUser(response)){
-            props.history.push({pathname: '/edit_profile', state: { isNewUser: true } });
-          }else{
-            console.log("Error al registrarse")
-            //CREAR UN STYLE PAR ESTOS ERROES
-          }
-        }else{
-          props.history.push('/dashboard');
-        }    
+    AuthenticationService.register(values.email, values.password)
+      .then(() => {
+        props.history.push('/edit_profile')
       })
       .catch((err) => {
         switch (err.code) {
@@ -105,6 +96,7 @@ const Register = (props) => {
             setFieldError("email", "El email ingresado se encuentra en uso")
             break;
           default:
+            setFieldError("email", "El email ingresado se encuentra en uso")
             break;
         }
       });
@@ -112,20 +104,8 @@ const Register = (props) => {
 
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
-      .then((response) => {
-        if(response.additionalUserInfo.isNewUser){
-          if(createUser(response)){
-            props.history.push("/edit_profile");
-          }else{
-            console.log("Error al registrarse")
-            //CREAR UNA WEA PAR ESTOS ERROES
-          }
-        }else{
-          response.user.getIdToken().then( (token) => {
-            localStorage.setItem('AuthToken', `${token}`);
-            props.history.push("/dashboard");
-          })          
-        }      
+      .then(() => {
+          props.history.push("/dashboard"); 
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":
@@ -142,7 +122,7 @@ const Register = (props) => {
       });
   }
 
-  const createUser = (UserCredential) => {
+  /* const createUser = (UserCredential) => {
     var token = '';
     const userId = UserCredential.user.uid;
 
@@ -167,7 +147,7 @@ const Register = (props) => {
       console.log(e);
       //HACER ALGUNA WEA PARA ESTE ERROR
     })
-  }
+  } */
   
 
   const classes = useStyles();

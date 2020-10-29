@@ -1,5 +1,6 @@
 
 import { auth } from './firebase'
+import * as UserService from './UserService'
 class AuthenticationService {
 
   async loginEmail(email, password) {
@@ -9,12 +10,38 @@ class AuthenticationService {
     return loginResponse
   }
 
-  loginSocial(provider){
-    return auth.signInWithPopup(provider)
+  async loginSocial(provider){
+    const response = await auth.signInWithPopup(provider)
+    const token = await response.user.getIdToken()
+    if (response.additionalUserInfo.isNewUser) {
+      try {
+        await UserService.createUserFromProfile(response)
+      } catch (error) {
+        console.log(error)
+        throw new Error("Error al registrarse.")
+      }
+    }
+    localStorage.setItem('AuthToken', `${token}`)
+    return
   }
 
-  signupEmail(email, password) {
-    return auth.createUserWithEmailAndPassword(email, password)
+  async register(email, password) {
+    let credentials
+    const user = await UserService.getUserByEmail(email)
+    if (!user.docs.length) {
+      credentials = await auth.createUserWithEmailAndPassword(email, password)
+      const token = await credentials.user.getIdToken()
+      try {
+        await UserService.createUser(credentials)
+        localStorage.setItem('AuthToken', `${token}`)
+      } catch (error) {
+        console.log(error)
+        throw new Error("Error al registrarse.")
+      }
+    } else {
+      throw new Error("Ya existe un usuario con este mail.")
+    }
+    return credentials;
   }
 
   logout() {
@@ -24,13 +51,10 @@ class AuthenticationService {
 
   authMiddleWare(history){
     const authToken = localStorage.getItem('AuthToken');
-      if(authToken === null){
-        history.push('/login');
-      }
+    if(authToken === null){
+      history.push('/login');
     }
-
-  
-
+  }
 }
 
 export default new AuthenticationService()

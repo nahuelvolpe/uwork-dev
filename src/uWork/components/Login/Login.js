@@ -106,11 +106,8 @@ const Login = (props) => {
 
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
-      .then((response) => {
-        return response.user.getIdToken()
-      }).then( (token) => {
-        localStorage.setItem('AuthToken', `${token}`);
-        props.history.push('/dashboard');
+      .then(() => {
+          props.history.push("/dashboard");
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":
