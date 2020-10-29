@@ -1,12 +1,12 @@
 
 import { auth } from './firebase'
-
-
-
 class AuthenticationService {
 
-  loginEmail(email, password) {
-     return auth.signInWithEmailAndPassword(email, password)
+  async loginEmail(email, password) {
+    const loginResponse = await auth.signInWithEmailAndPassword(email, password)
+    const token = await loginResponse.user.getIdToken()
+    localStorage.setItem('AuthToken', `${token}`)
+    return loginResponse
   }
 
   loginSocial(provider){
@@ -18,6 +18,7 @@ class AuthenticationService {
   }
 
   logout() {
+    localStorage.removeItem('AuthToken')
     return auth.signOut()
   }
 
