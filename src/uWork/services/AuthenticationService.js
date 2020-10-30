@@ -3,6 +3,18 @@ import { auth } from './firebase'
 import * as UserService from './UserService'
 class AuthenticationService {
 
+  getSessionUserId() {
+    return auth.currentUser.uid
+  }
+
+  updateProfilePhoto(photoUrl) {
+    return auth.currentUser.updateProfile(
+      {
+        photoURL: photoUrl
+      }
+    )
+  }
+
   async loginEmail(email, password) {
     const loginResponse = await auth.signInWithEmailAndPassword(email, password)
     const token = await loginResponse.user.getIdToken()

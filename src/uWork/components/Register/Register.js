@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import * as Yup from 'yup'
 import FormikField from "../FormikField/FormikField";
 import AuthenticationService from '../../services/AuthenticationService.js'
-import { db, googleAuthProvider } from '../../services/firebase/setup';
+import { googleAuthProvider } from '../../services/firebase/setup';
 import { Link } from 'react-router-dom'
 
 const RegisterSchema = Yup.object().shape({
@@ -111,44 +111,14 @@ const Register = (props) => {
           case "auth/invalid-email":
           case "auth/user-disabled":
           case "auth/user-not-found":
-            //setEmailError(err.message);
             break;
           case "auth/wrong-password":
-            //setPasswordError(err.message);
             break;
           default:
             break;
         }
       });
   }
-
-  /* const createUser = (UserCredential) => {
-    var token = '';
-    const userId = UserCredential.user.uid;
-
-    return UserCredential.user.getIdToken()
-      .then((idtoken) => {
-        token = idtoken;
-
-        return db.collection('users').doc(userId).set({
-          firstName: "",
-          lastName: "",
-          email: UserCredential.user.email,
-          uid: UserCredential.user.uid,
-          photoURL: UserCredential.user.photoURL ? UserCredential.user.photoURL : "",
-          materias: {}
-        })
-
-      }).then( () => {
-
-        localStorage.setItem('AuthToken', `${token}`);
-
-    }).catch((e) => {
-      console.log(e);
-      //HACER ALGUNA WEA PARA ESTE ERROR
-    })
-  } */
-  
 
   const classes = useStyles();
 

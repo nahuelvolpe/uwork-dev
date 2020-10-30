@@ -1,4 +1,4 @@
-import { auth, db } from './firebase'
+import { db, storage } from './firebase/setup'
 
 export const createUser = (credentials) => {
   const userId = credentials.user.uid;
@@ -25,9 +25,8 @@ export const createUserFromProfile = (credentials) => {
   })
 }
 
-export const updateUser = (values) => {
-  const docUserID = auth.currentUser.uid;
-  return db.collection('users').doc(docUserID).update(
+export const updateUser = (id, values) => {
+  return db.collection('users').doc(id).update(
     {
       firstName: values.nombre,
       lastName: values.apellido,
@@ -43,6 +42,12 @@ export const getUserByEmail = (email) => {
 export const getUserData = (id) => {
   const url = '/users/' + id
   return db.doc(url).get()
+}
+
+export const uploadUserFile = (referencePath, file, errorFn, completeFn) => {
+  const reference = storage.ref(referencePath)
+  const uploadTask = reference.put(file)
+  uploadTask.on('state_changed', null, errorFn, completeFn)
 }
 
 export const getUserDetail = async(UserId) => {
