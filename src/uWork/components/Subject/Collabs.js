@@ -16,15 +16,16 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 
-const Collabs = ({open}) => {
+const Collabs = ({open, setOpenCollabs}) => {
 
     const classes = useStyles();
     const [users, setUsers] = useState([]);
     const [admin, setAdmin] = useState(false);
+    const [openSnack, setOpenSnack] = useState(false);
 
     const { subjectId } = useContext(SubjectContext)
 
-    const handleClose = () => {
+    const handleCloseCollabs = () => {
         open = false;
     };
 
@@ -67,7 +68,9 @@ const Collabs = ({open}) => {
     }, [subjectId])
 
     const handleDeleteCollab = (userId) => {
-        deleteCollabMateria(userId, subjectId).then( () => {
+        console.log(userId + ' ' + subjectId)
+        deleteCollabMateria(userId, subjectId)
+        .then( () => {
             console.log("colaborador eliminado")
         }).catch( (e) => {
             console.log(e)
@@ -76,7 +79,7 @@ const Collabs = ({open}) => {
 
     return ( 
         <div>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <Dialog open={open} onClose={handleCloseCollabs} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Colaboradores</DialogTitle>
                 <List>
                     {users.map((user) => (
@@ -89,7 +92,7 @@ const Collabs = ({open}) => {
                                 secondary={user.rol}
                             />
                             <ListItemSecondaryAction>
-                                <IconButton onClick={() => { /* handleDeleteCollab(user.id) */ }} edge="end" aria-label="delete" disabled={!admin}>
+                                <IconButton onClick={() => { handleDeleteCollab(user.id) }} edge="end" aria-label="delete" disabled={!admin}>
                                     <ClearIcon />
                                 </IconButton>
                             </ListItemSecondaryAction>
@@ -97,11 +100,11 @@ const Collabs = ({open}) => {
                     ))}
                 </List>
                 <DialogActions>
-                <Button onClick={handleClose} color="primary">
+                <Button onClick={handleCloseCollabs} color="primary">
                     Cerrar
                 </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog>           
         </div>
     );
 }

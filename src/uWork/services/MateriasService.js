@@ -25,10 +25,8 @@ export const deleteMateriaAdmin = async (materiaId, user) => {
 } 
 
 export const exitMateria = async (materiaId, userId) => {
-    //eliminar usuario desde materia
     let subjectRef = db.collection('materias').doc(materiaId);
     let userRef = db.collection('users').doc(userId);
-
 
     const response = subjectRef.set({
             roles: {
@@ -44,28 +42,27 @@ export const exitMateria = async (materiaId, userId) => {
         })
         //.catch((e) => {console.log(e)})
 
-
     return response;
-
-    //eliminar materia desde el usuario
 }
 
 
 export const deleteCollabMateria = async (userId, materiaId) => {
     let subjectRef = db.collection('materias').doc(materiaId);
-    let userRef =  db.collection('user').doc(userId);
+    let userRef = db.collection('users').doc(userId);
 
-    const response = userRef.set({
-        materias: {
-            [materiaId]: firebase.firestore.FieldValue.delete()
-        }
-    }, {merge: true}).then(() => {
-        return subjectRef.set({
+    const response = subjectRef.set({
             roles: {
                 [userId]: firebase.firestore.FieldValue.delete()
-            }
+            }       
         }, {merge: true})
-    })
-    
-    return response;  
+        .then(()=>{
+            return userRef.set({
+                materias: {
+                    [materiaId]: firebase.firestore.FieldValue.delete()
+                }
+            }, {merge: true}) 
+        })
+        //.catch((e) => {console.log(e)})
+
+    return response; 
 }

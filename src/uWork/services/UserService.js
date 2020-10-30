@@ -50,7 +50,7 @@ export const getUserDetail = async(UserId) => {
   UserDetails = {
       firstName: userDoc.data().firstName,
       lastName: userDoc.data().lastName,
-      id: userDoc.data().lastName,
+      id: userDoc.data().uid,
       photoURL: userDoc.data().photoURL
   }
 

@@ -69,7 +69,7 @@ const Subject = () => {
             />
             <Collabs 
                 open={openCollabs}
-                setOpen={setOpenCollabs}
+                setOpenCollabs={setOpenCollabs}
                 materiaId={materiaId}
             />
             <IconButton
@@ -78,13 +78,6 @@ const Subject = () => {
                 onClick={handleClickOpenInvite}
             >
                 <PersonAddIcon style={{ fontSize: "40px" }} />
-            </IconButton>
-            <IconButton
-                className={classes.floatingButtonCollabs}
-                arial-label="Ver colaboradores"
-                onClick={handleClickOpenCollabs}
-            >
-                <GroupIcon style={{ fontSize: "40px" }} />
             </IconButton>
             
         </>      
