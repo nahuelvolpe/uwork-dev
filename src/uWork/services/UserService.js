@@ -27,10 +27,12 @@ export const createUserFromProfile = (credentials) => {
 
 export const updateUser = async (id, values) => {
   const userData = await getUserDataById(id)
+  console.log(userData)
+  console.log(values)
   return db.collection('users').doc(id).set(
     {
-      firstName: values.firstName ? values.firstName : userData.firstName,
-      lastName: values.lastName ? values.lastName : userData.lastName,
+      firstName: values.nombre ? values.nombre : userData.firstName,
+      lastName: values.apellido ? values.apellido : userData.lastName,
       photoURL: values.userImg ? values.userImg : userData.photoURL,
       materias: values.materias ? values.materias : userData.materias
     }, { merge: true }
