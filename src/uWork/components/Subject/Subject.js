@@ -105,14 +105,6 @@ const Subject = () => {
                 <PersonAddIcon style={{ fontSize: "40px" }} />
             </IconButton>
 
-            <IconButton
-                className={classes.floatingButtonCollabs}
-                arial-label="Ver colaboradores"
-                onClick={handleClickOpenCollabs}
-            >
-                <GroupIcon style={{ fontSize: "40px" }} />
-            </IconButton>
-
             <Button variant="contained"
                     className={classes.floatingButtonAddTask}
                     onClick={handleClickOpenTask}>
