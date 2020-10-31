@@ -1,6 +1,39 @@
 import { db } from './firebase'
 import firebase from 'firebase';
+import * as UserService from './UserService'
 
+export const getSubjects = async (userId) => {
+    let result = []
+    const materias = await UserService.getUserSubjects(userId)
+    for (const id in materias) {
+        const doc = await db.doc(`/materias/${id}`).get()
+        if (doc.exists) {
+            const docData = doc.data()
+            result.push({
+                materiaId: id,
+                carrera: docData.carrera,
+                nombre: docData.nombre
+            });
+        }
+    }
+    return result
+}
+
+export const createSubject = (subjectData, userDetails) => {
+    return db.collection('materias').add({
+        nombre: subjectData.subject,
+        carrera: subjectData.career,
+        roles: {
+            [userDetails.id]: {
+                rol: 'admin',
+                firstName: userDetails.firstName,
+                lastName: userDetails.lastName,
+                id: userDetails.id,
+                photoURL: userDetails.photoURL
+            }
+        }
+    })
+}
 
 export const deleteMateriaAdmin = async (materiaId, user) => {
     let subjectRef = db.collection('materias').doc(materiaId);

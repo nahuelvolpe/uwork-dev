@@ -1,9 +1,9 @@
 import { Grid, makeStyles, IconButton } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, { useEffect, useState } from 'react';
-import { auth, db } from '../../services/firebase';
 import * as UserService from '../../services/UserService';
 import * as MateriasService from '../../services/MateriasService';
+import AuthenticationService from '../../services/AuthenticationService'
 import AddSubject from './AddSubject'
 import CardSubject from '../Subject/CardSubject'
 
@@ -32,10 +32,9 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = (props) => {
 
     const classes = useStyles();
-    const userID = auth.currentUser.uid;
+    const userId = AuthenticationService.getSessionUserId();
 
     const [materias, setMaterias] = useState([])
-    const [, setUserDetail] = useState('');
 
     const [open, setOpen] = React.useState(false);
 
@@ -44,25 +43,14 @@ const Dashboard = (props) => {
         //cargar materias
         async function cargarMaterias() {
             let userMaterias = [];
-            let userMateriasDetail = [];
-            userMaterias = await UserService.getUserMaterias(userID);
-
-            for (const rol in userMaterias) {
-                const materiaDetail = await db.doc('/materias/' + rol).get()
-                userMateriasDetail.push({
-                    materiaId: materiaDetail.id,
-                    carrera: materiaDetail.data().carrera,
-                    nombre: materiaDetail.data().nombre,
-                    roles: materiaDetail.data().roles
-                });
-            }
-            setMaterias(userMateriasDetail);
+            userMaterias = await MateriasService.getSubjects(userId)
+            setMaterias(userMaterias);
         }
         cargarMaterias();
-    }, [userID])
+    }, [userId])
 
     const handleDelete = (materiaId) => {
-        MateriasService.deleteMateriaAdmin(materiaId, userID)
+        MateriasService.deleteMateriaAdmin(materiaId, userId)
             .then(() => {
                 console.log("materia eliminada");
                 window.location.reload();
@@ -72,7 +60,7 @@ const Dashboard = (props) => {
 
     
     const handleExit = (materiaId) => {
-        MateriasService.exitMateria(materiaId, userID)
+        MateriasService.exitMateria(materiaId, userId)
             .then(() => {
                 console.log("exit materia");
                 window.location.reload();
@@ -80,66 +68,28 @@ const Dashboard = (props) => {
             .catch((e) => { console.log(e) })
     }
 
-
-    async function getUserDetail(UserId) {
-        let UserDetails;
-        const userDoc = await db.collection('users').doc(UserId).get()
-
-        if (userDoc === undefined) {
-            throw Error('El usuario no existe');
-        }
-
-        UserDetails = {
-            firstName: userDoc.data().firstName,
-            lastName: userDoc.data().lastName,
-            id: userDoc.data().uid,
-            photoURL: userDoc.data().photoURL
-        }
-
-        return UserDetails;
-    }
-
     const handleClickOpen = () => {
         setOpen(true);
     };
 
-    const createSubject = (subject) => {
-        getUserDetail(userID)
-            .then((users) => {
-                setUserDetail(users)
-
-                return db.collection('materias')
-                    .add({
-                        nombre: subject.subject,
-                        carrera: subject.career,
-                        roles: {
-                            [userID]: {
-                                rol: 'admin',
-                                firstName: users.firstName,
-                                lastName: users.lastName,
-                                id: users.id,
-                                photoURL: users.photoURL
-                            }
-                        }
-                    })
-            }).then((doc) => {
-                console.log(doc);
-                return db.collection('users').doc(userID).set(
-                    {
-                        materias: {
-                            [doc.id]: 'admin',
-                        }
-                    },
-                    { merge: true }
-                )
-            }).then(() => {
-                console.log("se cargo bien la materia en usuarios");
-                window.location.reload()
-            })
-            .catch((e) => console.log(e));
+    const createSubject = async (subject) => {
+        const userDetails = await UserService.getUserDetail(userId)
+        MateriasService.createSubject(subject, userDetails)
+        .then(async (doc) => {
+            await UserService.updateUser(userId, { materias: { [doc.id]: 'admin' }})
+            return doc
+        })
+        .then(async doc => { 
+            const ref = await doc.get()
+            const newSubject = ref.data()
+            setMaterias(prevState =>
+                [...prevState, { materiaId: doc.id, carrera: newSubject.carrera, nombre: newSubject.nombre }]
+            )
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
-
-    
 
     return (
         <div>
