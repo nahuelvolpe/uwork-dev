@@ -3,6 +3,7 @@ import { Button, Grid, LinearProgress, makeStyles, ButtonBase } from "@material-
 import { Formik, Form } from "formik";
 import FormikField from "../FormikField/FormikField";
 import * as UserService from '../../services/UserService'
+import * as MateriasService from '../../services/MateriasService'
 import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar';
 import * as Yup from 'yup'
 import AuthenticationService from '../../services/AuthenticationService'
@@ -93,6 +94,11 @@ const EditProfile = (props) => {
   const [saving, setSaving] = useState(false)
   const [openSuccessBar, setOpen] = useState(false)
   const [userImg, setuserImg] = useState('https://gravatar.com/avatar/cbbf8aab01e062ed2238aafca8092dfc?s=200&d=mp&r=x');
+  let isNewUser = false;
+
+  if(props.location.state){
+    isNewUser = true;
+  }
 
   useEffect(() => {
     const id = AuthenticationService.getSessionUserId()

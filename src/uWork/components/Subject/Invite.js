@@ -116,7 +116,7 @@ const Invite = ({open, setOpen, materiaId}) => {
                 </DialogActions>
                 <Snackbar open={openSnack} autoHideDuration={4000} onClose={handleSnackClose}>
                     <Alert onClose={handleSnackClose} severity="success">
-                    Invitación enviada correctamente!
+                    Invitación enviada!
                     </Alert>
                 </Snackbar>
             </Dialog>
