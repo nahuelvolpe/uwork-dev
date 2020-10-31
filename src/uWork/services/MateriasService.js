@@ -1,4 +1,4 @@
-import { db, auth } from './firebase'
+import { db } from './firebase'
 import firebase from 'firebase';
 import * as UserService from './UserService'
 
@@ -17,6 +17,21 @@ export const getSubjects = async (userId) => {
         }
     }
     return result
+}
+
+export const getSubjectById = async (subjectId) => {
+    const doc = await db.collection('materias').doc(subjectId).get()
+    if (doc.exists) {
+        const data = doc.data()
+        return {
+            materiaId: subjectId,
+            carrera: data.carrera,
+            nombre: data.nombre,
+            roles: data.roles
+        }
+    } else {
+        throw new Error('El usuario no existe')
+    }
 }
 
 export const createSubject = (subjectData, userDetails) => {

@@ -52,12 +52,10 @@ const Dashboard = (props) => {
     const handleDelete = (materiaId) => {
         MateriasService.deleteMateriaAdmin(materiaId, userId)
             .then(() => {
-                console.log("materia eliminada");
-                window.location.reload();
+                setMaterias(prevState => prevState.filter(e => e.materiaId != materiaId))
             })
             .catch((e) => { console.log(e) })
     }
-
     
     const handleExit = (materiaId) => {
         MateriasService.exitMateria(materiaId, userId)
@@ -77,13 +75,11 @@ const Dashboard = (props) => {
         MateriasService.createSubject(subject, userDetails)
         .then(async (doc) => {
             await UserService.updateUser(userId, { materias: { [doc.id]: 'admin' }})
-            return doc
+            return MateriasService.getSubjectById(doc.id)
         })
-        .then(async doc => { 
-            const ref = await doc.get()
-            const newSubject = ref.data()
+        .then(newSubject => {
             setMaterias(prevState =>
-                [...prevState, { materiaId: doc.id, carrera: newSubject.carrera, nombre: newSubject.nombre }]
+                [...prevState, { materiaId: newSubject.materiaId, carrera: newSubject.carrera, nombre: newSubject.nombre }]
             )
         })
         .catch(err => {
