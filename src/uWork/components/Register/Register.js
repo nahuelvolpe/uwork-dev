@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import * as Yup from 'yup'
 import FormikField from "../FormikField/FormikField";
 import AuthenticationService from '../../services/AuthenticationService.js'
-import { db, googleAuthProvider } from '../../services/firebase/setup';
+import { googleAuthProvider } from '../../services/firebase/setup';
 import { Link } from 'react-router-dom'
 
 const RegisterSchema = Yup.object().shape({
@@ -86,18 +86,9 @@ const Register = (props) => {
   const [confirmPassword,] = useState('')
 
   const onSubmit = (values, { setFieldError }) => {
-    AuthenticationService.signupEmail(values.email, values.password)
-      .then((response) => {
-        if(response.additionalUserInfo.isNewUser){
-          if(createUser(response)){
-            props.history.push({pathname: '/edit_profile', state: { isNewUser: true } });
-          }else{
-            console.log("Error al registrarse")
-            //CREAR UN STYLE PAR ESTOS ERROES
-          }
-        }else{
-          props.history.push('/dashboard');
-        }    
+    AuthenticationService.register(values.email, values.password)
+      .then(() => {
+        props.history.push('/edit_profile')
       })
       .catch((err) => {
         switch (err.code) {
@@ -105,6 +96,7 @@ const Register = (props) => {
             setFieldError("email", "El email ingresado se encuentra en uso")
             break;
           default:
+            setFieldError("email", "El email ingresado se encuentra en uso")
             break;
         }
       });
@@ -112,63 +104,21 @@ const Register = (props) => {
 
   const handleLoginSocial = (provider) => {
     AuthenticationService.loginSocial(provider)
-      .then((response) => {
-        if(response.additionalUserInfo.isNewUser){
-          if(createUser(response)){
-            props.history.push("/edit_profile");
-          }else{
-            console.log("Error al registrarse")
-            //CREAR UNA WEA PAR ESTOS ERROES
-          }
-        }else{
-          response.user.getIdToken().then( (token) => {
-            localStorage.setItem('AuthToken', `${token}`);
-            props.history.push("/dashboard");
-          })          
-        }      
+      .then(() => {
+          props.history.push("/dashboard"); 
       }).catch((err) => {
         switch (err.code) {
           case "auth/invalid-email":
           case "auth/user-disabled":
           case "auth/user-not-found":
-            //setEmailError(err.message);
             break;
           case "auth/wrong-password":
-            //setPasswordError(err.message);
             break;
           default:
             break;
         }
       });
   }
-
-  const createUser = (UserCredential) => {
-    var token = '';
-    const userId = UserCredential.user.uid;
-
-    return UserCredential.user.getIdToken()
-      .then((idtoken) => {
-        token = idtoken;
-
-        return db.collection('users').doc(userId).set({
-          firstName: "",
-          lastName: "",
-          email: UserCredential.user.email,
-          uid: UserCredential.user.uid,
-          photoURL: UserCredential.user.photoURL ? UserCredential.user.photoURL : "",
-          materias: {}
-        })
-
-      }).then( () => {
-
-        localStorage.setItem('AuthToken', `${token}`);
-
-    }).catch((e) => {
-      console.log(e);
-      //HACER ALGUNA WEA PARA ESTE ERROR
-    })
-  }
-  
 
   const classes = useStyles();
 

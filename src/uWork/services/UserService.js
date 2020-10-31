@@ -1,31 +1,32 @@
-import { auth, db } from './firebase'
+import { db, storage } from './firebase/setup'
 
-/* getUserDetail (UserId) {
-  let UserDetails;
+export const createUser = (credentials) => {
+  const userId = credentials.user.uid;
+  return db.collection('users').doc(userId).set({
+    firstName: "",
+    lastName: "",
+    email: credentials.user.email,
+    uid: credentials.user.uid,
+    photoURL: credentials.user.photoURL ? credentials.user.photoURL : "",
+    materias: {}
+  })
+}
 
-  db.collection('users').doc(UserId).get()
-    .then( (userDoc) => {
+export const createUserFromProfile = (credentials) => {
+  const userId = credentials.user.uid;
+  const profile = credentials.additionalUserInfo.profile
+  return db.collection('users').doc(userId).set({
+    firstName: profile.given_name,
+    lastName: profile.family_name,
+    email: profile.email,
+    uid: userId,
+    photoURL: profile.picture,
+    materias: {}
+  })
+}
 
-      console.log(userDoc.data());
-
-      UserDetails = {
-        firstName: userDoc.data().firstName,
-        lastName: userDoc.data().lastName,
-        id: userDoc.data().lastName,
-        photoURL: userDoc.data().photoURL
-    }
-    }).catch((e) => {
-      console.log(e)
-    })
-
-    console.log(UserDetails)
-  
-    return UserDetails;
-  } */
-
-export const updateUser = (values) => {
-  const docUserID = auth.currentUser.uid;
-  return db.collection('users').doc(docUserID).update(
+export const updateUser = (id, values) => {
+  return db.collection('users').doc(id).update(
     {
       firstName: values.nombre,
       lastName: values.apellido,
@@ -34,9 +35,19 @@ export const updateUser = (values) => {
   )
 }
 
+export const getUserByEmail = (email) => {
+  return db.collection('users').where('email', '==', email).get();
+}
+
 export const getUserData = (id) => {
   const url = '/users/' + id
   return db.doc(url).get()
+}
+
+export const uploadUserFile = (referencePath, file, errorFn, completeFn) => {
+  const reference = storage.ref(referencePath)
+  const uploadTask = reference.put(file)
+  uploadTask.on('state_changed', null, errorFn, completeFn)
 }
 
 export const getUserDetail = async(UserId) => {

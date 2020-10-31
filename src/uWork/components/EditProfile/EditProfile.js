@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Button, Grid, LinearProgress, makeStyles, ButtonBase } from "@material-ui/core";
 import { Formik, Form } from "formik";
 import FormikField from "../FormikField/FormikField";
-import { auth, storage } from '../../services/firebase';
 import * as UserService from '../../services/UserService'
 import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar';
 import * as Yup from 'yup'
+import AuthenticationService from '../../services/AuthenticationService'
+import * as StorageService from '../../services/StorageService'
 
 const EditProfileSchema = Yup.object().shape({
   nombre: Yup.string()
@@ -94,29 +95,27 @@ const EditProfile = (props) => {
   const [userImg, setuserImg] = useState('https://gravatar.com/avatar/cbbf8aab01e062ed2238aafca8092dfc?s=200&d=mp&r=x');
 
   useEffect(() => {
-    const id = auth.currentUser.uid
+    const id = AuthenticationService.getSessionUserId()
     const loadData = async (userID) => {
       const response = await UserService.getUserData(userID);
-        const data = response.data()
-        if(data !== undefined){
-          setNombre(nombre => data.firstName ? data.firstName : nombre)
-          setApellido(apellido => data.lastName ? data.lastName : apellido)
-          setuserImg(userImg => data.photoURL ? data.photoURL : userImg)
-        }
+      const data = response.data()
+      if(data !== undefined){
+        setNombre(nombre => data.firstName ? data.firstName : nombre)
+        setApellido(apellido => data.lastName ? data.lastName : apellido)
+        setuserImg(userImg => data.photoURL ? data.photoURL : userImg)
+      }
     }
     loadData(id)
   }, [])
 
   const classes = useStyles();
-  const docUserID = auth.currentUser.uid;
+  const docUserID = AuthenticationService.getSessionUserId();
 
   const onSubmit = (values) => {
     setSaving(true)
-    UserService.updateUser(values)
+    UserService.updateUser(docUserID, values)
+      .then(() => AuthenticationService.updateProfilePhoto(userImg))
       .then(() => {
-        auth.currentUser.updateProfile({
-          photoURL: userImg
-        })
         setSaving(false)
         setOpen(true)
       }).catch((e) => {
@@ -140,21 +139,18 @@ const EditProfile = (props) => {
   };
 
   const handleFileChange = (e, setFieldValue) => {
-    var file = e.target.files[0];
+    const url = `users/${docUserID}/profile.jpg`
+    const onError = function () {
+      setErrorSaving(true)
+    }
+    const onComplete = function () {
+      StorageService.getDownloadUrl(url).then(imgUrl => {
+        setFieldValue("userImg", imgUrl)
+      })
+    }
+    var file = e.target.files[0]
     setFieldValue("file", file)
-    var storageRef = storage.ref('users/' + docUserID + '/profile.jpg');
-    var task = storageRef.put(file);
-    task.on('state_changed',
-      null,
-      function error(err) {
-        setErrorSaving(true)
-      },
-      function complete() {
-        storageRef.getDownloadURL().then(imgUrl => {
-          setFieldValue("userImg", imgUrl)
-        })
-      }
-    );
+    UserService.uploadUserFile(url, file, onError, onComplete)
   }
 
   return (
