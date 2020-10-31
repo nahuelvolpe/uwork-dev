@@ -25,13 +25,15 @@ export const createUserFromProfile = (credentials) => {
   })
 }
 
-export const updateUser = (id, values) => {
-  return db.collection('users').doc(id).update(
+export const updateUser = async (id, values) => {
+  const userData = await getUserDataById(id)
+  return db.collection('users').doc(id).set(
     {
-      firstName: values.nombre,
-      lastName: values.apellido,
-      photoURL: values.userImg
-    }
+      firstName: values.firstName ? values.firstName : userData.firstName,
+      lastName: values.lastName ? values.lastName : userData.lastName,
+      photoURL: values.userImg ? values.userImg : userData.photoURL,
+      materias: values.materias ? values.materias : userData.materias
+    }, { merge: true }
   )
 }
 
@@ -50,47 +52,41 @@ export const uploadUserFile = (referencePath, file, errorFn, completeFn) => {
   uploadTask.on('state_changed', null, errorFn, completeFn)
 }
 
-export const getUserDetail = async(UserId) => {
-  let UserDetails;
-  const userDoc = await db.collection('users').doc(UserId).get()
+export const getUserDetail = async (userId) => {
+  let userDetails;
+  const userDoc = await db.collection('users').doc(userId).get()
 
-  if (userDoc === undefined) {
+  if (!userDoc.exists) {
       throw Error('El usuario no existe');
   }
-
-  UserDetails = {
+  userDetails = {
       firstName: userDoc.data().firstName,
       lastName: userDoc.data().lastName,
-      id: userDoc.data().lastName,
-      photoURL: userDoc.data().photoURL
+      id: userDoc.data().uid,
+      photoURL: userDoc.data().photoURL,
+      materias: userDoc.data().materias
   }
-
-  return UserDetails;
+  return userDetails;
 }
 
-export const getUserMaterias = async (UserId) => {
+export const getUserDataById = async (id) => {
+  const doc = await db.collection('users').doc(id).get()
+  if (doc.exists) {
+    return doc.data()
+  } else {
+    throw new Error('El usuario no existe')
+  }
+}
 
-  let UserDetails;
-
-  const userDoc = await db.collection('users').doc(UserId).get()
-
-  //console.log(userDoc.data());
-
-  if (userDoc === undefined) {
-    throw Error('El usuario no existe');
+export const getUserSubjects = async (id) => {
+  let user
+  try {
+    user = await getUserDataById(id)
+  } catch (err) {
+    throw new Error(err)
   }
 
-  UserDetails = {
-    firstName: userDoc.data().firstName,
-    lastName: userDoc.data().lastName,
-    id: userDoc.data().lastName,
-    materias: userDoc.data().materias,
-    photoURL: userDoc.data().photoURL
-  }
-
-  //console.log(UserDetails.materias)
-
-  return UserDetails.materias;
+  return user.materias;
 }
 
 
