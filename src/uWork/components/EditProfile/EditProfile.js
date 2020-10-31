@@ -113,7 +113,8 @@ const EditProfile = (props) => {
 
   const onSubmit = (values) => {
     setSaving(true)
-    UserService.updateUser(docUserID, values)
+    if(isNewUser){
+      UserService.updateUser(docUserID, values)
       .then(() => AuthenticationService.updateProfilePhoto(userImg))
       .then(() => {
         setSaving(false)
@@ -122,6 +123,18 @@ const EditProfile = (props) => {
         setErrorSaving(true)
         setSaving(false)
       })
+    }else{
+      MateriasService.updateUserDetail(values, docUserID)
+      .then(() => AuthenticationService.updateProfilePhoto(userImg))
+      .then(() => {
+        setSaving(false)
+        setOpen(true)
+      }).catch((e) => {
+        setErrorSaving(true)
+        setSaving(false)
+      })
+    }
+    
   }
 
   const handleCloseSnackBarSuccess = (event, reason) => {
