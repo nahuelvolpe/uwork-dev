@@ -115,7 +115,7 @@ const Register = (props) => {
       .then((response) => {
         if(response.additionalUserInfo.isNewUser){
           if(createUser(response)){
-            props.history.push("/edit_profile");
+            props.history.push("/edit_profile", { isNewUser: true });
           }else{
             console.log("Error al registrarse")
             //CREAR UNA WEA PAR ESTOS ERROES

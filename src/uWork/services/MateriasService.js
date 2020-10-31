@@ -1,5 +1,6 @@
-import { db } from './firebase'
+import { db, auth } from './firebase'
 import firebase from 'firebase';
+import * as UserService from './UserService';
 
 
 export const deleteMateriaAdmin = async (materiaId, user) => {
@@ -65,4 +66,45 @@ export const deleteCollabMateria = async (userId, materiaId) => {
         //.catch((e) => {console.log(e)})
 
     return response; 
+}
+
+export const updateUserDetail = async (values, userId) => {
+    let userRef = db.collection('users').doc(userId);
+    let dataUsers = await userRef.get()
+    const materias = dataUsers.data().materias;
+
+    if(Object.keys(materias).length === 0){
+        return db.collection('users').doc(userId).set(
+          {
+            firstName: values.nombre,
+            lastName: values.apellido,
+            photoURL: values.userImg
+          }, {merge: true}
+        )        
+    }else{
+        const userMaterias = await UserService.getUserMaterias(userId)
+        let response;
+
+        for (const materiaId in userMaterias) {
+            response = await db.collection('materias').doc(materiaId).set({
+                roles: {
+                    [userId]: {
+                        firstName: values.nombre,
+                        lastName: values.apellido,
+                        photoURL: values.userImg
+                    }
+                }
+            }, {merge: true})       
+        }
+
+        return db.collection('users').doc(userId).set(
+            {
+              firstName: values.nombre,
+              lastName: values.apellido,
+              photoURL: values.userImg
+            }, {merge: true}
+        )
+    }
+
+
 }

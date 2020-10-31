@@ -33,12 +33,10 @@ const Collabs = ({open, setOpenCollabs}) => {
     useEffect(() => {
         const cargarUsuarios = async () => {
             if(subjectId) {
-                console.log(subjectId)
                 const response = await db.collection('materias').doc(subjectId).get();
                 const roles = response.data().roles;
                 let usuarios = [];
                 Object.keys(roles).forEach(e => {
-                    console.log(e)
                     usuarios.push({
                         firstName: roles[e].firstName,
                         lastName: roles[e].lastName,
@@ -57,7 +55,7 @@ const Collabs = ({open, setOpenCollabs}) => {
             Object.keys(materias).forEach(e => {
                 if(materias[e] === 'admin'){
                     if(e === subjectId){
-                        console.log('Es admin');
+                       //console.log('Es admin');
                         setAdmin(true);
                     }
                 }
@@ -68,7 +66,6 @@ const Collabs = ({open, setOpenCollabs}) => {
     }, [subjectId])
 
     const handleDeleteCollab = (userId) => {
-        console.log(userId + ' ' + subjectId)
         deleteCollabMateria(userId, subjectId)
         .then( () => {
             console.log("colaborador eliminado")

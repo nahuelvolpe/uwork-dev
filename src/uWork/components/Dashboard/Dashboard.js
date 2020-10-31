@@ -46,7 +46,6 @@ const Dashboard = (props) => {
             let userMaterias = [];
             let userMateriasDetail = [];
             userMaterias = await UserService.getUserMaterias(userID);
-
             for (const rol in userMaterias) {
                 const materiaDetail = await db.doc('/materias/' + rol).get()
                 userMateriasDetail.push({
