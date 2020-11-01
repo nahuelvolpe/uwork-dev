@@ -75,9 +75,9 @@ export default function AddSubject(props) {
           
           <form className={classes.form} noValidate>
             <FormControl className={classes.formControl}>
-            <TextField id="standard-basic" label="Nombre" autocomplete="off"/>
+            <TextField id="standard-basic" label="Nombre" autoComplete="off"/>
                   
-            <TextField id="standard-basic" label="Descripcion" multiline rows={4} autocomplete="off"/>
+            <TextField id="standard-basic" label="Descripcion" multiline rows={4} autoComplete="off"/>
                   
             <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel id="demo-simple-select-outlined-label">Colaborador/es a cargo</InputLabel>
