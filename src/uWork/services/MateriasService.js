@@ -64,12 +64,13 @@ export const getCollabsFromSubject = async (subjectId) => {
 export const verifyAdmin = async (subjectId) => {
     const userId = AuthenticationService.getSessionUserId()
     const user = await UserService.getUserDataById(userId)
-    console.log(user)
+    let isAdmin
     Object.keys(user.materias).forEach(e => {
         if(e === subjectId && user.materias[e] === 'admin') {
-            return true
+            isAdmin = true
         }
     })
+    return isAdmin
 }
 
 export const deleteMateriaAdmin = async (materiaId, user) => {

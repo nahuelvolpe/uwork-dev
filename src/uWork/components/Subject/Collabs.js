@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useContext} from 'react';
-import {makeStyles, IconButton ,Button, Dialog, DialogTitle, DialogActions, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
-import ClearIcon from '@material-ui/icons/Clear';
-import * as MateriasService from '../../services/MateriasService';
-import { SubjectContext } from '../../context/subject';
+import React, { useEffect, useState, useContext} from 'react'
+import {makeStyles, IconButton ,Button, Dialog, DialogTitle, DialogActions, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction } from '@material-ui/core'
+import ClearIcon from '@material-ui/icons/Clear'
+import * as MateriasService from '../../services/MateriasService'
+import { SubjectContext } from '../../context/subject'
+import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
 
 const useStyles = makeStyles((theme) => ({
     large: {
@@ -17,6 +18,8 @@ const Collabs = ({open, setOpen}) => {
     const classes = useStyles();
     const [users, setUsers] = useState([]);
     const [admin, setAdmin] = useState(false);
+    const [openSuccessBar, setOpenSuccessBar] = useState(false)
+    const [error, setError] = useState(false)
 
     const { subjectId } = useContext(SubjectContext)
 
@@ -24,7 +27,6 @@ const Collabs = ({open, setOpen}) => {
         setOpen(!open)
     };
 
-    //buscar los ids de usuarios de la materia
     useEffect(() => {
         const cargarUsuarios = async () => {
             if(subjectId) {
@@ -34,6 +36,7 @@ const Collabs = ({open, setOpen}) => {
         }
         const verificarAdmin = async () => {
             const isAdmin = await MateriasService.verifyAdmin(subjectId)
+            console.log(isAdmin)
             setAdmin(isAdmin)
         }
         cargarUsuarios()
@@ -43,14 +46,29 @@ const Collabs = ({open, setOpen}) => {
     const handleDeleteCollab = (userId) => {
         MateriasService.deleteCollabMateria(userId, subjectId)
         .then( () => {
-            console.log("colaborador eliminado")
+            setUsers(prevState => prevState.filter(x => x.uid !== userId))
+            setOpenSuccessBar(true)
         }).catch( (e) => {
-            console.log(e)
+            setError(true)
         })
     }
 
     const handleDialogClick = e => {
         e.stopPropagation();
+    };
+
+    const handleCloseSnackBarSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccessBar(false);
+    };
+    
+    const handleCloseSnackBarError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setError(false);
     };
 
     return ( 
@@ -68,7 +86,7 @@ const Collabs = ({open, setOpen}) => {
                                 secondary={user.rol}
                             />
                             <ListItemSecondaryAction>
-                                <IconButton onClick={() => { handleDeleteCollab(user.id) }} edge="end" aria-label="delete" disabled={!admin}>
+                                <IconButton onClick={() => { handleDeleteCollab(user.uid) }} edge="end" aria-label="delete" disabled={!admin}>
                                     <ClearIcon />
                                 </IconButton>
                             </ListItemSecondaryAction>
@@ -80,7 +98,13 @@ const Collabs = ({open, setOpen}) => {
                     Cerrar
                 </Button>
                 </DialogActions>
-            </Dialog>           
+            </Dialog>
+            <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
+                Colaborador eliminado
+            </CustomizedSnackbars>
+            <CustomizedSnackbars open={error} handleClose={handleCloseSnackBarError} severity="error">
+                Error al eliminar colaborador
+            </CustomizedSnackbars>
         </div>
     );
 }
