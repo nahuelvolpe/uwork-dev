@@ -1,10 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
-import { IconButton, makeStyles } from '@material-ui/core';
+import { Grid, IconButton, makeStyles, Button } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Invite from './Invite';
 import { SubjectContext } from '../../context/subject';
 import * as MateriasService from '../../services/MateriasService'
+import AddTask from '../Task/AddTask';
+import CardTask from '../Task/CardTask';
 
 const useStyles = makeStyles((theme) => ({
     materiaContent: {
@@ -33,8 +35,16 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: '12px',
         color: 'white',
         backgroundColor: theme.palette.primary.main
+    },
+    floatingButtonAddTask: {
+        position: 'fixed',
+        bottom: 10,
+        right: 100,
+        color: 'white',
+        marginBottom: '12px',
+        marginRight: '12px',
+        backgroundColor: theme.palette.info.main
     }
-
 }));
 
 const Subject = () => {
@@ -43,6 +53,7 @@ const Subject = () => {
     const { setSubjectId, setSubjectName } = useContext(SubjectContext)
     const classes = useStyles();
     const [openInvite, setOpenInvite] = useState(false);
+    const [openTask, setOpenTask] = useState(false);
 
     useEffect(() => {
         async function setSubjectData() {
@@ -57,6 +68,10 @@ const Subject = () => {
         setOpenInvite(true);
     };
 
+    const handleClickOpenTask = () => {
+        setOpenTask(true);
+    }
+
     return (
         <>
             <Invite 
@@ -64,6 +79,14 @@ const Subject = () => {
                 setOpen={setOpenInvite}
                 materiaId={materiaId}
             />
+            <AddTask
+                open={openTask}
+                setOpen={setOpenTask}
+            />
+            <Grid item xs={12} sm={6} md={4}>
+                        <CardTask />
+            </Grid>
+
             <IconButton
                 className={classes.floatingButtonInvite}
                 arial-label="Agregar colaborador"
@@ -71,6 +94,11 @@ const Subject = () => {
             >
                 <PersonAddIcon style={{ fontSize: "40px" }} />
             </IconButton>
+            <Button variant="contained"
+                    className={classes.floatingButtonAddTask}
+                    onClick={handleClickOpenTask}>
+                    Agregar Tarea
+            </Button>
         </>      
     );
 }
