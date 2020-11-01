@@ -1,3 +1,4 @@
+import 'date-fns';
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -7,6 +8,17 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import Grid from '@material-ui/core/Grid';
+
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -51,27 +63,41 @@ export default function AddSubject(props) {
           
           <form className={classes.form} noValidate>
             <FormControl className={classes.formControl}>
-              <label> 
-                  Nombre: 
-                  <input type="text"/>
-              </label>
-              <label> 
-                  Descripcion: 
-                  <input type="text"/>
-              </label>
-              <label>
-                  Colaborador a cargo:
-                  <select>
-                    <option value="value0" selected>Todos</option>
-                    <option value="value1">Dan Suarez</option> 
-                    <option value="value2">Nahuel Volpe</option>
-                    <option value="value3">Mati Gimenez</option>
-                  </select>
-              </label>
-              <label>
-                  Fecha Límite:
-                  <input type="date"/>
-              </label>
+            <TextField id="standard-basic" label="Nombre" />
+                  
+            <TextField id="standard-basic" label="Descripcion" />
+                  
+            <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel id="demo-simple-select-outlined-label">Colaborador/es a cargo</InputLabel>
+            <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            label="Colaborador/es a cargo"
+            >
+            <MenuItem value="">
+            <em>None</em>
+            </MenuItem>
+            <MenuItem>Dan Suarez</MenuItem>
+            <MenuItem>Nahui Volpe</MenuItem>
+            <MenuItem>Mati Giménez</MenuItem>
+            </Select>
+            </FormControl>
+
+            {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+       <Grid container justify="space-around">
+        <KeyboardDatePicker
+          disableToolbar
+          variant="inline"
+          format="dd/MM/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          label="Fecha Límite"
+          onChange={console.log("Fecha cambiada xD")}
+          KeyboardButtonProps={{
+            'aria-label': 'change date',
+          }}
+          /> </Grid>
+          </MuiPickersUtilsProvider>  */}
             </FormControl>
           </form>
 
