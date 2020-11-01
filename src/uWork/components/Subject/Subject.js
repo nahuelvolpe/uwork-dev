@@ -67,11 +67,11 @@ const Subject = () => {
                 setOpen={setOpenInvite}
                 materiaId={materiaId}
             />
-            <Collabs 
+            {/* <Collabs 
                 open={openCollabs}
                 setOpenCollabs={setOpenCollabs}
                 materiaId={materiaId}
-            />
+            /> */}
             <IconButton
                 className={classes.floatingButtonInvite}
                 arial-label="Agregar colaborador"

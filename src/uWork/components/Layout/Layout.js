@@ -111,7 +111,7 @@ const Layout = (props) => {
               <GroupIcon fontSize="small" />
             </ListItemIcon>
             Ver colaboradores
-            {openPopCollab && <Collabs open={openPopCollab}/>}
+            {openPopCollab && <Collabs open={openPopCollab} setOpen={setOpenCollab}/>}
           </MenuItem>
         : [] 
         }

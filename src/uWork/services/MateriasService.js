@@ -1,6 +1,7 @@
 import { db } from './firebase'
 import firebase from 'firebase';
 import * as UserService from './UserService'
+import AuthenticationService from './AuthenticationService';
 
 export const getSubjects = async (userId) => {
     let result = []
@@ -27,7 +28,8 @@ export const getSubjectById = async (subjectId) => {
             materiaId: subjectId,
             carrera: data.carrera,
             nombre: data.nombre,
-            roles: data.roles
+            roles: data.roles,
+            tareas: data.tareas
         }
     } else {
         throw new Error('El usuario no existe')
@@ -42,6 +44,31 @@ export const createSubject = (subjectData, userId) => {
             [userId]: 'admin'
         },
         tareas: {}
+    })
+}
+
+export const getCollabsFromSubject = async (subjectId) => {
+    let usuarios = []
+    const subject = await getSubjectById(subjectId)
+    const roles = Object.keys(subject.roles)
+    usuarios = await db.collection('users').where('uid', 'in', roles).get()
+    usuarios = usuarios.docs.map(x => {
+        const u = x.data()
+        u.rol = subject.roles[u.uid]
+        return u
+    })
+    console.log(usuarios)
+    return usuarios
+}
+
+export const verifyAdmin = async (subjectId) => {
+    const userId = AuthenticationService.getSessionUserId()
+    const user = await UserService.getUserDataById(userId)
+    console.log(user)
+    Object.keys(user.materias).forEach(e => {
+        if(e === subjectId && user.materias[e] === 'admin') {
+            return true
+        }
     })
 }
 

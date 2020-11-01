@@ -69,13 +69,7 @@ const Invite = ({open, setOpen, materiaId}) => {
                 return db.collection('materias').doc(materiaId)
                     .set({
                         roles: {
-                            [user_id]: {
-                                rol: 'colaborador',
-                                firstName: users.firstName,
-                                lastName: users.lastName,
-                                id: users.id,
-                                photoURL: users.photoURL
-                            }
+                            [user_id]: 'colaborador'
                         }
                     }, {merge: true})
             }).then(() => {

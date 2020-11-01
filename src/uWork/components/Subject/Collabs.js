@@ -1,72 +1,47 @@
 import React, { useEffect, useState, useContext} from 'react';
-import {useParams} from 'react-router-dom'
-import {makeStyles, IconButton ,Button, TextField, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import {makeStyles, IconButton ,Button, Dialog, DialogTitle, DialogActions, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 import ClearIcon from '@material-ui/icons/Clear';
-import MuiAlert from '@material-ui/lab/Alert';
-import { auth, db } from '../../services/firebase';
-import { deleteCollabMateria } from '../../services/MateriasService';
+import * as MateriasService from '../../services/MateriasService';
 import { SubjectContext } from '../../context/subject';
 
 const useStyles = makeStyles((theme) => ({
     large: {
-      width: theme.spacing(7),
-      height: theme.spacing(7),
-      marginRight: '5px'
+        width: theme.spacing(7),
+        height: theme.spacing(7),
+        marginRight: '5px'
     },
-  }));
+}));
 
-
-const Collabs = ({open, setOpenCollabs}) => {
+const Collabs = ({open, setOpen}) => {
 
     const classes = useStyles();
     const [users, setUsers] = useState([]);
     const [admin, setAdmin] = useState(false);
-    const [openSnack, setOpenSnack] = useState(false);
 
     const { subjectId } = useContext(SubjectContext)
 
     const handleCloseCollabs = () => {
-        open = false;
+        setOpen(!open)
     };
 
     //buscar los ids de usuarios de la materia
     useEffect(() => {
         const cargarUsuarios = async () => {
             if(subjectId) {
-                const response = await db.collection('materias').doc(subjectId).get();
-                const roles = response.data().roles;
-                let usuarios = [];
-                Object.keys(roles).forEach(e => {
-                    usuarios.push({
-                        firstName: roles[e].firstName,
-                        lastName: roles[e].lastName,
-                        id: roles[e].id,
-                        photoURL: roles[e].photoURL,
-                        rol: roles[e].rol
-                    })
-                })
-                setUsers(usuarios);
+                const users = await MateriasService.getCollabsFromSubject(subjectId)
+                setUsers(users)
             }
         }
         const verificarAdmin = async () => {
-            const currentUserID = auth.currentUser.uid;
-            const response = await db.collection('users').doc(currentUserID).get();
-            const materias = response.data().materias;
-            Object.keys(materias).forEach(e => {
-                if(materias[e] === 'admin'){
-                    if(e === subjectId){
-                       //console.log('Es admin');
-                        setAdmin(true);
-                    }
-                }
-            })
+            const isAdmin = await MateriasService.verifyAdmin(subjectId)
+            setAdmin(isAdmin)
         }
-        cargarUsuarios();
-        verificarAdmin(); 
+        cargarUsuarios()
+        verificarAdmin()
     }, [subjectId])
 
     const handleDeleteCollab = (userId) => {
-        deleteCollabMateria(userId, subjectId)
+        MateriasService.deleteCollabMateria(userId, subjectId)
         .then( () => {
             console.log("colaborador eliminado")
         }).catch( (e) => {
@@ -74,13 +49,17 @@ const Collabs = ({open, setOpenCollabs}) => {
         })
     }
 
+    const handleDialogClick = e => {
+        e.stopPropagation();
+    };
+
     return ( 
         <div>
-            <Dialog open={open} onClose={handleCloseCollabs} aria-labelledby="form-dialog-title">
+            <Dialog open={open} onClose={handleCloseCollabs} onClick={handleDialogClick} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Colaboradores</DialogTitle>
                 <List>
-                    {users.map((user) => (
-                        <ListItem key={user.id}>
+                    {users && users.map((user) => (
+                        <ListItem key={user.uid}>
                             <ListItemAvatar>
                                 <Avatar src={user.photoURL} className={classes.large}/>
                             </ListItemAvatar>
