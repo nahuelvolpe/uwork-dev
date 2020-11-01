@@ -34,19 +34,14 @@ export const getSubjectById = async (subjectId) => {
     }
 }
 
-export const createSubject = (subjectData, userDetails) => {
+export const createSubject = (subjectData, userId) => {
     return db.collection('materias').add({
         nombre: subjectData.subject,
         carrera: subjectData.career,
         roles: {
-            [userDetails.id]: {
-                rol: 'admin',
-                firstName: userDetails.firstName,
-                lastName: userDetails.lastName,
-                id: userDetails.id,
-                photoURL: userDetails.photoURL
-            }
-        }
+            [userId]: 'admin'
+        },
+        tareas: {}
     })
 }
 
@@ -115,7 +110,7 @@ export const deleteCollabMateria = async (userId, materiaId) => {
     return response; 
 }
 
-export const updateUserDetail = async (values, userId) => {
+/* export const updateUserDetail = async (values, userId) => {
     let userRef = db.collection('users').doc(userId);
     let dataUsers = await userRef.get()
     const materias = dataUsers.data().materias;
@@ -152,6 +147,4 @@ export const updateUserDetail = async (values, userId) => {
             }, {merge: true}
         )
     }
-
-
-}
+} */
