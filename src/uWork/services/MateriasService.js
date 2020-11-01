@@ -138,41 +138,25 @@ export const deleteCollabMateria = async (userId, materiaId) => {
     return response; 
 }
 
-/* export const updateUserDetail = async (values, userId) => {
-    let userRef = db.collection('users').doc(userId);
-    let dataUsers = await userRef.get()
-    const materias = dataUsers.data().materias;
-
-    if(Object.keys(materias).length === 0){
-        return db.collection('users').doc(userId).set(
-          {
-            firstName: values.nombre,
-            lastName: values.apellido,
-            photoURL: values.userImg
-          }, {merge: true}
-        )        
-    }else{
-        const userMaterias = await UserService.getUserSubjects(userId)
-        let response;
-
-        for (const materiaId in userMaterias) {
-            response = await db.collection('materias').doc(materiaId).set({
-                roles: {
-                    [userId]: {
-                        firstName: values.nombre,
-                        lastName: values.apellido,
-                        photoURL: values.userImg
-                    }
-                }
-            }, {merge: true})       
+export const inviteUser = async (inviteEmail, subjectId) => {
+    const user = await UserService.getUserByEmail(inviteEmail)
+    if (user.docs) {
+        const userData = user.docs[0].data()
+        try {
+            await UserService.updateUser(userData.uid, { materias: { [subjectId]: 'colaborador' } })
+            await updateSubject(subjectId, { roles: { [userData.uid]: 'colaborador' } })
+        } catch (err) {
+            throw new Error(err)
         }
-
-        return db.collection('users').doc(userId).set(
-            {
-              firstName: values.nombre,
-              lastName: values.apellido,
-              photoURL: values.userImg
-            }, {merge: true}
-        )
     }
-} */
+}
+
+export const updateSubject = async (subjectId, values) => {
+    const subject = await getSubjectById(subjectId)
+    return db.collection('materias').doc(subjectId).set(
+        {
+            roles: values.roles ? values.roles : subject.roles,
+            tareas: values.tareas ? values.tareas : subject.tareas
+        }, { merge: true }
+    )
+}

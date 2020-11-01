@@ -1,32 +1,14 @@
 import React, {useState} from 'react'
-import {Button, TextField, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
-import { db} from '../../services/firebase/setup';
-import { getUserDetail } from '../../services/UserService';
+import {Button, TextField, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
+import * as MateriasService from '../../services/MateriasService';
 
 
 const Invite = ({open, setOpen, materiaId}) => {
 
-    const [email, setEmail] = useState('');
-    const [, setUserDetail] = useState([]);
-    const [openSnack, setOpenSnack] = useState(false);
-    let user_id;
-
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-    }
-
-    const handleClick = () => {
-        setOpenSnack(true);
-    };
-
-    const handleSnackClose = (event, reason) => {
-        if (reason === 'clickaway') {
-        return;
-        }
-
-        setOpenSnack(false);
-    };
+    const [email, setEmail] = useState('')
+    const [openSuccessBar, setOpenSuccessBar] = useState(false)
+    const [openErrorBar, setOpenErrorBar] = useState(false)
 
     const handleClose = () => {
         setOpen(false);
@@ -36,49 +18,29 @@ const Invite = ({open, setOpen, materiaId}) => {
         setEmail(event.target.value);
     };
 
-    const inviteUser = () => {
-        var usersRef = db.collection("users");
-
-        //Busca el usuario con el email escrito
-        var query = usersRef.where("email", "==", email);
-
-        //Extrae el id de ese usuario
-        query.get()
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    user_id = doc.id;
-                });
-                return user_id;
-        //Agrega en el map 'materias' del usuario el id de la materia con su rol
-            }).then(userID => {
-                user_id = userID;
-                return db.collection('users').doc(userID).set(
-                    {
-                        materias: {
-                            [materiaId]: 'colaborador',
-                        }
-                    },
-                    { merge: true }
-                )
-        //Cargar los detalles de usuarios
-            }).then( () => {
-                return getUserDetail(user_id)
-        //Agrega a la materia correspodiente, el nuevo usuario
-            }).then((users) => {
-                setUserDetail(users)
-                return db.collection('materias').doc(materiaId)
-                    .set({
-                        roles: {
-                            [user_id]: 'colaborador'
-                        }
-                    }, {merge: true})
-            }).then(() => {
-                handleClick();
-            })
-            .catch(function(error) {                
-                console.log("Error getting documents: ", error);
-            });
+    const handleCloseSnackBarSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccessBar(false);
+        setOpen(false)
+    };
     
+    const handleCloseSnackBarError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenErrorBar(false);
+    };
+
+    const inviteUser = () => {
+        MateriasService.inviteUser(email, materiaId)
+            .then(() => {
+                setOpenSuccessBar(true)
+            })
+            .catch(() => {
+                setOpenErrorBar(true)
+            })
     }
 
     return ( 
@@ -108,14 +70,15 @@ const Invite = ({open, setOpen, materiaId}) => {
                     Enviar
                 </Button>
                 </DialogActions>
-                <Snackbar open={openSnack} autoHideDuration={4000} onClose={handleSnackClose}>
-                    <Alert onClose={handleSnackClose} severity="success">
+                <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
                     Invitación enviada!
-                    </Alert>
-                </Snackbar>
+                </CustomizedSnackbars>
+                <CustomizedSnackbars open={openErrorBar} handleClose={handleCloseSnackBarError} severity="error">
+                    Error al enviar invitación.
+                </CustomizedSnackbars>
             </Dialog>
         </div>
-     );
+    );
 }
- 
+
 export default Invite;

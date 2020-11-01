@@ -19,7 +19,7 @@ const CustomizedSnackbars = (props) => {
   /* const classes = useStyles(); */
   return (
     <div>
-      <Snackbar open={props.open} autoHideDuration={6000} onClose={props.handleClose}>
+      <Snackbar open={props.open} autoHideDuration={4000} onClose={props.handleClose}>
         <Alert onClose={props.handleClose} severity={props.severity}>
           {props.children}
         </Alert>
