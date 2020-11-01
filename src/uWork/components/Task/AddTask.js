@@ -79,28 +79,28 @@ export default function AddSubject(props) {
             </MenuItem>
             <MenuItem>Dan Suarez</MenuItem>
             <MenuItem>Nahui Volpe</MenuItem>
-            <MenuItem>Mati Giménez</MenuItem>
             </Select>
             </FormControl>
 
-            {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-       <Grid container justify="space-around">
-        <KeyboardDatePicker
-          disableToolbar
-          variant="inline"
-          format="dd/MM/yyyy"
-          margin="normal"
-          id="date-picker-inline"
-          label="Fecha Límite"
-          onChange={console.log("Fecha cambiada xD")}
-          KeyboardButtonProps={{
+      {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <Grid container justify="space-around">
+          <KeyboardDatePicker
+            disableToolbar
+            variant="inline"
+            format="dd/MM/yyyy"
+            margin="normal"
+            id="date-picker-inline"
+            label="Fecha Límite"
+            onChange={console.log("Fecha cambiada xD")}
+            KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
-          /> </Grid>
-          </MuiPickersUtilsProvider>  */}
+          /> 
+        </Grid>
+      </MuiPickersUtilsProvider>  */}
+            
             </FormControl>
           </form>
-
         </DialogContent>
         <DialogActions>
           <Button onClick={onAccept} color="primary">
