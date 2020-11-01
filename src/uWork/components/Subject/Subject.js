@@ -85,7 +85,7 @@ const Subject = () => {
             />
             <Collabs 
                 open={openCollabs}
-                setOpen={setOpenCollabs}
+                setOpenCollabs={setOpenCollabs}
                 materiaId={materiaId}
             />
             <AddTask

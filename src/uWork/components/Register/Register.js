@@ -88,7 +88,7 @@ const Register = (props) => {
   const onSubmit = (values, { setFieldError }) => {
     AuthenticationService.register(values.email, values.password)
       .then(() => {
-        props.history.push('/edit_profile')
+        props.history.push('/edit_profile', {isNewUser: true})
       })
       .catch((err) => {
         switch (err.code) {
