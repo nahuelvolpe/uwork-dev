@@ -12,11 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
 
 
@@ -34,7 +30,12 @@ const useStyles = makeStyles((theme) => ({
   formControlLabel: {
     marginTop: theme.spacing(1),
   },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  }
 }));
+
+  
 
 export default function AddSubject(props) {
   const { open, setOpen, acceptHandler } = props
@@ -49,6 +50,17 @@ export default function AddSubject(props) {
     setOpen(false)
   }
 
+  const [colabCargo, setColabCargo] = React.useState('');
+
+  const handleCollab = (event) => {
+    setColabCargo(event.target.value);
+  };
+
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
   return (
     <React.Fragment>
@@ -63,9 +75,9 @@ export default function AddSubject(props) {
           
           <form className={classes.form} noValidate>
             <FormControl className={classes.formControl}>
-            <TextField id="standard-basic" label="Nombre" />
+            <TextField id="standard-basic" label="Nombre" autocomplete="off"/>
                   
-            <TextField id="standard-basic" label="Descripcion" />
+            <TextField id="standard-basic" label="Descripcion" multiline rows={4} autocomplete="off"/>
                   
             <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel id="demo-simple-select-outlined-label">Colaborador/es a cargo</InputLabel>
@@ -73,16 +85,17 @@ export default function AddSubject(props) {
             labelId="demo-simple-select-outlined-label"
             id="demo-simple-select-outlined"
             label="Colaborador/es a cargo"
+            onChange={handleCollab}
             >
             <MenuItem value="">
             <em>None</em>
             </MenuItem>
-            <MenuItem>Dan Suarez</MenuItem>
-            <MenuItem>Nahui Volpe</MenuItem>
+            <MenuItem value={"Dan Suarez"}>Dan Suarez</MenuItem>
+            <MenuItem value={"Nahui Volpe"}>Nahui Volpe</MenuItem>
             </Select>
             </FormControl>
 
-      {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      {<MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Grid container justify="space-around">
           <KeyboardDatePicker
             disableToolbar
@@ -91,13 +104,14 @@ export default function AddSubject(props) {
             margin="normal"
             id="date-picker-inline"
             label="Fecha Límite"
-            onChange={console.log("Fecha cambiada xD")}
+            value={selectedDate}
+            onChange={handleDateChange}
             KeyboardButtonProps={{
             'aria-label': 'change date',
           }}
           /> 
         </Grid>
-      </MuiPickersUtilsProvider>  */}
+      </MuiPickersUtilsProvider>  }
             
             </FormControl>
           </form>
