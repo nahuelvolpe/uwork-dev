@@ -92,15 +92,7 @@ const Dashboard = (props) => {
                 setOpen={setOpen}
                 acceptHandler={createSubject}
             />
-
-            <Grid
-                /* container
-                alignItems="center"
-                direction="column"
-                justify="flex-start"
-                style={{ paddingBottom: "1rem" }} */
-                container spacing={3}
-            >
+            <Grid container spacing={3}>
                 {materias && materias.map((materia) =>
                     <Grid item xs={12} sm={6} md={4} key={materia.materiaId}>
                         <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history}/>
@@ -113,7 +105,6 @@ const Dashboard = (props) => {
                 >
                     <AddCircleIcon style={{ fontSize: "60px" }} />
                 </IconButton>
-
             </Grid>
         </div>
     );

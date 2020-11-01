@@ -169,7 +169,6 @@ const Layout = (props) => {
         </Container>
       </main>
     </div>
-   
   )
 }
 

@@ -57,7 +57,6 @@ export const getCollabsFromSubject = async (subjectId) => {
         u.rol = subject.roles[u.uid]
         return u
     })
-    console.log(usuarios)
     return usuarios
 }
 
@@ -133,7 +132,6 @@ export const deleteCollabMateria = async (userId, materiaId) => {
                 }
             }, {merge: true}) 
         })
-        //.catch((e) => {console.log(e)})
 
     return response; 
 }
