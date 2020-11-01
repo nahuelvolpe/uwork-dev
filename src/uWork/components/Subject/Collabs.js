@@ -36,7 +36,6 @@ const Collabs = ({open, setOpen}) => {
         }
         const verificarAdmin = async () => {
             const isAdmin = await MateriasService.verifyAdmin(subjectId)
-            console.log(isAdmin)
             setAdmin(isAdmin)
         }
         cargarUsuarios()
