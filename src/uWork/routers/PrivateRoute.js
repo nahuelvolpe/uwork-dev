@@ -4,13 +4,17 @@ import { AuthContext } from '../context/auth'
 import { Route, Redirect } from 'react-router-dom';
 import AuthenticationService from '../services/AuthenticationService'
 import LoadingPage from '../components/LoadingPage/LoadingPage';
+import { auth } from '../services/firebase';
 
 export const PrivateRoute = ({
     component: Component,
     ...rest
 }) => {
 
-    const currentUser = AuthenticationService.getSessionUserId()
+    let currentUser = auth.currentUser;
+    if(currentUser){
+        currentUser = AuthenticationService.getSessionUserId()
+    }
     const { authReady } = useContext(AuthContext)
 
     return (
