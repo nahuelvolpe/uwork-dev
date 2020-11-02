@@ -5,6 +5,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Invite from './Invite';
 import { SubjectContext } from '../../context/subject';
 import * as MateriasService from '../../services/MateriasService'
+import * as TaskService from '../../services/TaskService'
 import AddTask from '../Task/AddTask';
 import CardTask from '../Task/CardTask';
 
@@ -72,6 +73,17 @@ const Subject = () => {
         setOpenTask(true);
     }
 
+    const createTask = (task) => {
+         TaskService.createTask(task, materiaId)
+            .then(() => {
+                console.log('tarea creada')
+            }).catch( (e) => {
+                console.log(e)
+            }) 
+    }
+
+
+
     return (
         <>
             <Invite 
@@ -82,6 +94,8 @@ const Subject = () => {
             <AddTask
                 open={openTask}
                 setOpen={setOpenTask}
+                subjectId={materiaId}
+                acceptHandler={createTask}
             />
             <Grid item xs={12} sm={6} md={4}>
                         <CardTask />
