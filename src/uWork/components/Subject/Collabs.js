@@ -80,7 +80,7 @@ const Collabs = ({open, setOpenCollabs}) => {
                 <DialogTitle id="form-dialog-title">Colaboradores</DialogTitle>
                 <List>
                     {users.map((user) => (
-                        <ListItem key={user.id}>
+                        <ListItem key={user.uid}>
                             <ListItemAvatar>
                                 <Avatar src={user.photoURL} className={classes.large}/>
                             </ListItemAvatar>
