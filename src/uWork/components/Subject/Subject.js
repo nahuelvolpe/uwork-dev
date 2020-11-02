@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     floatingButtonAddTask: {
         position: 'fixed',
         bottom: 10,
-        right: 100,
+        right: 90,
         color: 'white',
         marginBottom: '12px',
         marginRight: '12px',
@@ -98,9 +98,9 @@ const Subject = (props) => {
                 subjectId={materiaId}
                 acceptHandler={createTask}
             />
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid container spacing={3}>
                 {tasks && tasks.map((task) =>
-                    <Grid item xs={12} sm={6} md={4} key={task.tareaId}>
+                    <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
                         <CardTask data={task} history={props.history}/>
                     </Grid>)
                 }
