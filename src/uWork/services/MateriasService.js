@@ -159,3 +159,14 @@ export const updateSubject = async (subjectId, values) => {
         }, { merge: true }
     )
 }
+
+export const getSubjectTasks = async (materiaId) => {
+    let materia
+    try {
+        materia = await getSubjectById(materiaId)
+    } catch (err) {
+      throw new Error(err)
+    }
+  
+    return materia.tareas;
+  }

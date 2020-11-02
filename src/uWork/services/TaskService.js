@@ -1,5 +1,7 @@
 import { db } from './firebase/setup'
 import firebase from 'firebase';
+import * as MateriasService from './MateriasService';
+
 
 export const createTask = async (task, materiaId) => {
     console.log(materiaId)
@@ -23,6 +25,25 @@ export const createTask = async (task, materiaId) => {
     })
 
     return response;
+}
+
+export const getTasks = async (materiaId) => {
+    let result = []
+    const tareas = await MateriasService.getSubjectTasks(materiaId)
+    for (const id in tareas) {
+        const doc = await db.doc(`/tareas/${id}`).get()
+        if (doc.exists) {
+            const docData = doc.data()
+            result.push({
+                tareaId: id,
+                titulo: docData.titulo,
+                descripcion: docData.descripcion,
+                colaboradores: docData.colaboradores,
+                fechaLimite: docData.fechaLimite,
+            });
+        }
+    }
+    return result
 }
 
 

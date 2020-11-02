@@ -89,7 +89,13 @@ export default function AddSubject(props) {
   };
 
   const onAccept = () => {
-    acceptHandler({titulo: titulo, descripcion: descripcion, colabCargo: colabCargo, fechaLimite: selectedDate})
+    let collabs = {};
+    let colaborador = {};
+    colabCargo.map((colab)=>{
+     colaborador = {[colab.uid]: new Date()}
+     collabs = {...collabs, ...colaborador}
+    })
+    acceptHandler({titulo: titulo, descripcion: descripcion, colabCargo: collabs, fechaLimite: selectedDate})
     setOpen(false)
   }
 

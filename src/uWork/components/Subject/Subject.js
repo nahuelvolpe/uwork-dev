@@ -4,21 +4,13 @@ import { Grid, IconButton, makeStyles, Button } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Invite from './Invite';
 import { SubjectContext } from '../../context/subject';
+import CardSubject from './CardSubject';
 import * as MateriasService from '../../services/MateriasService'
 import * as TaskService from '../../services/TaskService'
 import AddTask from '../Task/AddTask';
 import CardTask from '../Task/CardTask';
 
 const useStyles = makeStyles((theme) => ({
-    materiaContent: {
-        marginTop: theme.spacing(2),
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minWidth: 300,
-        maxHeight: 100,
-        background: '#30E3CA'
-    },
     floatingButtonInvite: {
         position: 'fixed',
         bottom: 0,
@@ -48,13 +40,14 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Subject = () => {
+const Subject = (props) => {
 
     const { materiaId } = useParams();
     const { setSubjectId, setSubjectName } = useContext(SubjectContext)
     const classes = useStyles();
     const [openInvite, setOpenInvite] = useState(false);
     const [openTask, setOpenTask] = useState(false);
+    const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
         async function setSubjectData() {
@@ -62,6 +55,13 @@ const Subject = () => {
             setSubjectName(materia.nombre)
             setSubjectId(materiaId)
         }
+        async function cargarTareas() {
+            let tasksSubject = [];
+            tasksSubject = await TaskService.getTasks(materiaId)
+            console.log(tasksSubject)
+            setTasks(tasksSubject);
+        }
+        cargarTareas();
         setSubjectData()
     }, [materiaId, setSubjectId, setSubjectName])
 
@@ -77,6 +77,7 @@ const Subject = () => {
          TaskService.createTask(task, materiaId)
             .then(() => {
                 console.log('tarea creada')
+                window.location.reload()
             }).catch( (e) => {
                 console.log(e)
             }) 
@@ -98,7 +99,11 @@ const Subject = () => {
                 acceptHandler={createTask}
             />
             <Grid item xs={12} sm={6} md={4}>
-                        <CardTask />
+                {tasks && tasks.map((task) =>
+                    <Grid item xs={12} sm={6} md={4} key={task.tareaId}>
+                        <CardTask data={task} history={props.history}/>
+                    </Grid>)
+                }
             </Grid>
 
             <IconButton
