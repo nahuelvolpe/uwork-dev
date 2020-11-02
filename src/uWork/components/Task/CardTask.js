@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { useParams } from 'react-router-dom'
 import { Card, CardContent, Typography, CardActions, Button, makeStyles } from '@material-ui/core'
+import ViewTask from './ViewTask';
 
 const useStyles = makeStyles((theme) => ({
     textTarea: {
@@ -23,9 +25,14 @@ const useStyles = makeStyles((theme) => ({
 
 const CardTask = (props) => {
     const classes = useStyles()
+    const { materiaId } = useParams();
     const { data, history } = props
-    console.log('pepe')
-    console.log(data)
+    const [open, setOpen] = useState(false)
+
+
+    const handleView = () => {
+        setOpen(true);
+    }
 
     return (
         <div>
@@ -35,15 +42,21 @@ const CardTask = (props) => {
                         {data.titulo}
                     </Typography>
                     <Typography className={classes.descripcion}>
-                        {'Fecha limite: 11/10/2020'}
+                        {data.fechaLimite}
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
-                    <Button size="small" onClick={()=> { console.log("Ingresando a la tarea") }}>VER</Button>
+                    <Button size="small" onClick={handleView}>VER</Button>
                     <Button size="small" onClick={()=> { console.log("Editando la tarea") }}>EDITAR</Button>
                     <Button size="small" onClick={()=> { console.log("Eliminando la tarea, sólo si sos ADMIN") }}>ELIMINAR</Button>
                 </CardActions>
             </Card>
+            <ViewTask
+                open={open}
+                setOpen={setOpen}
+                data={data}
+                subjectId={materiaId}
+            />
         </div>
     )
 }

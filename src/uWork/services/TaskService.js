@@ -1,6 +1,7 @@
 import { db } from './firebase/setup'
 import firebase from 'firebase';
 import * as MateriasService from './MateriasService';
+import moment from 'moment'
 
 
 export const createTask = async (task, materiaId) => {
@@ -39,7 +40,7 @@ export const getTasks = async (materiaId) => {
                 titulo: docData.titulo,
                 descripcion: docData.descripcion,
                 colaboradores: docData.colaboradores,
-                fechaLimite: docData.fechaLimite,
+                fechaLimite: moment(docData.fechaLimite.toDate()).format('L'),
             });
         }
     }
