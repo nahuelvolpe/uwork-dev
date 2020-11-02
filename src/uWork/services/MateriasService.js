@@ -170,3 +170,14 @@ export const getSubjectTasks = async (materiaId) => {
   
     return materia.tareas;
   }
+
+  export const verificarColaboradores = async (email, subjectId) => {
+    const usuarios = await getCollabsFromSubject(subjectId)
+    let response = false;
+    usuarios.map( (user) => {
+        if(user.email === email){
+            response = true
+        }
+    })
+    return response
+}
