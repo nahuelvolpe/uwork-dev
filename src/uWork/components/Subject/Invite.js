@@ -1,7 +1,17 @@
 import React, {useState} from 'react'
 import {Button, TextField, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
+import { Formik, Form } from "formik";
+import * as Yup from 'yup'
+import FormikField from "../FormikField/FormikField";
 import * as MateriasService from '../../services/MateriasService';
+import { auth } from '../../services/firebase';
+
+const RegisterSchema = Yup.object().shape({
+    email: Yup.string()
+      .required("Email requerido!")
+      .email("Formato inválido!"),
+  })
 
 
 const Invite = ({open, setOpen, materiaId}) => {
@@ -9,6 +19,7 @@ const Invite = ({open, setOpen, materiaId}) => {
     const [email, setEmail] = useState('')
     const [openSuccessBar, setOpenSuccessBar] = useState(false)
     const [openErrorBar, setOpenErrorBar] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('Error al enviar invitación.')
 
     const handleClose = () => {
         setOpen(false);
@@ -33,14 +44,35 @@ const Invite = ({open, setOpen, materiaId}) => {
         setOpenErrorBar(false);
     };
 
-    const inviteUser = () => {
-        MateriasService.inviteUser(email, materiaId)
+    const inviteUser = async () => {
+        console.log(email)
+        const response = await verificarEmail()
+        if(response){
+            setOpenErrorBar(true)
+        }else{
+            MateriasService.inviteUser(email, materiaId)
             .then(() => {
                 setOpenSuccessBar(true)
             })
             .catch(() => {
+                setErrorMessage('Error al enviar invitación, quizas esté mal escrito el email.')
                 setOpenErrorBar(true)
             })
+        }
+       
+    }
+
+    const verificarEmail = async () => {
+        let respuesta = false;
+        const response = await MateriasService.verificarColaboradores(email, materiaId)
+        if(auth.currentUser.email === email){
+            setErrorMessage('No te puedes invitar a ti mismo!')
+            respuesta = true;
+        }else if(response){
+            setErrorMessage('Este colaborador ya se encuentra en la materia!')
+            respuesta = true;
+        }
+        return respuesta;
     }
 
     return ( 
@@ -52,6 +84,7 @@ const Invite = ({open, setOpen, materiaId}) => {
                     Escribe el email de la persona que quieres invitar.
                 </DialogContentText>
                 <TextField
+                    required
                     autoFocus
                     margin="dense"
                     id="name"
@@ -74,7 +107,7 @@ const Invite = ({open, setOpen, materiaId}) => {
                     Invitación enviada!
                 </CustomizedSnackbars>
                 <CustomizedSnackbars open={openErrorBar} handleClose={handleCloseSnackBarError} severity="error">
-                    Error al enviar invitación.
+                    {errorMessage}
                 </CustomizedSnackbars>
             </Dialog>
         </div>
