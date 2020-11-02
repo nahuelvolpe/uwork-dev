@@ -1,6 +1,7 @@
-import { db, auth } from './firebase'
+import { db } from './firebase'
 import firebase from 'firebase';
 import * as UserService from './UserService'
+import AuthenticationService from './AuthenticationService';
 
 export const getSubjects = async (userId) => {
     let result = []
@@ -19,20 +20,56 @@ export const getSubjects = async (userId) => {
     return result
 }
 
-export const createSubject = (subjectData, userDetails) => {
+export const getSubjectById = async (subjectId) => {
+    const doc = await db.collection('materias').doc(subjectId).get()
+    if (doc.exists) {
+        const data = doc.data()
+        return {
+            materiaId: subjectId,
+            carrera: data.carrera,
+            nombre: data.nombre,
+            roles: data.roles,
+            tareas: data.tareas
+        }
+    } else {
+        throw new Error('El usuario no existe')
+    }
+}
+
+export const createSubject = (subjectData, userId) => {
     return db.collection('materias').add({
         nombre: subjectData.subject,
         carrera: subjectData.career,
         roles: {
-            [userDetails.id]: {
-                rol: 'admin',
-                firstName: userDetails.firstName,
-                lastName: userDetails.lastName,
-                id: userDetails.id,
-                photoURL: userDetails.photoURL
-            }
+            [userId]: 'admin'
+        },
+        tareas: {}
+    })
+}
+
+export const getCollabsFromSubject = async (subjectId) => {
+    let usuarios = []
+    const subject = await getSubjectById(subjectId)
+    const roles = Object.keys(subject.roles)
+    usuarios = await db.collection('users').where('uid', 'in', roles).get()
+    usuarios = usuarios.docs.map(x => {
+        const u = x.data()
+        u.rol = subject.roles[u.uid]
+        return u
+    })
+    return usuarios
+}
+
+export const verifyAdmin = async (subjectId) => {
+    const userId = AuthenticationService.getSessionUserId()
+    const user = await UserService.getUserDataById(userId)
+    let isAdmin
+    Object.keys(user.materias).forEach(e => {
+        if(e === subjectId && user.materias[e] === 'admin') {
+            isAdmin = true
         }
     })
+    return isAdmin
 }
 
 export const deleteMateriaAdmin = async (materiaId, user) => {
@@ -95,48 +132,40 @@ export const deleteCollabMateria = async (userId, materiaId) => {
                 }
             }, {merge: true}) 
         })
-        //.catch((e) => {console.log(e)})
 
     return response; 
 }
 
-export const updateUserDetail = async (values, userId) => {
-    let userRef = db.collection('users').doc(userId);
-    let dataUsers = await userRef.get()
-    const materias = dataUsers.data().materias;
-
-    if(Object.keys(materias).length === 0){
-        return db.collection('users').doc(userId).set(
-          {
-            firstName: values.nombre,
-            lastName: values.apellido,
-            photoURL: values.userImg
-          }, {merge: true}
-        )        
-    }else{
-        const userMaterias = await UserService.getUserSubjects(userId)
-        let response;
-
-        for (const materiaId in userMaterias) {
-            response = await db.collection('materias').doc(materiaId).set({
-                roles: {
-                    [userId]: {
-                        firstName: values.nombre,
-                        lastName: values.apellido,
-                        photoURL: values.userImg
-                    }
-                }
-            }, {merge: true})       
+export const inviteUser = async (inviteEmail, subjectId) => {
+    const user = await UserService.getUserByEmail(inviteEmail)
+    if (user.docs) {
+        const userData = user.docs[0].data()
+        try {
+            await UserService.updateUser(userData.uid, { materias: { [subjectId]: 'colaborador' } })
+            await updateSubject(subjectId, { roles: { [userData.uid]: 'colaborador' } })
+        } catch (err) {
+            throw new Error(err)
         }
-
-        return db.collection('users').doc(userId).set(
-            {
-              firstName: values.nombre,
-              lastName: values.apellido,
-              photoURL: values.userImg
-            }, {merge: true}
-        )
     }
+}
 
+export const updateSubject = async (subjectId, values) => {
+    const subject = await getSubjectById(subjectId)
+    return db.collection('materias').doc(subjectId).set(
+        {
+            roles: values.roles ? values.roles : subject.roles,
+            tareas: values.tareas ? values.tareas : subject.tareas
+        }, { merge: true }
+    )
+}
 
+export const verificarColaboradores = async (email, subjectId) => {
+    const usuarios = await getCollabsFromSubject(subjectId)
+    let response = false;
+    usuarios.map( (user) => {
+        if(user.email === email){
+            response = true
+        }
+    })
+    return response
 }

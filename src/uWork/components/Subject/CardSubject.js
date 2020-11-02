@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, CardActions, Button, makeStyles } from '@material-ui/core'
-import { auth, db } from '../../services/firebase';
+import * as MateriasService from '../../services/MateriasService'
 
 const useStyles = makeStyles((theme) => ({
     textMateria: {
@@ -19,28 +19,19 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const CardSubject = (props) => {
+
     const classes = useStyles()
     const { data, history } = props
     const materiaId = data.materiaId;
     const [admin, setAdmin] = useState(false)
-    
 
     useEffect(() => {
         const verificarAdmin = async () => {
-            const currentUserID = auth.currentUser.uid;
-            const response = await db.collection('users').doc(currentUserID).get();
-            const materias = response.data().materias;
-            Object.keys(materias).forEach(e => {
-                if(materias[e] === 'admin'){
-                    if(e === materiaId){
-                        //console.log('Es admin');
-                        setAdmin(true);
-                    }
-                }
-            })
+            const isAdmin = await MateriasService.verifyAdmin(materiaId)
+            setAdmin(isAdmin)
         }
         verificarAdmin()
-    }, [])
+    }, [materiaId])
 
 
     return (

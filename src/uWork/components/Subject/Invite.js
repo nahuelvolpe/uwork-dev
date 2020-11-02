@@ -1,32 +1,25 @@
 import React, {useState} from 'react'
-import {Button, TextField, Snackbar, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
-import { db} from '../../services/firebase/setup';
-import { getUserDetail } from '../../services/UserService';
+import {Button, TextField, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
+import { Formik, Form } from "formik";
+import * as Yup from 'yup'
+import FormikField from "../FormikField/FormikField";
+import * as MateriasService from '../../services/MateriasService';
+import { auth } from '../../services/firebase';
+
+const RegisterSchema = Yup.object().shape({
+    email: Yup.string()
+      .required("Email requerido!")
+      .email("Formato inválido!"),
+  })
 
 
 const Invite = ({open, setOpen, materiaId}) => {
 
-    const [email, setEmail] = useState('');
-    const [, setUserDetail] = useState([]);
-    const [openSnack, setOpenSnack] = useState(false);
-    let user_id;
-
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-    }
-
-    const handleClick = () => {
-        setOpenSnack(true);
-    };
-
-    const handleSnackClose = (event, reason) => {
-        if (reason === 'clickaway') {
-        return;
-        }
-
-        setOpenSnack(false);
-    };
+    const [email, setEmail] = useState('')
+    const [openSuccessBar, setOpenSuccessBar] = useState(false)
+    const [openErrorBar, setOpenErrorBar] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('Error al enviar invitación.')
 
     const handleClose = () => {
         setOpen(false);
@@ -36,55 +29,49 @@ const Invite = ({open, setOpen, materiaId}) => {
         setEmail(event.target.value);
     };
 
-    const inviteUser = () => {
-        var usersRef = db.collection("users");
-
-        //Busca el usuario con el email escrito
-        var query = usersRef.where("email", "==", email);
-
-        //Extrae el id de ese usuario
-        query.get()
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    user_id = doc.id;
-                });
-                return user_id;
-        //Agrega en el map 'materias' del usuario el id de la materia con su rol
-            }).then(userID => {
-                user_id = userID;
-                return db.collection('users').doc(userID).set(
-                    {
-                        materias: {
-                            [materiaId]: 'colaborador',
-                        }
-                    },
-                    { merge: true }
-                )
-        //Cargar los detalles de usuarios
-            }).then( () => {
-                return getUserDetail(user_id)
-        //Agrega a la materia correspodiente, el nuevo usuario
-            }).then((users) => {
-                setUserDetail(users)
-                return db.collection('materias').doc(materiaId)
-                    .set({
-                        roles: {
-                            [user_id]: {
-                                rol: 'colaborador',
-                                firstName: users.firstName,
-                                lastName: users.lastName,
-                                id: users.id,
-                                photoURL: users.photoURL
-                            }
-                        }
-                    }, {merge: true})
-            }).then(() => {
-                handleClick();
-            })
-            .catch(function(error) {                
-                console.log("Error getting documents: ", error);
-            });
+    const handleCloseSnackBarSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccessBar(false);
+        setOpen(false)
+    };
     
+    const handleCloseSnackBarError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenErrorBar(false);
+    };
+
+    const inviteUser = async () => {
+        const response = await verificarEmail()
+        if(response){
+            setOpenErrorBar(true)
+        }else{
+            MateriasService.inviteUser(email, materiaId)
+            .then(() => {
+                setOpenSuccessBar(true)
+            })
+            .catch(() => {
+                setErrorMessage('Error al enviar invitación, quizas esté mal escrito el email.')
+                setOpenErrorBar(true)
+            })
+        }
+       
+    }
+
+    const verificarEmail = async () => {
+        let respuesta = false;
+        const response = await MateriasService.verificarColaboradores(email, materiaId)
+        if(auth.currentUser.email === email){
+            setErrorMessage('No te puedes invitar a ti mismo!')
+            respuesta = true;
+        }else if(response){
+            setErrorMessage('Este colaborador ya se encuentra en la materia!')
+            respuesta = true;
+        }
+        return respuesta;
     }
 
     return ( 
@@ -95,16 +82,16 @@ const Invite = ({open, setOpen, materiaId}) => {
                 <DialogContentText>
                     Escribe el email de la persona que quieres invitar.
                 </DialogContentText>
-                <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Email"
-                    type="email"
-                    fullWidth
-                    value={email} 
-                    onChange={handleChange} 
-                />
+                <Formik
+                    initialValues={{ email }}
+                    validationSchema={RegisterSchema}>
+                    {({ errors, touched }) => (
+                        <Form>
+                        <FormikField label="Email" id="register-email" name="email" type="email" required
+                            error={errors.email && touched.email} fullWidth />                 
+                        </Form>
+                    )}
+                </Formik>
                 </DialogContent>
                 <DialogActions>
                 <Button onClick={handleClose} color="primary">
@@ -114,14 +101,15 @@ const Invite = ({open, setOpen, materiaId}) => {
                     Enviar
                 </Button>
                 </DialogActions>
-                <Snackbar open={openSnack} autoHideDuration={4000} onClose={handleSnackClose}>
-                    <Alert onClose={handleSnackClose} severity="success">
+                <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
                     Invitación enviada!
-                    </Alert>
-                </Snackbar>
+                </CustomizedSnackbars>
+                <CustomizedSnackbars open={openErrorBar} handleClose={handleCloseSnackBarError} severity="error">
+                    {errorMessage}
+                </CustomizedSnackbars>
             </Dialog>
         </div>
-     );
+    );
 }
- 
+
 export default Invite;

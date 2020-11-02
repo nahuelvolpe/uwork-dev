@@ -52,18 +52,15 @@ const Dashboard = (props) => {
     const handleDelete = (materiaId) => {
         MateriasService.deleteMateriaAdmin(materiaId, userId)
             .then(() => {
-                console.log("materia eliminada");
-                window.location.reload();
+                setMaterias(prevState => prevState.filter(e => e.materiaId !== materiaId))
             })
             .catch((e) => { console.log(e) })
     }
-
     
     const handleExit = (materiaId) => {
         MateriasService.exitMateria(materiaId, userId)
             .then(() => {
-                console.log("exit materia");
-                window.location.reload();
+                setMaterias(prevState => prevState.filter(e => e.materiaId !== materiaId))
             })
             .catch((e) => { console.log(e) })
     }
@@ -73,17 +70,14 @@ const Dashboard = (props) => {
     };
 
     const createSubject = async (subject) => {
-        const userDetails = await UserService.getUserDetail(userId)
-        MateriasService.createSubject(subject, userDetails)
+        MateriasService.createSubject(subject, userId)
         .then(async (doc) => {
             await UserService.updateUser(userId, { materias: { [doc.id]: 'admin' }})
-            return doc
+            return MateriasService.getSubjectById(doc.id)
         })
-        .then(async doc => { 
-            const ref = await doc.get()
-            const newSubject = ref.data()
+        .then(newSubject => {
             setMaterias(prevState =>
-                [...prevState, { materiaId: doc.id, carrera: newSubject.carrera, nombre: newSubject.nombre }]
+                [...prevState, { materiaId: newSubject.materiaId, carrera: newSubject.carrera, nombre: newSubject.nombre }]
             )
         })
         .catch(err => {
@@ -98,15 +92,7 @@ const Dashboard = (props) => {
                 setOpen={setOpen}
                 acceptHandler={createSubject}
             />
-
-            <Grid
-                /* container
-                alignItems="center"
-                direction="column"
-                justify="flex-start"
-                style={{ paddingBottom: "1rem" }} */
-                container spacing={3}
-            >
+            <Grid container spacing={3}>
                 {materias && materias.map((materia) =>
                     <Grid item xs={12} sm={6} md={4} key={materia.materiaId}>
                         <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history}/>
@@ -119,7 +105,6 @@ const Dashboard = (props) => {
                 >
                     <AddCircleIcon style={{ fontSize: "60px" }} />
                 </IconButton>
-
             </Grid>
         </div>
     );

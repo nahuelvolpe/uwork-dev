@@ -59,7 +59,7 @@ const Layout = (props) => {
   const [openPopCollab, setOpenCollab] = useState(false)
   const classes = useStyles();
   const { location: { pathname }, children } = props;
-  const { subjectId } = useContext(SubjectContext)
+  const { subjectId, subjectName } = useContext(SubjectContext)
 
   const handleOpenCollab = () => {
     setOpenCollab(!openPopCollab)
@@ -81,6 +81,8 @@ const Layout = (props) => {
         return 'Editar perfil'
       case '/dashboard':
         return 'Materias'
+      case `/subject/${subjectId}`:
+        return subjectName
       default:
         return ''
     }
@@ -111,7 +113,7 @@ const Layout = (props) => {
               <GroupIcon fontSize="small" />
             </ListItemIcon>
             Ver colaboradores
-            {openPopCollab && <Collabs open={openPopCollab}/>}
+            {openPopCollab && <Collabs open={openPopCollab} setOpen={setOpenCollab}/>}
           </MenuItem>
         : [] 
         }
@@ -167,7 +169,6 @@ const Layout = (props) => {
         </Container>
       </main>
     </div>
-   
   )
 }
 

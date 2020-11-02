@@ -27,8 +27,6 @@ export const createUserFromProfile = (credentials) => {
 
 export const updateUser = async (id, values) => {
   const userData = await getUserDataById(id)
-  console.log(userData)
-  console.log(values)
   return db.collection('users').doc(id).set(
     {
       firstName: values.nombre ? values.nombre : userData.firstName,
