@@ -82,16 +82,17 @@ const Invite = ({open, setOpen, materiaId}) => {
                 <DialogContentText>
                     Escribe el email de la persona que quieres invitar.
                 </DialogContentText>
-                <Formik
-                    initialValues={{ email }}
-                    validationSchema={RegisterSchema}>
-                    {({ errors, touched }) => (
-                        <Form>
-                        <FormikField label="Email" id="register-email" name="email" type="email" required
-                            error={errors.email && touched.email} fullWidth />                 
-                        </Form>
-                    )}
-                </Formik>
+                <TextField
+                    required
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Email"
+                    type="email"
+                    fullWidth
+                    value={email} 
+                    onChange={handleChange} 
+                />
                 </DialogContent>
                 <DialogActions>
                 <Button onClick={handleClose} color="primary">
