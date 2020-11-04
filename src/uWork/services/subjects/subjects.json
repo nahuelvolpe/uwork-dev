@@ -60,6 +60,12 @@
     "link": "https://forouno.org/forumdisplay.php?fid=205"
   },
   {
+    "id": 261,
+    "career": 1,
+    "description": "Lenguajes Formales",
+    "link": "https://forouno.org/forumdisplay.php?fid=204"
+  },
+  {
     "id": 11,
     "career": 1,
     "description": "Ingeniería de Software I",
@@ -267,7 +273,7 @@
     "id":45,
     "career": 2,
     "description" : "Análisis y Producción del Discurso",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=87"
   },
   {
     "id":46,
@@ -285,13 +291,13 @@
     "id":48,
     "career": 2,
     "description" : "Univ., Ciencia y Sociedad",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=89"
   },
   {
     "id":49,
     "career": 2,
     "description" : "Problemática Regional",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=88"
   },
   {
     "id":50,
@@ -345,7 +351,7 @@
     "id":58,
     "career": 2,
     "description" : "Estadística Aplicada",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=130"
   },
   {
     "id":59,
@@ -519,7 +525,7 @@
     "id": 87,
     "career": 3,
     "description" : "Análisis y Producción del Discurso",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=87"
   },
   {
     "id": 88,
@@ -543,7 +549,7 @@
     "id": 91,
     "career": 3,
     "description" : "Problemática Regional",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=88"
   },
   {
     "id": 92,
@@ -567,7 +573,7 @@
     "id": 95,
     "career": 3,
     "description" : "Univ., Ciencia y Sociedad",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=89"
   },
   {
     "id": 96,
@@ -729,19 +735,19 @@
     "id": 122,
     "career": 4,
     "description" : "Análisis y Producción del Discurso",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=87"
   },
   {
     "id": 123,
     "career": 4,
     "description" : "Problemática Regional",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=88"
   },
   {
     "id": 124,
     "career": 4,
     "description" : "Univ., Ciencia y Sociedad",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=89"
   },
   {
     "id": 125,
@@ -867,61 +873,61 @@
     "id": 145,
     "career": 4,
     "description" : "Psicología General y Social",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=98"
   },
   {
     "id": 146,
     "career": 4,
     "description" : "Sistemas de Información, Capacitación y Desarrollo",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=98"
   },
   {
     "id": 147,
     "career": 4,
     "description" : "Seguridad Industrial...",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=98"
   },
   {
     "id": 148,
     "career": 4,
     "description" : "Administración de la  Comercialización de RRHH",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=98"
   },
   {
     "id": 149,
     "career": 4,
     "description" : "Optativa II",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=98"
   },
   {
     "id": 150,
     "career": 4,
     "description" : "Cambio y Desarrollo Organizacional",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=98"
   },
   {
     "id": 151,
     "career": 4,
     "description" : "Filosofía y Ética Profesional",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=98"
   },
   {
     "id": 152,
     "career": 4,
     "description" : "Sistemas de Costos y Administración de la Producción",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=98"
   },
   {
     "id": 153,
     "career": 4,
     "description" : "Recursos Humanos en la Adm. Pública",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=98"
   },
   {
     "id": 154,
     "career": 4,
     "description" : "Técnicas de Negociación y Comunicación de la Empresa",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=98"
   },
   {
     "id": 155,
@@ -933,211 +939,211 @@
     "id": 156,
     "career": 5,
     "description" : "Análisis y Producción del Discurso",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=87"
   },
   {
     "id": 157,
     "career": 5,
     "description" : "Problemática Regional",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=88"
   },
   {
     "id": 158,
     "career": 5,
     "description" : "Univ., Ciencia y Sociedad",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=89"
   },
   {
     "id": 159,
     "career": 5,
     "description" : "Matemática I",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 160,
     "career": 5,
     "description" : "Administración I",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 161,
     "career": 5,
     "description" : "Metodología de las Ciencias Sociales",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 162,
     "career": 5,
     "description" : "Estadística",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 163,
     "career": 5,
     "description" : "Economía I",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 164,
     "career": 5,
     "description" : "Matemática II",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 165,
     "career": 5,
     "description" : "Administración II",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 166,
     "career": 5,
     "description" : "Sistemas Contables",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 167,
     "career": 5,
     "description" : "Sociología",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 168,
     "career": 5,
     "description" : "Administración de Recursos Humanos",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 169,
     "career": 5,
     "description" : "Electiva",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 170,
     "career": 5,
     "description" : "Contabilidad I",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 171,
     "career": 5,
     "description" : "Economía II",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 172,
     "career": 5,
     "description" : "Microeconomía Avanzada",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 173,
     "career": 5,
     "description" : "Integración económica y movilidad laboral",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 174,
     "career": 5,
     "description" : "Optativa I",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 175,
     "career": 5,
     "description" : "Práctica Profesional Supervisada I",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 176,
     "career": 5,
     "description" : "Estadística II",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 177,
     "career": 5,
     "description" : "Economía Internacional",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 178,
     "career": 5,
     "description" : "Historia Económica y Social",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 179,
     "career": 5,
     "description" : "Cálculo Financiero y Adm. Financiera",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 180,
     "career": 5,
     "description" : "Macroeconomía Avanzada",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 181,
     "career": 5,
     "description" : "Econometría",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 182,
     "career": 5,
     "description" : "Optativa II",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 183,
     "career": 5,
     "description" : "Crecimiento Económico",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 184,
     "career": 5,
     "description" : "Finanzas Públicas",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 185,
     "career": 5,
     "description" : "Desarrollo Económico",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 186,
     "career": 5,
     "description" : "Evaluación y Gestión de Proyectos",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 187,
     "career": 5,
     "description" : "Historia del Pensamiento Económico",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 188,
     "career": 5,
     "description" : "Práctica Profesional Supervisada II",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/"
   },
   {
     "id": 189,
     "career": 6,
     "description" : "Seminario de Universidad, Ciencia y Sociedad",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=89"
   },
   {
     "id": 190,
     "career": 6,
     "description" : "Seminario de Problemática Regional",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=88"
   },
   {
     "id": 191,
@@ -1269,7 +1275,7 @@
     "id": 212,
     "career": 7,
     "description" : "Análisis y Producción del Discurso",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=87"
   },
   {
     "id": 213,
@@ -1341,7 +1347,7 @@
     "id": 224,
     "career": 7,
     "description" : "Problemática Regional",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=88"
   },
   {
     "id": 225,
@@ -1359,7 +1365,7 @@
     "id": 227,
     "career": 7,
     "description" : "Univ., Ciencia y Sociedad",
-    "link": "https://forouno.org/forumdisplay.php?fid="
+    "link": "https://forouno.org/forumdisplay.php?fid=89"
   },
   {
     "id": 228,
