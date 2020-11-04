@@ -90,6 +90,7 @@ const Dashboard = (props) => {
             return MateriasService.getSubjectById(doc.id)
         })
         .then(newSubject => {
+            setGuide(false);
             setMaterias(prevState =>
                 [...prevState, { materiaId: newSubject.materiaId, carrera: newSubject.carrera, nombre: newSubject.nombre }]
             )
@@ -101,7 +102,7 @@ const Dashboard = (props) => {
 
     return (
         <div>
-            {guide &&
+            {guide && 
             <Alert severity="info">¡Usted no tiene materias asignadas!, para agregar su primer materia haga click en el botón + de abajo a la derecha</Alert>
             }
 
