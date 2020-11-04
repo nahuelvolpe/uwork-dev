@@ -50,7 +50,6 @@ export const getTasks = async (materiaId) => {
 
 export const deleteTask = async (taskId, materiaId) => {
     const subjectRef = db.collection('materias').doc(materiaId);
-    const taskRef = db.collection('tareas').doc(taskId);
 
     const response = await db.collection('tareas').doc(taskId).delete()
         .then(() => {

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { useParams } from 'react-router-dom'
 import { Card, CardContent, Typography, CardActions, Button, makeStyles } from '@material-ui/core'
 import ViewTask from './ViewTask';
+import * as TaskService from '../../services/TaskService';
 
 const useStyles = makeStyles((theme) => ({
     textTarea: {
@@ -34,6 +35,16 @@ const CardTask = (props) => {
         setOpen(true);
     }
 
+    const acceptDelete = () => {
+        TaskService.deleteTask(data.tareaId, materiaId)
+            .then(() => {
+                console.log('tarea eliminada')
+                window.location.reload()
+            }).catch((e) => {
+                console.log(e)
+            })
+    }
+
     return (
         <div>
             <Card className={classes.cardContent}>
@@ -48,7 +59,7 @@ const CardTask = (props) => {
                 <CardActions className={classes.cardActions}>
                     <Button size="small" onClick={handleView}>VER</Button>
                     <Button size="small" onClick={()=> { console.log("Editando la tarea") }}>EDITAR</Button>
-                    <Button size="small" onClick={()=> { console.log("Eliminando la tarea, sólo si sos ADMIN") }}>ELIMINAR</Button>
+                    <Button size="small" onClick={acceptDelete}>ELIMINAR</Button>
                 </CardActions>
             </Card>
             <ViewTask
