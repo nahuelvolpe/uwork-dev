@@ -13,7 +13,8 @@ export const getSubjects = async (userId) => {
             result.push({
                 materiaId: id,
                 carrera: docData.carrera,
-                nombre: docData.nombre
+                nombre: docData.nombre,
+                link: docData.link
             });
         }
     }
@@ -29,6 +30,7 @@ export const getSubjectById = async (subjectId) => {
             carrera: data.carrera,
             nombre: data.nombre,
             roles: data.roles,
+            link: data.link,
             tareas: data.tareas
         }
     } else {
@@ -43,6 +45,7 @@ export const createSubject = (subjectData, userId) => {
         roles: {
             [userId]: 'admin'
         },
+        link: subjectData.link,
         tareas: {}
     })
 }

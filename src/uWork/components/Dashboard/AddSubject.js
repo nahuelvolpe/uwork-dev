@@ -51,7 +51,7 @@ export default function AddSubject(props) {
   }
 
   const onAccept = () => {
-    acceptHandler({ career: career.description, subject: subject.description })
+    acceptHandler({ career: career.description, subject: subject.description, link: subject.link })
     setOpen(false)
   }
 
