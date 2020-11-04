@@ -6,6 +6,7 @@ import * as MateriasService from '../../services/MateriasService';
 import AuthenticationService from '../../services/AuthenticationService'
 import AddSubject from './AddSubject'
 import CardSubject from '../Subject/CardSubject'
+import AlertDialog from './AlertDialog';
 
 const useStyles = makeStyles((theme) => ({
     materiaContent: {
@@ -35,8 +36,10 @@ const Dashboard = (props) => {
     const userId = AuthenticationService.getSessionUserId();
 
     const [materias, setMaterias] = useState([])
+    const [materiaId, setMateriaId] = useState('')
 
     const [open, setOpen] = React.useState(false);
+    const [openAlert, setOpenAlert] = React.useState(false);
 
     //obtener los datos de las materias del usuario
     useEffect(() => {
@@ -49,13 +52,19 @@ const Dashboard = (props) => {
         cargarMaterias();
     }, [userId])
 
-    const handleDelete = (materiaId) => {
+    const acceptDelete = (materiaId) => {
         MateriasService.deleteMateriaAdmin(materiaId, userId)
-            .then(() => {
-                setMaterias(prevState => prevState.filter(e => e.materiaId !== materiaId))
-            })
-            .catch((e) => { console.log(e) })
+        .then(() => {
+            setMaterias(prevState => prevState.filter(e => e.materiaId !== materiaId))
+        })
+        .catch((e) => { console.log(e) })
     }
+
+    const handleDelete = (materiaId) => {
+        setMateriaId(materiaId)
+        setOpenAlert(true)
+    }
+    
     
     const handleExit = (materiaId) => {
         MateriasService.exitMateria(materiaId, userId)
@@ -91,6 +100,12 @@ const Dashboard = (props) => {
                 open={open}
                 setOpen={setOpen}
                 acceptHandler={createSubject}
+            />
+            <AlertDialog
+                open={openAlert}
+                setOpen={setOpenAlert}
+                subjectId={materiaId}
+                acceptHandler={acceptDelete}
             />
             <Grid container spacing={3}>
                 {materias && materias.map((materia) =>
