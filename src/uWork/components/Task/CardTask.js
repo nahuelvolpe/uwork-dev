@@ -53,7 +53,7 @@ const CardTask = (props) => {
                         {data.titulo}
                     </Typography>
                     <Typography className={classes.descripcion}>
-                        {data.fechaLimite}
+                        {`Fecha límite: ${data.fechaLimite}`}
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.cardActions}>

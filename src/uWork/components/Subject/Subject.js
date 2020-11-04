@@ -40,13 +40,16 @@ const useStyles = makeStyles((theme) => ({
     },
     info: {
         margin: '5px',
-        padding: '5px',
+        padding: '5px 5px 5px 10px',
         fontSize: '0.6rem',
         fontWeight: 'bold',
-        backgroundColor: '#F5F5F5'
+        backgroundColor: '#F5F5F5',
+        width: '100%'
     },
     container: {
-        marginTop: '5px'
+        marginTop: '5px',
+        padding: '10px',
+
     }
 }));
 
@@ -112,7 +115,7 @@ const Subject = (props) => {
             />
             
             <Grid container className={classes.container} spacing={3}>
-                <Paper className={classes.info} variant="outlined" >
+                <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
                     <p>Link al foro donde podés encontrar apuntes, examenes, trabajos practicos y más información de la materia <a href={link}>{link}</a></p>
                 </Paper>
                     {tasks && tasks.map((task) =>
