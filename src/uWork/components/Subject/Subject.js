@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     info: {
         margin: '5px',
         padding: '5px 5px 5px 10px',
-        fontSize: '0.6rem',
+        fontSize: '0.8rem',
         fontWeight: 'bold',
         backgroundColor: '#F5F5F5',
         width: '100%'
