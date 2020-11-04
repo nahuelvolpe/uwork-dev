@@ -1,13 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
-import { Grid, IconButton, makeStyles, Button } from '@material-ui/core';
+import { Grid, IconButton, makeStyles, Button, Paper } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Invite from './Invite';
 import { SubjectContext } from '../../context/subject';
-import CardSubject from './CardSubject';
 import * as MateriasService from '../../services/MateriasService'
 import * as TaskService from '../../services/TaskService'
-import AddTask from '../Task/AddTask';
 import CardTask from '../Task/CardTask';
 import Task from '../Task/Task';
 import moment from 'moment'
@@ -39,14 +37,28 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '12px',
         marginRight: '12px',
         backgroundColor: theme.palette.info.main
+    },
+    info: {
+        margin: '5px',
+        padding: '5px 5px 5px 10px',
+        fontSize: '0.8rem',
+        fontWeight: 'bold',
+        backgroundColor: '#F5F5F5',
+        width: '100%'
+    },
+    container: {
+        marginTop: '5px',
+        padding: '10px',
+
     }
 }));
 
 const Subject = (props) => {
 
+    const classes = useStyles();
     const { materiaId } = useParams();
     const { setSubjectId, setSubjectName } = useContext(SubjectContext)
-    const classes = useStyles();
+    const [link, setLink] = useState('')
     const [openInvite, setOpenInvite] = useState(false);
     const [openTask, setOpenTask] = useState(false);
     const [tasks, setTasks] = useState([]);
@@ -54,6 +66,7 @@ const Subject = (props) => {
     useEffect(() => {
         async function setSubjectData() {
             const materia = await MateriasService.getSubjectById(materiaId)
+            setLink(materia.link)
             setSubjectName(materia.nombre)
             setSubjectId(materiaId)
         }
@@ -95,19 +108,16 @@ const Subject = (props) => {
                 setOpen={setOpenInvite}
                 materiaId={materiaId}
             />}
-            {/* <AddTask
-                open={openTask}
-                setOpen={setOpenTask}
-                subjectId={materiaId}
-                acceptHandler={createTask}
-            /> */}
             {openTask && <Task
                 open={openTask}
                 setOpen={setOpenTask}
                 subjectId={materiaId}
                 acceptHandler={createTask}
             />}
-            <Grid container spacing={3}>
+            <Grid container className={classes.container} spacing={3}>
+                <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
+                    <p>Link al foro donde podés encontrar apuntes, examenes, trabajos practicos y más información de la materia <a href={link}  target="_blank">{link}</a></p>
+                </Paper>
                 {tasks && tasks.map((task) =>
                     <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
                         <CardTask data={task} history={props.history} acceptTaskHandler={createTask}/>

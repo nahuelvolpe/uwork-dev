@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, { useState, useContext } from 'react';
 import { Card, CardContent, Typography, CardActions, Button, makeStyles } from '@material-ui/core'
 import Task from './Task';
+import * as TaskService from '../../services/TaskService';
+import { SubjectContext } from '../../context/subject';
 
 const useStyles = makeStyles((theme) => ({
     textTarea: {
@@ -24,11 +26,22 @@ const useStyles = makeStyles((theme) => ({
 
 const CardTask = (props) => {
     const classes = useStyles()
-    const { data, acceptTaskHandler, history } = props
+    const { data, acceptTaskHandler } = props
     const [open, setOpen] = useState(false)
+    const { subjectId } = useContext(SubjectContext)
 
     const handleView = () => {
         setOpen(true);
+    }
+
+    const acceptDelete = () => {
+        TaskService.deleteTask(data.tareaId, subjectId)
+            .then(() => {
+                console.log('tarea eliminada')
+                window.location.reload()
+            }).catch((e) => {
+                console.log(e)
+            })
     }
 
     return (
@@ -39,13 +52,12 @@ const CardTask = (props) => {
                         {data.titulo}
                     </Typography>
                     <Typography className={classes.descripcion}>
-                        {data.fechaLimite}
+                        {`Fecha límite: ${data.fechaLimite}`}
                     </Typography>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
                     <Button size="small" onClick={handleView}>VER</Button>
-                    {/* <Button size="small" onClick={()=> { console.log("Editando la tarea") }}>EDITAR</Button> */}
-                    <Button size="small" onClick={()=> { console.log("Eliminando la tarea, sólo si sos ADMIN") }}>ELIMINAR</Button>
+                    <Button size="small" onClick={acceptDelete}>ELIMINAR</Button>
                 </CardActions>
             </Card>
             {open && <Task

@@ -95,11 +95,11 @@ const Invite = ({open, setOpen, materiaId}) => {
                 />
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                    Cerrar
-                </Button>
                 <Button onClick={inviteUser} color="primary">
                     Enviar
+                </Button>
+                <Button onClick={handleClose} color="primary">
+                    Cerrar
                 </Button>
                 </DialogActions>
                 <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
