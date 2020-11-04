@@ -19,6 +19,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
+import EditIcon from '@material-ui/icons/Edit';
 import * as MateriasService from '../../services/MateriasService';
 
 
@@ -207,8 +208,8 @@ export default function ViewTask(props) {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onAccept} color="primary">
-            Aceptar
+          <Button onClick={onAccept} variant="outlined" color="primary" startIcon={<EditIcon />}>
+            Editar
           </Button>
           <Button onClick={handleClose} color="primary">
             Cerrar

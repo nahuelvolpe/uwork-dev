@@ -58,7 +58,6 @@ const CardTask = (props) => {
                 </CardContent>
                 <CardActions className={classes.cardActions}>
                     <Button size="small" onClick={handleView}>VER</Button>
-                    <Button size="small" onClick={()=> { console.log("Editando la tarea") }}>EDITAR</Button>
                     <Button size="small" onClick={acceptDelete}>ELIMINAR</Button>
                 </CardActions>
             </Card>
