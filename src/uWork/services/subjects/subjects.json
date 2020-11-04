@@ -2,1302 +2,1562 @@
   {
     "id": 1,
     "career": 1,
-    "description": "Tecnología Aplicada"
+    "description": "Tecnología Aplicada",
+    "link": "https://forouno.org/forumdisplay.php?fid=197"
   },
   {
     "id": 2,
     "career": 1,
-    "description": "Algebra y Geometría Analítica"
+    "description": "Algebra y Geometría Analítica",
+    "link": "https://forouno.org/forumdisplay.php?fid=198"
   },
   {
     "id": 3,
     "career": 1,
-    "description": "Algoritmo y Estructura de Datos"
+    "description": "Algoritmo y Estructura de Datos",
+    "link": "https://forouno.org/forumdisplay.php?fid=196"
   },
   {
     "id": 4,
     "career": 1,
-    "description": "Teoría de Sistemas y Organizaciones"
+    "description": "Teoría de Sistemas y Organizaciones",
+    "link": "https://forouno.org/forumdisplay.php?fid=201"
   },
   {
     "id": 5,
     "career": 1,
-    "description": "Arquitectura de Computadores I"
+    "description": "Arquitectura de Computadores I",
+    "link": "https://forouno.org/forumdisplay.php?fid=200"
   },
   {
     "id": 6,
     "career": 1,
-    "description": "Programación con Objetos I"
+    "description": "Programación con Objetos I",
+    "link": "https://forouno.org/forumdisplay.php?fid=202"
   },
   {
     "id": 7,
     "career": 1,
-    "description": "Matemática Discreta"
+    "description": "Matemática Discreta",
+    "link": "https://forouno.org/forumdisplay.php?fid=199"
   },
   {
     "id": 8,
     "career": 1,
-    "description": "Análisis Matemático I"
+    "description": "Análisis Matemático I",
+    "link": "https://forouno.org/forumdisplay.php?fid=206"
   },
   {
     "id": 9,
     "career": 1,
-    "description": "Programación con Objetos II"
+    "description": "Programación con Objetos II",
+    "link": "https://forouno.org/forumdisplay.php?fid=203"
   },
   {
     "id": 10,
     "career": 1,
-    "description": "Arquitectura de Computadores II"
+    "description": "Arquitectura de Computadores II",
+    "link": "https://forouno.org/forumdisplay.php?fid=205"
   },
   {
     "id": 11,
     "career": 1,
-    "description": "Ingeniería de Software I"
+    "description": "Ingeniería de Software I",
+    "link": "https://forouno.org/forumdisplay.php?fid=211"
   },
   {
     "id": 12,
     "career": 1,
-    "description": "Probabilidad y Estadística"
+    "description": "Probabilidad y Estadística",
+    "link": "https://forouno.org/forumdisplay.php?fid=207"
   },
   {
     "id": 13,
     "career": 1,
-    "description": "Sistemas Operativos I"
+    "description": "Sistemas Operativos I",
+    "link": "https://forouno.org/forumdisplay.php?fid=209"
   },
   {
     "id": 14,
     "career": 1,
-    "description": "Base de Datos I"
+    "description": "Base de Datos I",
+    "link": "https://forouno.org/forumdisplay.php?fid=208"
   },
   {
     "id": 15,
     "career": 1,
-    "description": "Comunicación y Redes I"
+    "description": "Comunicación y Redes I",
+    "link": "https://forouno.org/forumdisplay.php?fid=210"
   },
   {
     "id": 16,
     "career": 1,
-    "description": "Análisis Matemático II"
+    "description": "Análisis Matemático II",
+    "link": "https://forouno.org/forumdisplay.php?fid=216"
   },
   {
     "id": 17,
     "career": 1,
-    "description": "Base de Datos II"
+    "description": "Base de Datos II",
+    "link": "https://forouno.org/forumdisplay.php?fid=212"
   },
   {
     "id": 18,
     "career": 1,
-    "description": "Comunicación y Redes II"
+    "description": "Comunicación y Redes II",
+    "link": "https://forouno.org/forumdisplay.php?fid=215"
   },
   {
     "id": 19,
     "career": 1,
-    "description": "Ingeniería de Software II"
+    "description": "Ingeniería de Software II",
+    "link": "https://forouno.org/forumdisplay.php?fid=213"
   },
   {
     "id": 20,
     "career": 1,
-    "description": "Interfaces de Usuario y Tecnologías Web"
+    "description": "Interfaces de Usuario y Tecnologías Web",
+    "link": "https://forouno.org/forumdisplay.php?fid=214"
   },
   {
     "id": 21,
     "career": 1,
-    "description": "Programación con Objetos III"
+    "description": "Programación con Objetos III",
+    "link": "https://forouno.org/forumdisplay.php?fid=219"
   },
   {
     "id": 22,
     "career": 1,
-    "description": "Matemática Aplicada"
+    "description": "Matemática Aplicada",
+    "link": "https://forouno.org/forumdisplay.php?fid=220"
   },
   {
     "id": 23,
     "career": 1,
-    "description": "Explotación de Datos"
+    "description": "Explotación de Datos",
+    "link": "https://forouno.org/forumdisplay.php?fid=217"
   },
   {
     "id": 24,
     "career": 1,
-    "description": "Taller de Redes"
+    "description": "Taller de Redes",
+    "link": "https://forouno.org/forumdisplay.php?fid=218"
   },
   {
     "id": 25,
     "career": 1,
-    "description": "Sistemas Operativos II"
+    "description": "Sistemas Operativos II",
+    "link": "https://forouno.org/forumdisplay.php?fid=221"
   },
   {
     "id": 26,
     "career": 1,
-    "description": "Dir. y Eval de Proyectos Informáticos"
+    "description": "Dir. y Eval de Proyectos Informáticos",
+    "link": "https://forouno.org/forumdisplay.php?fid=224"
   },
   {
     "id": 27,
     "career": 1,
-    "description": "Arquitectura de Software"
+    "description": "Arquitectura de Software",
+    "link": "https://forouno.org/forumdisplay.php?fid=222"
   },
   {
     "id": 28,
     "career": 1,
-    "description": "Modelos, Simulación y Teoría de la Decisión"
+    "description": "Modelos, Simulación y Teoría de la Decisión",
+    "link": "https://forouno.org/forumdisplay.php?fid=195"
   },
   {
     "id": 29,
     "career": 1,
-    "description": "Metodología de la Investigación"
+    "description": "Metodología de la Investigación",
+    "link": "https://forouno.org/forumdisplay.php?fid=226"
   },
   {
     "id": 30,
     "career": 1,
-    "description": "Paradigmas de Programación"
+    "description": "Paradigmas de Programación",
+    "link": "https://forouno.org/forumdisplay.php?fid=223"
   },
   {
     "id": 31,
     "career": 1,
-    "description": "Lenguajes de Programación"
+    "description": "Lenguajes de Programación",
+    "link": "https://forouno.org/forumdisplay.php?fid=225"
   },
   {
     "id": 32,
     "career": 1,
-    "description": "Infraestructura de Sistemas"
+    "description": "Infraestructura de Sistemas",
+    "link": "https://forouno.org/forumdisplay.php?fid=227"
   },
   {
     "id": 33,
     "career": 1,
-    "description": "Desarrollo de Compiladores"
+    "description": "Desarrollo de Compiladores",
+    "link": "https://forouno.org/forumdisplay.php?fid=228"
   },
   {
     "id": 34,
     "career": 1,
-    "description": "Inteligencia Artificial"
+    "description": "Inteligencia Artificial",
+    "link": "https://forouno.org/forumdisplay.php?fid=229"
   },
   {
     "id": 35,
     "career": 1,
-    "description": "Práctica Profesional"
+    "description": "Práctica Profesional",
+    "link": "https://forouno.org/forumdisplay.php?fid=230"
   },
   {
     "id": 36,
     "career": 1,
-    "description": "Aspectos Legales y Sociales de la Inf."
+    "description": "Aspectos Legales y Sociales de la Inf.",
+    "link": "https://forouno.org/forumdisplay.php?fid=233"
   },
   {
     "id": 37,
     "career": 1,
-    "description": "Ingeniería de Software III"
+    "description": "Ingeniería de Software III",
+    "link": "https://forouno.org/forumdisplay.php?fid=232"
   },
   {
     "id": 38,
     "career": 1,
-    "description": "Sistemas de Tiempo Real y Misión Crítica"
+    "description": "Sistemas de Tiempo Real y Misión Crítica",
+    "link": "https://forouno.org/forumdisplay.php?fid=234"
   },
   {
     "id": 39,
     "career": 1,
-    "description": "Economía I"
+    "description": "Economía I",
+    "link": "https://forouno.org/forumdisplay.php?fid=231"
   },
   {
     "id": 40,
     "career": 1,
-    "description": "Seguridad y Auditoría"
+    "description": "Seguridad y Auditoría",
+    "link": "https://forouno.org/forumdisplay.php?fid=235"
   },
   {
     "id": 41,
     "career": 1,
-    "description": "Teoría de la Computación"
+    "description": "Teoría de la Computación",
+    "link": "https://forouno.org/forumdisplay.php?fid=237"
   },
   {
     "id": 42,
     "career": 1,
-    "description": "Adm. y Gestión de las Organizaciones"
+    "description": "Adm. y Gestión de las Organizaciones",
+    "link": "https://forouno.org/forumdisplay.php?fid=239"
   },
   {
     "id": 43,
     "career": 1,
-    "description": "Economía II"
+    "description": "Economía II",
+    "link": "https://forouno.org/forumdisplay.php?fid=236"
   },
   {
     "id": 44,
     "career": 1,
-    "description": "Trabajo Final"
+    "description": "Trabajo Final",
+    "link": "https://forouno.org/forumdisplay.php?fid=238"
   },
   {
     "id":45,
     "career": 2,
-    "description" : "Análisis y Producción del Discurso"
+    "description" : "Análisis y Producción del Discurso",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id":46,
     "career": 2,
-    "description" : "Análisis Matemático I"
+    "description" : "Análisis Matemático I",
+    "link": "https://forouno.org/forumdisplay.php?fid=134"
   },
   {
     "id":47,
     "career": 2,
-    "description" : "Química General"
+    "description" : "Química General",
+    "link": "https://forouno.org/forumdisplay.php?fid=133"
   },
   {
     "id":48,
     "career": 2,
-    "description" : "Univ., Ciencia y Sociedad"
+    "description" : "Univ., Ciencia y Sociedad",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id":49,
     "career": 2,
-    "description" : "Problemática Regional"
+    "description" : "Problemática Regional",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id":50,
     "career": 2,
-    "description" : "Física I"
+    "description" : "Física I",
+    "link": "https://forouno.org/forumdisplay.php?fid=135"
   },
   {
     "id":51,
     "career": 2,
-    "description" : "Química Inorgánica"
+    "description" : "Química Inorgánica",
+    "link": "https://forouno.org/forumdisplay.php?fid=136"
   },
   {
     "id":52,
     "career": 2,
-    "description" : "Algebra y Geometría Analítica"
+    "description" : "Algebra y Geometría Analítica",
+    "link": "https://forouno.org/forumdisplay.php?fid=132"
   },
   {
     "id":53,
     "career": 2,
-    "description" : "Fundamentos de Informática"
+    "description" : "Fundamentos de Informática",
+    "link": "https://forouno.org/forumdisplay.php?fid=255"
   },
   {
     "id":54,
     "career": 2,
-    "description" : "Química Orgánica I"
+    "description" : "Química Orgánica I",
+    "link": "https://forouno.org/forumdisplay.php?fid=138"
   },
   {
     "id":55,
     "career": 2,
-    "description" : "Análisis Matemático II"
+    "description" : "Análisis Matemático II",
+    "link": "https://forouno.org/forumdisplay.php?fid=140"
   },
   {
     "id":56,
     "career": 2,
-    "description" : "Electiva"
+    "description" : "Electiva",
+    "link": "https://forouno.org/forumdisplay.php?fid=131"
   },
   {
     "id":57,
     "career": 2,
-    "description" : "Física II"
+    "description" : "Física II",
+    "link": "https://forouno.org/forumdisplay.php?fid=139"
   },
   {
     "id":58,
     "career": 2,
-    "description" : "Estadística Aplicada"
+    "description" : "Estadística Aplicada",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id":59,
     "career": 2,
-    "description" : "Sistemas de Representación"
+    "description" : "Sistemas de Representación",
+    "link": "https://forouno.org/forumdisplay.php?fid=141"
   },
   {
     "id":60,
     "career": 2,
-    "description" : "Termodinámica"
+    "description" : "Termodinámica",
+    "link": "https://forouno.org/forumdisplay.php?fid=142"
   },
   {
     "id":61,
     "career": 2,
-    "description" : "Análisis Matemático III"
+    "description" : "Análisis Matemático III",
+    "link": "https://forouno.org/forumdisplay.php?fid=148"
   },
   {
     "id":62,
     "career": 2,
-    "description" : "Química Orgánica II"
+    "description" : "Química Orgánica II",
+    "link": "https://forouno.org/forumdisplay.php?fid=147"
   },
   {
     "id":63,
     "career": 2,
-    "description" : "Fisicoquímica"
+    "description" : "Fisicoquímica",
+    "link": "https://forouno.org/forumdisplay.php?fid=146"
   },
   {
     "id":64,
     "career": 2,
-    "description" : "Química Analítica I"
+    "description" : "Química Analítica I",
+    "link": "https://forouno.org/forumdisplay.php?fid=137"
   },
   {
     "id":65,
     "career": 2,
-    "description" : "Fenómenos de Transporte"
+    "description" : "Fenómenos de Transporte",
+    "link": "https://forouno.org/forumdisplay.php?fid=145"
   },
   {
     "id":66,
     "career": 2,
-    "description" : "Cálculo Numérico"
+    "description" : "Cálculo Numérico",
+    "link": "https://forouno.org/forumdisplay.php?fid=131"
   },
   {
     "id":67,
     "career": 2,
-    "description" : "Química Analítica II"
+    "description" : "Química Analítica II",
+    "link": "https://forouno.org/forumdisplay.php?fid=143"
   },
   {
     "id":68,
     "career": 2,
-    "description" : "Ingeniería de Procesos"
+    "description" : "Ingeniería de Procesos",
+    "link": "https://forouno.org/forumdisplay.php?fid=157"
   },
   {
     "id":69,
     "career": 2,
-    "description" : "Operaciones Unitarias I"
+    "description" : "Operaciones Unitarias I",
+    "link": "https://forouno.org/forumdisplay.php?fid=149"
   },
   {
     "id":70,
     "career": 2,
-    "description" : "Tec. de Electricidad y Serv. Auxiliares"
+    "description" : "Tec. de Electricidad y Serv. Auxiliares",
+    "link": "https://forouno.org/forumdisplay.php?fid=150"
   },
   {
     "id":71,
     "career": 2,
-    "description" : "Tec. de Materiales y Mecánica"
+    "description" : "Tec. de Materiales y Mecánica",
+    "link": "https://forouno.org/forumdisplay.php?fid=151"
   },
   {
     "id":72,
     "career": 2,
-    "description" : "Biotecnología"
+    "description" : "Biotecnología",
+    "link": "https://forouno.org/forumdisplay.php?fid=153"
   },
   {
     "id":73,
     "career": 2,
-    "description" : "Economía"
+    "description" : "Economía",
+    "link": "https://forouno.org/forumdisplay.php?fid=155"
   },
   {
     "id":74,
     "career": 2,
-    "description" : "Organización Industrial"
+    "description" : "Organización Industrial",
+    "link": "https://forouno.org/forumdisplay.php?fid=152"
   },
   {
     "id":75,
     "career": 2,
-    "description" : "Operaciones Unitarias II"
+    "description" : "Operaciones Unitarias II",
+    "link": "https://forouno.org/forumdisplay.php?fid=154"
   },
   {
     "id":76,
     "career": 2,
-    "description" : "Ingeniería de las Reacciones Químicas"
+    "description" : "Ingeniería de las Reacciones Químicas",
+    "link": "https://forouno.org/forumdisplay.php?fid=159"
   },
   {
     "id":77,
     "career": 2,
-    "description" : "Operaciones Unitarias III"
+    "description" : "Operaciones Unitarias III",
+    "link": "https://forouno.org/forumdisplay.php?fid=156"
   },
   {
     "id":78,
     "career": 2,
-    "description" : "Proyecto Final"
+    "description" : "Proyecto Final",
+    "link": "https://forouno.org/forumdisplay.php?fid=160"
   },
   {
     "id":79,
     "career": 2,
-    "description" : "Inst. y Control de Procesos"
+    "description" : "Inst. y Control de Procesos",
+    "link": "https://forouno.org/forumdisplay.php?fid=249"
   },
   {
     "id":80,
     "career": 2,
-    "description" : "Simulación y Optimización de Procesos"
+    "description" : "Simulación y Optimización de Procesos",
+    "link": "https://forouno.org/forumdisplay.php?fid=250"
   },
   {
     "id":81,
     "career": 2,
-    "description" : "Seguridad, Higiene y Gestión Ambiental"
+    "description" : "Seguridad, Higiene y Gestión Ambiental",
+    "link": "https://forouno.org/forumdisplay.php?fid=158"
   },
   {
     "id":82,
     "career": 2,
-    "description" : "Ingeniería de las Instalacones"
+    "description" : "Ingeniería de las Instalacones",
+    "link": "https://forouno.org/forumdisplay.php?fid=251"
   },
   {
     "id":83,
     "career": 2,
-    "description" : "Legislación"
+    "description" : "Legislación",
+    "link": "https://forouno.org/forumdisplay.php?fid=252"
   },
   {
     "id":84,
     "career": 2,
-    "description" : "Optativa I"
+    "description" : "Optativa I",
+    "link": "https://forouno.org/forumdisplay.php?fid=131"
   },
   {
     "id":85,
     "career": 2,
-    "description" : "Optativa II"
+    "description" : "Optativa II",
+    "link": "https://forouno.org/forumdisplay.php?fid=131"
   },
   {
     "id":86,
     "career": 2,
-    "description" : "Práctica Profesional Supervisada"
+    "description" : "Práctica Profesional Supervisada",
+    "link": "https://forouno.org/forumdisplay.php?fid=253"
   },
   {
     "id": 87,
     "career": 3,
-    "description" : "Análisis y Producción del Discurso"
+    "description" : "Análisis y Producción del Discurso",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 88,
     "career": 3,
-    "description" : "Administración I"
+    "description" : "Administración I",
+    "link": "https://forouno.org/forumdisplay.php?fid=100"
   },
   {
     "id": 89,
     "career": 3,
-    "description" : "Matemática I"
+    "description" : "Matemática I",
+    "link": "https://forouno.org/forumdisplay.php?fid=107"
   },
   {
     "id": 90,
     "career": 3,
-    "description" : "Metodología de las Ciencias Sociales"
+    "description" : "Metodología de las Ciencias Sociales",
+    "link": "https://forouno.org/forumdisplay.php?fid=105"
   },
   {
     "id": 91,
     "career": 3,
-    "description" : "Problemática Regional"
+    "description" : "Problemática Regional",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 92,
     "career": 3,
-    "description" : "Administración II"
+    "description" : "Administración II",
+    "link": "https://forouno.org/forumdisplay.php?fid=111"
   },
   {
     "id": 93,
     "career": 3,
-    "description" : "Estadística"
+    "description" : "Estadística",
+    "link": "https://forouno.org/forumdisplay.php?fid=106"
   },
   {
     "id": 94,
     "career": 3,
-    "description" : "Economía I"
+    "description" : "Economía I",
+    "link": "https://forouno.org/forumdisplay.php?fid=101"
   },
   {
     "id": 95,
     "career": 3,
-    "description" : "Univ., Ciencia y Sociedad"
+    "description" : "Univ., Ciencia y Sociedad",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 96,
     "career": 3,
-    "description" : "Matemática II"
+    "description" : "Matemática II",
+    "link": "https://forouno.org/forumdisplay.php?fid=113"
   },
   {
     "id": 97,
     "career": 3,
-    "description" : "Sistemas Contables"
+    "description" : "Sistemas Contables",
+    "link": "https://forouno.org/forumdisplay.php?fid=104"
   },
   {
     "id": 98,
     "career": 3,
-    "description" : "Administración de Recursos Humanos"
+    "description" : "Administración de Recursos Humanos",
+    "link": "https://forouno.org/forumdisplay.php?fid=108"
   },
   {
     "id": 99,
     "career": 3,
-    "description" : "Electiva"
+    "description" : "Electiva",
+    "link": "https://forouno.org/forumdisplay.php?fid=99"
   },
   {
     "id": 100,
     "career": 3,
-    "description" : "Contabilidad I"
+    "description" : "Contabilidad I",
+    "link": "https://forouno.org/forumdisplay.php?fid=102"
   },
   {
     "id": 101,
     "career": 3,
-    "description" : "Economía II"
+    "description" : "Economía II",
+    "link": "https://forouno.org/forumdisplay.php?fid=112"
   },
   {
     "id": 102,
     "career": 3,
-    "description" : "Sociología"
+    "description" : "Sociología",
+    "link": "https://forouno.org/forumdisplay.php?fid=103"
   },
   {
     "id": 103,
     "career": 3,
-    "description" : "Administración Pública"
+    "description" : "Administración Pública",
+    "link": "https://forouno.org/forumdisplay.php?fid=109"
   },
   {
     "id": 104,
     "career": 3,
-    "description" : "Instituciones del Derecho Público"
+    "description" : "Instituciones del Derecho Público",
+    "link": "https://forouno.org/forumdisplay.php?fid=114"
   },
   {
     "id": 105,
     "career": 3,
-    "description" : "Matemática III"
+    "description" : "Matemática III",
+    "link": "https://forouno.org/forumdisplay.php?fid=116"
   },
   {
     "id": 106,
     "career": 3,
-    "description" : "Contabilidad II"
+    "description" : "Contabilidad II",
+    "link": "https://forouno.org/forumdisplay.php?fid=118"
   },
   {
     "id": 107,
     "career": 3,
-    "description" : "Optativa I"
+    "description" : "Optativa I",
+    "link": "https://forouno.org/forumdisplay.php?fid=99"
   },
   {
     "id": 108,
     "career": 3,
-    "description" : "Economía III"
+    "description" : "Economía III",
+    "link": "https://forouno.org/forumdisplay.php?fid=117"
   },
   {
     "id": 109,
     "career": 3,
-    "description" : "Administración de la Comercialización"
+    "description" : "Administración de la Comercialización",
+    "link": "https://forouno.org/forumdisplay.php?fid=110"
   },
   {
     "id": 110,
     "career": 3,
-    "description" : "Instituciones del Derecho Privado"
+    "description" : "Instituciones del Derecho Privado",
+    "link": "https://forouno.org/forumdisplay.php?fid=115"
   },
   {
     "id": 111,
     "career": 3,
-    "description" : "Seminario de Gestión Empresarial"
+    "description" : "Seminario de Gestión Empresarial",
+    "link": "https://forouno.org/forumdisplay.php?fid=120"
   },
   {
     "id": 112,
     "career": 3,
-    "description" : "Práctica Profesional Supervisada I"
+    "description" : "Práctica Profesional Supervisada I",
+    "link": "https://forouno.org/forumdisplay.php?fid=121"
   },
   {
     "id": 113,
     "career": 3,
-    "description" : "Contabilidad III"
+    "description" : "Contabilidad III",
+    "link": "https://forouno.org/forumdisplay.php?fid=119"
   },
   {
     "id": 114,
     "career": 3,
-    "description" : "Información Gerencial"
+    "description" : "Información Gerencial",
+    "link": "https://forouno.org/forumdisplay.php?fid=122"
   },
   {
     "id": 115,
     "career": 3,
-    "description" : "Finanzas de la Empresa"
+    "description" : "Finanzas de la Empresa",
+    "link": "https://forouno.org/forumdisplay.php?fid=124"
   },
   {
     "id": 116,
     "career": 3,
-    "description" : "Optativa II"
+    "description" : "Optativa II",
+    "link": "https://forouno.org/forumdisplay.php?fid=99"
   },
   {
     "id": 117,
     "career": 3,
-    "description" : "Dirección Estratégica y Gestión Empresarial"
+    "description" : "Dirección Estratégica y Gestión Empresarial",
+    "link": "https://forouno.org/forumdisplay.php?fid=125"
   },
   {
     "id": 118,
     "career": 3,
-    "description" : "Marketing Estratégico"
+    "description" : "Marketing Estratégico",
+    "link": "https://forouno.org/forumdisplay.php?fid=126"
   },
   {
     "id": 119,
     "career": 3,
-    "description" : "Administración Financiera"
+    "description" : "Administración Financiera",
+    "link": "https://forouno.org/forumdisplay.php?fid=127"
   },
   {
     "id": 120,
     "career": 3,
-    "description" : "Formulación y Evaluación de Proyectos"
+    "description" : "Formulación y Evaluación de Proyectos",
+    "link": "https://forouno.org/forumdisplay.php?fid=123"
   },
   {
     "id": 121,
     "career": 3,
-    "description" : "Práctica Profesional Supervisada II"
+    "description" : "Práctica Profesional Supervisada II",
+    "link": "https://forouno.org/forumdisplay.php?fid=319"
   },
   {
     "id": 122,
     "career": 4,
-    "description" : "Análisis y Producción del Discurso"
+    "description" : "Análisis y Producción del Discurso",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 123,
     "career": 4,
-    "description" : "Problemática Regional"
+    "description" : "Problemática Regional",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 124,
     "career": 4,
-    "description" : "Univ., Ciencia y Sociedad"
+    "description" : "Univ., Ciencia y Sociedad",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 125,
     "career": 4,
-    "description" : "Matemática I"
+    "description" : "Matemática I",
+    "link": "https://forouno.org/forumdisplay.php?fid=107"
   },
   {
     "id": 126,
     "career": 4,
-    "description" : "Administración I"
+    "description" : "Administración I",
+    "link": "https://forouno.org/forumdisplay.php?fid=100"
   },
   {
     "id": 127,
     "career": 4,
-    "description" : "Metodología de las Ciencias Sociales"
+    "description" : "Metodología de las Ciencias Sociales",
+    "link": "https://forouno.org/forumdisplay.php?fid=105"
   },
   {
     "id": 128,
     "career": 4,
-    "description" : "Estadística"
+    "description" : "Estadística",
+    "link": "https://forouno.org/forumdisplay.php?fid=106"
   },
   {
     "id": 129,
     "career": 4,
-    "description" : "Economía I"
+    "description" : "Economía I",
+    "link": "https://forouno.org/forumdisplay.php?fid=101"
   },
   {
     "id": 130,
     "career": 4,
-    "description" : "Matemática II"
+    "description" : "Matemática II",
+    "link": "https://forouno.org/forumdisplay.php?fid=113"
   },
   {
     "id": 131,
     "career": 4,
-    "description" : "Administración II"
+    "description" : "Administración II",
+    "link": "https://forouno.org/forumdisplay.php?fid=111"
   },
   {
     "id": 132,
     "career": 4,
-    "description" : "Sistemas Contables"
+    "description" : "Sistemas Contables",
+    "link": "https://forouno.org/forumdisplay.php?fid=104"
   },
   {
     "id": 133,
     "career": 4,
-    "description" : "Sociología"
+    "description" : "Sociología",
+    "link": "https://forouno.org/forumdisplay.php?fid=103"
   },
   {
     "id": 134,
     "career": 4,
-    "description" : "Administración de Recursos Humanos"
+    "description" : "Administración de Recursos Humanos",
+    "link": "https://forouno.org/forumdisplay.php?fid=108"
   },
   {
     "id": 135,
     "career": 4,
-    "description" : "Electiva"
+    "description" : "Electiva",
+    "link": "https://forouno.org/forumdisplay.php?fid=99"
   },
   {
     "id": 136,
     "career": 4,
-    "description" : "Contabilidad I"
+    "description" : "Contabilidad I",
+    "link": "https://forouno.org/forumdisplay.php?fid=102"
   },
   {
     "id": 137,
     "career": 4,
-    "description" : "Economía II"
+    "description" : "Economía II",
+    "link": "https://forouno.org/forumdisplay.php?fid=112"
   },
   {
     "id": 138,
     "career": 4,
-    "description" : "Planeamiento de Personal, selección y empleo"
+    "description" : "Planeamiento de Personal, selección y empleo",
+    "link": "https://forouno.org/forumdisplay.php?fid=99"
   },
   {
     "id": 139,
     "career": 4,
-    "description" : "Integración económica y movilidad laboral"
+    "description" : "Integración económica y movilidad laboral",
+    "link": "https://forouno.org/forumdisplay.php?fid=99"
   },
   {
     "id": 140,
     "career": 4,
-    "description" : "Instituciones del Derecho"
+    "description" : "Instituciones del Derecho",
+    "link": "https://forouno.org/forumdisplay.php?fid=114"
   },
   {
     "id": 141,
     "career": 4,
-    "description" : "Optativa I"
+    "description" : "Optativa I",
+    "link": "https://forouno.org/forumdisplay.php?fid=99"
   },
   {
     "id": 142,
     "career": 4,
-    "description" : "Práctica Profesional Supervisada I"
+    "description" : "Práctica Profesional Supervisada I",
+    "link": "https://forouno.org/forumdisplay.php?fid=121"
   },
   {
     "id": 143,
     "career": 4,
-    "description" : "Dirección Estratégica y Gestión Empresarial"
+    "description" : "Dirección Estratégica y Gestión Empresarial",
+    "link": "https://forouno.org/forumdisplay.php?fid=125"
   },
   {
     "id": 144,
     "career": 4,
-    "description" : "Derecho del Trabajo"
+    "description" : "Derecho del Trabajo",
+    "link": "https://forouno.org/forumdisplay.php?fid=313"
   },
   {
     "id": 145,
     "career": 4,
-    "description" : "Psicología General y Social"
+    "description" : "Psicología General y Social",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 146,
     "career": 4,
-    "description" : "Sistemas de Información, Capacitación y Desarrollo"
+    "description" : "Sistemas de Información, Capacitación y Desarrollo",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 147,
     "career": 4,
-    "description" : "Seguridad Industrial..."
+    "description" : "Seguridad Industrial...",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 148,
     "career": 4,
-    "description" : "Administración de la  Comercialización de RRHH"
+    "description" : "Administración de la  Comercialización de RRHH",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 149,
     "career": 4,
-    "description" : "Optativa II"
+    "description" : "Optativa II",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 150,
     "career": 4,
-    "description" : "Cambio y Desarrollo Organizacional"
+    "description" : "Cambio y Desarrollo Organizacional",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 151,
     "career": 4,
-    "description" : "Filosofía y Ética Profesional"
+    "description" : "Filosofía y Ética Profesional",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 152,
     "career": 4,
-    "description" : "Sistemas de Costos y Administración de la Producción"
+    "description" : "Sistemas de Costos y Administración de la Producción",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 153,
     "career": 4,
-    "description" : "Recursos Humanos en la Adm. Pública"
+    "description" : "Recursos Humanos en la Adm. Pública",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 154,
     "career": 4,
-    "description" : "Técnicas de Negociación y Comunicación de la Empresa"
+    "description" : "Técnicas de Negociación y Comunicación de la Empresa",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 155,
     "career": 4,
-    "description" : "Práctica Profesional Supervisada II"
+    "description" : "Práctica Profesional Supervisada II",
+    "link": "https://forouno.org/forumdisplay.php?fid=319"
   },
   {
     "id": 156,
     "career": 5,
-    "description" : "Análisis y Producción del Discurso"
+    "description" : "Análisis y Producción del Discurso",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 157,
     "career": 5,
-    "description" : "Problemática Regional"
+    "description" : "Problemática Regional",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 158,
     "career": 5,
-    "description" : "Univ., Ciencia y Sociedad"
+    "description" : "Univ., Ciencia y Sociedad",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 159,
     "career": 5,
-    "description" : "Matemática I"
+    "description" : "Matemática I",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 160,
     "career": 5,
-    "description" : "Administración I"
+    "description" : "Administración I",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 161,
     "career": 5,
-    "description" : "Metodología de las Ciencias Sociales"
+    "description" : "Metodología de las Ciencias Sociales",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 162,
     "career": 5,
-    "description" : "Estadística"
+    "description" : "Estadística",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 163,
     "career": 5,
-    "description" : "Economía I"
+    "description" : "Economía I",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 164,
     "career": 5,
-    "description" : "Matemática II"
+    "description" : "Matemática II",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 165,
     "career": 5,
-    "description" : "Administración II"
+    "description" : "Administración II",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 166,
     "career": 5,
-    "description" : "Sistemas Contables"
+    "description" : "Sistemas Contables",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 167,
     "career": 5,
-    "description" : "Sociología"
+    "description" : "Sociología",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 168,
     "career": 5,
-    "description" : "Administración de Recursos Humanos"
+    "description" : "Administración de Recursos Humanos",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 169,
     "career": 5,
-    "description" : "Electiva"
+    "description" : "Electiva",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 170,
     "career": 5,
-    "description" : "Contabilidad I"
+    "description" : "Contabilidad I",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 171,
     "career": 5,
-    "description" : "Economía II"
+    "description" : "Economía II",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 172,
     "career": 5,
-    "description" : "Microeconomía Avanzada"
+    "description" : "Microeconomía Avanzada",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 173,
     "career": 5,
-    "description" : "Integración económica y movilidad laboral"
+    "description" : "Integración económica y movilidad laboral",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 174,
     "career": 5,
-    "description" : "Optativa I"
+    "description" : "Optativa I",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 175,
     "career": 5,
-    "description" : "Práctica Profesional Supervisada I"
+    "description" : "Práctica Profesional Supervisada I",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 176,
     "career": 5,
-    "description" : "Estadística II"
+    "description" : "Estadística II",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 177,
     "career": 5,
-    "description" : "Economía Internacional"
+    "description" : "Economía Internacional",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 178,
     "career": 5,
-    "description" : "Historia Económica y Social"
+    "description" : "Historia Económica y Social",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 179,
     "career": 5,
-    "description" : "Cálculo Financiero y Adm. Financiera"
+    "description" : "Cálculo Financiero y Adm. Financiera",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 180,
     "career": 5,
-    "description" : "Macroeconomía Avanzada"
+    "description" : "Macroeconomía Avanzada",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 181,
     "career": 5,
-    "description" : "Econometría"
+    "description" : "Econometría",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 182,
     "career": 5,
-    "description" : "Optativa II"
+    "description" : "Optativa II",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 183,
     "career": 5,
-    "description" : "Crecimiento Económico"
+    "description" : "Crecimiento Económico",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 184,
     "career": 5,
-    "description" : "Finanzas Públicas"
+    "description" : "Finanzas Públicas",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 185,
     "career": 5,
-    "description" : "Desarrollo Económico"
+    "description" : "Desarrollo Económico",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 186,
     "career": 5,
-    "description" : "Evaluación y Gestión de Proyectos"
+    "description" : "Evaluación y Gestión de Proyectos",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 187,
     "career": 5,
-    "description" : "Historia del Pensamiento Económico"
+    "description" : "Historia del Pensamiento Económico",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 188,
     "career": 5,
-    "description" : "Práctica Profesional Supervisada II"
+    "description" : "Práctica Profesional Supervisada II",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 189,
     "career": 6,
-    "description" : "Seminario de Universidad, Ciencia y Sociedad"
+    "description" : "Seminario de Universidad, Ciencia y Sociedad",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 190,
     "career": 6,
-    "description" : "Seminario de Problemática Regional"
+    "description" : "Seminario de Problemática Regional",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 191,
     "career": 6,
-    "description" : "Seminario de Nuevas Identidades Juveniles"
+    "description" : "Seminario de Nuevas Identidades Juveniles",
+    "link": "https://forouno.org/forumdisplay.php?fid=284"
   },
   {
     "id": 192,
     "career": 6,
-    "description" : "Fisiología Clínica del Trabajo Físico"
+    "description" : "Fisiología Clínica del Trabajo Físico",
+    "link": "https://forouno.org/forumdisplay.php?fid=285"
   },
   {
     "id": 193,
     "career": 6,
-    "description" : "Política Educativa de la Ed. Física"
+    "description" : "Política Educativa de la Ed. Física",
+    "link": "https://forouno.org/forumdisplay.php?fid=286"
   },
   {
     "id": 194,
     "career": 6,
-    "description" : "Actividad Física y Salud"
+    "description" : "Actividad Física y Salud",
+    "link": "https://forouno.org/forumdisplay.php?fid=287"
   },
   {
     "id": 195,
     "career": 6,
-    "description" : "Nutrición y Energética de la Act. Física y el Deporte"
+    "description" : "Nutrición y Energética de la Act. Física y el Deporte",
+    "link": "https://forouno.org/forumdisplay.php?fid=288"
   },
   {
     "id": 196,
     "career": 6,
-    "description" : "Electiva"
+    "description" : "Electiva",
+    "link": "https://forouno.org/forumdisplay.php?fid=242"
   },
   {
     "id": 197,
     "career": 6,
-    "description" : "Elaboración de Proyectos de Investigación"
+    "description" : "Elaboración de Proyectos de Investigación",
+    "link": "https://forouno.org/forumdisplay.php?fid=289"
   },
   {
     "id": 198,
     "career": 6,
-    "description" : "Evaluación de la Actividad Física y el Deporte"
+    "description" : "Evaluación de la Actividad Física y el Deporte",
+    "link": "https://forouno.org/forumdisplay.php?fid=290"
   },
   {
     "id": 199,
     "career": 6,
-    "description" : "Diseño y Gestión de Políticas en la Ed. Física"
+    "description" : "Diseño y Gestión de Políticas en la Ed. Física",
+    "link": "https://forouno.org/forumdisplay.php?fid=291"
   },
   {
     "id": 200,
     "career": 6,
-    "description" : "Psicología de la Actividad Física"
+    "description" : "Psicología de la Actividad Física",
+    "link": "https://forouno.org/forumdisplay.php?fid=292"
   },
   {
     "id": 201,
     "career": 6,
-    "description" : "Metodología de la Investigación"
+    "description" : "Metodología de la Investigación",
+    "link": "https://forouno.org/forumdisplay.php?fid=293"
   },
   {
     "id": 202,
     "career": 6,
-    "description" : "Planificación y Estructuración del Entrenamiento"
+    "description" : "Planificación y Estructuración del Entrenamiento",
+    "link": "https://forouno.org/forumdisplay.php?fid=294"
   },
   {
     "id": 203,
     "career": 6,
-    "description" : "Biomecánica"
+    "description" : "Biomecánica",
+    "link": "https://forouno.org/forumdisplay.php?fid=295"
   },
   {
     "id": 204,
     "career": 6,
-    "description" : "Discapacidad e Integración en la Ed. Física"
+    "description" : "Discapacidad e Integración en la Ed. Física",
+    "link": "https://forouno.org/forumdisplay.php?fid=296"
   },
   {
     "id": 205,
     "career": 6,
-    "description" : "Seminario del Diseño de Trabajo Final"
+    "description" : "Seminario del Diseño de Trabajo Final",
+    "link": "https://forouno.org/forumdisplay.php?fid=297"
   },
   {
     "id": 206,
     "career": 6,
-    "description" : "Trabajo Final Integrador"
+    "description" : "Trabajo Final Integrador",
+    "link": "https://forouno.org/forumdisplay.php?fid=242"
   },
   {
     "id": 207,
     "career": 7,
-    "description" : "Enfermería Básica"
+    "description" : "Enfermería Básica",
+    "link": "https://forouno.org/forumdisplay.php?fid=165"
   },
   {
     "id": 208,
     "career": 7,
-    "description" : "Enfermería Materno-Infantil I"
+    "description" : "Enfermería Materno-Infantil I",
+    "link": "https://forouno.org/forumdisplay.php?fid=170"
   },
   {
     "id": 209,
     "career": 7,
-    "description" : "Enfermería Materno-Infantil II"
+    "description" : "Enfermería Materno-Infantil II",
+    "link": "https://forouno.org/forumdisplay.php?fid=174"
   },
   {
     "id": 210,
     "career": 7,
-    "description" : "Ciencias Biológicas I"
+    "description" : "Ciencias Biológicas I",
+    "link": "https://forouno.org/forumdisplay.php?fid=164"
   },
   {
     "id": 211,
     "career": 7,
-    "description" : "Ciencias Biológicas II"
+    "description" : "Ciencias Biológicas II",
+    "link": "https://forouno.org/forumdisplay.php?fid=167"
   },
   {
     "id": 212,
     "career": 7,
-    "description" : "Análisis y Producción del Discurso"
+    "description" : "Análisis y Producción del Discurso",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 213,
     "career": 7,
-    "description" : "Psicología Social Comunitaria"
+    "description" : "Psicología Social Comunitaria",
+    "link": "https://forouno.org/forumdisplay.php?fid=324"
   },
   {
     "id": 214,
     "career": 7,
-    "description" : "Filosofía I"
+    "description" : "Filosofía I",
+    "link": "https://forouno.org/forumdisplay.php?fid=325"
   },
   {
     "id": 215,
     "career": 7,
-    "description" : "Enfermería Comunitaria y Salud Pública"
+    "description" : "Enfermería Comunitaria y Salud Pública",
+    "link": "https://forouno.org/forumdisplay.php?fid=166"
   },
   {
     "id": 216,
     "career": 7,
-    "description" : "Enfermería del Adulto y del Anciano I"
+    "description" : "Enfermería del Adulto y del Anciano I",
+    "link": "https://forouno.org/forumdisplay.php?fid=171"
   },
   {
     "id": 217,
     "career": 7,
-    "description" : "Enfermería del Adulto y del Anciano II"
+    "description" : "Enfermería del Adulto y del Anciano II",
+    "link": "https://forouno.org/forumdisplay.php?fid=179"
   },
   {
     "id": 218,
     "career": 7,
-    "description" : "Farmacología"
+    "description" : "Farmacología",
+    "link": "https://forouno.org/forumdisplay.php?fid=168"
   },
   {
     "id": 219,
     "career": 7,
-    "description" : "Microbiología"
+    "description" : "Microbiología",
+    "link": "https://forouno.org/forumdisplay.php?fid=326"
   },
   {
     "id": 220,
     "career": 7,
-    "description" : "Sociología y Salud I"
+    "description" : "Sociología y Salud I",
+    "link": "https://forouno.org/forumdisplay.php?fid=328"
   },
   {
     "id": 221,
     "career": 7,
-    "description" : "Nutrición y Dietoterapia"
+    "description" : "Nutrición y Dietoterapia",
+    "link": "https://forouno.org/forumdisplay.php?fid=169"
   },
   {
     "id": 222,
     "career": 7,
-    "description" : "Antropología y Salud"
+    "description" : "Antropología y Salud",
+    "link": "https://forouno.org/forumdisplay.php?fid=175"
   },
   {
     "id": 223,
     "career": 7,
-    "description" : "Enfermería en Salud Mental"
+    "description" : "Enfermería en Salud Mental",
+    "link": "https://forouno.org/forumdisplay.php?fid=177"
   },
   {
     "id": 224,
     "career": 7,
-    "description" : "Problemática Regional"
+    "description" : "Problemática Regional",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 225,
     "career": 7,
-    "description" : "Enfermería del Niño y del Adolescente I"
+    "description" : "Enfermería del Niño y del Adolescente I",
+    "link": "https://forouno.org/forumdisplay.php?fid=335"
   },
   {
     "id": 226,
     "career": 7,
-    "description" : "Enfermería del Niño y del Adolescente II"
+    "description" : "Enfermería del Niño y del Adolescente II",
+    "link": "https://forouno.org/forumdisplay.php?fid=336"
   },
   {
     "id": 227,
     "career": 7,
-    "description" : "Univ., Ciencia y Sociedad"
+    "description" : "Univ., Ciencia y Sociedad",
+    "link": "https://forouno.org/forumdisplay.php?fid="
   },
   {
     "id": 228,
     "career": 7,
-    "description" : "Epidemiología y Estadística"
+    "description" : "Epidemiología y Estadística",
+    "link": "https://forouno.org/forumdisplay.php?fid=188"
   },
   {
     "id": 229,
     "career": 7,
-    "description" : "Investigación en Enfermería I"
+    "description" : "Investigación en Enfermería I",
+    "link": "https://forouno.org/forumdisplay.php?fid=178"
   },
   {
     "id": 230,
     "career": 7,
-    "description" : "Gestión en Enfermería I"
+    "description" : "Gestión en Enfermería I",
+    "link": "https://forouno.org/forumdisplay.php?fid=332"
   },
   {
     "id": 231,
     "career": 7,
-    "description" : "Bioética I"
+    "description" : "Bioética I",
+    "link": "https://forouno.org/forumdisplay.php?fid=330"
   },
   {
     "id": 232,
     "career": 7,
-    "description" : "Prácticas Integradas I"
+    "description" : "Prácticas Integradas I",
+    "link": "https://forouno.org/forumdisplay.php?fid=337"
   },
   {
     "id": 233,
     "career": 7,
-    "description" : "Enfermería Comunitaria"
+    "description" : "Enfermería Comunitaria",
+    "link": "https://forouno.org/forumdisplay.php?fid=166"
   },
   {
     "id": 234,
     "career": 7,
-    "description" : "Educación en Enfermería"
+    "description" : "Educación en Enfermería",
+    "link": "https://forouno.org/forumdisplay.php?fid=187"
   },
   {
     "id": 235,
     "career": 7,
-    "description" : "Enfemería en Cuidados Críticos Adultos"
+    "description" : "Enfemería en Cuidados Críticos Adultos",
+    "link": "https://forouno.org/forumdisplay.php?fid=186"
   },
   {
     "id": 236,
     "career": 7,
-    "description" : "Bioética II"
+    "description" : "Bioética II",
+    "link": "https://forouno.org/forumdisplay.php?fid=331"
   },
   {
     "id": 237,
     "career": 7,
-    "description" : "Sociología y Salud II"
+    "description" : "Sociología y Salud II",
+    "link": "https://forouno.org/forumdisplay.php?fid=329"
   },
   {
     "id": 238,
     "career": 7,
-    "description" : "Investigación en Enfermería II"
+    "description" : "Investigación en Enfermería II",
+    "link": "https://forouno.org/forumdisplay.php?fid=185"
   },
   {
     "id": 239,
     "career": 7,
-    "description" : "Taller de Investigación en Enfermería I"
+    "description" : "Taller de Investigación en Enfermería I",
+    "link": "https://forouno.org/forumdisplay.php?fid=333"
   },
   {
     "id": 240,
     "career": 7,
-    "description" : "Taller de Investigación en Enfermería II"
+    "description" : "Taller de Investigación en Enfermería II",
+    "link": "https://forouno.org/forumdisplay.php?fid=334"
   },
   {
     "id": 241,
     "career": 7,
-    "description" : "Gestión en Enfermería II"
+    "description" : "Gestión en Enfermería II",
+    "link": "https://forouno.org/forumdisplay.php?fid=163"
   },
   {
     "id": 242,
     "career": 7,
-    "description" : "Filosofía II"
+    "description" : "Filosofía II",
+    "link": "https://forouno.org/forumdisplay.php?fid=327"
   },
   {
     "id": 243,
     "career": 7,
-    "description" : "Prácticas Integradas II"
+    "description" : "Prácticas Integradas II",
+    "link": "https://forouno.org/forumdisplay.php?fid=338"
   },
   {
     "id": 244,
     "career": 8,
-    "description" : "Seminario de Universidad, Ciencia y Sociedad"
+    "description" : "Seminario de Universidad, Ciencia y Sociedad",
+    "link": "https://forouno.org/forumdisplay.php?fid=298"
   },
   {
     "id": 245,
     "career": 8,
-    "description" : "Seminario de Problemática Regional"
+    "description" : "Seminario de Problemática Regional",
+    "link": "https://forouno.org/forumdisplay.php?fid=299"
   },
   {
     "id": 246,
     "career": 8,
-    "description" : "Historia de la Educación Argentina y Latinoamericana"
+    "description" : "Historia de la Educación Argentina y Latinoamericana",
+    "link": "https://forouno.org/forumdisplay.php?fid=264"
   },
   {
     "id": 247,
     "career": 8,
-    "description" : "Instituciones Educativas"
+    "description" : "Instituciones Educativas",
+    "link": "https://forouno.org/forumdisplay.php?fid=265"
   },
   {
     "id": 248,
     "career": 8,
-    "description" : "Educación y Nuevas Tecnologías"
+    "description" : "Educación y Nuevas Tecnologías",
+    "link": "https://forouno.org/forumdisplay.php?fid=266"
   },
   {
     "id": 249,
     "career": 8,
-    "description" : "Seminario de Nuevas Identidades Juveniles"
+    "description" : "Seminario de Nuevas Identidades Juveniles",
+    "link": "https://forouno.org/forumdisplay.php?fid=267"
   },
   {
     "id": 250,
     "career": 8,
-    "description" : "Evaluación y Calidad de la Educación"
+    "description" : "Evaluación y Calidad de la Educación",
+    "link": "https://forouno.org/forumdisplay.php?fid=268"
   },
   {
     "id": 251,
     "career": 8,
-    "description" : "Economía de la Educación"
+    "description" : "Economía de la Educación",
+    "link": "https://forouno.org/forumdisplay.php?fid=269"
   },
   {
     "id": 252,
     "career": 8,
-    "description" : "Teoría y Gestión Curricular"
+    "description" : "Teoría y Gestión Curricular",
+    "link": "https://forouno.org/forumdisplay.php?fid=270"
   },
   {
     "id": 253,
     "career": 8,
-    "description" : "Electiva"
+    "description" : "Electiva",
+    "link": "https://forouno.org/forumdisplay.php?fid=247"
   },
   {
     "id": 254,
     "career": 8,
-    "description" : "Epistemología"
+    "description" : "Epistemología",
+    "link": "https://forouno.org/forumdisplay.php?fid=271"
   },
   {
     "id": 255,
     "career": 8,
-    "description" : "Administración y Gestión de Instituciones Educativas"
+    "description" : "Administración y Gestión de Instituciones Educativas",
+    "link": "https://forouno.org/forumdisplay.php?fid=272"
   },
   {
     "id": 256,
     "career": 8,
-    "description" : "Diseño y Evaluación de Proyectos Educativos"
+    "description" : "Diseño y Evaluación de Proyectos Educativos",
+    "link": "https://forouno.org/forumdisplay.php?fid=273"
   },
   {
     "id": 257,
     "career": 8,
-    "description" : "Teorías de la Enseñanza y el Aprendizaje"
+    "description" : "Teorías de la Enseñanza y el Aprendizaje",
+    "link": "https://forouno.org/forumdisplay.php?fid=274"
   },
   {
     "id": 258,
     "career": 8,
-    "description" : "Metodología de la Investigación"
+    "description" : "Metodología de la Investigación",
+    "link": "https://forouno.org/forumdisplay.php?fid=275"
   },
   {
     "id": 259,
     "career": 8,
-    "description" : "Seminario del Diseño de Trabajo Final"
+    "description" : "Seminario del Diseño de Trabajo Final",
+    "link": "https://forouno.org/forumdisplay.php?fid=276"
   },
   {
     "id": 260,
     "career": 8,
-    "description" : "Trabajo Final Integrador"
+    "description" : "Trabajo Final Integrador",
+    "link": "https://forouno.org/forumdisplay.php?fid=247"
   }
   
 ]
