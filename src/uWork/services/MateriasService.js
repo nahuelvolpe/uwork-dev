@@ -57,7 +57,6 @@ export const getCollabsFromSubject = async (subjectId) => {
         u.rol = subject.roles[u.uid]
         return u
     })
-    console.log(usuarios)
     return usuarios
 }
 

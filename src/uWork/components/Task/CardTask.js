@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import { useParams } from 'react-router-dom'
 import { Card, CardContent, Typography, CardActions, Button, makeStyles } from '@material-ui/core'
-import ViewTask from './ViewTask';
+import Task from './Task';
 
 const useStyles = makeStyles((theme) => ({
     textTarea: {
@@ -25,10 +24,8 @@ const useStyles = makeStyles((theme) => ({
 
 const CardTask = (props) => {
     const classes = useStyles()
-    const { materiaId } = useParams();
-    const { data, history } = props
+    const { data, acceptTaskHandler, history } = props
     const [open, setOpen] = useState(false)
-
 
     const handleView = () => {
         setOpen(true);
@@ -47,16 +44,17 @@ const CardTask = (props) => {
                 </CardContent>
                 <CardActions className={classes.cardActions}>
                     <Button size="small" onClick={handleView}>VER</Button>
-                    <Button size="small" onClick={()=> { console.log("Editando la tarea") }}>EDITAR</Button>
+                    {/* <Button size="small" onClick={()=> { console.log("Editando la tarea") }}>EDITAR</Button> */}
                     <Button size="small" onClick={()=> { console.log("Eliminando la tarea, sólo si sos ADMIN") }}>ELIMINAR</Button>
                 </CardActions>
             </Card>
-            <ViewTask
+            {open && <Task
                 open={open}
                 setOpen={setOpen}
                 data={data}
-                subjectId={materiaId}
-            />
+                acceptHandler={acceptTaskHandler}
+                isView
+                />}
         </div>
     )
 }

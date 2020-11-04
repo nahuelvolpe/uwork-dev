@@ -45,7 +45,6 @@ const Invite = ({open, setOpen, materiaId}) => {
     };
 
     const inviteUser = async () => {
-        console.log(email)
         const response = await verificarEmail()
         if(response){
             setOpenErrorBar(true)

@@ -9,6 +9,8 @@ import * as MateriasService from '../../services/MateriasService'
 import * as TaskService from '../../services/TaskService'
 import AddTask from '../Task/AddTask';
 import CardTask from '../Task/CardTask';
+import Task from '../Task/Task';
+import moment from 'moment'
 
 const useStyles = makeStyles((theme) => ({
     floatingButtonInvite: {
@@ -58,7 +60,6 @@ const Subject = (props) => {
         async function cargarTareas() {
             let tasksSubject = [];
             tasksSubject = await TaskService.getTasks(materiaId)
-            console.log(tasksSubject)
             setTasks(tasksSubject);
         }
         cargarTareas();
@@ -74,34 +75,42 @@ const Subject = (props) => {
     }
 
     const createTask = (task) => {
-         TaskService.createTask(task, materiaId)
-            .then(() => {
-                console.log('tarea creada')
-                window.location.reload()
+    TaskService.createTask(task, materiaId)
+            .then(async (doc) => {
+                let task = await doc.get()
+                task = task.data()
+                setTasks(prevState =>
+                    [...prevState, { tareaId: doc.id, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.colaboradores, fechaLimite: moment(task.fechaLimite.toDate()).format('L') }]
+                )
+               /*  setTasks(prevTasks => [prevTasks, {task}]) */
             }).catch( (e) => {
                 console.log(e)
             }) 
     }
 
-
-
     return (
         <>
-            <Invite 
+            {openInvite && <Invite 
                 open={openInvite}
                 setOpen={setOpenInvite}
                 materiaId={materiaId}
-            />
-            <AddTask
+            />}
+            {/* <AddTask
                 open={openTask}
                 setOpen={setOpenTask}
                 subjectId={materiaId}
                 acceptHandler={createTask}
-            />
+            /> */}
+            {openTask && <Task
+                open={openTask}
+                setOpen={setOpenTask}
+                subjectId={materiaId}
+                acceptHandler={createTask}
+            />}
             <Grid container spacing={3}>
                 {tasks && tasks.map((task) =>
                     <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                        <CardTask data={task} history={props.history}/>
+                        <CardTask data={task} history={props.history} acceptTaskHandler={createTask}/>
                     </Grid>)
                 }
             </Grid>
