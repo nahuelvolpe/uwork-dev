@@ -105,18 +105,17 @@ const Dashboard = (props) => {
             {guide && 
             <Alert severity="info">¡Usted no tiene materias asignadas!, para agregar su primer materia haga click en el botón + de abajo a la derecha</Alert>
             }
-
-            <AddSubject
+            {open && <AddSubject
                 open={open}
                 setOpen={setOpen}
                 acceptHandler={createSubject}
-            />
-            <AlertDialog
+            />}
+            {openAlert && <AlertDialog
                 open={openAlert}
                 setOpen={setOpenAlert}
                 subjectId={materiaId}
                 acceptHandler={acceptDelete}
-            />
+            />}
             <Grid container spacing={3}>
                 {materias && materias.map((materia) => 
                     
