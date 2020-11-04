@@ -116,7 +116,7 @@ const Subject = (props) => {
             
             <Grid container className={classes.container} spacing={3}>
                 <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
-                    <p>Link al foro donde podés encontrar apuntes, examenes, trabajos practicos y más información de la materia <a href={link}>{link}</a></p>
+                    <p>Link al foro donde podés encontrar apuntes, examenes, trabajos practicos y más información de la materia <a href={link}  target="_blank">{link}</a></p>
                 </Paper>
                     {tasks && tasks.map((task) =>
                         <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
