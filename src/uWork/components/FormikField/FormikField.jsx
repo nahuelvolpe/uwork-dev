@@ -13,7 +13,7 @@ import PropTypes from 'prop-types'
 function FormikField(props) {
   const [showPassword, setShowPassword] = useState(false)
 
-  return <div className="FormikField">
+  return <div className={props.className}>
     <Field
       required={props.required}
       id={props.id}
