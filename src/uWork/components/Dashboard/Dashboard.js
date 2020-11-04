@@ -41,6 +41,7 @@ const Dashboard = (props) => {
 
     const [open, setOpen] = React.useState(false);
     const [openAlert, setOpenAlert] = React.useState(false);
+    const [guide, setGuide] = useState(false);
 
     //obtener los datos de las materias del usuario
     useEffect(() => {
@@ -49,6 +50,9 @@ const Dashboard = (props) => {
             let userMaterias = [];
             userMaterias = await MateriasService.getSubjects(userId)
             setMaterias(userMaterias);
+            if(userMaterias.length < 1){
+                setGuide(true);
+            }
         }
         cargarMaterias();
     }, [userId])
@@ -97,7 +101,7 @@ const Dashboard = (props) => {
 
     return (
         <div>
-            {materias.length < 1 &&
+            {guide &&
             <Alert severity="info">¡Usted no tiene materias asignadas!, para agregar su primer materia haga click en el botón + de abajo a la derecha</Alert>
             }
 
