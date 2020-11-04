@@ -1,4 +1,4 @@
-import { Grid, makeStyles, IconButton } from '@material-ui/core';
+import { Grid, makeStyles, IconButton} from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, { useEffect, useState } from 'react';
 import * as UserService from '../../services/UserService';
@@ -7,6 +7,7 @@ import AuthenticationService from '../../services/AuthenticationService'
 import AddSubject from './AddSubject'
 import CardSubject from '../Subject/CardSubject'
 import AlertDialog from './AlertDialog';
+import Alert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles((theme) => ({
     materiaContent: {
@@ -96,6 +97,10 @@ const Dashboard = (props) => {
 
     return (
         <div>
+            {materias.length < 1 &&
+            <Alert severity="info">¡Usted no tiene materias asignadas!, para agregar su primer materia haga click en el botón + de abajo a la derecha</Alert>
+            }
+
             <AddSubject
                 open={open}
                 setOpen={setOpen}
@@ -108,7 +113,8 @@ const Dashboard = (props) => {
                 acceptHandler={acceptDelete}
             />
             <Grid container spacing={3}>
-                {materias && materias.map((materia) =>
+                {materias && materias.map((materia) => 
+                    
                     <Grid item xs={12} sm={6} md={4} key={materia.materiaId}>
                         <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history}/>
                     </Grid>)
