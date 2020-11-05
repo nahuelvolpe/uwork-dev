@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '26px'
   },
   textField: {
-    marginBottom: theme.spacing(2),
     width: "100%",
   },
   boton: {
