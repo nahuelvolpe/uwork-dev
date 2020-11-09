@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Card, CardContent, Typography, CardActions, Button, makeStyles } from '@material-ui/core'
 import Task from './Task';
 import * as TaskService from '../../services/TaskService';
@@ -26,22 +26,20 @@ const useStyles = makeStyles((theme) => ({
 
 const CardTask = (props) => {
     const classes = useStyles()
-    const { data, acceptTaskHandler } = props
+    const { data, acceptTaskHandler, index } = props
     const [open, setOpen] = useState(false)
     const { subjectId } = useContext(SubjectContext)
 
-    const handleView = () => {
-        setOpen(true);
-    }
+    useEffect(() => {
+        setOpen(false)
+        return () => setOpen(false);
+    }, [])
 
-    const acceptDelete = () => {
-        TaskService.deleteTask(data.tareaId, subjectId)
-            .then(() => {
-                console.log('tarea eliminada')
-                window.location.reload()
-            }).catch((e) => {
-                console.log(e)
-            })
+    const handleView = async () => {
+        if (open) {
+            await setOpen(false)
+        }
+        setOpen(true);
     }
 
     const handleFinished = () => {
@@ -68,15 +66,15 @@ const CardTask = (props) => {
                 <CardActions className={classes.cardActions}>
                     <Button size="small" onClick={handleView}>VER</Button>
                     <Button size="small" onClick={handleFinished}>FINALIZAR</Button>
-                    <Button size="small" onClick={acceptDelete}>ELIMINAR</Button>
+                    <Button size="small" onClick={() => {props.deleteHandler(data.tareaId, Object.keys(data.colaboradores).length)}}>ELIMINAR</Button>
                 </CardActions>
             </Card>
             {open && <Task
                 open={open}
                 setOpen={setOpen}
                 data={data}
+                index={index}
                 acceptHandler={acceptTaskHandler}
-                isView
                 />}
         </div>
     )

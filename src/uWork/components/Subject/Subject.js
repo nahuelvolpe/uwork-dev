@@ -11,8 +11,9 @@ import * as TaskService from '../../services/TaskService'
 import CardTask from '../Task/CardTask';
 import Task from '../Task/Task';
 import moment from 'moment'
+import AlertTaskDialog from './AlertTaskDialog';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({   
     floatingButtonInvite: {
         position: 'fixed',
         bottom: 0,
@@ -94,6 +95,9 @@ const Subject = (props) => {
     const [openInvite, setOpenInvite] = useState(false);
     const [openTask, setOpenTask] = useState(false);
     const [tasks, setTasks] = useState([]);
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [tareaId, setTareaId] = useState('')
+    const [cantColabs, setCantColabs] = useState(0)
 
     const [value, setValue] = React.useState(0);
 
@@ -121,22 +125,52 @@ const Subject = (props) => {
         setOpenInvite(true);
     };
 
-    const handleClickOpenTask = () => {
+    const handleClickOpenTask = async () => {
+        if (openTask) {
+            await setOpenTask(false)
+        }
         setOpenTask(true);
     }
 
-    const createTask = (task) => {
-    TaskService.createTask(task, materiaId)
-            .then(async (doc) => {
-                let task = await doc.get()
-                task = task.data()
-                setTasks(prevState =>
-                    [...prevState, { tareaId: doc.id, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.colaboradores, fechaLimite: moment(task.fechaLimite.toDate()).format('L') }]
-                )
-               /*  setTasks(prevTasks => [prevTasks, {task}]) */
-            }).catch( (e) => {
-                console.log(e)
-            }) 
+    const acceptDelete = (taskId, materiaId) => {
+        console.log(taskId)
+        console.log(materiaId)
+        TaskService.deleteTask(taskId, materiaId)
+        .then(() => {
+            setTasks(prevState => prevState.filter(e => e.tareaId !== taskId))
+        })
+        .catch((e) => { console.log(e) })
+    }
+
+    const handleDelete = (taskId, colaboradores) => {
+        setTareaId(taskId)
+        setCantColabs(colaboradores)
+        setOpenAlert(true)
+    }
+
+    const createTask = (task, isEdition, index) => {
+        if (!isEdition) {
+            TaskService.createTask(task, materiaId)
+                .then(async (doc) => {
+                    let task = await doc.get()
+                    task = task.data()
+                    setTasks(prevState =>
+                        [...prevState, { tareaId: doc.id, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.colaboradores, fechaLimite: moment(task.fechaLimite.toDate()).format('L') }]
+                    )
+                }).catch( (e) => {
+                    console.log(e)
+                })
+        } else {
+            TaskService.updateTask(task.tareaId, task)
+                .then(() => {
+                    if (index !== undefined) {
+                        const newTasks = tasks.slice() //copy the array
+                        newTasks[index] = { tareaId: task.tareaId, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.aCargo, fechaLimite: moment(task.fechaLimite).format('L') } //execute the manipulations
+                        setTasks(newTasks)
+                    }
+                })
+                .catch(e => console.log(e))
+        }
     }
 
     return (
@@ -149,13 +183,8 @@ const Subject = (props) => {
             {openTask && <Task
                 open={openTask}
                 setOpen={setOpenTask}
-                subjectId={materiaId}
                 acceptHandler={createTask}
             />}
-
-            
-            
-            
                 <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
                     <p>Link al foro donde podés encontrar apuntes, examenes, trabajos practicos y más información de la materia <a href={link}  target="_blank">{link}</a></p>
                 </Paper>    
@@ -168,10 +197,9 @@ const Subject = (props) => {
                     <TabPanel value={value} index={0}>
                     <Grid container spacing={1}>
                         {tasks && tasks.map((task) =>
-                            task.estado === 'finalizada' ? 
                             <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
                                 <CardTask data={task} history={props.history} acceptTaskHandler={createTask}/>
-                            </Grid> : null
+                            </Grid>
                             )
                         }
                      </Grid>
@@ -181,7 +209,7 @@ const Subject = (props) => {
                     </TabPanel>    
                 {/* tasks && tasks.map((task) =>
                     <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                        <CardTask data={task} history={props.history} acceptTaskHandler={createTask}/>
+                        <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} index={index}/>
                     </Grid>)
                  */}
 

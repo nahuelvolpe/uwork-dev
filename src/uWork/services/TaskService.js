@@ -16,6 +16,16 @@ export const createTask = async (task, materiaId) => {
     return response
 }
 
+export const updateTask = async (id, task) => {
+    const taskData = await getTaskDataById(id)
+    return await db.collection('tareas').doc(id).set({
+        titulo: task.titulo ? task.titulo : taskData.titulo,
+        descripcion: task.descripcion ? task.descripcion : taskData.descripcion,
+        fechaLimite: task.fechaLimite ? task.fechaLimite : taskData.fechaLimite,
+        colaboradores: task.aCargo ? task.aCargo : taskData.aCargo
+    }, { merge: true })
+}
+
 export const getTasks = async (materiaId) => {
     let result = []
     const tareas = await MateriasService.getSubjectTasks(materiaId)
@@ -33,6 +43,15 @@ export const getTasks = async (materiaId) => {
         }
     }
     return result
+}
+
+export const getTaskDataById = async (id) => {
+    const doc = await db.collection('tareas').doc(id).get()
+    if (doc.exists) {
+        return doc.data()
+    } else {
+        throw new Error('La tarea no existe')
+    }
 }
 
 
