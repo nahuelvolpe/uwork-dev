@@ -75,6 +75,7 @@ const Subject = (props) => {
             tasksSubject = await TaskService.getTasks(materiaId)
             setTasks(tasksSubject);
         }
+        setOpenTask(false)
         cargarTareas();
         setSubjectData()
     }, [materiaId, setSubjectId, setSubjectName])
@@ -121,6 +122,7 @@ const Subject = (props) => {
             />}
             {openTask && <Task
                 open={openTask}
+                setOpen={setOpenTask}
                 acceptHandler={createTask}
             />}
             <Grid container className={classes.container} spacing={3}>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Card, CardContent, Typography, CardActions, Button, makeStyles } from '@material-ui/core'
 import Task from './Task';
 import * as TaskService from '../../services/TaskService';
@@ -29,6 +29,10 @@ const CardTask = (props) => {
     const { data, acceptTaskHandler, index } = props
     const [open, setOpen] = useState(false)
     const { subjectId } = useContext(SubjectContext)
+
+    useEffect(() => {
+        setOpen(false)
+    }, [])
 
     const handleView = () => {
         setOpen(true);
@@ -73,6 +77,7 @@ const CardTask = (props) => {
             </Card>
             {open && <Task
                 open={open}
+                setOpen={setOpen}
                 data={data}
                 index={index}
                 acceptHandler={acceptTaskHandler}
