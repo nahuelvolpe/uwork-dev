@@ -75,7 +75,6 @@ const Subject = (props) => {
             tasksSubject = await TaskService.getTasks(materiaId)
             setTasks(tasksSubject);
         }
-        setOpenTask(false)
         cargarTareas();
         setSubjectData()
     }, [materiaId, setSubjectId, setSubjectName])
@@ -84,7 +83,10 @@ const Subject = (props) => {
         setOpenInvite(true);
     };
 
-    const handleClickOpenTask = () => {
+    const handleClickOpenTask = async () => {
+        if (openTask) {
+            await setOpenTask(false)
+        }
         setOpenTask(true);
     }
 
