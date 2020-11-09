@@ -168,9 +168,11 @@ const Subject = (props) => {
                     <TabPanel value={value} index={0}>
                     <Grid container spacing={1}>
                         {tasks && tasks.map((task) =>
+                            task.estado === 'finalizada' ? 
                             <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
                                 <CardTask data={task} history={props.history} acceptTaskHandler={createTask}/>
-                            </Grid>)
+                            </Grid> : null
+                            )
                         }
                      </Grid>
                     </TabPanel>
