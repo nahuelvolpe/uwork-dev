@@ -65,7 +65,6 @@ const CardTask = (props) => {
                 setOpen={setOpen}
                 data={data}
                 acceptHandler={acceptTaskHandler}
-                isView
                 />}
         </div>
     )

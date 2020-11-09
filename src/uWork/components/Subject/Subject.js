@@ -111,7 +111,6 @@ const Subject = (props) => {
             {openTask && <Task
                 open={openTask}
                 setOpen={setOpenTask}
-                subjectId={materiaId}
                 acceptHandler={createTask}
             />}
             <Grid container className={classes.container} spacing={3}>
