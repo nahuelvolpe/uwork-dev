@@ -79,6 +79,19 @@ const Subject = (props) => {
         setOpenTask(true);
     }
 
+    const acceptDelete = (taskId, materiaId) => {
+        TaskService.deleteTask(taskId, materiaId)
+        .then(() => {
+            //setMaterias(prevState => prevState.filter(e => e.materiaId !== materiaId))
+        })
+        .catch((e) => { console.log(e) })
+    }
+
+    const handleDelete = (taskId) => {
+        setMateriaId(taskId)
+        setOpenAlert(true)
+    }
+
     const createTask = (task, isEdition, index) => {
         if (!isEdition) {
             TaskService.createTask(task, materiaId)
