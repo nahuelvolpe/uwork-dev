@@ -141,9 +141,13 @@ export default function Task(props) {
 
   const onSubmit = (values) => {
     let collabs = {};
-    let colaborador = {};
-    values.aCargo.forEach((colab)=>{
-      colaborador = {[colab]: new Date()}
+    values.aCargo.forEach(selectedColab => {
+      let colaborador = {};
+      colaboradores.forEach(colab => {
+        if(colab.uid === selectedColab) {
+          colaborador = { [selectedColab]: { photoURL: colab.photoURL, name: `${colab.firstName} ${colab.lastName}` } }
+        }
+      })
       collabs = {...collabs, ...colaborador}
     })
     const task = {

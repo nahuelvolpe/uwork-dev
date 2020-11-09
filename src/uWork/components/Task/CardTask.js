@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Card, CardContent, Typography, CardActions, Button, makeStyles } from '@material-ui/core'
+import { Card, CardContent, Typography, CardActions, Button, makeStyles, Avatar } from '@material-ui/core'
+import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import Task from './Task';
 import * as TaskService from '../../services/TaskService';
 import { SubjectContext } from '../../context/subject';
@@ -72,6 +73,13 @@ const CardTask = (props) => {
                     <Typography className={classes.descripcion}>
                         {`Fecha límite: ${data.fechaLimite}`}
                     </Typography>
+                    <AvatarGroup max={3}>
+                        {
+                            Object.keys(data.colaboradores).map(id => {
+                                return <Avatar key={id} alt={data.colaboradores[id].name} src={data.colaboradores[id].photoURL} />
+                            })
+                        }
+                    </AvatarGroup>
                 </CardContent>
                 <CardActions className={classes.cardActions}>
                     <Button size="small" onClick={handleView}>VER</Button>
