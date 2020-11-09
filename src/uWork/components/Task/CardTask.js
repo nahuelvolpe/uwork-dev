@@ -44,6 +44,16 @@ const CardTask = (props) => {
             })
     }
 
+    const handleFinished = () => {
+        TaskService.finishedTask(data.tareaId, subjectId)
+            .then(() => {
+                console.log('tarea finalizada')
+                window.location.reload()
+            }).catch((e) => {
+                console.log(e)
+            })
+    }
+
     return (
         <div>
             <Card className={classes.cardContent}>
@@ -57,6 +67,7 @@ const CardTask = (props) => {
                 </CardContent>
                 <CardActions className={classes.cardActions}>
                     <Button size="small" onClick={handleView}>VER</Button>
+                    <Button size="small" onClick={handleFinished}>FINALIZAR</Button>
                     <Button size="small" onClick={acceptDelete}>ELIMINAR</Button>
                 </CardActions>
             </Card>

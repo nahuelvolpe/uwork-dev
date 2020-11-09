@@ -9,7 +9,8 @@ export const createTask = async (task, materiaId) => {
         titulo: task.titulo,
         descripcion: task.descripcion,
         fechaLimite: task.fechaLimite,
-        colaboradores: task.aCargo
+        colaboradores: task.aCargo,
+        estado: 'pendiente'
     })
     await MateriasService.updateSubject(materiaId, { tareas: { [response.id]: 'pendiente' }})
     return response
@@ -49,3 +50,22 @@ export const deleteTask = async (taskId, materiaId) => {
 
     return response;
 }
+
+export const finishedTask = async (taskId, materiaId) => {
+    const subjectRef = db.collection('materias').doc(materiaId);
+
+    const response = await db.collection('tareas').doc(taskId).set({
+        estado: 'finalizada'
+    }, {merge: true})
+        .then(() => {
+            return subjectRef.set({
+                tareas: {
+                    [taskId]: 'finalizada'
+                }
+            }, {merge: true})
+        })
+
+    return response;
+}
+
+

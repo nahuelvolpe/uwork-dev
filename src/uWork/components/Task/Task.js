@@ -31,7 +31,19 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   titulo: {
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(3)
+  },
+  descripcion: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3)
+  },
+  colaboradores: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3)
+  },
+  fechaLimite: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3)
   },
   dialogTitle: {
     marginBottom: theme.spacing(1),
@@ -135,9 +147,9 @@ export default function Task(props) {
               <DialogContent>
                 <FormikField className={classes.titulo} required label="Titulo" id="title" name="titulo"
                 type="text" variant="outlined" error={errors.titulo && touched.titulo} disabled={isViewState} fullWidth />
-                <FormikField label="Descripción" id="description" name="descripcion"
+                <FormikField className={classes.descripcion} label="Descripción" id="description" name="descripcion"
                 type="text" variant="outlined" multiline rows={4} error={errors.descripcion && touched.descripcion} disabled={isViewState} fullWidth />
-                <Accordion>
+                <Accordion className={classes.colaboradores}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -178,7 +190,7 @@ export default function Task(props) {
                       )}/>
                   </AccordionDetails>
                 </Accordion>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <MuiPickersUtilsProvider utils={DateFnsUtils} className={classes.fechaLimite}>
                   <Grid container justify="space-around">
                     <Field name="fechaLimite" component={DatePickerField} disabled={isViewState} />
                   </Grid>
