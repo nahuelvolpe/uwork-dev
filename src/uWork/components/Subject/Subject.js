@@ -1,7 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
-import { Grid, IconButton, makeStyles, Button, Paper } from '@material-ui/core';
+import { Grid, IconButton, makeStyles, Button, Paper, AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import Invite from './Invite';
 import { SubjectContext } from '../../context/subject';
 import * as MateriasService from '../../services/MateriasService'
@@ -10,33 +11,23 @@ import CardTask from '../Task/CardTask';
 import Task from '../Task/Task';
 import moment from 'moment'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({   
     floatingButtonInvite: {
         position: 'fixed',
         bottom: 0,
         right: 0,
         marginBottom: '12px',
-        marginRight: '12px',
+        marginRight: '8px',
         color: 'white',
-        backgroundColor: theme.palette.primary.main
-    },
-    floatingButtonCollabs: {
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        marginBottom: '12px',
-        marginLeft: '12px',
-        color: 'white',
-        backgroundColor: theme.palette.primary.main
+        backgroundColor: theme.palette.primary.dark
     },
     floatingButtonAddTask: {
         position: 'fixed',
-        bottom: 10,
-        right: 90,
+        bottom: 80,
+        right: 0,
         color: 'white',
-        marginBottom: '12px',
-        marginRight: '12px',
-        backgroundColor: theme.palette.info.main
+        marginRight: '8px',
+        backgroundColor: theme.palette.primary.light
     },
     info: {
         margin: '5px',
@@ -139,13 +130,14 @@ const Subject = (props) => {
                 arial-label="Agregar colaborador"
                 onClick={handleClickOpenInvite}
             >
-                <PersonAddIcon style={{ fontSize: "40px" }} />
+                <PersonAddIcon style={{ fontSize: "28px" }} />
             </IconButton>
-            <Button variant="contained"
+            <IconButton variant="contained"
                     className={classes.floatingButtonAddTask}
                     onClick={handleClickOpenTask}>
-                    Agregar Tarea
-            </Button>
+                    <PostAddIcon style={{ fontSize: "28px" }} />
+            </IconButton>
+
         </>      
     );
 }
