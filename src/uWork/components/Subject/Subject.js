@@ -88,8 +88,8 @@ const Subject = (props) => {
     }
 
     const handleDelete = (taskId) => {
-        setMateriaId(taskId)
-        setOpenAlert(true)
+        //setMateriaId(taskId)
+        //setOpenAlert(true)
     }
 
     const createTask = (task, isEdition, index) => {
