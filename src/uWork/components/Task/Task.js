@@ -1,5 +1,6 @@
 import 'date-fns';
 import React, { useState, useEffect, useContext } from 'react';
+import moment from 'moment'
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction,
   Checkbox, Dialog, DialogActions, DialogContent, Accordion, AccordionSummary,
@@ -24,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     minWidth: 120,
   },
-  formControlLabel: {
-    marginTop: theme.spacing(1),
+  keyboardDate: {
+    marginTop: theme.spacing(2),
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -44,6 +45,13 @@ const useStyles = makeStyles((theme) => ({
   fechaLimite: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3)
+  },
+  collabAccordion : {
+    marginTop: theme.spacing(2),
+    border: '1px solid #c4c4c4',
+    boxShadow: '0 0 black',
+    position: 'initial',
+    borderRadius: '4px'
   },
   dialogTitle: {
     marginBottom: theme.spacing(1),
@@ -82,42 +90,53 @@ const DatePickerField = ({ field, form, ...other }) => {
 
 export default function Task(props) {
 
-  const { open, setOpen, acceptHandler, isView } = props
+  const { open, acceptHandler, index } = props
   const { subjectId } = useContext(SubjectContext)
   let { data } = props
   if (!data) data = {}
   const classes = useStyles();
+
+  const [ownOpen, setOwnOpen] = useState(Boolean(open))
   const [colaboradores, setColaborares] = useState([]);
-  const [aCargo, setACargo] = useState([]);
-  const [descripcion, setDescripcion] = useState('');
-  const [titulo, setTitulo] = useState('')
-  const [fechaLimite, setFechaLimite] = useState(new Date())
-  const [isViewState, setIsView] = useState(false)
+  const [isViewMode, setIsViewMode] = useState(Boolean(data.tareaId))
+  const [isEditMode, setIsEditMode] = useState(false)
+  const [formData, setFormData] = useState({
+    titulo: '',
+    descripcion: '',
+    aCargo: [],
+    fechaLimite: new Date()
+  })
   
   useEffect(() => {
-      const cargarDatos = async () => {
-          if(subjectId) {
-              const collabs = await MateriasService.getCollabsFromSubject(subjectId)
-              setColaborares(collabs)
-              if (data) {
-                setACargo(prev => data.colaboradores ? getColaboradores(data.colaboradores) : prev)
-                setTitulo(prev => data.titulo ? data.titulo : prev)
-                setDescripcion(prev => data.descripcion ? data.descripcion : prev)
-                setFechaLimite(prev => data.fechaLimite ? data.fechaLimite : prev)
-                setIsView(prev => isView ? isView : prev)
-              }
-          }
-      }
-      cargarDatos()
-  })
+    const cargarDatos = async () => {
+        if(subjectId) {
+            const collabs = await MateriasService.getCollabsFromSubject(subjectId)
+            setColaborares(collabs)
+            if (isViewMode) {
+              setFormData({
+                titulo: data.titulo,
+                descripcion: data.descripcion,
+                aCargo: getColaboradores(data.colaboradores),
+                fechaLimite: data.fechaLimite
+              })
+            }
+        }
+    }
+    cargarDatos()
+  }, [])
 
   const getColaboradores = (colabsFromData) => {
     return Object.keys(colabsFromData)
   }
 
   const handleClose = () => {
-    setOpen(false);
+    setOwnOpen(false);
   };
+
+  const changeEdition = () => {
+    setIsViewMode(!isViewMode)
+    setIsEditMode(!isEditMode)
+  }
 
   const onSubmit = (values) => {
     let collabs = {};
@@ -126,30 +145,38 @@ export default function Task(props) {
       colaborador = {[colab]: new Date()}
       collabs = {...collabs, ...colaborador}
     })
-    acceptHandler({titulo: values.titulo, descripcion: values.descripcion, aCargo: collabs, fechaLimite: values.fechaLimite})
-    setOpen(false)
+    const task = {
+      tareaId: isEditMode ? data.tareaId : '',
+      titulo: values.titulo,
+      descripcion: values.descripcion,
+      aCargo: collabs,
+      fechaLimite: moment(values.fechaLimite).toDate()
+    }
+    acceptHandler(task, isEditMode, index)
+    setOwnOpen(false)
   }
 
   return (
-    <React.Fragment>
       <Formik
         enableReinitialize
-        initialValues={{ titulo, descripcion, aCargo, fechaLimite }}
+        initialValues={formData}
         validationSchema={TaskSchema}
+        validateOnChange={false}
         onSubmit={onSubmit}>
-        {({ values, errors, touched }) => (
+        {({ values, errors, touched }) => {
+          return (
           <Dialog
-            open={open}
+            open={ownOpen}
             onClose={handleClose}
             aria-labelledby="dialog-title">
             <Form className={classes.form} noValidate>
-              <h2 className={classes.dialogTitle}>{!isViewState ? "Nueva Tarea" : "Ver Tarea"}</h2>
+              <h2 className={classes.dialogTitle}>{isViewMode ? "Ver Tarea" : (isEditMode ? "Editar Tarea" : "Nueva Tarea")}</h2>
               <DialogContent>
                 <FormikField className={classes.titulo} required label="Titulo" id="title" name="titulo"
-                type="text" variant="outlined" error={errors.titulo && touched.titulo} disabled={isViewState} fullWidth />
-                <FormikField className={classes.descripcion} label="Descripción" id="description" name="descripcion"
-                type="text" variant="outlined" multiline rows={4} error={errors.descripcion && touched.descripcion} disabled={isViewState} fullWidth />
-                <Accordion className={classes.colaboradores}>
+                type="text" variant="outlined" error={errors.titulo && touched.titulo} disabled={isViewMode} fullWidth />
+                <FormikField label="Descripción" id="description" name="descripcion"
+                type="text" variant="outlined" multiline rows={4} error={errors.descripcion && touched.descripcion} disabled={isViewMode} fullWidth />
+                <Accordion className={classes.collabAccordion}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
@@ -173,7 +200,7 @@ export default function Task(props) {
                                 <ListItemSecondaryAction>
                                   <Checkbox
                                     edge="end"
-                                    disabled={isViewState}
+                                    disabled={isViewMode}
                                     onChange={() => {
                                       const currentIndex = values.aCargo.indexOf(option.uid)
                                       if(currentIndex !== -1) { arrayHelpers.remove(currentIndex) }
@@ -190,26 +217,34 @@ export default function Task(props) {
                       )}/>
                   </AccordionDetails>
                 </Accordion>
-                <MuiPickersUtilsProvider utils={DateFnsUtils} className={classes.fechaLimite}>
-                  <Grid container justify="space-around">
-                    <Field name="fechaLimite" component={DatePickerField} disabled={isViewState} />
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <Grid container className={classes.keyboardDate} justify="space-around">
+                    <Field name="fechaLimite" component={DatePickerField} disabled={isViewMode} />
                   </Grid>
                 </MuiPickersUtilsProvider>
-        </DialogContent>
-        {
-          !isViewState && <DialogActions>
-            <Button type="submit" color="primary">
-              Aceptar
-            </Button>
-            <Button onClick={handleClose} color="primary">
-              Cerrar
-            </Button>
-          </DialogActions>
-        }
-        </Form>
-      </Dialog>
-      )}
+              </DialogContent>
+              <DialogActions>
+              {
+                !isViewMode ? <>
+                    <Button type="submit" color="primary">
+                      Aceptar
+                    </Button>
+                    <Button onClick={handleClose} color="primary">
+                      Cerrar
+                    </Button>
+                </>
+                : <>
+                  <Button type="submit" color="primary" style={{display: 'none'}}>
+                  </Button>
+                  <Button onClick={changeEdition} color="primary">
+                    Editar
+                  </Button>
+                </>
+              }
+              </DialogActions>
+            </Form>
+          </Dialog>
+        )}}
       </Formik>
-    </React.Fragment>
   );
 }

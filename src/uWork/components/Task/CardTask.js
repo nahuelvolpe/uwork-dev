@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CardTask = (props) => {
     const classes = useStyles()
-    const { data, acceptTaskHandler } = props
+    const { data, acceptTaskHandler, index } = props
     const [open, setOpen] = useState(false)
     const { subjectId } = useContext(SubjectContext)
 
@@ -73,10 +73,9 @@ const CardTask = (props) => {
             </Card>
             {open && <Task
                 open={open}
-                setOpen={setOpen}
                 data={data}
+                index={index}
                 acceptHandler={acceptTaskHandler}
-                isView
                 />}
         </div>
     )
