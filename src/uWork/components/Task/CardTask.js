@@ -32,9 +32,13 @@ const CardTask = (props) => {
 
     useEffect(() => {
         setOpen(false)
+        return () => setOpen(false);
     }, [])
 
-    const handleView = () => {
+    const handleView = async () => {
+        if (open) {
+            await setOpen(false)
+        }
         setOpen(true);
     }
 
