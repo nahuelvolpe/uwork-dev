@@ -20,7 +20,7 @@ export default function AlertTaskDialog(props) {
 
   
 
-  const {open, setOpen, subjectId, acceptHandler} = props;
+  const {open, setOpen, taskId, subjectId, cantColaboradores, acceptHandler} = props;
   const classes = useStyles();
 
 
@@ -29,7 +29,7 @@ export default function AlertTaskDialog(props) {
   };
 
   const handleAccept = () => {
-    acceptHandler(subjectId)
+    acceptHandler(taskId, subjectId)
     setOpen(false)
   }
 
@@ -44,8 +44,7 @@ export default function AlertTaskDialog(props) {
         <DialogTitle id="alert-dialog-title">Advertencia</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-              Posiblemente haya colaborares en esta matería y se eliminará tambien de sus cuentas.
-              Esta seguro que desea eliminarla?
+              {`En esta tarea hay ${cantColaboradores} ${cantColaboradores > 1 ? 'colaboradorxs' : 'colaboradxr'} a cargo, esta segurx que desea eliminarla?`}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

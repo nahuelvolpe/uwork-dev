@@ -10,6 +10,7 @@ import * as TaskService from '../../services/TaskService'
 import CardTask from '../Task/CardTask';
 import Task from '../Task/Task';
 import moment from 'moment'
+import AlertTaskDialog from './AlertTaskDialog';
 
 const useStyles = makeStyles((theme) => ({   
     floatingButtonInvite: {
@@ -53,6 +54,9 @@ const Subject = (props) => {
     const [openInvite, setOpenInvite] = useState(false);
     const [openTask, setOpenTask] = useState(false);
     const [tasks, setTasks] = useState([]);
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [tareaId, setTareaId] = useState('')
+    const [cantColabs, setCantColabs] = useState(0)
 
     useEffect(() => {
         async function setSubjectData() {
@@ -80,16 +84,19 @@ const Subject = (props) => {
     }
 
     const acceptDelete = (taskId, materiaId) => {
+        console.log(taskId)
+        console.log(materiaId)
         TaskService.deleteTask(taskId, materiaId)
         .then(() => {
-            //setMaterias(prevState => prevState.filter(e => e.materiaId !== materiaId))
+            setTasks(prevState => prevState.filter(e => e.tareaId !== taskId))
         })
         .catch((e) => { console.log(e) })
     }
 
-    const handleDelete = (taskId) => {
-        //setMateriaId(taskId)
-        //setOpenAlert(true)
+    const handleDelete = (taskId, colaboradores) => {
+        setTareaId(taskId)
+        setCantColabs(colaboradores)
+        setOpenAlert(true)
     }
 
     const createTask = (task, isEdition, index) => {
@@ -129,13 +136,21 @@ const Subject = (props) => {
                 setOpen={setOpenTask}
                 acceptHandler={createTask}
             />}
+            {openAlert && <AlertTaskDialog
+                open={openAlert}
+                setOpen={setOpenAlert}
+                taskId={tareaId}
+                subjectId={materiaId}
+                cantColaboradores={cantColabs}
+                acceptHandler={acceptDelete}
+            />}
             <Grid container className={classes.container} spacing={3}>
                 <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
                     <p>Link al foro donde podés encontrar apuntes, examenes, trabajos practicos y más información de la materia <a href={link}  target="_blank">{link}</a></p>
                 </Paper>
                 {tasks && tasks.map((task, index) =>
                     <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                        <CardTask data={task} history={props.history} acceptTaskHandler={createTask} index={index}/>
+                        <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} index={index}/>
                     </Grid>)
                 }
             </Grid>

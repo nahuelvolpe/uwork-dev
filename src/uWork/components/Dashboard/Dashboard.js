@@ -128,7 +128,7 @@ const Dashboard = (props) => {
                     arial-label="Add"
                     onClick={handleClickOpen}
                 >
-                    <AddCircleIcon style={{ fontSize: "60px" }} />
+                    <AddCircleIcon style={{ fontSize: "35px" }} />
                 </IconButton>
             </Grid>
         </div>

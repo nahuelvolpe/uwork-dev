@@ -42,16 +42,6 @@ const CardTask = (props) => {
         setOpen(true);
     }
 
-    const acceptDelete = () => {
-        TaskService.deleteTask(data.tareaId, subjectId)
-            .then(() => {
-                console.log('tarea eliminada')
-                window.location.reload()
-            }).catch((e) => {
-                console.log(e)
-            })
-    }
-
     const handleFinished = () => {
         TaskService.finishedTask(data.tareaId, subjectId)
             .then(() => {
@@ -76,7 +66,7 @@ const CardTask = (props) => {
                 <CardActions className={classes.cardActions}>
                     <Button size="small" onClick={handleView}>VER</Button>
                     <Button size="small" onClick={handleFinished}>FINALIZAR</Button>
-                    <Button size="small" onClick={acceptDelete}>ELIMINAR</Button>
+                    <Button size="small" onClick={() => {props.deleteHandler(data.tareaId, Object.keys(data.colaboradores).length)}}>ELIMINAR</Button>
                 </CardActions>
             </Card>
             {open && <Task
