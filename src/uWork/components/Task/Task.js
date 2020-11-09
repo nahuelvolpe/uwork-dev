@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction,
   Checkbox, Dialog, DialogActions, DialogContent, Accordion, AccordionSummary,
-  AccordionDetails, Typography, Grid, FormControlLabel } from '@material-ui/core';
+  AccordionDetails, Typography, Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
@@ -77,12 +77,13 @@ const DatePickerField = ({ field, form, ...other }) => {
 
 export default function Task(props) {
 
-  const { open, setOpen, acceptHandler } = props
+  const { open, acceptHandler } = props
   const { subjectId } = useContext(SubjectContext)
   let { data } = props
   if (!data) data = {}
   const classes = useStyles();
 
+  const [ownOpen, setOwnOpen] = useState(Boolean(open))
   const [colaboradores, setColaborares] = useState([]);
   const [isViewMode, setIsViewMode] = useState(Boolean(data.tareaId))
   const [isEditMode, setIsEditMode] = useState(false)
@@ -109,14 +110,14 @@ export default function Task(props) {
         }
     }
     cargarDatos()
-  })
+  }, [])
 
   const getColaboradores = (colabsFromData) => {
     return Object.keys(colabsFromData)
   }
 
   const handleClose = () => {
-    setOpen(false);
+    setOwnOpen(false);
   };
 
   const changeEdition = () => {
@@ -132,7 +133,7 @@ export default function Task(props) {
       collabs = {...collabs, ...colaborador}
     })
     acceptHandler({titulo: values.titulo, descripcion: values.descripcion, aCargo: collabs, fechaLimite: values.fechaLimite})
-    setOpen(false)
+    setOwnOpen(false)
   }
 
   return (
@@ -145,7 +146,7 @@ export default function Task(props) {
         {({ values, errors, touched }) => {
           return (
           <Dialog
-            open={open}
+            open={ownOpen}
             onClose={handleClose}
             aria-labelledby="dialog-title">
             <Form className={classes.form} noValidate>

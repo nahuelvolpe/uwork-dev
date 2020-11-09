@@ -62,7 +62,6 @@ const CardTask = (props) => {
             </Card>
             {open && <Task
                 open={open}
-                setOpen={setOpen}
                 data={data}
                 acceptHandler={acceptTaskHandler}
                 />}
