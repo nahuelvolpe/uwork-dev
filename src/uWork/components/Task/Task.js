@@ -90,7 +90,7 @@ const DatePickerField = ({ field, form, ...other }) => {
 
 export default function Task(props) {
 
-  const { open, acceptHandler, index } = props
+  const { open, setOpen, acceptHandler, index } = props
   const { subjectId } = useContext(SubjectContext)
   let { data } = props
   if (!data) data = {}
@@ -131,6 +131,7 @@ export default function Task(props) {
 
   const handleClose = () => {
     setOwnOpen(false);
+    setOpen(false)
   };
 
   const changeEdition = () => {
