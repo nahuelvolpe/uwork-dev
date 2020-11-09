@@ -1,5 +1,6 @@
 import 'date-fns';
 import React, { useState, useEffect, useContext } from 'react';
+import moment from 'moment'
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction,
   Checkbox, Dialog, DialogActions, DialogContent, Accordion, AccordionSummary,
@@ -77,7 +78,7 @@ const DatePickerField = ({ field, form, ...other }) => {
 
 export default function Task(props) {
 
-  const { open, acceptHandler } = props
+  const { open, acceptHandler, index } = props
   const { subjectId } = useContext(SubjectContext)
   let { data } = props
   if (!data) data = {}
@@ -132,7 +133,14 @@ export default function Task(props) {
       colaborador = {[colab]: new Date()}
       collabs = {...collabs, ...colaborador}
     })
-    acceptHandler({titulo: values.titulo, descripcion: values.descripcion, aCargo: collabs, fechaLimite: values.fechaLimite})
+    const task = {
+      tareaId: isEditMode ? data.tareaId : '',
+      titulo: values.titulo,
+      descripcion: values.descripcion,
+      aCargo: collabs,
+      fechaLimite: moment(values.fechaLimite).toDate()
+    }
+    acceptHandler(task, isEditMode, index)
     setOwnOpen(false)
   }
 

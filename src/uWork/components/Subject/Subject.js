@@ -87,18 +87,29 @@ const Subject = (props) => {
         setOpenTask(true);
     }
 
-    const createTask = (task) => {
-    TaskService.createTask(task, materiaId)
-            .then(async (doc) => {
-                let task = await doc.get()
-                task = task.data()
-                setTasks(prevState =>
-                    [...prevState, { tareaId: doc.id, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.colaboradores, fechaLimite: moment(task.fechaLimite.toDate()).format('L') }]
-                )
-               /*  setTasks(prevTasks => [prevTasks, {task}]) */
-            }).catch( (e) => {
-                console.log(e)
-            }) 
+    const createTask = (task, isEdition, index) => {
+        if (!isEdition) {
+            TaskService.createTask(task, materiaId)
+                .then(async (doc) => {
+                    let task = await doc.get()
+                    task = task.data()
+                    setTasks(prevState =>
+                        [...prevState, { tareaId: doc.id, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.colaboradores, fechaLimite: moment(task.fechaLimite.toDate()).format('L') }]
+                    )
+                }).catch( (e) => {
+                    console.log(e)
+                })
+        } else {
+            TaskService.updateTask(task.tareaId, task)
+                .then(() => {
+                    if (index !== undefined) {
+                        const newTasks = tasks.slice() //copy the array
+                        newTasks[index] = { tareaId: task.tareaId, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.aCargo, fechaLimite: moment(task.fechaLimite).format('L') } //execute the manipulations
+                        setTasks(newTasks)
+                    }
+                })
+                .catch(e => console.log(e))
+        }
     }
 
     return (
@@ -116,9 +127,9 @@ const Subject = (props) => {
                 <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
                     <p>Link al foro donde podés encontrar apuntes, examenes, trabajos practicos y más información de la materia <a href={link}  target="_blank">{link}</a></p>
                 </Paper>
-                {tasks && tasks.map((task) =>
+                {tasks && tasks.map((task, index) =>
                     <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                        <CardTask data={task} history={props.history} acceptTaskHandler={createTask}/>
+                        <CardTask data={task} history={props.history} acceptTaskHandler={createTask} index={index}/>
                     </Grid>)
                 }
             </Grid>
