@@ -22,7 +22,8 @@ export const updateTask = async (id, task) => {
         titulo: task.titulo ? task.titulo : taskData.titulo,
         descripcion: task.descripcion ? task.descripcion : taskData.descripcion,
         fechaLimite: task.fechaLimite ? task.fechaLimite : taskData.fechaLimite,
-        colaboradores: task.aCargo ? task.aCargo : taskData.aCargo
+        colaboradores: task.aCargo ? task.aCargo : taskData.aCargo,
+        estado: task.estado ? task.estado : taskData.estado
     }, { merge: true })
 }
 

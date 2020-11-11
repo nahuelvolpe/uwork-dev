@@ -75,13 +75,16 @@ const CardTask = (props) => {
                 </CardContent>
                 <CardActions className={classes.cardActions}>
                     <Button size="small" onClick={handleView}>VER</Button>
-                    {data.estado === 'pendiente' ? 
+                    {data.estado === 'pendiente' ? (
+                        <>
                         <Button size="small" onClick={handleFinished}>FINALIZAR</Button>
+                        <Button size="small" onClick={() => {props.deleteHandler(data.tareaId, Object.keys(data.colaboradores).length)}}>ELIMINAR</Button>
+                        </>
+                    )
+                        
                     : 
                         <Button size="small" onClick={handlePendiente}>PENDIENTE</Button>
                     }
-                    
-                    <Button size="small" onClick={() => {props.deleteHandler(data.tareaId, Object.keys(data.colaboradores).length)}}>ELIMINAR</Button>
                 </CardActions>
             </Card>
             {open && <Task
