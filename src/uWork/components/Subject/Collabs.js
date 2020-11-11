@@ -85,12 +85,13 @@ const Collabs = ({open, setOpen}) => {
                                 secondary={user.rol}
                             />
                             <ListItemSecondaryAction>
-                                {user.rol === 'colaborador' ?
+                                {user.rol === 'colaborador' ? 
                                     <IconButton onClick={() => { handleDeleteCollab(user.uid) }} edge="end" aria-label="delete" disabled={!admin}>
                                         <ClearIcon />
                                     </IconButton>
-                                    : null
-                                } 
+                                :
+                                    null
+                                }                                
                             </ListItemSecondaryAction>
                         </ListItem>
                     ))}

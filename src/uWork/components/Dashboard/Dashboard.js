@@ -1,4 +1,4 @@
-import { Grid, makeStyles, IconButton } from '@material-ui/core';
+import { Grid, makeStyles, IconButton} from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, { useEffect, useState } from 'react';
 import * as UserService from '../../services/UserService';
@@ -6,6 +6,8 @@ import * as MateriasService from '../../services/MateriasService';
 import AuthenticationService from '../../services/AuthenticationService'
 import AddSubject from './AddSubject'
 import CardSubject from '../Subject/CardSubject'
+import AlertDialog from './AlertDialog';
+import Alert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles((theme) => ({
     materiaContent: {
@@ -35,8 +37,11 @@ const Dashboard = (props) => {
     const userId = AuthenticationService.getSessionUserId();
 
     const [materias, setMaterias] = useState([])
+    const [materiaId, setMateriaId] = useState('')
 
     const [open, setOpen] = React.useState(false);
+    const [openAlert, setOpenAlert] = React.useState(false);
+    const [guide, setGuide] = useState(false);
 
     //obtener los datos de las materias del usuario
     useEffect(() => {
@@ -45,17 +50,26 @@ const Dashboard = (props) => {
             let userMaterias = [];
             userMaterias = await MateriasService.getSubjects(userId)
             setMaterias(userMaterias);
+            if(userMaterias.length < 1){
+                setGuide(true);
+            }
         }
         cargarMaterias();
     }, [userId])
 
-    const handleDelete = (materiaId) => {
+    const acceptDelete = (materiaId) => {
         MateriasService.deleteMateriaAdmin(materiaId, userId)
-            .then(() => {
-                setMaterias(prevState => prevState.filter(e => e.materiaId !== materiaId))
-            })
-            .catch((e) => { console.log(e) })
+        .then(() => {
+            setMaterias(prevState => prevState.filter(e => e.materiaId !== materiaId))
+        })
+        .catch((e) => { console.log(e) })
     }
+
+    const handleDelete = (materiaId) => {
+        setMateriaId(materiaId)
+        setOpenAlert(true)
+    }
+    
     
     const handleExit = (materiaId) => {
         MateriasService.exitMateria(materiaId, userId)
@@ -76,6 +90,7 @@ const Dashboard = (props) => {
             return MateriasService.getSubjectById(doc.id)
         })
         .then(newSubject => {
+            setGuide(false);
             setMaterias(prevState =>
                 [...prevState, { materiaId: newSubject.materiaId, carrera: newSubject.carrera, nombre: newSubject.nombre }]
             )
@@ -87,13 +102,23 @@ const Dashboard = (props) => {
 
     return (
         <div>
-            <AddSubject
+            {guide && 
+            <Alert severity="info">¡Usted no tiene materias asignadas!, para agregar su primer materia haga click en el botón + de abajo a la derecha</Alert>
+            }
+            {open && <AddSubject
                 open={open}
                 setOpen={setOpen}
                 acceptHandler={createSubject}
-            />
+            />}
+            {openAlert && <AlertDialog
+                open={openAlert}
+                setOpen={setOpenAlert}
+                subjectId={materiaId}
+                acceptHandler={acceptDelete}
+            />}
             <Grid container spacing={3}>
-                {materias && materias.map((materia) =>
+                {materias && materias.map((materia) => 
+                    
                     <Grid item xs={12} sm={6} md={4} key={materia.materiaId}>
                         <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history}/>
                     </Grid>)
@@ -103,7 +128,7 @@ const Dashboard = (props) => {
                     arial-label="Add"
                     onClick={handleClickOpen}
                 >
-                    <AddCircleIcon style={{ fontSize: "60px" }} />
+                    <AddCircleIcon style={{ fontSize: "52px" }} />
                 </IconButton>
             </Grid>
         </div>

@@ -13,7 +13,7 @@ import PropTypes from 'prop-types'
 function FormikField(props) {
   const [showPassword, setShowPassword] = useState(false)
 
-  return <div className="FormikField">
+  return <div className={props.className}>
     <Field
       required={props.required}
       id={props.id}
@@ -24,6 +24,10 @@ function FormikField(props) {
       helperText={<ErrorMessage name={props.name} />}
       error={props.error}
       fullWidth={props.fullWidth}
+      variant={props.variant}
+      multiline={props.multiline}
+      disabled={props.disabled}
+      rows={props.rows}
       type={props.type === "password" ? (showPassword ? "text" : "password") : props.type}
       InputProps={props.type === "password" ? {
         endAdornment: (

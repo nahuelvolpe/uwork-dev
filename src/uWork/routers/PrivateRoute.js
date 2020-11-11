@@ -11,10 +11,7 @@ export const PrivateRoute = ({
     ...rest
 }) => {
 
-    let currentUser = auth.currentUser;
-    if(currentUser){
-        currentUser = AuthenticationService.getSessionUserId()
-    }
+    const currentUser = AuthenticationService.getCurrentUser()
     const { authReady } = useContext(AuthContext)
 
     return (

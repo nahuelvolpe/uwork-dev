@@ -11,7 +11,7 @@ export const PublicRoute = ({
     ...rest
 }) => {
 
-    const currentUser = auth.currentUser;
+    const currentUser = AuthenticationService.getCurrentUser()
     const { authReady } = useContext(AuthContext)
 
     return (

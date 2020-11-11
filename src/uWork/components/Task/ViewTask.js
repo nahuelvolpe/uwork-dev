@@ -19,6 +19,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
+import EditIcon from '@material-ui/icons/Edit';
 import * as MateriasService from '../../services/MateriasService';
 
 
@@ -51,17 +52,25 @@ const useStyles = makeStyles((theme) => ({
 
   
 
-export default function AddSubject(props) {
+export default function ViewTask(props) {
 
-  const { open, setOpen, subjectId, acceptHandler } = props
+  const { open, setOpen, data, subjectId } = props
   const classes = useStyles();
   const [colaboradores, setColaborares] = useState([]);
   const [colabCargo, setColabCargo] = React.useState([]);
   const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [descripcion, setDescripcion] = useState('');
   const [titulo, setTitulo] = useState('')
+  const [edit, setEdit] = useState(false)
+
 
   useEffect(() => {
+        /* const cargarColaboradores = async () => {
+            if(data.tareaId) {
+                const collabs = await TaskService.getCollabsFromTasks(subjectId)
+                setColaborares(collabs)
+            }
+        } */
       const cargarUsuarios = async () => {
           if(subjectId) {
               const collabs = await MateriasService.getCollabsFromSubject(subjectId)
@@ -95,7 +104,7 @@ export default function AddSubject(props) {
      colaborador = {[colab.uid]: new Date()}
      collabs = {...collabs, ...colaborador}
     })
-    acceptHandler({titulo: titulo, descripcion: descripcion, colabCargo: collabs, fechaLimite: selectedDate})
+    //acceptHandler({titulo: titulo, descripcion: descripcion, colabCargo: collabs, fechaLimite: selectedDate})
     setOpen(false)
   }
 
@@ -115,6 +124,13 @@ export default function AddSubject(props) {
     setTitulo(event.target.value)
   };
 
+  const validarColaboradores = (colaborador) => {
+      let ids = Object.keys(data.colaboradores);
+      return ids.some((id) => {
+          return colaborador.uid === id
+      })
+  }
+
   return (
     <React.Fragment>
 
@@ -123,14 +139,14 @@ export default function AddSubject(props) {
         onClose={handleClose}
         aria-labelledby="dialog-title"
       >
-        <h2 className={classes.dialogTitle} >Nueva Tarea</h2>
+        <h2 className={classes.dialogTitle} >Vista de tarea</h2>
         <DialogContent>
           
           <form className={classes.form} noValidate>
             <FormControl className={classes.formControl}>
-            <TextField className={classes.titulo} id="standard-basic" variant="outlined" label="Titulo" autoComplete="off" value={titulo} onChange={handleTituloChange}/>
+            <TextField className={classes.titulo} id="standard-basic" variant="outlined" label="Titulo" autoComplete="off" defaultValue={data.titulo}/>
                   
-            <TextField id="standard-basic" label="Descripcion" variant="outlined" multiline rows={4} autoComplete="off" value={descripcion} onChange={handleDescripcionChange}/>
+            <TextField id="standard-basic" label="Descripcion" variant="outlined" multiline rows={4} autoComplete="off" defaultValue={data.descripcion}/>
                   
             <FormControl variant="outlined" className={classes.formControl}>
             {/* <InputLabel id="demo-simple-select-outlined-label">Colaborador/es a cargo</InputLabel> */}
@@ -158,7 +174,7 @@ export default function AddSubject(props) {
                         <Checkbox
                           edge="end"
                           onChange={handleToggle(colaborador)}
-                          checked={colabCargo.indexOf(colaborador) !== -1}
+                          checked={validarColaboradores(colaborador)}
                           inputProps={{ 'aria-labelledby': colaborador.uid }}
                         />
                       </ListItemSecondaryAction>
@@ -192,8 +208,8 @@ export default function AddSubject(props) {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onAccept} color="primary">
-            Aceptar
+          <Button onClick={onAccept} variant="outlined" color="primary" startIcon={<EditIcon />}>
+            Editar
           </Button>
           <Button onClick={handleClose} color="primary">
             Cerrar

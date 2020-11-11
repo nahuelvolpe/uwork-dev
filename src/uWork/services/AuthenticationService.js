@@ -7,6 +7,10 @@ class AuthenticationService {
     return auth.currentUser.uid
   }
 
+  getCurrentUser() {
+    return auth.currentUser
+  }
+
   updateProfilePhoto(photoUrl) {
     return auth.currentUser.updateProfile(
       {
