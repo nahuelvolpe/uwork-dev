@@ -95,6 +95,8 @@ const Subject = (props) => {
     const [openInvite, setOpenInvite] = useState(false);
     const [openTask, setOpenTask] = useState(false);
     const [tasks, setTasks] = useState([]);
+    const [pendientes, setPendientes] = useState([]);
+    const [finalizadas, setFinalizadas] = useState([]);
     const [openAlert, setOpenAlert] = React.useState(false);
     const [tareaId, setTareaId] = useState('')
     const [cantColabs, setCantColabs] = useState(0)
@@ -111,10 +113,21 @@ const Subject = (props) => {
         async function cargarTareas() {
             let tasksSubject = [];
             tasksSubject = await TaskService.getTasks(materiaId)
+            tasksSubject.map( (task) => {
+                if(task.estado === 'pendiente'){
+                    setPendientes(prevState =>
+                        [...prevState, task]
+                    )
+                }else if(task.estado === 'finalizada'){
+                    setFinalizadas(prevState =>
+                        [...prevState, task]
+                    )
+                }
+            })
             setTasks(tasksSubject);
         }
         cargarTareas();
-        setSubjectData()
+        setSubjectData();
     }, [materiaId, setSubjectId, setSubjectName])
 
     const handleChange = (event, newValue) => {
@@ -157,6 +170,9 @@ const Subject = (props) => {
                     setTasks(prevState =>
                         [...prevState, { tareaId: doc.id, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.colaboradores, fechaLimite: moment(task.fechaLimite.toDate()).format('L') }]
                     )
+                    setPendientes(prevState =>
+                        [...prevState, { tareaId: doc.id, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.colaboradores, fechaLimite: moment(task.fechaLimite.toDate()).format('L') }]
+                    )
                 }).catch( (e) => {
                     console.log(e)
                 })
@@ -172,7 +188,7 @@ const Subject = (props) => {
                 .catch(e => console.log(e))
         }
     }
-
+ 
     return (
         <>
             {openInvite && <Invite 
@@ -196,7 +212,7 @@ const Subject = (props) => {
                     </AppBar>
                     <TabPanel value={value} index={0}>
                     <Grid container spacing={1}>
-                        {tasks && tasks.map((task) =>
+                        {pendientes && pendientes.map((task) =>
                             <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
                                 <CardTask data={task} history={props.history} acceptTaskHandler={createTask}/>
                             </Grid>
@@ -205,8 +221,16 @@ const Subject = (props) => {
                      </Grid>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        Item Two
-                    </TabPanel>    
+                    <Grid container spacing={1}>
+                        {finalizadas && finalizadas.map((task) =>
+                            <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
+                                <CardTask data={task} history={props.history} acceptTaskHandler={createTask}/>
+                            </Grid>
+                            )
+                        }
+                     </Grid>
+                    </TabPanel>
+                        
                 {/* tasks && tasks.map((task) =>
                     <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
                         <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} index={index}/>

@@ -37,6 +37,7 @@ export const getTasks = async (materiaId) => {
                 tareaId: id,
                 titulo: docData.titulo,
                 descripcion: docData.descripcion,
+                estado: docData.estado,
                 colaboradores: docData.colaboradores,
                 fechaLimite: moment(docData.fechaLimite.toDate()).format('L'),
             });
@@ -80,6 +81,23 @@ export const finishedTask = async (taskId, materiaId) => {
             return subjectRef.set({
                 tareas: {
                     [taskId]: 'finalizada'
+                }
+            }, {merge: true})
+        })
+
+    return response;
+}
+
+export const pendienteTask = async (taskId, materiaId) => {
+    const subjectRef = db.collection('materias').doc(materiaId);
+
+    const response = await db.collection('tareas').doc(taskId).set({
+        estado: 'pendiente'
+    }, {merge: true})
+        .then(() => {
+            return subjectRef.set({
+                tareas: {
+                    [taskId]: 'pendiente'
                 }
             }, {merge: true})
         })
