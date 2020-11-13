@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Card, CardContent, Typography, CardActions,
     makeStyles, Avatar, Box, CardActionArea, IconButton,
     Tooltip, Chip } from '@material-ui/core'
-import { VisibilityRounded, Delete, CheckCircle, Timer, TimerOff } from '@material-ui/icons'
+import { VisibilityRounded, Delete, CheckCircle, Timer, TimerOff, Undo } from '@material-ui/icons'
 import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import Task from './Task';
 import * as TaskService from '../../services/TaskService';
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CardTask = (props) => {
     const classes = useStyles()
-    const { data, acceptTaskHandler, index } = props
+    const { data, acceptTaskHandler, deleteHandler, index } = props
     const [open, setOpen] = useState(false)
     const { subjectId } = useContext(SubjectContext)
 
@@ -75,20 +75,20 @@ const CardTask = (props) => {
         setOpen(true);
     }
 
-    const acceptDelete = () => {
-        TaskService.deleteTask(data.tareaId, subjectId)
+    const handleFinished = () => {
+        TaskService.finishedTask(data.tareaId, subjectId)
             .then(() => {
-                console.log('tarea eliminada')
+                console.log('tarea finalizada')
                 window.location.reload()
             }).catch((e) => {
                 console.log(e)
             })
     }
 
-    const handleFinished = () => {
-        TaskService.finishedTask(data.tareaId, subjectId)
+    const handlePendiente = () => {
+        TaskService.pendienteTask(data.tareaId, subjectId)
             .then(() => {
-                console.log('tarea finalizada')
+                console.log('tarea pendiente')
                 window.location.reload()
             }).catch((e) => {
                 console.log(e)
@@ -105,9 +105,6 @@ const CardTask = (props) => {
                                 <Typography className={classes.textTarea} noWrap variant="h6" component="h2" align="left">
                                     {data.titulo}
                                 </Typography>
-                                {/* <Typography className={classes.descripcion}>
-                                    {`Fecha límite: ${data.fechaLimite}`}
-                                </Typography> */}
                             </Box>
                             <AvatarGroup max={3}>
                                 {
@@ -125,16 +122,26 @@ const CardTask = (props) => {
                             <VisibilityRounded fontSize="large" />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip classes={{tooltip: classes.tooltip}} title="Finalizar" enterTouchDelay={400}>
-                        <IconButton className={`${classes.actionButtons} ${classes.finalizarButton}`} onClick={handleFinished}>
-                            <CheckCircle fontSize="large" />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip classes={{tooltip: classes.tooltip}} title="Eliminar" enterTouchDelay={400}>
-                        <IconButton className={classes.actionButtons} onClick={acceptDelete}>
-                            <Delete fontSize="large" color="error" />
-                        </IconButton>
-                    </Tooltip>
+                    {
+                        data.estado === 'pendiente' ?
+                            <>
+                                <Tooltip classes={{tooltip: classes.tooltip}} title="Finalizar" enterTouchDelay={400}>
+                                    <IconButton className={`${classes.actionButtons} ${classes.finalizarButton}`} onClick={handleFinished}>
+                                        <CheckCircle fontSize="large" />
+                                    </IconButton>
+                                </Tooltip>
+                                <Tooltip classes={{tooltip: classes.tooltip}} title="Eliminar" enterTouchDelay={400}>
+                                    <IconButton className={classes.actionButtons} onClick={() => {deleteHandler(data.tareaId, Object.keys(data.colaboradores).length)}}>
+                                        <Delete fontSize="large" color="error" />
+                                    </IconButton>
+                                </Tooltip>
+                            </>
+                            :   <Tooltip classes={{tooltip: classes.tooltip}} title="Volver a pendiente" enterTouchDelay={400}>
+                                    <IconButton className={classes.actionButtons} onClick={handlePendiente}>
+                                        <Undo fontSize="large" />
+                                    </IconButton>
+                                </Tooltip>
+                    }
                     {(moment().isBefore(moment(data.fechaLimite, 'DD-MM-YYYY'))) ?
                         <Chip classes={{
                                 outlined: classes.chipOutline,
@@ -148,9 +155,6 @@ const CardTask = (props) => {
                             variant="outlined"
                             label={data.fechaLimite}
                             icon={<TimerOff />} />}
-                    {/* <Button size="small" onClick={handleView}>VER</Button> */}
-                    {/* <Button size="small" onClick={handleFinished}>FINALIZAR</Button>
-                    <Button size="small" onClick={acceptDelete}>ELIMINAR</Button> */}
                 </CardActions>
             </Card>
             {open && <Task

@@ -157,11 +157,13 @@ export default function Task(props) {
       titulo: values.titulo,
       descripcion: values.descripcion,
       aCargo: collabs,
-      fechaLimite: moment(values.fechaLimite).toDate()
+      fechaLimite: moment(values.fechaLimite).toDate(),
+      estado: 'pendiente'
     }
     acceptHandler(task, isEditMode, index)
     setOwnOpen(false)
-  }
+  } 
+  
 
   return (
       <Formik
@@ -243,8 +245,14 @@ export default function Task(props) {
                 : <>
                   <Button type="submit" color="primary" style={{display: 'none'}}>
                   </Button>
+                  {data.estado === 'pendiente' ? 
                   <Button onClick={changeEdition} color="primary">
                     Editar
+                  </Button>:
+                  null
+                  }  
+                  <Button onClick={handleClose} color="primary">
+                    Cerrar
                   </Button>
                 </>
               }
