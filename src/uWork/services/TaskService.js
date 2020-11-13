@@ -2,7 +2,8 @@ import { db } from './firebase/setup'
 import firebase from 'firebase';
 import * as MateriasService from './MateriasService';
 import moment from 'moment'
-
+import 'moment/locale/es-mx'
+moment.locale('es-mx')
 
 export const createTask = async (task, materiaId) => {
     const response = await db.collection('tareas').add({

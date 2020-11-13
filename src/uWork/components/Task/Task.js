@@ -6,13 +6,15 @@ import { Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemS
   Checkbox, Dialog, DialogActions, DialogContent, Accordion, AccordionSummary,
   AccordionDetails, Typography, Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import DateFnsUtils from '@date-io/date-fns';
+import MomentUtils from "@date-io/moment"
 import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import * as MateriasService from '../../services/MateriasService';
 import { Formik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup'
 import FormikField from '../FormikField/FormikField'
 import { SubjectContext } from '../../context/subject'
+import 'moment/locale/es-mx'
+moment.locale('es-mx')
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -74,7 +76,7 @@ const DatePickerField = ({ field, form, ...other }) => {
       disabled={other.disabled}
       name={field.name}
       value={field.value}
-      format="dd/MM/yyyy"
+      format="MM/DD/yyyy"
       helperText={currentError}
       error={Boolean(currentError)}
       onError={error => {
@@ -104,7 +106,7 @@ export default function Task(props) {
     titulo: '',
     descripcion: '',
     aCargo: [],
-    fechaLimite: new Date()
+    fechaLimite: moment()
   })
   
   useEffect(() => {
@@ -117,7 +119,7 @@ export default function Task(props) {
                 titulo: data.titulo,
                 descripcion: data.descripcion,
                 aCargo: getColaboradores(data.colaboradores),
-                fechaLimite: data.fechaLimite
+                fechaLimite: moment(data.fechaLimite, 'DD-MM-YYYY')
               })
             }
         }
@@ -222,7 +224,7 @@ export default function Task(props) {
                       )}/>
                   </AccordionDetails>
                 </Accordion>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale="es">
                   <Grid container className={classes.keyboardDate} justify="space-around">
                     <Field name="fechaLimite" component={DatePickerField} disabled={isViewMode} />
                   </Grid>
