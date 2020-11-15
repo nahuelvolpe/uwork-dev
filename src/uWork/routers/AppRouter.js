@@ -1,16 +1,15 @@
 import React, { useContext } from 'react'
-import { Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom'
 import { SubjectProvider } from '../context/subject'
-import { AuthContext } from '../context/auth';
-import { PrivateRoute } from './PrivateRoute';
-import { PublicRoute } from './PublicRoute';
-import Login from '../components/Login/Login';
-import Register from '../components/Register/Register';
-import Dashboard from '../components/Dashboard/Dashboard';
-import EditProfile from '../components/EditProfile/EditProfile';
-import Layout from '../components/Layout/Layout';
-import LoadingPage from '../components/LoadingPage/LoadingPage';
-import Subject from '../components/Subject/Subject';
+import { AuthContext } from '../context/auth'
+import { PrivateRoute } from './PrivateRoute'
+import { PublicRoute } from './PublicRoute'
+import Login from '../components/Login/Login'
+import Register from '../components/Register/Register'
+import Dashboard from '../components/Dashboard/Dashboard'
+import EditProfile from '../components/EditProfile/EditProfile'
+import Layout from '../components/Layout/Layout'
+import Subject from '../components/Subject/Subject'
 
 const AppRouter = () => {
 
@@ -18,7 +17,7 @@ const AppRouter = () => {
 
     return (
         <div>
-            {authReady ?
+            {authReady &&
             <SubjectProvider>
                 <Switch>
                     <PublicRoute exact path="/" component={Login} />
@@ -33,7 +32,7 @@ const AppRouter = () => {
                     
                 </Switch>
             </SubjectProvider>
-                : <LoadingPage />}
+            }
         </div>
     )
 }

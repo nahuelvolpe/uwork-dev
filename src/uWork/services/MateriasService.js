@@ -88,7 +88,7 @@ export const deleteMateriaAdmin = async (materiaId, user) => {
                 [materiaId]: firebase.firestore.FieldValue.delete(),
             }       
         }, {merge: true})
-        .then(()=>{console.log('usuario eliminado:' + userid)})
+        .then(()=>{})
         .catch((e) => {console.log(e)})
     })
     
