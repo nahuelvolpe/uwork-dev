@@ -76,7 +76,7 @@ const DatePickerField = ({ field, form, ...other }) => {
       disabled={other.disabled}
       name={field.name}
       value={field.value}
-      format="MM/DD/yyyy"
+      format="DD/MM/yyyy"
       helperText={currentError}
       error={Boolean(currentError)}
       onError={error => {
