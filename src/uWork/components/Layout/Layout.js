@@ -21,20 +21,20 @@ const useStyles = makeStyles((theme) => ({
     width: '100%'
   },
   menuButton: {
-    color: 'white'
+    color: theme.palette.primary.main,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
   title: {
     flexGrow: 1,
-    color: 'white',
+    color: theme.palette.primary.main,
     cursor: 'pointer',
     textDecoration: 'none'
   },
   actualPage: {
     flexGrow: 1,
-    color: 'white'
+    color: theme.palette.primary.main,
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
@@ -133,7 +133,7 @@ const Layout = (props) => {
       <Fragment>
         <CssBaseline />
         <div className={classes.root}>
-          <AppBar position="static">
+          <AppBar color='default' position="static">
             <Toolbar>
               <Typography variant="h6" className={classes.title} component={Link} to="/dashboard">
                 uWork
