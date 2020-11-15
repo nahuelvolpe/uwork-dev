@@ -31,9 +31,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: '0px',
         color: theme.palette.primary.main
     }
-
 }));
-
 
 const Dashboard = (props) => {
 
@@ -48,6 +46,8 @@ const Dashboard = (props) => {
     const [guide, setGuide] = useState(false)
     const [creationSuccess, setCreationSuccess] = useState(false)
     const [creationFailed, setCreationFailed] = useState(false)
+    const [deleteSuccess, setDeleteSuccess] = useState(false)
+    const [deleteFailed, setDeleteFailed] = useState(false)
 
     //obtener los datos de las materias del usuario
     useEffect(() => {
@@ -66,11 +66,12 @@ const Dashboard = (props) => {
     }, [userId])
 
     const acceptDelete = (materiaId) => {
-        MateriasService.deleteMateriaAdmin(materiaId, userId)
-        .then(() => {
-            setMaterias(prevState => prevState.filter(e => e.materiaId !== materiaId))
-        })
-        .catch((e) => { console.log(e) })
+        setDeleteSuccess(true)
+        setMaterias(prevState => prevState.filter(e => e.materiaId !== materiaId))
+    }
+
+    const onDeleteError = () => {
+        setDeleteFailed(true)
     }
 
     const handleDelete = (materiaId) => {
@@ -92,10 +93,12 @@ const Dashboard = (props) => {
 
     const handleCloseSnackSuccess = () => {
         setCreationSuccess(false)
+        setDeleteSuccess(false)
     }
     
     const handleCloseSnackError = () => {
         setCreationFailed(false)
+        setDeleteFailed(false)
     }
 
     const onCreationSuccess = (newSubject) => {
@@ -132,6 +135,7 @@ const Dashboard = (props) => {
                         setOpen={setOpenAlert}
                         subjectId={materiaId}
                         acceptHandler={acceptDelete}
+                        errorHandler={onDeleteError}
                     />}
                     <Grid container spacing={3}>
                         {materias && materias.map((materia) => 
@@ -153,6 +157,12 @@ const Dashboard = (props) => {
                     </CustomizedSnackbars>
                     <CustomizedSnackbars open={creationFailed} handleClose={handleCloseSnackError} severity="error">
                         Error al crear materia.
+                    </CustomizedSnackbars>
+                    <CustomizedSnackbars open={deleteSuccess} handleClose={handleCloseSnackSuccess} severity="success">
+                        Materia eliminada con éxito!
+                    </CustomizedSnackbars>
+                    <CustomizedSnackbars open={deleteFailed} handleClose={handleCloseSnackError} severity="error">
+                        Error al eliminar materia.
                     </CustomizedSnackbars>
                 </Fragment>
                 }
