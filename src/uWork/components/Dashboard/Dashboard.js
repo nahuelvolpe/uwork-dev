@@ -132,7 +132,7 @@ const Dashboard = (props) => {
             setOpenErrorBar(true);
         }
     }
-
+        
         const handleCloseSnackSuccess = () => {
             setCreationSuccess(false)
             setDeleteSuccess(false)
@@ -215,13 +215,11 @@ const Dashboard = (props) => {
                             <CustomizedSnackbars open={deleteFailed} handleClose={handleCloseSnackError} severity="error">
                                 Error al eliminar materia.
                     </CustomizedSnackbars>
-                            <CustomizedSnackbars open={openErrorBar} handleClose={handleCloseSnackBarError} severity="error">
-                                {errorMessage}
-                            </CustomizedSnackbars>
-                        </Fragment>
-                }
-            </div>
-        )
-    }
+                </Fragment>
+                }           
+        </div>
+    )
 
+}
+ 
 export default Dashboard;

@@ -21,20 +21,20 @@ const useStyles = makeStyles((theme) => ({
     width: '100%'
   },
   menuButton: {
-    color: 'white'
+    color: theme.palette.primary.main,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
   title: {
     flexGrow: 1,
-    color: 'white',
+    color: theme.palette.primary.main,
     cursor: 'pointer',
     textDecoration: 'none'
   },
   actualPage: {
     flexGrow: 1,
-    color: 'white'
+    color: theme.palette.primary.main,
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
+  },
+  logo: {
+    maxWidth: 40,
   }
 }));
 
@@ -133,10 +136,10 @@ const Layout = (props) => {
       <Fragment>
         <CssBaseline />
         <div className={classes.root}>
-          <AppBar position="static">
+          <AppBar color='default' position="static">
             <Toolbar>
-              <Typography variant="h6" className={classes.title} component={Link} to="/dashboard">
-                uWork
+              <Typography className={classes.title} component={Link} to="/dashboard">
+                <img src='https://firebasestorage.googleapis.com/v0/b/uwork-dev-beta.appspot.com/o/assets%2FuWork.png?alt=media&token=5ec925a9-c41a-478b-a3fd-a6b08dcda360' className={classes.logo}></img>
               </Typography>
               <Typography variant="h6" className={classes.actualPage}>
                 {getCurrentPageName()}

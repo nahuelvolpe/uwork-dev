@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cardContent: {
         marginTop: theme.spacing(2),
-        backgroundColor: theme.palette.info.main
+        background: 'linear-gradient(45deg, #8b34a7 15%, #bc3480)'
     },
     carrera: {
         marginBottom: 0,

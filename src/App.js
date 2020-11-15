@@ -6,10 +6,16 @@ import { BrowserRouter } from 'react-router-dom'
 
 const theme = createMuiTheme({
   palette: {
-    primary: { 
+    /* primary: { 
       light: '#18C7FF',
       main: '#14A7D6',
       dark: '#148EB5',
+      contrastText: '#fff'
+    }, */
+    primary: {
+      light: '#c232db',
+      main: '#8b34a7',
+      dark: '#731e82',
       contrastText: '#fff'
     },
     secondary: { 
@@ -29,7 +35,10 @@ const theme = createMuiTheme({
     },
     danger: {
       main: '#dc3545'
-    }
+    },
+    background: {
+      default: '#ebebeb'
+    },
   }
 })
 
