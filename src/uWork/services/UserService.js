@@ -1,4 +1,6 @@
 import { db, storage } from './firebase/setup'
+import * as MateriasService from './MateriasService';
+
 
 export const createUser = (credentials) => {
   const userId = credentials.user.uid;
@@ -88,5 +90,19 @@ export const getUserSubjects = async (id) => {
 
   return user.materias;
 }
+
+export const existSubject = async (subject, userID) => {
+  const userMaterias = await MateriasService.getSubjects(userID)
+  let exist = false;
+  userMaterias.map(materia => {
+    if(materia.nombre === subject.subject){
+      exist = true;
+    }
+  })
+
+  return exist;
+}
+
+
 
 

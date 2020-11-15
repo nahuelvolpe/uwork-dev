@@ -43,23 +43,11 @@ const CardTask = (props) => {
     }
 
     const handleFinished = () => {
-        TaskService.finishedTask(data.tareaId, subjectId)
-            .then(() => {
-                console.log('tarea finalizada')
-                window.location.reload()
-            }).catch((e) => {
-                console.log(e)
-            })
+        props.finishedHandler(data.tareaId, subjectId)
     }
 
     const handlePendiente = () => {
-        TaskService.pendienteTask(data.tareaId, subjectId)
-            .then(() => {
-                console.log('tarea pendiente')
-                window.location.reload()
-            }).catch((e) => {
-                console.log(e)
-            })
+        props.pendienteHandler(data.tareaId, subjectId)
     }
 
     return (

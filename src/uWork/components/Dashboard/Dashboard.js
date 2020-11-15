@@ -1,6 +1,7 @@
 import { Grid, makeStyles, IconButton} from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import React, { useEffect, useState } from 'react';
+import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
 import * as UserService from '../../services/UserService';
 import * as MateriasService from '../../services/MateriasService';
 import AuthenticationService from '../../services/AuthenticationService'
@@ -42,6 +43,8 @@ const Dashboard = (props) => {
     const [open, setOpen] = React.useState(false);
     const [openAlert, setOpenAlert] = React.useState(false);
     const [guide, setGuide] = useState(false);
+    const [openErrorBar, setOpenErrorBar] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('Error al crear la materia, intentelo denuevo')
 
     //obtener los datos de las materias del usuario
     useEffect(() => {
@@ -56,6 +59,13 @@ const Dashboard = (props) => {
         }
         cargarMaterias();
     }, [userId])
+
+    const handleCloseSnackBarError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenErrorBar(false);
+    };
 
     const acceptDelete = (materiaId) => {
         MateriasService.deleteMateriaAdmin(materiaId, userId)
@@ -84,21 +94,31 @@ const Dashboard = (props) => {
     };
 
     const createSubject = async (subject) => {
-        MateriasService.createSubject(subject, userId)
-        .then(async (doc) => {
-            await UserService.updateUser(userId, { materias: { [doc.id]: 'admin' }})
-            return MateriasService.getSubjectById(doc.id)
-        })
-        .then(newSubject => {
-            setGuide(false);
-            setMaterias(prevState =>
-                [...prevState, { materiaId: newSubject.materiaId, carrera: newSubject.carrera, nombre: newSubject.nombre }]
-            )
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        let exist = await UserService.existSubject(subject, userId)
+        console.log(exist)
+        if(!exist){
+            MateriasService.createSubject(subject, userId)
+            .then(async (doc) => {
+                await UserService.updateUser(userId, { materias: { [doc.id]: 'admin' }})
+                return MateriasService.getSubjectById(doc.id)
+            })
+            .then(newSubject => {
+                setGuide(false);
+                setMaterias(prevState =>
+                    [...prevState, { materiaId: newSubject.materiaId, carrera: newSubject.carrera, nombre: newSubject.nombre }]
+                )
+            })
+            .catch(err => {
+                setErrorMessage('Error al crear la materia, intentelo denuevo')
+                setOpenErrorBar(true);
+            })
+        }else{
+            setErrorMessage('Esa materia ya existe.')
+            setOpenErrorBar(true);
+        }
+        
     }
+
 
     return (
         <div>
@@ -131,6 +151,9 @@ const Dashboard = (props) => {
                     <AddCircleIcon style={{ fontSize: "35px" }} />
                 </IconButton>
             </Grid>
+            <CustomizedSnackbars open={openErrorBar} handleClose={handleCloseSnackBarError} severity="error">
+                {errorMessage}
+            </CustomizedSnackbars>
         </div>
     );
 }

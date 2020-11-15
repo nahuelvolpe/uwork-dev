@@ -8,6 +8,7 @@ import Invite from './Invite';
 import { SubjectContext } from '../../context/subject';
 import * as MateriasService from '../../services/MateriasService'
 import * as TaskService from '../../services/TaskService'
+import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
 import CardTask from '../Task/CardTask';
 import Task from '../Task/Task';
 import moment from 'moment'
@@ -102,6 +103,9 @@ const Subject = (props) => {
 
     const [value, setValue] = React.useState(0);
 
+    const [openSuccessBar, setOpenSuccessBar] = useState(false)
+    const [message, setMessage] = useState('')
+
     useEffect(() => {
         async function setSubjectData() {
             const materia = await MateriasService.getSubjectById(materiaId)
@@ -143,6 +147,13 @@ const Subject = (props) => {
         setOpenTask(true);
     }
 
+    const handleCloseSnackBarSuccess = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSuccessBar(false);
+    };
+
     const acceptDelete = (taskId, materiaId) => {
         console.log(taskId)
         console.log(materiaId)
@@ -157,6 +168,38 @@ const Subject = (props) => {
         setTareaId(taskId)
         setCantColabs(colaboradores)
         setOpenAlert(true)
+    }
+
+    const handleFinished = (tareaId, subjectId) => {
+        TaskService.finishedTask(tareaId, subjectId)
+            .then(() => {
+                let tareaPendiente = pendientes.filter(e => e.tareaId === tareaId)
+                tareaPendiente[0].estado = 'finalizada';
+                setPendientes(prevState => prevState.filter(e => e.tareaId !== tareaId))
+                setFinalizadas(prevState =>
+                    [...prevState, tareaPendiente[0]]
+                )
+                setMessage('La tarea se ha cambiado a la lista de tareas finalizadas.')
+                setOpenSuccessBar(true)
+            }).catch((e) => {
+                console.log(e)
+            })
+    }
+
+    const handlePendiente = (tareaId, subjectId) => {
+        TaskService.pendienteTask(tareaId, subjectId)
+            .then(() => {
+                let tareaFinalizada = finalizadas.filter(e => e.tareaId === tareaId)
+                tareaFinalizada[0].estado = 'pendiente';
+                setFinalizadas(prevState => prevState.filter(e => e.tareaId !== tareaId))
+                setPendientes(prevState =>
+                    [...prevState, tareaFinalizada[0]]
+                )
+                setMessage('La tarea se ha cambiado a la lista de tareas pendiente.')
+                setOpenSuccessBar(true)
+            }).catch((e) => {
+                console.log(e)
+            })
     }
 
     const createTask = (task, isEdition, index) => {
@@ -217,7 +260,7 @@ const Subject = (props) => {
                     <Grid container spacing={1}>
                         {pendientes && pendientes.map((task, index) =>
                             <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                                <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} index={index}/>
+                                <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} finishedHandler={handleFinished} index={index}/>
                             </Grid>
                             )
                         }
@@ -227,7 +270,7 @@ const Subject = (props) => {
                     <Grid container spacing={1}>
                         {finalizadas && finalizadas.map((task, index) =>
                             <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                                <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} index={index}/>
+                                <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} pendienteHandler={handlePendiente} index={index}/>
                             </Grid>
                             )
                         }
@@ -246,6 +289,9 @@ const Subject = (props) => {
                     onClick={handleClickOpenTask}>
                     <PostAddIcon style={{ fontSize: "28px" }} />
             </IconButton>
+            <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
+                {message}
+            </CustomizedSnackbars>
         </>      
     );
 }

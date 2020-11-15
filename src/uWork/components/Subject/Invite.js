@@ -80,7 +80,8 @@ const Invite = ({open, setOpen, materiaId}) => {
                 <DialogTitle id="form-dialog-title">Invitar colaborador</DialogTitle>
                 <DialogContent>
                 <DialogContentText>
-                    Escribe el email de la persona que quieres invitar.
+                    Escribe el email de la persona que quieres invitar. 
+                    <strong> No se le enviara un email a esa persona, si no que se le agregara automáticamente esta materia en su cuenta.</strong>
                 </DialogContentText>
                 <TextField
                     required
