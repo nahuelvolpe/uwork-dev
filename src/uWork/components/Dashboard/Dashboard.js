@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 
-import { Grid, makeStyles, IconButton } from '@material-ui/core'
+import { Grid, makeStyles, IconButton, Hidden, Button, Tooltip } from '@material-ui/core'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import AddSubject from './AddSubject'
 import CardSubject from '../Subject/CardSubject'
@@ -29,7 +29,15 @@ const useStyles = makeStyles((theme) => ({
         right: 0,
         marginBottom: '0px',
         marginRight: '0px',
-        color: theme.palette.primary.main
+        color: theme.palette.primary.main,
+        backgroundColor: 'white',
+        padding: 0,
+        '&:hover': {
+            backgroundColor: 'white'
+        }
+    },
+    tooltip: {
+        marginRight: 4,
     }
 }));
 
@@ -137,20 +145,28 @@ const Dashboard = (props) => {
                         acceptHandler={acceptDelete}
                         errorHandler={onDeleteError}
                     />}
-                    <Grid container spacing={3}>
+                    <Grid container>
+                        <Hidden smDown>
+                            <div style={{ width: '100%', marginTop: 16, marginLeft: 8 }}>
+                                <Button variant="outlined" startIcon={<AddCircleIcon/>} onClick={handleClickOpen}>Agregar Materia</Button>
+                            </div>
+                        </Hidden>
                         {materias && materias.map((materia) => 
-                            
-                            <Grid item xs={12} sm={6} md={4} key={materia.materiaId}>
+                            <Grid item xs={12} sm={6} md={4} key={materia.materiaId} style={{ padding: '0px 8px 8px 0px' }}>
                                 <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history}/>
                             </Grid>)
                         }
-                        <IconButton
-                            className={classes.floatingButton}
-                            arial-label="Add"
-                            onClick={handleClickOpen}
-                        >
-                            <AddCircleIcon style={{ fontSize: "35px" }} />
-                        </IconButton>
+                        <Hidden mdUp>
+                            <Tooltip classes={{tooltip: classes.tooltip}} placement="left" title="Agregar Materia" enterTouchDelay={400}>
+                                <IconButton
+                                    className={classes.floatingButton}
+                                    arial-label="Add"
+                                    onClick={handleClickOpen}
+                                >
+                                    <AddCircleIcon style={{ fontSize: "50px" }} />
+                                </IconButton>
+                            </Tooltip>
+                        </Hidden>
                     </Grid>
                     <CustomizedSnackbars open={creationSuccess} handleClose={handleCloseSnackSuccess} severity="success">
                         Materia creada exitosamente!
