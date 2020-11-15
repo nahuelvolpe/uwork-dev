@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import PropTypes from 'prop-types';
-import { Grid, IconButton, makeStyles, Button, Paper, AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core';
+import { Grid, IconButton, makeStyles, Paper, AppBar, Tabs, Tab, Box } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import Invite from './Invite';
@@ -55,39 +55,37 @@ const useStyles = makeStyles((theme) => ({
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-  
     return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box p={2}>
-            {children}
-          </Box>
-        )}
-      </div>
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+            <Box p={2}>
+                {children}
+            </Box>
+            )}
+        </div>
     );
-  }
-  
-  TabPanel.propTypes = {
+}
+
+TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,
     value: PropTypes.any.isRequired,
-  };
+};
 
-  function a11yProps(index) {
+function a11yProps(index) {
     return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
     };
-  }
+}
 
 const Subject = (props) => {
- 
     const classes = useStyles();
     const { materiaId } = useParams();
     const { setSubjectId, setSubjectName } = useContext(SubjectContext)
@@ -112,7 +110,7 @@ const Subject = (props) => {
         async function cargarTareas() {
             let tasksSubject = [];
             tasksSubject = await TaskService.getTasks(materiaId)
-            tasksSubject.map( (task) => {
+            tasksSubject.forEach( (task) => {
                 if(task.estado === 'pendiente'){
                     setPendientes(prevState =>
                         [...prevState, task]
@@ -144,8 +142,6 @@ const Subject = (props) => {
     }
 
     const acceptDelete = (taskId, materiaId) => {
-        console.log(taskId)
-        console.log(materiaId)
         TaskService.deleteTask(taskId, materiaId)
         .then(() => {
             setPendientes(prevState => prevState.filter(e => e.tareaId !== taskId))
@@ -205,7 +201,7 @@ const Subject = (props) => {
                 acceptHandler={acceptDelete}
             />}
                 <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
-                    <p>Link al foro donde podés encontrar apuntes, examenes, trabajos practicos y más información de la materia <a href={link}  target="_blank">{link}</a></p>
+                    <p>Link al foro donde podés encontrar apuntes, examenes, trabajos practicos y más información de la materia <a href={link} rel="noopener noreferrer" target="_blank">{link}</a></p>
                 </Paper>    
                     <AppBar position="static" className={classes.appbar}>
                         <Tabs value={value} onChange={handleChange} variant="fullWidth" aria-label="simple tabs example">
@@ -221,7 +217,7 @@ const Subject = (props) => {
                             </Grid>
                             )
                         }
-                     </Grid>
+                    </Grid>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
                     <Grid container spacing={1}>

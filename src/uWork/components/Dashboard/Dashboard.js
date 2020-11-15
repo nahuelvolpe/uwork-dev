@@ -1,13 +1,17 @@
-import { Grid, makeStyles, IconButton} from '@material-ui/core';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import React, { useEffect, useState } from 'react';
-import * as UserService from '../../services/UserService';
-import * as MateriasService from '../../services/MateriasService';
-import AuthenticationService from '../../services/AuthenticationService'
+import React, { Fragment, useEffect, useState } from 'react'
+
+import { Grid, makeStyles, IconButton } from '@material-ui/core'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
 import AddSubject from './AddSubject'
 import CardSubject from '../Subject/CardSubject'
-import AlertDialog from './AlertDialog';
+import AlertDialog from './AlertDialog'
 import Alert from '@material-ui/lab/Alert'
+import LinealLoading from '../LoadingPage/LinealLoading'
+import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
+
+import * as MateriasService from '../../services/MateriasService'
+import AuthenticationService from '../../services/AuthenticationService'
+
 
 const useStyles = makeStyles((theme) => ({
     materiaContent: {
@@ -38,23 +42,27 @@ const Dashboard = (props) => {
 
     const [materias, setMaterias] = useState([])
     const [materiaId, setMateriaId] = useState('')
-
-    const [open, setOpen] = React.useState(false);
-    const [openAlert, setOpenAlert] = React.useState(false);
-    const [guide, setGuide] = useState(false);
+    const [loading, setLoading] = useState(false)
+    const [open, setOpen] = React.useState(false)
+    const [openAlert, setOpenAlert] = React.useState(false)
+    const [guide, setGuide] = useState(false)
+    const [creationSuccess, setCreationSuccess] = useState(false)
+    const [creationFailed, setCreationFailed] = useState(false)
 
     //obtener los datos de las materias del usuario
     useEffect(() => {
         //cargar materias
         async function cargarMaterias() {
+            setLoading(true)
             let userMaterias = [];
             userMaterias = await MateriasService.getSubjects(userId)
             setMaterias(userMaterias);
             if(userMaterias.length < 1){
                 setGuide(true);
             }
+            setLoading(false)
         }
-        cargarMaterias();
+        cargarMaterias()
     }, [userId])
 
     const acceptDelete = (materiaId) => {
@@ -70,7 +78,6 @@ const Dashboard = (props) => {
         setOpenAlert(true)
     }
     
-    
     const handleExit = (materiaId) => {
         MateriasService.exitMateria(materiaId, userId)
             .then(() => {
@@ -83,56 +90,74 @@ const Dashboard = (props) => {
         setOpen(true);
     };
 
-    const createSubject = async (subject) => {
-        MateriasService.createSubject(subject, userId)
-        .then(async (doc) => {
-            await UserService.updateUser(userId, { materias: { [doc.id]: 'admin' }})
-            return MateriasService.getSubjectById(doc.id)
-        })
-        .then(newSubject => {
-            setGuide(false);
-            setMaterias(prevState =>
-                [...prevState, { materiaId: newSubject.materiaId, carrera: newSubject.carrera, nombre: newSubject.nombre }]
-            )
-        })
-        .catch(err => {
-            console.log(err)
-        })
+    const handleCloseSnackSuccess = () => {
+        setCreationSuccess(false)
+    }
+    
+    const handleCloseSnackError = () => {
+        setCreationFailed(false)
+    }
+
+    const onCreationSuccess = (newSubject) => {
+        setGuide(false)
+        setCreationSuccess(true)
+        setMaterias(prevState =>
+            [...prevState, { materiaId: newSubject.materiaId, carrera: newSubject.carrera, nombre: newSubject.nombre }]
+        )
+    }
+
+    const onCreationFailed = () => {
+        setCreationFailed(true)
     }
 
     return (
         <div>
-            {guide && 
-            <Alert severity="info">¡Usted no tiene materias asignadas!, para agregar su primer materia haga click en el botón + de abajo a la derecha</Alert>
-            }
-            {open && <AddSubject
-                open={open}
-                setOpen={setOpen}
-                acceptHandler={createSubject}
-            />}
-            {openAlert && <AlertDialog
-                open={openAlert}
-                setOpen={setOpenAlert}
-                subjectId={materiaId}
-                acceptHandler={acceptDelete}
-            />}
-            <Grid container spacing={3}>
-                {materias && materias.map((materia) => 
-                    
-                    <Grid item xs={12} sm={6} md={4} key={materia.materiaId}>
-                        <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history}/>
-                    </Grid>)
+            {
+                loading ?
+                <Fragment> 
+                    <LinealLoading>Cargando sus materias...</LinealLoading>
+                </Fragment> : 
+                <Fragment>
+                    {guide && 
+                    <Alert severity="info">¡Usted no tiene materias asignadas! Para agregar su primer materia haga click en el botón '+' de abajo a la derecha</Alert>
+                    }
+                    {open && <AddSubject
+                        open={open}
+                        setOpen={setOpen}
+                        acceptHandler={onCreationSuccess}
+                        errorHandler={onCreationFailed}
+                    />}
+                    {openAlert && <AlertDialog
+                        open={openAlert}
+                        setOpen={setOpenAlert}
+                        subjectId={materiaId}
+                        acceptHandler={acceptDelete}
+                    />}
+                    <Grid container spacing={3}>
+                        {materias && materias.map((materia) => 
+                            
+                            <Grid item xs={12} sm={6} md={4} key={materia.materiaId}>
+                                <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history}/>
+                            </Grid>)
+                        }
+                        <IconButton
+                            className={classes.floatingButton}
+                            arial-label="Add"
+                            onClick={handleClickOpen}
+                        >
+                            <AddCircleIcon style={{ fontSize: "35px" }} />
+                        </IconButton>
+                    </Grid>
+                    <CustomizedSnackbars open={creationSuccess} handleClose={handleCloseSnackSuccess} severity="success">
+                        Materia creada exitosamente!
+                    </CustomizedSnackbars>
+                    <CustomizedSnackbars open={creationFailed} handleClose={handleCloseSnackError} severity="error">
+                        Error al crear materia.
+                    </CustomizedSnackbars>
+                </Fragment>
                 }
-                <IconButton
-                    className={classes.floatingButton}
-                    arial-label="Add"
-                    onClick={handleClickOpen}
-                >
-                    <AddCircleIcon style={{ fontSize: "35px" }} />
-                </IconButton>
-            </Grid>
         </div>
-    );
+    )
 }
 
 export default Dashboard;
