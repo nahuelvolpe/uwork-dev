@@ -131,6 +131,7 @@ const Dashboard = (props) => {
             setErrorMessage('Esa materia ya existe.')
             setOpenErrorBar(true);
         }
+    }
         
     const handleCloseSnackSuccess = () => {
         setCreationSuccess(false)
@@ -221,7 +222,7 @@ const Dashboard = (props) => {
                 }           
         </div>
     )
-}
+
 }
  
 export default Dashboard;

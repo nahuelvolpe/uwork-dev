@@ -177,7 +177,7 @@ export default function AddSubject(props) {
             variant="outlined"
             format="dd/MM/yyyy"
             margin="normal"
-            id="date-picker-dialog"
+            id="date-picker-inline"
             label="Fecha Límite"
             value={selectedDate}
             onChange={handleDateChange}

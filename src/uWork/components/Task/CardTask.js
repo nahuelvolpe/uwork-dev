@@ -90,7 +90,7 @@ const CardTask = (props) => {
                     <CardContent className={classes.cardContent}>
                         <Box display="flex" flexDirection="row" alignItems="center">
                             <Box flexGrow={1} style={{width: '50%'}}>
-                                <Typography className={classes.textTarea} noWrap variant="h6" component="h2" align="left">
+                                <Typography className={classes.textTarea} noWrap variant="body1" component="h2" align="left">
                                     {data.titulo}
                                 </Typography>
                             </Box>
