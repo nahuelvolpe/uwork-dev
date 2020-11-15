@@ -7,7 +7,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -169,12 +168,12 @@ export default function AddSubject(props) {
               </AccordionDetails>
             </Accordion>
             </FormControl>
-
+      
       {<MuiPickersUtilsProvider utils={DateFnsUtils}>
         <Grid container justify="space-around">
           <KeyboardDatePicker
             disableToolbar
-            variant="outlined"
+            variant="inline"
             format="dd/MM/yyyy"
             margin="normal"
             id="date-picker-inline"
