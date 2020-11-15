@@ -76,7 +76,11 @@ const DatePickerField = ({ field, form, ...other }) => {
       disabled={other.disabled}
       name={field.name}
       value={field.value}
+      disableToolbar
+      variant="dialog"
+      id="date-picker-dialog"
       format="DD/MM/yyyy"
+      label="Fecha de Vencimiento"
       helperText={currentError}
       error={Boolean(currentError)}
       onError={error => {
