@@ -98,13 +98,13 @@ const Layout = (props) => {
       <MenuList>
         <MenuItem component={Link} to="/dashboard" selected={'/dashboard' === pathname}>
           <ListItemIcon>
-            <MenuBookRoundedIcon fontSize="small" />
+            <MenuBookRoundedIcon color="secondary" fontSize="small" />
           </ListItemIcon>
           Mis Materias
         </MenuItem>
         <MenuItem component={Link} to="/edit_profile" selected={'/edit_profile' === pathname}>
           <ListItemIcon>
-            <AccountCircleRoundedIcon fontSize="small" />
+            <AccountCircleRoundedIcon color="secondary" fontSize="small" />
           </ListItemIcon>
           Editar Perfil
         </MenuItem>
@@ -112,7 +112,7 @@ const Layout = (props) => {
           pathname.includes('/subject') ?
           <MenuItem onClick={handleOpenCollab}>
             <ListItemIcon>
-              <GroupIcon fontSize="small" />
+              <GroupIcon color="secondary" fontSize="small" />
             </ListItemIcon>
             Ver colaboradores
             {openPopCollab && <Collabs open={openPopCollab} setOpen={setOpenCollab}/>}
@@ -121,7 +121,7 @@ const Layout = (props) => {
         }
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
-            <ReplyRoundedIcon fontSize="small" />
+            <ReplyRoundedIcon color="secondary" fontSize="small" />
           </ListItemIcon>
           Cerrar Sesión
         </MenuItem>

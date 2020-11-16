@@ -7,6 +7,7 @@ import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar';
 import * as Yup from 'yup'
 import AuthenticationService from '../../services/AuthenticationService'
 import * as StorageService from '../../services/StorageService'
+import { Link } from 'react-router-dom'
 
 const EditProfileSchema = Yup.object().shape({
   nombre: Yup.string()
@@ -213,8 +214,12 @@ const EditProfile = (props) => {
                 </Button>
                 {saving && <LinearProgress />}
               </Form>
+              
             )}
           </Formik>
+          <div style={{ textAlign: "center", width: "100%" }}>
+            <p ><Link className={classes.link} to='/dashboard'>Ir a Mis Materias</Link></p>
+          </div>
           <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
             Datos guardados!
           </CustomizedSnackbars>
