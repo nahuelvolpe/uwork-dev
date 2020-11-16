@@ -42,6 +42,9 @@ const theme = createMuiTheme({
     background: {
       default: '#ebebeb'
     },
+    gradient: {
+      main: 'linear-gradient(45deg, #8f34a4 15%, #a53493)'
+    }
   }
 })
 

@@ -68,13 +68,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
   },
   register: {
-    backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='25 50 430 100' preserveAspectRatio='none'><rect x='0' y='0' width='500' height='500' style='stroke: none; fill: %23FFFFFF;' /><path d='M0,100 C150,115 350,80 500,100 L500,00 L0,0 Z' style='stroke: none; fill: %2314A7D6;'></path></svg>");`
+    //background: 'linear-gradient(to right, #3c1053, #ad5389)'
+    //backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='25 50 430 100' preserveAspectRatio='none'><rect x='0' y='0' width='500' height='500' style='stroke: none; fill: %23FFFFFF;' /><path d='M0,100 C150,115 350,80 500,100 L500,00 L0,0 Z' style='stroke: none; fill: %23c232db;'></path></svg>");`
+    backgroundImage: 'url(https://firebasestorage.googleapis.com/v0/b/uwork-dev-beta.appspot.com/o/assets%2Fbackground.png?alt=media&token=46e4b81f-ecf5-48b7-b7e8-bc8aead23fc1)'
   },
   link: {
     cursor: 'pointer',
     textDecoration: 'none',
     fontWeight: 600,
     color: theme.palette.primary.main
+  },
+  logo: {
+    maxWidth: 40,
   }
 }));
 
@@ -137,7 +142,8 @@ const Login = (props) => {
         >
           <div></div>
           <div>
-            <h1 className={classes.title}>uWork</h1>
+          
+            <h1 className={classes.title}> <img src='https://firebasestorage.googleapis.com/v0/b/uwork-dev-beta.appspot.com/o/assets%2FuWork.png?alt=media&token=ea6dd5fe-9312-4fac-8c50-c7964cc91939' className={classes.logo}></img> uWork</h1>
           </div>
           <Paper
             className={classes.loginContent}
