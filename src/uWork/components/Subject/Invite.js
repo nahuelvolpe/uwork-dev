@@ -96,7 +96,7 @@ const Invite = ({open, setOpen, materiaId}) => {
                 />
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={inviteUser} variant="contained" color="primary">
+                <Button onClick={inviteUser} variant="contained" color="secondary">
                     Enviar
                 </Button>
                 <Button onClick={handleClose} color="primary">

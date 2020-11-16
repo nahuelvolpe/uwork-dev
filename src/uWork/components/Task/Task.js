@@ -239,7 +239,7 @@ export default function Task(props) {
               <DialogActions>
               {
                 !isViewMode ? <>
-                    <Button type="submit" variant="contained" color="primary">
+                    <Button type="submit" variant="contained" color="secondary">
                       Aceptar
                     </Button>
                     <Button onClick={handleClose} color="primary">
@@ -250,7 +250,7 @@ export default function Task(props) {
                   <Button type="submit" color="primary" style={{display: 'none'}}>
                   </Button>
                   {data.estado === 'pendiente' ? 
-                  <Button onClick={changeEdition} color="primary">
+                  <Button onClick={changeEdition} variant="outlined" color="primary">
                     Editar
                   </Button>:
                   null

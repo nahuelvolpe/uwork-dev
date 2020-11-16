@@ -207,7 +207,7 @@ const EditProfile = (props) => {
 
                 <Button className={classes.botonGuardar}
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   type="submit"
                   disabled={(!dirty || !isValid) || saving}>
                   Guardar
