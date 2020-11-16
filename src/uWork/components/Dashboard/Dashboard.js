@@ -29,9 +29,6 @@ const useStyles = makeStyles((theme) => ({
         marginRight: '8px',
         color: theme.palette.primary.main,
         padding: 0,
-        '&:hover': {
-            backgroundColor: 'white'
-        }
     },
     tooltip: {
         marginRight: 4,
@@ -109,7 +106,6 @@ const Dashboard = (props) => {
 
     const createSubject = async (subject) => {
         let exist = await UserService.existSubject(subject, userId)
-        console.log(exist)
         if (!exist) {
             MateriasService.createSubject(subject, userId)
                 .then(async (doc) => {

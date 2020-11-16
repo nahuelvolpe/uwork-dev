@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     textDecoration: 'none',
     fontWeight: 600,
-    color: theme.palette.primary.main
+    color: theme.palette.secondary.main
   },
   logo: {
     maxWidth: 40,
@@ -184,7 +184,7 @@ const Login = (props) => {
             </Formik>
           </Paper>
           <div style={{ textAlign: "center", width: "100%" }}>
-            <p> ¿No tienes cuenta? <Link className={classes.link} to="/register">Registrate</Link></p>
+            <p>¿No tienes cuenta? <Link className={classes.link} to="/register">Registrate</Link></p>
           </div>
           <div></div>
         </Grid>

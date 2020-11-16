@@ -52,6 +52,9 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     maxWidth: 40,
+  },
+  icons: {
+    color: 'white'
   }
 }));
 
@@ -98,13 +101,13 @@ const Layout = (props) => {
       <MenuList>
         <MenuItem component={Link} to="/dashboard" selected={'/dashboard' === pathname}>
           <ListItemIcon>
-            <MenuBookRoundedIcon color="secondary" fontSize="small" />
+            <MenuBookRoundedIcon className={classes.icons} fontSize="small" />
           </ListItemIcon>
           Mis Materias
         </MenuItem>
         <MenuItem component={Link} to="/edit_profile" selected={'/edit_profile' === pathname}>
           <ListItemIcon>
-            <AccountCircleRoundedIcon color="secondary" fontSize="small" />
+            <AccountCircleRoundedIcon className={classes.icons} fontSize="small" />
           </ListItemIcon>
           Editar Perfil
         </MenuItem>
@@ -112,7 +115,7 @@ const Layout = (props) => {
           pathname.includes('/subject') ?
           <MenuItem onClick={handleOpenCollab}>
             <ListItemIcon>
-              <GroupIcon color="secondary" fontSize="small" />
+              <GroupIcon className={classes.icons} fontSize="small" />
             </ListItemIcon>
             Ver colaboradores
             {openPopCollab && <Collabs open={openPopCollab} setOpen={setOpenCollab}/>}
@@ -121,7 +124,7 @@ const Layout = (props) => {
         }
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
-            <ReplyRoundedIcon color="secondary" fontSize="small" />
+            <ReplyRoundedIcon className={classes.icons} fontSize="small" />
           </ListItemIcon>
           Cerrar Sesión
         </MenuItem>

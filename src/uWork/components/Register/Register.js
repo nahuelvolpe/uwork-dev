@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     textDecoration: 'none',
     fontWeight: 600,
-    color: theme.palette.primary.main
+    color: theme.palette.secondary.main
   },
   logo: {
     maxWidth: 40,
