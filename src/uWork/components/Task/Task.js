@@ -239,7 +239,7 @@ export default function Task(props) {
               <DialogActions>
               {
                 !isViewMode ? <>
-                    <Button type="submit" color="primary">
+                    <Button type="submit" variant="contained" color="primary">
                       Aceptar
                     </Button>
                     <Button onClick={handleClose} color="primary">
