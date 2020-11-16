@@ -74,6 +74,7 @@ const DatePickerField = ({ field, form, ...other }) => {
       disabled={other.disabled}
       name={field.name}
       value={field.value}
+      label="Fecha de vencimiento"
       format="dd/MM/yyyy"
       helperText={currentError}
       error={Boolean(currentError)}
