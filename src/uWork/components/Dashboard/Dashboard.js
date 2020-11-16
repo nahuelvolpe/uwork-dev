@@ -30,9 +30,6 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.primary.main,
         backgroundColor: 'white',
         padding: 0,
-        '&:hover': {
-            backgroundColor: 'white'
-        }
     },
     tooltip: {
         marginRight: 4,
