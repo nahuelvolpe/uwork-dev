@@ -43,13 +43,11 @@ const CardTask = (props) => {
     }
 
     const handleFinished = () => {
-        TaskService.finishedTask(data.tareaId, subjectId)
-            .then(() => {
-                console.log('tarea finalizada')
-                window.location.reload()
-            }).catch((e) => {
-                console.log(e)
-            })
+        props.finishedHandler(data.tareaId, subjectId)
+    }
+
+    const handlePendiente = () => {
+        props.pendienteHandler(data.tareaId, subjectId)
     }
 
     return (
@@ -65,8 +63,16 @@ const CardTask = (props) => {
                 </CardContent>
                 <CardActions className={classes.cardActions}>
                     <Button size="small" onClick={handleView}>VER</Button>
-                    {/* <Button size="small" onClick={handleFinished}>FINALIZAR</Button> */}
-                    <Button size="small" onClick={() => {props.deleteHandler(data.tareaId, Object.keys(data.colaboradores).length)}}>ELIMINAR</Button>
+                    {data.estado === 'pendiente' ? (
+                        <>
+                        <Button size="small" onClick={handleFinished}>FINALIZAR</Button>
+                        <Button size="small" onClick={() => {props.deleteHandler(data.tareaId, Object.keys(data.colaboradores).length)}}>ELIMINAR</Button>
+                        </>
+                    )
+                        
+                    : 
+                        <Button size="small" onClick={handlePendiente}>PENDIENTE</Button>
+                    }
                 </CardActions>
             </Card>
             {open && <Task
