@@ -15,22 +15,22 @@ import moment from 'moment'
 import AlertTaskDialog from './AlertTaskDialog';
 
 const useStyles = makeStyles((theme) => ({   
-    floatingButtonInvite: {
+    floatingButtonAddTask: {
         position: 'fixed',
         bottom: 0,
         right: 0,
         marginBottom: '12px',
         marginRight: '8px',
         color: 'white',
-        backgroundColor: theme.palette.primary.dark
+        backgroundColor: theme.palette.success.main
     },
-    floatingButtonAddTask: {
+    floatingButtonInvite: {
         position: 'fixed',
         bottom: 80,
         right: 0,
         color: 'white',
         marginRight: '8px',
-        backgroundColor: theme.palette.primary.light
+        backgroundColor: theme.palette.primary.dark
     },
     info: {
         margin: '5px',
@@ -278,7 +278,7 @@ const Subject = (props) => {
                 arial-label="Agregar colaborador"
                 onClick={handleClickOpenInvite}
             >
-                <PersonAddIcon style={{ fontSize: "28px" }} />
+                <PersonAddIcon style={{ fontSize: "24px" }} />
             </IconButton>
             <IconButton variant="contained"
                     className={classes.floatingButtonAddTask}

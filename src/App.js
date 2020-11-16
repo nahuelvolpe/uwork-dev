@@ -28,7 +28,8 @@ const theme = createMuiTheme({
       main: '#ffc107'
     },
     success: {
-      main: '#28a745'
+      main: '#2ab182'
+      //verde para botones
     },
     info:{
       main: '#17a2b8'
