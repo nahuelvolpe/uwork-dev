@@ -16,6 +16,11 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 0,
         color: '#FFFFFF'
     },
+    button: {
+        color: '#FFF',
+        borderColor: '#FFF',
+    }
+
 }))
 
 const CardSubject = (props) => {
@@ -46,10 +51,10 @@ const CardSubject = (props) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button variant="outlined" color="secondary" size="small" onClick={ ()=> { history.push(`/subject/${materiaId}`) }}>INGRESAR</Button>
+                    <Button variant="outlined" size="small" className={classes.button} onClick={ ()=> { history.push(`/subject/${materiaId}`) }}>INGRESAR</Button>
                     {admin ? 
-                    <Button size="small" color="secondary" onClick={() => { props.deleteHandler(data.materiaId) }}>ELIMINAR</Button>
-                    : <Button size="small" color="secondary" onClick={() => { props.exitHandler(data.materiaId) }}>SALIR</Button>
+                    <Button size="small" className={classes.button}  onClick={() => { props.deleteHandler(data.materiaId) }}>ELIMINAR</Button>
+                    : <Button size="small" className={classes.button}  onClick={() => { props.exitHandler(data.materiaId) }}>SALIR</Button>
                     }              
                 </CardActions>
             </Card>

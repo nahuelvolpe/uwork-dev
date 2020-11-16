@@ -33,12 +33,11 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.primary.light
     },
     info: {
-        margin: '5px',
+        margin: '5px 5px 5px 5px',
         padding: '5px 5px 5px 10px',
         fontSize: '0.6rem',
         fontWeight: 'bold',
         backgroundColor: '#F5F5F5',
-        width: '100%'
     },
     container: {
         marginTop: '5px',

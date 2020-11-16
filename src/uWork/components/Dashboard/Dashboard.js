@@ -106,7 +106,6 @@ const Dashboard = (props) => {
 
     const createSubject = async (subject) => {
         let exist = await UserService.existSubject(subject, userId)
-        console.log(exist)
         if (!exist) {
             MateriasService.createSubject(subject, userId)
                 .then(async (doc) => {
