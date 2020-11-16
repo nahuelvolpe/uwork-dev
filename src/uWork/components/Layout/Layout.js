@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     zIndex: 1,
-    overflow: 'hidden',
     position: 'relative',
     display: 'flex',
     width: '100%'
@@ -133,7 +132,7 @@ const Layout = (props) => {
       <Fragment>
         <CssBaseline />
         <div className={classes.root}>
-          <AppBar color='default' position="static">
+          <AppBar color='default' position="static" className={classes.appBar}>
             <Toolbar>
               <Typography variant="h6" className={classes.title} component={Link} to="/dashboard">
                 uWork

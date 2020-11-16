@@ -46,10 +46,10 @@ const CardSubject = (props) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" onClick={ ()=> { history.push(`/subject/${materiaId}`) }}>INGRESAR</Button>
+                    <Button variant="outlined" color="secondary" size="small" onClick={ ()=> { history.push(`/subject/${materiaId}`) }}>INGRESAR</Button>
                     {admin ? 
-                    <Button size="small" onClick={() => { props.deleteHandler(data.materiaId) }}>ELIMINAR</Button>
-                    : <Button size="small" onClick={() => { props.exitHandler(data.materiaId) }}>SALIR</Button>
+                    <Button size="small" color="secondary" onClick={() => { props.deleteHandler(data.materiaId) }}>ELIMINAR</Button>
+                    : <Button size="small" color="secondary" onClick={() => { props.exitHandler(data.materiaId) }}>SALIR</Button>
                     }              
                 </CardActions>
             </Card>
