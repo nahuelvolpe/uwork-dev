@@ -25,10 +25,9 @@ const useStyles = makeStyles((theme) => ({
         position: 'fixed',
         bottom: 0,
         right: 0,
-        marginBottom: '0px',
-        marginRight: '0px',
+        marginBottom: '12px',
+        marginRight: '8px',
         color: theme.palette.primary.main,
-        backgroundColor: 'white',
         padding: 0,
     },
     tooltip: {
@@ -180,7 +179,7 @@ const Dashboard = (props) => {
                             <Grid container>
                                 <Hidden smDown>
                                     <div style={{ width: '100%', marginTop: 16, marginLeft: 8 }}>
-                                        <Button variant="outlined" startIcon={<AddCircleIcon />} onClick={handleClickOpen}>Agregar Materia</Button>
+                                        <Button variant="outlined" startIcon={<AddCircleIcon />} color="primary" onClick={handleClickOpen}>Agregar Materia</Button>
                                     </div>
                                 </Hidden>
                                 {materias && materias.map((materia) =>

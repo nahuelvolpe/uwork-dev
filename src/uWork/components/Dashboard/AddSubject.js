@@ -121,7 +121,7 @@ export default function AddSubject(props) {
               </form>
             </DialogContent>
             <DialogActions>
-              <AdornedButton onClick={onAccept} color="primary" loading={loading} disabled={loading || (!career.id || !subject.id)} >
+              <AdornedButton onClick={onAccept} variant="contained" color="primary" loading={loading} disabled={loading || (!career.id || !subject.id)} >
                 Aceptar
               </AdornedButton>
               <Button onClick={handleClose} color="primary">
