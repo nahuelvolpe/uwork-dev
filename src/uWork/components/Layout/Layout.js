@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
+  },
+  logo: {
+    maxWidth: 40,
   }
 }));
 
@@ -134,8 +137,8 @@ const Layout = (props) => {
         <div className={classes.root}>
           <AppBar color='default' position="static" className={classes.appBar}>
             <Toolbar>
-              <Typography variant="h6" className={classes.title} component={Link} to="/dashboard">
-                uWork
+              <Typography className={classes.title} component={Link} to="/dashboard">
+                <img src='https://firebasestorage.googleapis.com/v0/b/uwork-dev-beta.appspot.com/o/assets%2FuWork.png?alt=media&token=5ec925a9-c41a-478b-a3fd-a6b08dcda360' className={classes.logo}></img>
               </Typography>
               <Typography variant="h6" className={classes.actualPage}>
                 {getCurrentPageName()}
