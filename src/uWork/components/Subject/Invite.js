@@ -6,6 +6,8 @@ import * as Yup from 'yup'
 import FormikField from "../FormikField/FormikField";
 import * as MateriasService from '../../services/MateriasService';
 import { auth } from '../../services/firebase';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const RegisterSchema = Yup.object().shape({
     email: Yup.string()
@@ -16,6 +18,12 @@ const RegisterSchema = Yup.object().shape({
   const useStyles = makeStyles((theme) => ({
     botonAccept: {
         color: 'white'
+      },
+    closeButton: {
+        position: 'absolute',
+        right: theme.spacing(1),
+        top: theme.spacing(1),
+        color: theme.palette.grey[500],
       }
   }))
 
@@ -105,9 +113,12 @@ const Invite = ({open, setOpen, materiaId}) => {
                 <Button className={classes.botonAccept} onClick={inviteUser} variant="contained" color="secondary">
                     Enviar
                 </Button>
-                <Button onClick={handleClose} color="primary">
+                {/* <Button onClick={handleClose} color="primary">
                     Cerrar
-                </Button>
+                </Button> */}
+                <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                    <CloseIcon />
+                </IconButton>
                 </DialogActions>
                 <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
                     Invitación enviada!

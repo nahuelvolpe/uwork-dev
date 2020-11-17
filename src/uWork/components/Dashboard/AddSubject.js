@@ -8,6 +8,8 @@ import careers from '../../services/subjects/careers.json'
 import subjects from '../../services/subjects/subjects.json'
 import AdornedButton from '../AdornedButton/AdornedButton'
 import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -25,6 +27,12 @@ const useStyles = makeStyles((theme) => ({
   },
   botonAccept: {
     color: 'white'
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
   }
 }));
 
@@ -104,7 +112,7 @@ export default function AddSubject(props) {
           <DialogTitle id="dialog-title">Agregar una materia</DialogTitle>
             <DialogContent>
               <DialogContentText>
-                Primero elegí la carrera y luego la materia
+                Primero elija la carrera y luego la materia
               </DialogContentText>
               <form className={classes.form} noValidate>
                 <FormControl required className={classes.formControl}>
@@ -139,9 +147,12 @@ export default function AddSubject(props) {
               <AdornedButton className={classes.botonAccept} onClick={onAccept} variant="contained" color="secondary" loading={loading} disabled={loading || (!career.id || !subject.id)} >
                 Aceptar
               </AdornedButton>
-              <Button onClick={handleClose} color="primary">
+              {/* <Button onClick={handleClose} color="primary">
                 Cerrar
-              </Button>
+              </Button> */}
+              <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
             </DialogActions>
         </Dialog>
         <CustomizedSnackbars open={subjectExists} handleClose={handleCloseSnackError} severity="error">

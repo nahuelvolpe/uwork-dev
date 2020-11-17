@@ -7,6 +7,8 @@ import { Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemS
   AccordionDetails, Typography, Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import MomentUtils from "@date-io/moment"
 import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import * as MateriasService from '../../services/MateriasService';
@@ -63,6 +65,12 @@ const useStyles = makeStyles((theme) => ({
   },
   botonAccept: {
     color: 'white'
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
   }
 }));
 
@@ -246,9 +254,12 @@ export default function Task(props) {
                     <Button className={classes.botonAccept} type="submit" variant="contained" color="secondary">
                       Aceptar
                     </Button>
-                    <Button onClick={handleClose} color="primary">
-                      Cerrar
-                    </Button>
+                      {/* <Button onClick={handleClose} color="primary">
+                        Cerrar
+                    </Button> */}
+                      <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                        <CloseIcon />
+                      </IconButton>
                 </>
                 : <>
                   <Button type="submit" color="primary" style={{display: 'none'}}>
@@ -259,9 +270,12 @@ export default function Task(props) {
                   </Button>:
                   null
                   }  
-                  <Button onClick={handleClose} color="primary">
+                  {/* <Button onClick={handleClose} color="primary">
                     Cerrar
-                  </Button>
+                  </Button> */}
+                        <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                          <CloseIcon />
+                        </IconButton>
                 </>
               }
               </DialogActions>
