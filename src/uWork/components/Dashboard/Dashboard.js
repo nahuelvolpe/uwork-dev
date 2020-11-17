@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: '8px',
         color: theme.palette.primary.main,
         padding: 0,
+        backgroundColor: "#ebebeb"
     },
     tooltip: {
         marginRight: 4,
@@ -216,5 +217,5 @@ const Dashboard = (props) => {
     )
 
 }
- 
+
 export default Dashboard;

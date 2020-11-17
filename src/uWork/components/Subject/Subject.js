@@ -15,21 +15,23 @@ import moment from 'moment'
 import AlertTaskDialog from './AlertTaskDialog';
 
 const useStyles = makeStyles((theme) => ({   
-    floatingButtonAddTask: {
+    floatingButtons: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         position: 'fixed',
-        bottom: 0,
         right: 0,
-        marginBottom: '12px',
-        marginRight: '8px',
+        bottom: 0,
+        marginRight: 8,
+        marginBottom: 8
+    },
+    floatingButtonAddTask: {
         color: 'white',
         backgroundColor: theme.palette.success.main
     },
     floatingButtonInvite: {
-        position: 'fixed',
-        bottom: 80,
-        right: 0,
         color: 'white',
-        marginRight: '8px',
+        marginBottom: '8px',
         backgroundColor: theme.palette.primary.dark
     },
     info: {
@@ -47,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
+    },
+    sizeSmallPadding: {
+        padding: 8
     },
     appbar: {
     }
@@ -262,20 +267,24 @@ const Subject = (props) => {
                     </Grid>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                    <Grid container spacing={1}>
-                        {finalizadas && finalizadas.map((task, index) =>
-                            <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                                <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} pendienteHandler={handlePendiente} index={index}/>
-                            </Grid>
-                            )
-                        }
-                     </Grid>
+                        <Grid container spacing={1}>
+                            {finalizadas && finalizadas.map((task, index) =>
+                                <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
+                                    <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} pendienteHandler={handlePendiente} index={index}/>
+                                </Grid>
+                                )
+                            }
+                        </Grid>
                     </TabPanel>
-
+            <div className={classes.floatingButtons}>
             <IconButton
                 className={classes.floatingButtonInvite}
                 arial-label="Agregar colaborador"
                 onClick={handleClickOpenInvite}
+                size="small"
+                classes={{
+                    sizeSmall: classes.sizeSmallPadding
+                }}
             >
                 <PersonAddIcon style={{ fontSize: "24px" }} />
             </IconButton>
@@ -284,6 +293,7 @@ const Subject = (props) => {
                     onClick={handleClickOpenTask}>
                     <PostAddIcon style={{ fontSize: "28px" }} />
             </IconButton>
+            </div>
             <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
                 {message}
             </CustomizedSnackbars>

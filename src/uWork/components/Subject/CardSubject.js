@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, CardActions, Button, makeStyles } from '@material-ui/core'
+import { Card, CardContent, Typography, CardActions, Button, makeStyles, CardActionArea,
+    IconButton, Menu, MenuItem, Box } from '@material-ui/core'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import { Delete } from '@material-ui/icons'
 import * as MateriasService from '../../services/MateriasService'
+import './CardSubject.css'
 
 const useStyles = makeStyles((theme) => ({
     textMateria: {
@@ -24,12 +28,41 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
+function createRipple(event) {
+    const card = event.currentTarget;
+
+    const circle = document.createElement("span");
+    const diameter = Math.max(card.clientWidth, card.clientHeight);
+    const radius = diameter / 2;
+
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${event.clientX - card.offsetLeft - radius}px`;
+    circle.style.top = `${event.clientY - card.offsetTop - radius}px`;
+    circle.classList.add("ripple");
+
+    const ripple = card.getElementsByClassName("ripple")[0];
+
+    if (ripple) {
+        ripple.remove();
+    }
+
+    card.appendChild(circle);
+}
+
 const CardSubject = (props) => {
 
     const classes = useStyles()
     const { data, history } = props
     const materiaId = data.materiaId;
     const [admin, setAdmin] = useState(false)
+    const [anchorEl, setAnchorEl] = useState(null)
+    const open = Boolean(anchorEl)
+    const cards = document.getElementsByClassName("card-content-test")
+    if (cards.length) {
+        for (const card of cards) {
+            card.addEventListener("click", createRipple);
+        }
+    }
 
     useEffect(() => {
         const verificarAdmin = async () => {
@@ -39,29 +72,76 @@ const CardSubject = (props) => {
         verificarAdmin()
     }, [materiaId])
 
+    const handleClick = (event) => {
+        event.stopPropagation()
+        setAnchorEl(event.currentTarget)
+    }
+
+    const handleClose = (event) => {
+        event.stopPropagation()
+        setAnchorEl(null);
+    }
 
     return (
         <div>
             <Card className={classes.cardContent} key={data.materiaId}>
-                <CardContent>
-                    <Typography className={classes.textMateria} variant="h5" component="h2">
-                        {data.nombre}
-                    </Typography>
-                    <Typography className={classes.carrera}>
-                        {data.carrera}
-                    </Typography>
+                <CardContent className="card-content-test" onClick={() => { history.push(`/subject/${materiaId}`) }} id="card-content-test">
+                    <Box display="flex" flexDirection="row" justifyContent="space-between" style={{ marginTop: 16 }}>
+                        <Box>
+                            <Typography className={classes.textMateria} variant="h5" component="h2">
+                                {data.nombre}
+                            </Typography>
+                        </Box>
+                        <Box>
+                            <IconButton
+                                aria-label="more"
+                                aria-controls="long-menu"
+                                aria-haspopup="true"
+                                onClick={handleClick}
+                                style={{ float: 'right', padding: 0, color: 'white' }}
+                            >
+                                <MoreVertIcon />
+                            </IconButton>
+                            <Menu
+                                id="long-menu"
+                                anchorEl={anchorEl}
+                                getContentAnchorEl={null}
+                                keepMounted
+                                open={open}
+                                onClose={handleClose}
+                                PaperProps={{
+                                style: {
+                                    maxHeight: 48 * 4.5,
+                                    width: '20ch',
+                                },
+                                }}
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                            >
+                                <MenuItem onClick={handleClose}>
+                                    Eliminar
+                                </MenuItem>
+                                <MenuItem onClick={handleClose}>
+                                    Salir
+                                </MenuItem>
+                            </Menu>
+                        </Box>
+                    </Box>
+                    <Box display="flex" flexDirection="row">
+                        <Typography className={classes.carrera}>
+                            {data.carrera}
+                        </Typography>
+                    </Box>
                 </CardContent>
-                <CardActions>
-                    <Button variant="outlined" size="small" className={classes.button} onClick={ ()=> { history.push(`/subject/${materiaId}`) }}>INGRESAR</Button>
-                    {admin ? 
-                    <Button size="small" className={classes.button}  onClick={() => { props.deleteHandler(data.materiaId) }}>ELIMINAR</Button>
-                    : <Button size="small" className={classes.button}  onClick={() => { props.exitHandler(data.materiaId) }}>SALIR</Button>
-                    }              
-                </CardActions>
             </Card>
         </div>
     )
 }
 
 export default CardSubject;
-
