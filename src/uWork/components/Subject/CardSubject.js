@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, makeStyles,
     IconButton, Menu, MenuItem, Box } from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete';
+import ReplyIcon from '@material-ui/icons/Reply';
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import * as MateriasService from '../../services/MateriasService'
 import './CardSubject.css'
@@ -135,10 +137,10 @@ const CardSubject = (props) => {
                             >
                                 {
                                     admin ? <MenuItem onClick={handleOption}>
-                                                Eliminar
+                                                <DeleteIcon/> Eliminar
                                             </MenuItem>
                                     : <MenuItem onClick={handleOption}>
-                                        Salir
+                                        <ReplyIcon/> Salir
                                     </MenuItem>
                                 }
                             </Menu>

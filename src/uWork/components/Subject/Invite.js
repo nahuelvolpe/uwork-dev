@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, TextField, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import {Button, TextField, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, makeStyles } from '@material-ui/core';
 import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
 import { Formik, Form } from "formik";
 import * as Yup from 'yup'
@@ -13,6 +13,11 @@ const RegisterSchema = Yup.object().shape({
       .email("Formato inválido!"),
   })
 
+  const useStyles = makeStyles((theme) => ({
+    botonAccept: {
+        color: 'white'
+      }
+  }))
 
 const Invite = ({open, setOpen, materiaId}) => {
 
@@ -20,6 +25,7 @@ const Invite = ({open, setOpen, materiaId}) => {
     const [openSuccessBar, setOpenSuccessBar] = useState(false)
     const [openErrorBar, setOpenErrorBar] = useState(false)
     const [errorMessage, setErrorMessage] = useState('Error al enviar invitación.')
+    const classes = useStyles();
 
     const handleClose = () => {
         setOpen(false);
@@ -96,7 +102,7 @@ const Invite = ({open, setOpen, materiaId}) => {
                 />
                 </DialogContent>
                 <DialogActions>
-                <Button onClick={inviteUser} variant="contained" color="secondary">
+                <Button className={classes.botonAccept} onClick={inviteUser} variant="contained" color="secondary">
                     Enviar
                 </Button>
                 <Button onClick={handleClose} color="primary">

@@ -6,6 +6,7 @@ import { Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemS
   Checkbox, Dialog, DialogActions, DialogContent, Accordion, AccordionSummary,
   AccordionDetails, Typography, Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import CreateIcon from '@material-ui/icons/Create';
 import MomentUtils from "@date-io/moment"
 import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import * as MateriasService from '../../services/MateriasService';
@@ -59,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     alignContent: 'center',
     textAlign: 'center'
+  },
+  botonAccept: {
+    color: 'white'
   }
 }));
 
@@ -239,7 +243,7 @@ export default function Task(props) {
               <DialogActions>
               {
                 !isViewMode ? <>
-                    <Button type="submit" variant="contained" color="secondary">
+                    <Button className={classes.botonAccept} type="submit" variant="contained" color="secondary">
                       Aceptar
                     </Button>
                     <Button onClick={handleClose} color="primary">
@@ -251,7 +255,7 @@ export default function Task(props) {
                   </Button>
                   {data.estado === 'pendiente' ? 
                   <Button onClick={changeEdition} variant="outlined" color="primary">
-                    Editar
+                    <CreateIcon/> Editar
                   </Button>:
                   null
                   }  

@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
   formControlLabel: {
     marginTop: theme.spacing(1),
   },
+  botonAccept: {
+    color: 'white'
+  }
 }));
 
 export default function AddSubject(props) {
@@ -133,7 +136,7 @@ export default function AddSubject(props) {
               </form>
             </DialogContent>
             <DialogActions>
-              <AdornedButton onClick={onAccept} variant="contained" color="secondary" loading={loading} disabled={loading || (!career.id || !subject.id)} >
+              <AdornedButton className={classes.botonAccept} onClick={onAccept} variant="contained" color="secondary" loading={loading} disabled={loading || (!career.id || !subject.id)} >
                 Aceptar
               </AdornedButton>
               <Button onClick={handleClose} color="primary">
