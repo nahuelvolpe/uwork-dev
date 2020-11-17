@@ -6,7 +6,8 @@ import * as UserService from '../../services/UserService'
 import AuthenticationService from '../../services/AuthenticationService'
 import careers from '../../services/subjects/careers.json'
 import subjects from '../../services/subjects/subjects.json'
-import AdornedButton from '../AdornedButton/AdornedButton';
+import AdornedButton from '../AdornedButton/AdornedButton'
+import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -33,6 +34,7 @@ export default function AddSubject(props) {
   const [career, setCareer] = useState({})
   const [subjectOptions, setOptions] = useState([])
   const [loading, setLoading] = useState(false)
+  const [subjectExists, setSubjectExists] = useState(false)
 
   const getIndex = (id, array) => {
     let i
@@ -58,10 +60,16 @@ export default function AddSubject(props) {
     setSubject(e.target.value)
   }
 
-  const onAccept = () => {
+  const handleCloseSnackError = () => {
+    setSubjectExists(false)
+  }
+
+  const onAccept = async () => {
     setLoading(true)
-    let materia = { career: career.description, subject: subject.description, link: subject.link }
-    MateriasService.createSubject(materia, userId)
+    let exist = await UserService.existSubject(subject.description, career.description, userId)
+    if (!exist) {
+      let materia = { career: career.description, subject: subject.description, link: subject.link }
+      MateriasService.createSubject(materia, userId)
         .then(async (doc) => {
             await UserService.updateUser(userId, { materias: { [doc.id]: 'admin' }})
             return MateriasService.getSubjectById(doc.id)
@@ -76,6 +84,10 @@ export default function AddSubject(props) {
           setLoading(false)
           errorHandler()
         })
+    } else {
+      setLoading(false)
+      setSubjectExists(true)
+    }
   }
 
 
@@ -129,6 +141,9 @@ export default function AddSubject(props) {
               </Button>
             </DialogActions>
         </Dialog>
+        <CustomizedSnackbars open={subjectExists} handleClose={handleCloseSnackError} severity="error">
+            La materia seleccionada ya existe dentro de sus materias.
+        </CustomizedSnackbars>
     </React.Fragment>
   );
 }

@@ -7,7 +7,6 @@ import Alert from '@material-ui/lab/Alert'
 import LinealLoading from '../LoadingPage/LinealLoading'
 import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import * as UserService from '../../services/UserService';
 import * as MateriasService from '../../services/MateriasService';
 import AuthenticationService from '../../services/AuthenticationService'
 
@@ -44,9 +43,6 @@ const Dashboard = (props) => {
     const [materias, setMaterias] = useState([])
     const [materiaId, setMateriaId] = useState('')
 
-    const [openErrorBar, setOpenErrorBar] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('Error al crear la materia, intentelo denuevo')
-
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = React.useState(false)
     const [openAlert, setOpenAlert] = React.useState(false)
@@ -71,13 +67,6 @@ const Dashboard = (props) => {
         }
         cargarMaterias()
     }, [userId])
-
-    const handleCloseSnackBarError = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpenErrorBar(false);
-    };
 
     const acceptDelete = (materiaId) => {
         setDeleteSuccess(true)
@@ -104,115 +93,90 @@ const Dashboard = (props) => {
     const handleClickOpen = () => {
         setOpen(true);
     };
-
-    const createSubject = async (subject) => {
-        let exist = await UserService.existSubject(subject, userId)
-        if (!exist) {
-            MateriasService.createSubject(subject, userId)
-                .then(async (doc) => {
-                    await UserService.updateUser(userId, { materias: { [doc.id]: 'admin' } })
-                    return MateriasService.getSubjectById(doc.id)
-                })
-                .then(newSubject => {
-                    setGuide(false);
-                    setMaterias(prevState =>
-                        [...prevState, { materiaId: newSubject.materiaId, carrera: newSubject.carrera, nombre: newSubject.nombre }]
-                    )
-                })
-                .catch(err => {
-                    setErrorMessage('Error al crear la materia, intentelo denuevo')
-                    setOpenErrorBar(true);
-                })
-        } else {
-            setErrorMessage('Esa materia ya existe.')
-            setOpenErrorBar(true);
-        }
-    }
         
-        const handleCloseSnackSuccess = () => {
-            setCreationSuccess(false)
-            setDeleteSuccess(false)
-        }
+    const handleCloseSnackSuccess = () => {
+        setCreationSuccess(false)
+        setDeleteSuccess(false)
+    }
 
-        const handleCloseSnackError = () => {
-            setCreationFailed(false)
-            setDeleteFailed(false)
-        }
+    const handleCloseSnackError = () => {
+        setCreationFailed(false)
+        setDeleteFailed(false)
+    }
 
-        const onCreationSuccess = (newSubject) => {
-            setGuide(false)
-            setCreationSuccess(true)
-            setMaterias(prevState =>
-                [...prevState, { materiaId: newSubject.materiaId, carrera: newSubject.carrera, nombre: newSubject.nombre }]
-            )
-        }
+    const onCreationSuccess = (newSubject) => {
+        setGuide(false)
+        setCreationSuccess(true)
+        setMaterias(prevState =>
+            [...prevState, { materiaId: newSubject.materiaId, carrera: newSubject.carrera, nombre: newSubject.nombre }]
+        )
+    }
 
-        const onCreationFailed = () => {
-            setCreationFailed(true)
-        }
+    const onCreationFailed = () => {
+        setCreationFailed(true)
+    }
 
-
-        return (
-            <div>
-                {
-                    loading ?
-                        <Fragment>
-                            <LinealLoading>Cargando sus materias...</LinealLoading>
-                        </Fragment> :
-                        <Fragment>
-                            {guide &&
-                                <Alert severity="info">¡Usted no tiene materias asignadas! Para agregar su primer materia haga click en el botón '+' de abajo a la derecha</Alert>
-                            }
-                            {open && <AddSubject
-                                open={open}
-                                setOpen={setOpen}
-                                acceptHandler={onCreationSuccess}
-                                errorHandler={onCreationFailed}
-                            />}
-                            {openAlert && <AlertDialog
-                                open={openAlert}
-                                setOpen={setOpenAlert}
-                                subjectId={materiaId}
-                                acceptHandler={acceptDelete}
-                                errorHandler={onDeleteError}
-                            />}
-                            <Grid container>
-                                <Hidden smDown>
-                                    <div style={{ width: '100%', marginTop: 16, marginLeft: 8 }}>
-                                        <Button variant="outlined" startIcon={<AddCircleIcon />} color="primary" onClick={handleClickOpen}>Agregar Materia</Button>
-                                    </div>
-                                </Hidden>
-                                {materias && materias.map((materia) =>
-                                    <Grid item xs={12} sm={6} md={4} key={materia.materiaId} style={{ padding: '0px 8px 8px 0px' }}>
-                                        <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history} />
-                                    </Grid>)
-                                }
-                                <Hidden mdUp>
-                                    <Tooltip classes={{ tooltip: classes.tooltip }} placement="left" title="Agregar Materia" enterTouchDelay={400}>
-                                        <IconButton
-                                            className={classes.floatingButton}
-                                            arial-label="Add"
-                                            onClick={handleClickOpen}
-                                        >
-                                            <AddCircleIcon style={{ fontSize: "50px" }} />
-                                        </IconButton>
-                                    </Tooltip>
-                                </Hidden>
-                            </Grid>
-                            <CustomizedSnackbars open={creationSuccess} handleClose={handleCloseSnackSuccess} severity="success">
-                                Materia creada exitosamente!
+    return (
+        <div>
+            {
+            loading ?
+                <Fragment>
+                    <LinealLoading>Cargando sus materias...</LinealLoading>
+                </Fragment> :
+                <Fragment>
+                    {guide &&
+                        <Alert severity="info">No tenés materias asignadas! Para agregar tu primer materia haga click en el botón '+' de abajo a la derecha</Alert>
+                    }
+                    {open && <AddSubject
+                        open={open}
+                        setOpen={setOpen}
+                        acceptHandler={onCreationSuccess}
+                        errorHandler={onCreationFailed}
+                    />}
+                    {openAlert && <AlertDialog
+                        open={openAlert}
+                        setOpen={setOpenAlert}
+                        subjectId={materiaId}
+                        acceptHandler={acceptDelete}
+                        errorHandler={onDeleteError}
+                    />}
+                    <Grid container>
+                        <Hidden smDown>
+                            <div style={{ width: '100%', marginTop: 16, marginLeft: 8 }}>
+                                <Button variant="outlined" startIcon={<AddCircleIcon />} color="primary" onClick={handleClickOpen}>Agregar Materia</Button>
+                            </div>
+                        </Hidden>
+                        {materias && materias.map((materia) =>
+                            <Grid item xs={12} sm={6} md={4} key={materia.materiaId} style={{ padding: '0px 8px 8px 0px' }}>
+                                <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history} />
+                            </Grid>)
+                        }
+                        <Hidden mdUp>
+                            <Tooltip classes={{ tooltip: classes.tooltip }} placement="left" title="Agregar Materia" enterTouchDelay={400}>
+                                <IconButton
+                                    className={classes.floatingButton}
+                                    arial-label="Add"
+                                    onClick={handleClickOpen}
+                                >
+                                    <AddCircleIcon style={{ fontSize: "50px" }} />
+                                </IconButton>
+                            </Tooltip>
+                        </Hidden>
+                    </Grid>
+                    <CustomizedSnackbars open={creationSuccess} handleClose={handleCloseSnackSuccess} severity="success">
+                        Materia creada exitosamente!
                     </CustomizedSnackbars>
-                            <CustomizedSnackbars open={creationFailed} handleClose={handleCloseSnackError} severity="error">
-                                Error al crear materia.
+                    <CustomizedSnackbars open={creationFailed} handleClose={handleCloseSnackError} severity="error">
+                        Error al crear materia.
                     </CustomizedSnackbars>
-                            <CustomizedSnackbars open={deleteSuccess} handleClose={handleCloseSnackSuccess} severity="success">
-                                Materia eliminada con éxito!
+                    <CustomizedSnackbars open={deleteSuccess} handleClose={handleCloseSnackSuccess} severity="success">
+                        Materia eliminada con éxito!
                     </CustomizedSnackbars>
-                            <CustomizedSnackbars open={deleteFailed} handleClose={handleCloseSnackError} severity="error">
-                                Error al eliminar materia.
+                    <CustomizedSnackbars open={deleteFailed} handleClose={handleCloseSnackError} severity="error">
+                        Error al eliminar materia.
                     </CustomizedSnackbars>
                 </Fragment>
-                }           
+            }           
         </div>
     )
 

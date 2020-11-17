@@ -142,8 +142,7 @@ const Login = (props) => {
         >
           <div></div>
           <div>
-          
-            <h1 className={classes.title}> <img src='https://firebasestorage.googleapis.com/v0/b/uwork-dev-beta.appspot.com/o/assets%2FuWork.png?alt=media&token=ea6dd5fe-9312-4fac-8c50-c7964cc91939' className={classes.logo}></img> uWork</h1>
+            <h1 className={classes.title}> <img src='https://firebasestorage.googleapis.com/v0/b/uwork-dev-beta.appspot.com/o/assets%2FuWork.png?alt=media&token=ea6dd5fe-9312-4fac-8c50-c7964cc91939' alt='' className={classes.logo}></img> uWork</h1>
           </div>
           <Paper
             className={classes.loginContent}

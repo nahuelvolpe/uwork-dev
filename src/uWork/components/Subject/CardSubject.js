@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, Typography, CardActions, Button, makeStyles, CardActionArea,
+import { Card, CardContent, Typography, makeStyles,
     IconButton, Menu, MenuItem, Box } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
-import { Delete } from '@material-ui/icons'
 import * as MateriasService from '../../services/MateriasService'
 import './CardSubject.css'
 
@@ -52,7 +51,7 @@ function createRipple(event) {
 const CardSubject = (props) => {
 
     const classes = useStyles()
-    const { data, history } = props
+    const { data, history, deleteHandler, exitHandler } = props
     const materiaId = data.materiaId;
     const [admin, setAdmin] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null)
@@ -79,7 +78,17 @@ const CardSubject = (props) => {
 
     const handleClose = (event) => {
         event.stopPropagation()
-        setAnchorEl(null);
+        setAnchorEl(null)
+    }
+
+    const handleOption = (event) => {
+        event.stopPropagation()
+        if (admin) {
+            deleteHandler(materiaId)
+        } else {
+            exitHandler(materiaId)
+        }
+        setAnchorEl(null)
     }
 
     return (
@@ -124,12 +133,14 @@ const CardSubject = (props) => {
                                     horizontal: 'right',
                                 }}
                             >
-                                <MenuItem onClick={handleClose}>
-                                    Eliminar
-                                </MenuItem>
-                                <MenuItem onClick={handleClose}>
-                                    Salir
-                                </MenuItem>
+                                {
+                                    admin ? <MenuItem onClick={handleOption}>
+                                                Eliminar
+                                            </MenuItem>
+                                    : <MenuItem onClick={handleOption}>
+                                        Salir
+                                    </MenuItem>
+                                }
                             </Menu>
                         </Box>
                     </Box>
