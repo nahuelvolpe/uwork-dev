@@ -4,6 +4,7 @@ import ClearIcon from '@material-ui/icons/Clear'
 import * as MateriasService from '../../services/MateriasService'
 import { SubjectContext } from '../../context/subject'
 import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
+import LinealLoading from '../LoadingPage/LinealLoading'
 
 const useStyles = makeStyles((theme) => ({
     large: {
@@ -20,6 +21,7 @@ const Collabs = ({open, setOpen}) => {
     const [admin, setAdmin] = useState(false);
     const [openSuccessBar, setOpenSuccessBar] = useState(false)
     const [error, setError] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const { subjectId } = useContext(SubjectContext)
 
@@ -29,9 +31,11 @@ const Collabs = ({open, setOpen}) => {
 
     useEffect(() => {
         const cargarUsuarios = async () => {
+            setLoading(true)
             if(subjectId) {
                 const users = await MateriasService.getCollabsFromSubject(subjectId)
                 setUsers(users)
+                setLoading(false)
             }
         }
         const verificarAdmin = async () => {
@@ -74,6 +78,7 @@ const Collabs = ({open, setOpen}) => {
         <div>
             <Dialog open={open} onClose={handleCloseCollabs} onClick={handleDialogClick} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Colaboradores</DialogTitle>
+                {loading ? <LinealLoading height="30vh" width="50%">Cargando colaboradores...</LinealLoading> :
                 <List>
                     {users && users.map((user) => (
                         <ListItem key={user.uid}>
@@ -95,7 +100,7 @@ const Collabs = ({open, setOpen}) => {
                             </ListItemSecondaryAction>
                         </ListItem>
                     ))}
-                </List>
+                </List>}
                 <DialogActions>
                 <Button onClick={handleCloseCollabs} color="primary">
                     Cerrar

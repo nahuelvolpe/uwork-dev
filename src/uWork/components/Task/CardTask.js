@@ -4,8 +4,7 @@ import { Card, CardContent, Typography, CardActions,
     Tooltip, Chip } from '@material-ui/core'
 import { VisibilityRounded, Delete, CheckCircle, Timer, TimerOff, Undo } from '@material-ui/icons'
 import AvatarGroup from '@material-ui/lab/AvatarGroup'
-import Task from './Task';
-import * as TaskService from '../../services/TaskService';
+import Task from './Task'
 import { SubjectContext } from '../../context/subject';
 import moment from 'moment'
 import 'moment/locale/es-mx'

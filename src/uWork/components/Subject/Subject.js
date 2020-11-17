@@ -102,7 +102,6 @@ const Subject = (props) => {
     const [openAlert, setOpenAlert] = React.useState(false);
     const [tareaId, setTareaId] = useState('')
     const [cantColabs, setCantColabs] = useState(0)
-
     const [value, setValue] = React.useState(0);
 
     const [openSuccessBar, setOpenSuccessBar] = useState(false)
@@ -136,11 +135,11 @@ const Subject = (props) => {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-    };
+    }
 
     const handleClickOpenInvite = () => {
         setOpenInvite(true);
-    };
+    }
 
     const handleClickOpenTask = async () => {
         if (openTask) {
@@ -154,7 +153,7 @@ const Subject = (props) => {
             return;
         }
         setOpenSuccessBar(false);
-    };
+    }
 
     const acceptDelete = (taskId, materiaId) => {
         TaskService.deleteTask(taskId, materiaId)
@@ -226,13 +225,19 @@ const Subject = (props) => {
                 .catch(e => console.log(e))
         }
     }
- 
+
+    const onSuccessInvitation = () => {
+        setMessage('Invitación enviada!')
+        setOpenSuccessBar(true)
+    }
+
     return (
         <>
             {openInvite && <Invite 
                 open={openInvite}
                 setOpen={setOpenInvite}
                 materiaId={materiaId}
+                successHandler={onSuccessInvitation}
             />}
             {openTask && <Task
                 open={openTask}

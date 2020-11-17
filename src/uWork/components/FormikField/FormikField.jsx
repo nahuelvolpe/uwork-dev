@@ -28,6 +28,7 @@ function FormikField(props) {
       multiline={props.multiline}
       disabled={props.disabled}
       rows={props.rows}
+      autoFocus={props.autoFocus}
       type={props.type === "password" ? (showPassword ? "text" : "password") : props.type}
       InputProps={props.type === "password" ? {
         endAdornment: (
