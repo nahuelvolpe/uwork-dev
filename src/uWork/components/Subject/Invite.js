@@ -89,17 +89,17 @@ const Invite = ({open, setOpen, materiaId, successHandler}) => {
             {({ errors, touched }) => (
                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                     <Form noValidate>
-                        <DialogTitle id="form-dialog-title">Invitar colaborador</DialogTitle>
+                        <DialogTitle id="form-dialog-title">Añadir colaborador</DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Escribe el email de la persona que quieres invitar. 
+                                Escribe el email de la persona que quieres añadir. 
                                 <strong> No se le enviara un email a esa persona, sino que se le agregará automáticamente esta materia en su cuenta.</strong>
                             </DialogContentText>
                             <FormikField required name="email" label="Email" type="email" fullWidth
                                 error={errors.email && touched.email}/>
                         </DialogContent>
                         <DialogActions>
-                            <AdornedButton
+                            <AdornedButton className={classes.botonAccept}
                                 type="submit"
                                 variant="contained"
                                 color="secondary"
