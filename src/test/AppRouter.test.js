@@ -61,15 +61,8 @@ describe('App Router', () => {
   })
 
   describe('When user is logged', () => {
-    beforeEach(() => {
-      /* jest.mock('../uWork/services/AuthenticationService', () => {
-        return jest.fn().mockImplementation(() => {
-          return {getCurrentUser: jest.fn(() => true)};
-        });
-      }); */
-    })
 
-    it('should render Private Route', async () => {
+    it('should render Layout and Dashboard', async () => {
       jest.setTimeout(10000)
       const context = {
         authReady: true
