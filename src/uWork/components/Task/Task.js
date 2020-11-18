@@ -254,12 +254,9 @@ export default function Task(props) {
                     <Button className={classes.botonAccept} type="submit" variant="contained" color="secondary">
                       Aceptar
                     </Button>
-                      {/* <Button onClick={handleClose} color="primary">
-                        Cerrar
-                    </Button> */}
-                      <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
-                        <CloseIcon />
-                      </IconButton>
+                    <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                      <CloseIcon />
+                    </IconButton>
                 </>
                 : <>
                   <Button type="submit" color="primary" style={{display: 'none'}}>

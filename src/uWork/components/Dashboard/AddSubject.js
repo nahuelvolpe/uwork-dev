@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl,
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl,
   InputLabel, MenuItem, Select, makeStyles } from '@material-ui/core'
 import * as MateriasService from '../../services/MateriasService'
 import * as UserService from '../../services/UserService'
@@ -147,9 +147,6 @@ export default function AddSubject(props) {
               <AdornedButton className={classes.botonAccept} onClick={onAccept} variant="contained" color="secondary" loading={loading} disabled={loading || (!career.id || !subject.id)} >
                 Aceptar
               </AdornedButton>
-              {/* <Button onClick={handleClose} color="primary">
-                Cerrar
-              </Button> */}
               <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
                 <CloseIcon />
               </IconButton>

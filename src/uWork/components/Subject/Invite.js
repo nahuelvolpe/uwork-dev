@@ -1,132 +1,123 @@
 import React, {useState} from 'react'
-import {Button, TextField, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, makeStyles } from '@material-ui/core';
+import { IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, makeStyles } from '@material-ui/core';
 import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
-import { Formik, Form } from "formik";
+import { Formik, Form } from "formik"
 import * as Yup from 'yup'
-import FormikField from "../FormikField/FormikField";
-import * as MateriasService from '../../services/MateriasService';
-import { auth } from '../../services/firebase';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import FormikField from "../FormikField/FormikField"
+import * as MateriasService from '../../services/MateriasService'
+import AdornedButton from '../AdornedButton/AdornedButton'
+import AuthenticationService from '../../services/AuthenticationService'
+import CloseIcon from '@material-ui/icons/Close'
 
-const RegisterSchema = Yup.object().shape({
+const InviteSchema = Yup.object().shape({
     email: Yup.string()
-      .required("Email requerido!")
-      .email("Formato inválido!"),
-  })
+        .required("Debe ingresar un email para enviar la invitación!")
+        .email("Formato inválido!")
+})
 
-  const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
     botonAccept: {
         color: 'white'
-      },
+    },
     closeButton: {
         position: 'absolute',
         right: theme.spacing(1),
         top: theme.spacing(1),
         color: theme.palette.grey[500],
-      }
-  }))
+    }
+}))
 
-const Invite = ({open, setOpen, materiaId}) => {
+const Invite = ({open, setOpen, materiaId, successHandler}) => {
 
-    const [email, setEmail] = useState('')
-    const [openSuccessBar, setOpenSuccessBar] = useState(false)
-    const [openErrorBar, setOpenErrorBar] = useState(false)
+    const [email, ] = useState('')
     const [errorMessage, setErrorMessage] = useState('Error al enviar invitación.')
+    const [openErrorSnackBar, setOpenErrorSnackBar] = useState(false)
+    const [loading, setLoading] = useState(false)
     const classes = useStyles();
 
     const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleChange = (event) => {
-        setEmail(event.target.value);
-    };
-
-    const handleCloseSnackBarSuccess = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpenSuccessBar(false);
         setOpen(false)
-    };
-    
-    const handleCloseSnackBarError = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpenErrorBar(false);
-    };
-
-    const inviteUser = async () => {
-        const response = await verificarEmail()
-        if(response){
-            setOpenErrorBar(true)
-        }else{
-            MateriasService.inviteUser(email, materiaId)
-            .then(() => {
-                setOpenSuccessBar(true)
-            })
-            .catch(() => {
-                setErrorMessage('Error al enviar invitación, quizas esté mal escrito el email.')
-                setOpenErrorBar(true)
-            })
-        }
-       
     }
 
-    const verificarEmail = async () => {
-        let respuesta = false;
-        const response = await MateriasService.verificarColaboradores(email, materiaId)
-        if(auth.currentUser.email === email){
-            setErrorMessage('No te puedes invitar a ti mismo!')
-            respuesta = true;
-        }else if(response){
-            setErrorMessage('Este colaborador ya se encuentra en la materia!')
-            respuesta = true;
+    const handleCloseSnackError = (event, reason) => {
+        if (reason === 'clickaway') {
+            return
         }
-        return respuesta;
+        setOpenErrorSnackBar(false)
+    }
+
+    const onSubmit = async (values) => {
+        setLoading(true)
+        const isValid = await isEmailValid(values.email)
+        if(!isValid){
+            setLoading(false)
+            setOpenErrorSnackBar(true)
+        } else {
+            MateriasService.inviteUser(values.email, materiaId)
+            .then(() => {
+                setLoading(false)
+                successHandler()
+                setOpen(false)
+            })
+            .catch(() => {
+                setErrorMessage('Error al enviar invitación, quizas el email esté mal escrito.')
+                setLoading(false)
+                setOpenErrorSnackBar(true)
+            })
+        }
+    }
+
+    const isEmailValid = async (email) => {
+        let isValid = true
+        const user = AuthenticationService.getCurrentUser()
+        if(user.email === email){
+            setErrorMessage('No te puedes invitar a ti mismo!')
+            isValid = false
+        } else if (await MateriasService.verificarColaboradores(email, materiaId)){
+            setErrorMessage('Este colaborador ya se encuentra en la materia!')
+            isValid = false;
+        }
+        return isValid;
     }
 
     return ( 
         <div>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Invitar colaborador</DialogTitle>
-                <DialogContent>
-                <DialogContentText>
-                    Escribe el email de la persona que quieres invitar. 
-                    <strong> No se le enviara un email a esa persona, si no que se le agregara automáticamente esta materia en su cuenta.</strong>
-                </DialogContentText>
-                <TextField
-                    required
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Email"
-                    type="email"
-                    fullWidth
-                    value={email} 
-                    onChange={handleChange} 
-                />
-                </DialogContent>
-                <DialogActions>
-                <Button className={classes.botonAccept} onClick={inviteUser} variant="contained" color="secondary">
-                    Enviar
-                </Button>
-                {/* <Button onClick={handleClose} color="primary">
-                    Cerrar
-                </Button> */}
-                <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
-                    <CloseIcon />
-                </IconButton>
-                </DialogActions>
-                <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
-                    Invitación enviada!
-                </CustomizedSnackbars>
-                <CustomizedSnackbars open={openErrorBar} handleClose={handleCloseSnackBarError} severity="error">
-                    {errorMessage}
-                </CustomizedSnackbars>
-            </Dialog>
+            <Formik
+            initialValues={{email}}
+            validationSchema={InviteSchema}
+            onSubmit={onSubmit}>
+            {({ errors, touched }) => (
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <Form noValidate>
+                        <DialogTitle id="form-dialog-title">Invitar colaborador</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Escribe el email de la persona que quieres invitar. 
+                                <strong> No se le enviara un email a esa persona, sino que se le agregará automáticamente esta materia en su cuenta.</strong>
+                            </DialogContentText>
+                            <FormikField required name="email" label="Email" type="email" fullWidth
+                                error={errors.email && touched.email}/>
+                        </DialogContent>
+                        <DialogActions>
+                            <AdornedButton
+                                type="submit"
+                                variant="contained"
+                                color="secondary"
+                                loading={loading}
+                                disabled={loading}>
+                                    Enviar
+                            </AdornedButton>
+                            <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                                <CloseIcon />
+                            </IconButton>
+                        </DialogActions>
+                    </Form>
+                </Dialog>
+            )}
+            </Formik>
+            <CustomizedSnackbars open={openErrorSnackBar} handleClose={handleCloseSnackError} severity="error">
+                {errorMessage}
+            </CustomizedSnackbars>
         </div>
     );
 }
