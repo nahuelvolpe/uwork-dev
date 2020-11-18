@@ -82,7 +82,7 @@ const Invite = ({open, setOpen, materiaId, successHandler}) => {
                                 Escribe el email de la persona que quieres invitar. 
                                 <strong> No se le enviara un email a esa persona, sino que se le agregará automáticamente esta materia en su cuenta.</strong>
                             </DialogContentText>
-                            <FormikField autoFocus required name="email" label="Email" type="email" fullWidth
+                            <FormikField required name="email" label="Email" type="email" fullWidth
                                 error={errors.email && touched.email}/>
                         </DialogContent>
                         <DialogActions>
