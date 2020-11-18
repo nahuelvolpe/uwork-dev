@@ -206,7 +206,7 @@ export default function Task(props) {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header">
-                    <Typography className={classes.heading}>Seleccionar colabodores</Typography>
+                    <Typography className={classes.heading}>Seleccionar colaboradores</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <FieldArray name="aCargo"

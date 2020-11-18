@@ -93,6 +93,9 @@ const CardTask = (props) => {
                                 <Typography className={classes.textTarea} noWrap variant="body1" component="h2" align="left">
                                     {data.titulo}
                                 </Typography>
+                                <Typography className={classes.descripcion}>
+                                    {`Fecha límite: ${data.fechaLimite}`}
+                                </Typography>
                             </Box>
                             <AvatarGroup max={3}>
                                 {

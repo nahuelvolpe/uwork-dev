@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '180px'
   },
   formControl: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   formControlLabel: {
     marginTop: theme.spacing(1),
