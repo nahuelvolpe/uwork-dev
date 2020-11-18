@@ -51,7 +51,7 @@ export default function AlertDialog(props) {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
               Posiblemente haya colaborares en esta matería y se eliminará tambien de sus cuentas.
-              Esta seguro que desea eliminarla?
+              <strong>¿Está seguro que desea eliminarla?</strong>
           </DialogContentText>
         </DialogContent>
         <DialogActions>

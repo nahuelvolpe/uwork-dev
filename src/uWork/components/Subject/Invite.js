@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
+import { IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, makeStyles } from '@material-ui/core';
 import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
 import { Formik, Form } from "formik"
 import * as Yup from 'yup'
@@ -7,6 +7,7 @@ import FormikField from "../FormikField/FormikField"
 import * as MateriasService from '../../services/MateriasService'
 import AdornedButton from '../AdornedButton/AdornedButton'
 import AuthenticationService from '../../services/AuthenticationService'
+import CloseIcon from '@material-ui/icons/Close'
 
 const InviteSchema = Yup.object().shape({
     email: Yup.string()
@@ -14,6 +15,17 @@ const InviteSchema = Yup.object().shape({
         .email("Formato inválido!")
 })
 
+const useStyles = makeStyles((theme) => ({
+    botonAccept: {
+        color: 'white'
+    },
+    closeButton: {
+        position: 'absolute',
+        right: theme.spacing(1),
+        top: theme.spacing(1),
+        color: theme.palette.grey[500],
+    }
+}))
 
 const Invite = ({open, setOpen, materiaId, successHandler}) => {
 
@@ -21,6 +33,7 @@ const Invite = ({open, setOpen, materiaId, successHandler}) => {
     const [errorMessage, setErrorMessage] = useState('Error al enviar invitación.')
     const [openErrorSnackBar, setOpenErrorSnackBar] = useState(false)
     const [loading, setLoading] = useState(false)
+    const classes = useStyles();
 
     const handleClose = () => {
         setOpen(false)
@@ -94,9 +107,9 @@ const Invite = ({open, setOpen, materiaId, successHandler}) => {
                                 disabled={loading}>
                                     Enviar
                             </AdornedButton>
-                            <Button onClick={handleClose} color="primary">
-                                Cerrar
-                            </Button>
+                            <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                                <CloseIcon />
+                            </IconButton>
                         </DialogActions>
                     </Form>
                 </Dialog>
