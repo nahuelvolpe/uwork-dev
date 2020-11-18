@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fafafa",
     color: "black",
     '&:hover': {
-      backgroundColor: "#14A7D6",
+      backgroundColor: "#2ab182",
       color: '#FFF'
     }
   },

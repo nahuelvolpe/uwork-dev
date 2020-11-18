@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fafafa",
     color: "black",
     '&:hover': {
-      backgroundColor: "#14A7D6",
+      backgroundColor: "#2ab182",
       color: '#FFF'
     }
   },
@@ -68,8 +68,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
   },
   register: {
-    backgroundImage: 'url(https://firebasestorage.googleapis.com/v0/b/uwork-dev-beta.appspot.com/o/assets%2Fbackground.png?alt=media&token=46e4b81f-ecf5-48b7-b7e8-bc8aead23fc1)'
-    //backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='25 50 430 100' preserveAspectRatio='none'><rect x='0' y='0' width='500' height='500' style='stroke: none; fill: %23FFFFFF;' /><path d='M0,100 C150,115 350,80 500,100 L500,00 L0,0 Z' style='stroke: none; fill: %23c232db;'></path></svg>");`
+    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='25 50 430 100' preserveAspectRatio='none'%3E%3Crect x='0' y='0' width='500' height='500' style='stroke: none; fill: %23FFFFFF;' /%3E%3Cdefs%3E%3ClinearGradient id='gradient'%3E%3Cstop offset='5%25' stop-color='%238F34A4' /%3E%3Cstop offset='80%25' stop-color='%23A53493' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23gradient)' d='M0,100 C150,115 350,80 500,100 L500,00 L0,0 Z' style='stroke: none'%3E%3C/path%3E%3C/svg%3E");`
   },
   link: {
     cursor: 'pointer',
