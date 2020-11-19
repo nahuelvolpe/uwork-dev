@@ -1,9 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import PropTypes from 'prop-types';
-import { Grid, IconButton, makeStyles, Paper, AppBar, Tabs, Tab, Box } from '@material-ui/core';
+import { Grid, IconButton, makeStyles, Paper, AppBar, Tabs, Tab, Box, Button, Hidden } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PostAddIcon from '@material-ui/icons/PostAdd';
+import AddCircleIcon from '@material-ui/icons/AddCircle'
+import Close from '@material-ui/icons/Close'
 import Invite from './Invite';
 import { SubjectContext } from '../../context/subject';
 import * as MateriasService from '../../services/MateriasService'
@@ -37,14 +39,17 @@ const useStyles = makeStyles((theme) => ({
     info: {
         margin: '5px 5px 5px 5px',
         padding: '5px 5px 5px 10px',
-        fontSize: '0.6rem',
+        fontSize: '13px',
         fontWeight: 'bold',
         backgroundColor: '#F5F5F5',
+        flexDirection: 'row',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     container: {
         marginTop: '5px',
         padding: '10px',
-
     },
     root: {
         flexGrow: 1,
@@ -99,10 +104,11 @@ const Subject = (props) => {
     const [openTask, setOpenTask] = useState(false);
     const [pendientes, setPendientes] = useState([]);
     const [finalizadas, setFinalizadas] = useState([]);
-    const [openAlert, setOpenAlert] = React.useState(false);
+    const [openAlert, setOpenAlert] = useState(false);
     const [tareaId, setTareaId] = useState('')
     const [cantColabs, setCantColabs] = useState(0)
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0)
+    const [showInfo, setShowInfo] = useState(true)
 
     const [openSuccessBar, setOpenSuccessBar] = useState(false)
     const [message, setMessage] = useState('')
@@ -231,6 +237,10 @@ const Subject = (props) => {
         setOpenSuccessBar(true)
     }
 
+    const closeLinkInfo = () => {
+        setShowInfo(false)
+    }
+
     return (
         <>
             {openInvite && <Invite 
@@ -252,53 +262,62 @@ const Subject = (props) => {
                 cantColaboradores={cantColabs}
                 acceptHandler={acceptDelete}
             />}
-                <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
-                    <p>Link al foro donde podés encontrar apuntes, examenes, trabajos practicos y más información de la materia <a href={link} rel="noopener noreferrer" target="_blank">{link}</a></p>
-                </Paper>    
-                    <AppBar position="static" className={classes.appbar}>
-                        <Tabs value={value} onChange={handleChange} variant="fullWidth" aria-label="simple tabs example">
-                        <Tab label="Tareas pendientes" {...a11yProps(0)} />
-                        <Tab label="Tareas finalizadas" {...a11yProps(1)} />
-                        </Tabs>
-                    </AppBar>
-                    <TabPanel value={value} index={0}>
-                    <Grid container spacing={1}>
-                        {pendientes && pendientes.map((task, index) =>
-                            <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                                <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} finishedHandler={handleFinished} index={index}/>
-                            </Grid>
-                            )
-                        }
-                    </Grid>
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                        <Grid container spacing={1}>
-                            {finalizadas && finalizadas.map((task, index) =>
-                                <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                                    <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} pendienteHandler={handlePendiente} index={index}/>
-                                </Grid>
-                                )
-                            }
+            {showInfo && <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
+                <p>Para encontrar apuntes, exámenes, trabajos prácticos y más información sobre esta materia, ingresá al <a href={link} style={{textDecoration: 'none'}} rel="noopener noreferrer" target="_blank">foro de la UNO</a></p>
+                <Close onClick={closeLinkInfo}/>
+            </Paper>}
+            <Hidden smDown>
+                <div style={{ width: '100%', marginBottom: 8, marginLeft: 4, marginTop: showInfo ? 8 : 16}}>
+                    <Button style={{ color: 'white' }} variant="contained" startIcon={<AddCircleIcon />} color="secondary" onClick={handleClickOpenTask}>Agregar Tarea</Button>
+                    <Button style={{marginLeft: 8}} variant="outlined" startIcon={<PersonAddIcon />} color="primary" onClick={handleClickOpenInvite}>Añadir colaborador</Button>
+                </div>
+            </Hidden>
+            <AppBar position="static" className={classes.appbar}>
+                <Tabs value={value} onChange={handleChange} variant="fullWidth" aria-label="simple tabs example">
+                <Tab label="Tareas pendientes" {...a11yProps(0)} />
+                <Tab label="Tareas finalizadas" {...a11yProps(1)} />
+                </Tabs>
+            </AppBar>
+            <TabPanel value={value} index={0}>
+                <Grid container spacing={1}>
+                    {pendientes && pendientes.map((task, index) =>
+                        <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
+                            <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} finishedHandler={handleFinished} index={index}/>
                         </Grid>
-                    </TabPanel>
-            <div className={classes.floatingButtons}>
-            <IconButton
-                className={classes.floatingButtonInvite}
-                arial-label="Agregar colaborador"
-                onClick={handleClickOpenInvite}
-                size="small"
-                classes={{
-                    sizeSmall: classes.sizeSmallPadding
-                }}
-            >
-                <PersonAddIcon style={{ fontSize: "24px" }} />
-            </IconButton>
-            <IconButton variant="contained"
-                    className={classes.floatingButtonAddTask}
-                    onClick={handleClickOpenTask}>
-                    <PostAddIcon style={{ fontSize: "28px" }} />
-            </IconButton>
-            </div>
+                        )
+                    }
+                </Grid>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <Grid container spacing={1}>
+                    {finalizadas && finalizadas.map((task, index) =>
+                        <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
+                            <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} pendienteHandler={handlePendiente} index={index}/>
+                        </Grid>
+                        )
+                    }
+                </Grid>
+            </TabPanel>
+            <Hidden mdUp>
+                <div className={classes.floatingButtons}>
+                    <IconButton
+                        className={classes.floatingButtonInvite}
+                        arial-label="Agregar colaborador"
+                        onClick={handleClickOpenInvite}
+                        size="small"
+                        classes={{
+                            sizeSmall: classes.sizeSmallPadding
+                        }}
+                    >
+                        <PersonAddIcon style={{ fontSize: "24px" }} />
+                    </IconButton>
+                    <IconButton variant="contained"
+                        className={classes.floatingButtonAddTask}
+                        onClick={handleClickOpenTask}>
+                        <PostAddIcon style={{ fontSize: "28px" }} />
+                    </IconButton>
+                </div>
+            </Hidden>
             <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
                 {message}
             </CustomizedSnackbars>
