@@ -57,8 +57,6 @@ const useStyles = makeStyles((theme) => ({
     },
     sizeSmallPadding: {
         padding: 8
-    },
-    appbar: {
     }
 }));
 
@@ -272,7 +270,7 @@ const Subject = (props) => {
                     <Button style={{marginLeft: 8}} variant="outlined" startIcon={<PersonAddIcon />} color="primary" onClick={handleClickOpenInvite}>Añadir colaborador</Button>
                 </div>
             </Hidden>
-            <AppBar position="static" className={classes.appbar}>
+            <AppBar position="static" style={{marginTop: showInfo ? 0 : 16}}>
                 <Tabs value={value} onChange={handleChange} variant="fullWidth" aria-label="simple tabs example">
                 <Tab label="Tareas pendientes" {...a11yProps(0)} />
                 <Tab label="Tareas finalizadas" {...a11yProps(1)} />
