@@ -7,6 +7,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import AppRouter from '../uWork/routers/AppRouter';
 import { AuthContextProvider } from '../uWork/context/auth'
 
+
 configure({ adapter: new Adapter() });
 
 afterEach(cleanup)
@@ -27,7 +28,7 @@ describe('uWorkApp', () => {
     )
   })
 
-  /* it('should show Login component when path is /', () => {
+ /*  it('should show Login component when path is /', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['/']}>
         <UWorkApp />

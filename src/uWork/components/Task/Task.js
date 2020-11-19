@@ -6,13 +6,18 @@ import { Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemS
   Checkbox, Dialog, DialogActions, DialogContent, Accordion, AccordionSummary,
   AccordionDetails, Typography, Grid } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import DateFnsUtils from '@date-io/date-fns';
+import CreateIcon from '@material-ui/icons/Create';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import MomentUtils from "@date-io/moment"
 import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
 import * as MateriasService from '../../services/MateriasService';
 import { Formik, Form, Field, FieldArray } from 'formik';
 import * as Yup from 'yup'
 import FormikField from '../FormikField/FormikField'
 import { SubjectContext } from '../../context/subject'
+import 'moment/locale/es-mx'
+moment.locale('es-mx')
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -57,6 +62,15 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     alignContent: 'center',
     textAlign: 'center'
+  },
+  botonAccept: {
+    color: 'white'
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
   }
 }));
 
@@ -74,8 +88,11 @@ const DatePickerField = ({ field, form, ...other }) => {
       disabled={other.disabled}
       name={field.name}
       value={field.value}
-      label="Fecha de vencimiento"
-      format="dd/MM/yyyy"
+      disableToolbar
+      variant="dialog"
+      id="date-picker-dialog"
+      format="DD/MM/yyyy"
+      label="Fecha de Vencimiento"
       helperText={currentError}
       error={Boolean(currentError)}
       onError={error => {
@@ -105,7 +122,7 @@ export default function Task(props) {
     titulo: '',
     descripcion: '',
     aCargo: [],
-    fechaLimite: new Date()
+    fechaLimite: moment()
   })
   
   useEffect(() => {
@@ -118,7 +135,7 @@ export default function Task(props) {
                 titulo: data.titulo,
                 descripcion: data.descripcion,
                 aCargo: getColaboradores(data.colaboradores),
-                fechaLimite: data.fechaLimite
+                fechaLimite: moment(data.fechaLimite, 'DD-MM-YYYY')
               })
             }
         }
@@ -142,9 +159,13 @@ export default function Task(props) {
 
   const onSubmit = (values) => {
     let collabs = {};
-    let colaborador = {};
-    values.aCargo.forEach((colab)=>{
-      colaborador = {[colab]: new Date()}
+    values.aCargo.forEach(selectedColab => {
+      let colaborador = {};
+      colaboradores.forEach(colab => {
+        if(colab.uid === selectedColab) {
+          colaborador = { [selectedColab]: { photoURL: colab.photoURL, name: `${colab.firstName} ${colab.lastName}` } }
+        }
+      })
       collabs = {...collabs, ...colaborador}
     })
     const task = {
@@ -185,7 +206,7 @@ export default function Task(props) {
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header">
-                    <Typography className={classes.heading}>Seleccionar colabodores</Typography>
+                    <Typography className={classes.heading}>Seleccionar colaboradores</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <FieldArray name="aCargo"
@@ -221,7 +242,7 @@ export default function Task(props) {
                       )}/>
                   </AccordionDetails>
                 </Accordion>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale="es">
                   <Grid container className={classes.keyboardDate} justify="space-around">
                     <Field name="fechaLimite" component={DatePickerField} disabled={isViewMode} />
                   </Grid>
@@ -230,25 +251,28 @@ export default function Task(props) {
               <DialogActions>
               {
                 !isViewMode ? <>
-                    <Button type="submit" color="primary">
+                    <Button className={classes.botonAccept} type="submit" variant="contained" color="secondary">
                       Aceptar
                     </Button>
-                    <Button onClick={handleClose} color="primary">
-                      Cerrar
-                    </Button>
+                    <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                      <CloseIcon />
+                    </IconButton>
                 </>
                 : <>
                   <Button type="submit" color="primary" style={{display: 'none'}}>
                   </Button>
                   {data.estado === 'pendiente' ? 
-                  <Button onClick={changeEdition} color="primary">
-                    Editar
+                  <Button onClick={changeEdition} variant="outlined" color="primary">
+                    <CreateIcon/> Editar
                   </Button>:
                   null
                   }  
-                  <Button onClick={handleClose} color="primary">
+                  {/* <Button onClick={handleClose} color="primary">
                     Cerrar
-                  </Button>
+                  </Button> */}
+                        <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                          <CloseIcon />
+                        </IconButton>
                 </>
               }
               </DialogActions>

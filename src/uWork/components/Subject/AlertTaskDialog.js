@@ -44,7 +44,7 @@ export default function AlertTaskDialog(props) {
         <DialogTitle id="alert-dialog-title">Advertencia</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-              {`En esta tarea hay ${cantColaboradores} ${cantColaboradores > 1 ? 'colaboradorxs' : 'colaborador/a'} a cargo, estas segurx que desea eliminarla?`}
+              {`En esta tarea hay ${cantColaboradores} ${cantColaboradores > 1 ? 'colaboradores' : 'colaborador/a'} a cargo,`} <strong>¿Estás seguro que desea eliminarla?</strong>
           </DialogContentText>
         </DialogContent>
         <DialogActions>

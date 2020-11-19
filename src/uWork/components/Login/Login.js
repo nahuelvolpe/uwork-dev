@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fafafa",
     color: "black",
     '&:hover': {
-      backgroundColor: "#14A7D6",
+      backgroundColor: "#2ab182",
       color: '#FFF'
     }
   },
@@ -53,8 +53,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 10
   },
   title: {
-    marginBottom: theme.spacing(2),
-    color: 'white'
+    color: 'white',
+    display: 'flex',
+    alignItems: 'center'
   },
   divider: {
     border: 'none',
@@ -68,13 +69,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
   },
   register: {
-    backgroundImage: `url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='25 50 430 100' preserveAspectRatio='none'><rect x='0' y='0' width='500' height='500' style='stroke: none; fill: %23FFFFFF;' /><path d='M0,100 C150,115 350,80 500,100 L500,00 L0,0 Z' style='stroke: none; fill: %2314A7D6;'></path></svg>");`
+    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='25 50 430 100' preserveAspectRatio='none'%3E%3Crect x='0' y='0' width='500' height='500' style='stroke: none; fill: %23FFFFFF;' /%3E%3Cdefs%3E%3ClinearGradient id='gradient'%3E%3Cstop offset='5%25' stop-color='%238F34A4' /%3E%3Cstop offset='80%25' stop-color='%23A53493' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23gradient)' d='M0,100 C150,115 350,80 500,100 L500,00 L0,0 Z' style='stroke: none'%3E%3C/path%3E%3C/svg%3E");`
   },
   link: {
     cursor: 'pointer',
     textDecoration: 'none',
     fontWeight: 600,
-    color: theme.palette.primary.main
+    color: theme.palette.secondary.main
+  },
+  logo: {
+    maxWidth: 40,
   }
 }));
 
@@ -136,8 +140,9 @@ const Login = (props) => {
           justify="center"
         >
           <div></div>
-          <div>
-            <h1 className={classes.title}>uWork</h1>
+          <div className={classes.title}>
+            <img src='https://firebasestorage.googleapis.com/v0/b/uwork-dev-beta.appspot.com/o/assets%2FuWork.png?alt=media&token=ea6dd5fe-9312-4fac-8c50-c7964cc91939' alt='' className={classes.logo}></img>
+            <h1 style={{fontFamily: 'Roboto', marginLeft: 8}}>uWork</h1>
           </div>
           <Paper
             className={classes.loginContent}
@@ -178,7 +183,7 @@ const Login = (props) => {
             </Formik>
           </Paper>
           <div style={{ textAlign: "center", width: "100%" }}>
-            <p> ¿No tienes cuenta? <Link className={classes.link} to="/register">Registrate</Link></p>
+            <p>¿No tienes cuenta? <Link className={classes.link} to="/register">Registrate</Link></p>
           </div>
           <div></div>
         </Grid>

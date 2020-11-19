@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, cleanup, screen, wait } from '@testing-library/react';
 import { configure, mount } from 'enzyme';
 import { MemoryRouter } from 'react-router';
 import Adapter from 'enzyme-adapter-react-16';
@@ -8,9 +8,14 @@ import { AuthContext, AuthContextProvider } from '../uWork/context/auth'
 import Login from '../uWork/components/Login/Login'
 import Register from '../uWork/components/Register/Register'
 import { PublicRoute } from '../uWork/routers/PublicRoute'
-import { auth } from '../services/firebase'
+import AuthenticationService from '../uWork/services/AuthenticationService'
+import * as MateriasService from '../uWork/services/MateriasService'
+import { PrivateRoute } from '../uWork/routers/PrivateRoute';
+import Dashboard from '../uWork/components/Dashboard/Dashboard';
+import Layout from '../uWork/components/Layout/Layout';
 
-jest.mock('../services/firebase')
+jest.mock('../uWork/services/AuthenticationService')
+jest.mock('../uWork/services/MateriasService')
 
 configure({ adapter: new Adapter() });
 
@@ -56,8 +61,22 @@ describe('App Router', () => {
   })
 
   describe('When user is logged', () => {
-    it('should render Private Route', () => {
 
+    it('should render Layout and Dashboard', async () => {
+      jest.setTimeout(10000)
+      const context = {
+        authReady: true
+      }
+      AuthenticationService.getCurrentUser.mockReturnValue({ uid: 'id' })
+      MateriasService.getSubjects.mockResolvedValue([{ materiaId: 'asdasd' }])
+      const wrapper = renderAppRouter('/dashboard', context)
+      await wait(() => {
+        expect(wrapper.find(PrivateRoute)).toHaveLength(3)
+        expect(wrapper.find(Layout)).toHaveLength(1)
+        expect(wrapper.find(Dashboard)).toHaveLength(1)
+      })
+      expect(AuthenticationService.getCurrentUser).toHaveBeenCalled()
+      expect(MateriasService.getSubjects).toHaveBeenCalled()
     })
   })
 
