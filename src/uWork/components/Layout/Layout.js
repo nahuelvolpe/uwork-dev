@@ -1,6 +1,7 @@
-import React, { Fragment, useContext, useState } from 'react'
-import { AppBar, Container, Toolbar, IconButton, Typography, makeStyles, Hidden, MenuList, MenuItem, Drawer, CssBaseline, ListItemIcon } from '@material-ui/core'
+import React, { Fragment, useContext, useState, useEffect } from 'react'
+import { AppBar, Container, Toolbar, IconButton, Typography, makeStyles, Avatar, MenuList, MenuItem, Drawer, CssBaseline, ListItemIcon } from '@material-ui/core'
 import AuthenticationService from '../../services/AuthenticationService'
+import * as UserService from '../../services/UserService'
 import MenuIcon from '@material-ui/icons/Menu'
 import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
@@ -41,6 +42,17 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   toolbar: theme.mixins.toolbar,
+  userData: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginLeft: 12,
+    marginTop: 12,
+  },
+  avatar: {
+    width: theme.spacing(8),
+    height: theme.spacing(8),
+  },
   drawerPaper: {
     width: drawerWidth,
     backgroundColor: theme.palette.primary.main,
@@ -60,11 +72,26 @@ const useStyles = makeStyles((theme) => ({
 
 const Layout = (props) => {
 
+  
   const [openDrawer, setOpenDrawer] = useState(false)
   const [openPopCollab, setOpenCollab] = useState(false)
+  const [userData, setUserData] = useState({})
   const classes = useStyles();
   const { location: { pathname }, children } = props;
   const { subjectId, subjectName } = useContext(SubjectContext)
+
+  useEffect(() => {
+    const loadUserData = async () => {
+      const id = AuthenticationService.getSessionUserId()
+      try {
+        const user = await UserService.getUserDataById(id)
+        setUserData(user)
+      } catch (err) {
+        console.log(err)
+      }
+    } 
+    loadUserData()
+  }, [])
 
   const handleOpenCollab = () => {
     setOpenCollab(!openPopCollab)
@@ -95,9 +122,12 @@ const Layout = (props) => {
 
   const drawer = (
     <div>
-      <Hidden smDown>
-        <div className={classes.toolbar} />
-      </Hidden>
+      <div className={`${classes.toolbar} ${classes.userData}`}>
+        <Avatar className={classes.avatar} alt='' src={userData.photoURL}/>
+        <div>
+          <Typography style={{marginLeft: 8}} variant="body1">{`${userData.firstName} ${userData.lastName}`}</Typography>
+        </div>
+      </div>
       <MenuList>
         <MenuItem component={Link} to="/dashboard" selected={'/dashboard' === pathname}>
           <ListItemIcon>
