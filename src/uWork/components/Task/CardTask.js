@@ -131,10 +131,14 @@ const CardTask = (props) => {
                             </>
                             :
                             <>
-                                <h3>{data.titulo}</h3>
-                                <h4>{`Vencimiento: ${data.fechaLimite}`}</h4>
+                                <h3>{data.titulo}</h3>                                
+                                <h4 style={{color: "#e93e3e"}}>{`Vencimiento: ${data.fechaLimite}`}</h4>
                                 {/* <h4>Vencimiento: <span style={{color: "#e93e3e"}}>{data.fechaLimite}</span></h4> */}                         
                                 {/* <h4>Vencimiento: <span style={{color: "#e93e3e"}}>{data.fechaLimite}</span> <WarningIcon className={classes.warningIcon}/></h4> */}
+                                {/* <div className="check">
+                                    <h4>{`Vencimiento: ${data.fechaLimite}`}</h4>
+                                    <WarningIcon className={classes.warningIcon}/>
+                                </div> */}
                             </>
                     )
                         :
