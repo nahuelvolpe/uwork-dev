@@ -1,8 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Card, CardContent, Typography, CardActions,
+import {
+    Card, CardContent, Typography, CardActions,
     makeStyles, Avatar, Box, CardActionArea, IconButton,
-    Tooltip, Chip, Menu, MenuItem } from '@material-ui/core'
-import { VisibilityRounded, Delete, CheckCircle, Timer, TimerOff, Undo} from '@material-ui/icons'
+    Tooltip, Chip, Menu, MenuItem
+} from '@material-ui/core'
+import { VisibilityRounded, Delete, CheckCircle, Timer, TimerOff, Undo } from '@material-ui/icons'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import WarningIcon from '@material-ui/icons/Warning';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cardContent: {
         paddingTop: '4px',
-        paddingBottom: '4px'        
+        paddingBottom: '4px'
     },
     descripcion: {
         marginBottom: 0,
@@ -92,7 +94,7 @@ const CardTask = (props) => {
         }
         setOpen(true);
     }
- 
+
     const handleFinished = (event) => {
         props.finishedHandler(data.tareaId, subjectId)
         event.stopPropagation()
@@ -117,99 +119,105 @@ const CardTask = (props) => {
 
     return (
         <>
-        <div className="card" onClick={() => handleView()}>
+            <div className="card" onClick={() => handleView()}>
                 <div className="card__info">
-                    
+
                     {data.estado === 'pendiente' ? (
                         (moment().isBefore(moment(data.fechaLimite, 'DD-MM-YYYY'))) ?
+                            <>
+                                <h3>{data.titulo}</h3>
+                                <h4>{`Vencimiento: ${data.fechaLimite}`}</h4>
+                                {/* <h4>Vencimiento: <span>{data.fechaLimite}</span></h4> */}
+                            </>
+                            :
+                            <>
+                                <h3>{data.titulo}</h3>
+                                <h4>{`Vencimiento: ${data.fechaLimite}`}</h4>
+                                {/* <h4>Vencimiento: <span style={{color: "#e93e3e"}}>{data.fechaLimite}</span></h4> */}                         
+                                {/* <h4>Vencimiento: <span style={{color: "#e93e3e"}}>{data.fechaLimite}</span> <WarningIcon className={classes.warningIcon}/></h4> */}
+                            </>
+                    )
+                        :
                         <>
-                            <h3>{data.titulo}</h3>
-                            <h4>Vencimiento: <span>{data.fechaLimite}</span></h4>
+                            <div className="check">
+                                <h3>{`${data.titulo}`}</h3>
+                                <CheckCircleIcon color="secondary" fontSize="small" className={classes.checkIcon} />
+                            </div>  
+                            <h4>{`Vencimiento: ${data.fechaLimite}`}</h4>
                         </>
-                        : 
-                        <>
-                            <h3>{data.titulo}</h3>
-                            <h4>Vencimiento: <span style={{color: "#e93e3e"}}>{data.fechaLimite}</span> <WarningIcon className={classes.warningIcon}/></h4>
-                        </>    
-                    )                  
-                    :   
-                        <>
-                            <h3>{data.titulo} <CheckCircleIcon color="secondary" fontSize="small" className={classes.checkIcon}/></h3>
-                            <h4>Vencimiento: <span>{data.fechaLimite}</span></h4>
-                        </>                        
-                    }               
+                    }
                 </div>
 
                 <div className="card__avatars">
                     <AvatarGroup max={3}>
                         {
                             Object.keys(data.colaboradores).map(id => {
-                                return <Avatar key={id} alt={data.colaboradores[id].name} src={data.colaboradores[id].photoURL}/>
+                                return <Avatar key={id} alt={data.colaboradores[id].name} src={data.colaboradores[id].photoURL} />
                             })
                         }
                     </AvatarGroup>
                 </div>
 
-            <div className="card__menu">
-                            <IconButton
-                                aria-label="more"
-                                aria-controls="long-menu"
-                                aria-haspopup="true"
-                                onClick={handleClick}
-                                style={{ float: 'right', padding: 0, color: 'black' }}
-                            >
-                                <MoreVertIcon />
-                            </IconButton>
-                            
-            </div>
-            
-        </div>
+                <div className="card__menu">
+                    <IconButton
+                        aria-label="more"
+                        aria-controls="long-menu"
+                        aria-haspopup="true"
+                        onClick={handleClick}
+                        style={{ float: 'right', padding: 0, color: 'black' }}
+                    >
+                        <MoreVertIcon />
+                    </IconButton>
 
-                            <Menu
-                                id="long-menu"
-                                anchorEl={anchorEl}
-                                getContentAnchorEl={null}
-                                keepMounted
-                                open={openMenu}
-                                onClose={handleClose}
-                                PaperProps={{
-                                style: {
-                                    maxHeight: 48 * 4.5,
-                                    width: '20ch',
-                                },
-                                }}
-                                anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'right',
-                                }}
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                            >
-                                {data.estado === 'pendiente' ? 
-                                    <div>
-                                         <MenuItem onClick={handleFinished}>
-                                            <CheckBoxIcon/> Finalizar
+                </div>
+
+            </div>
+
+            <Menu
+                id="long-menu"
+                anchorEl={anchorEl}
+                getContentAnchorEl={null}
+                keepMounted
+                open={openMenu}
+                onClose={handleClose}
+                PaperProps={{
+                    style: {
+                        maxHeight: 48 * 4.5,
+                        width: '20ch',
+                    },
+                }}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+            >
+                {data.estado === 'pendiente' ?
+                    <div>
+                        <MenuItem onClick={handleFinished}>
+                            <CheckBoxIcon /> Finalizar
                                          </MenuItem>
-                                         <MenuItem onClick={() => {deleteHandler(data.tareaId, Object.keys(data.colaboradores).length)}}>
-                                            <DeleteIcon/> Eliminar
+                        <MenuItem onClick={() => { deleteHandler(data.tareaId, Object.keys(data.colaboradores).length) }}>
+                            <DeleteIcon /> Eliminar
                                          </MenuItem>
-                                    </div>                           
-                                :
-                                    <MenuItem onClick={handlePendiente}>
-                                        <KeyboardReturnIcon/> Pendiente
+                    </div>
+                    :
+                    <MenuItem onClick={handlePendiente}>
+                        <KeyboardReturnIcon /> Pendiente
                                     </MenuItem>
-                                }                               
-                            </Menu>
-            
+                }
+            </Menu>
+
             {open && <Task
                 open={open}
                 setOpen={setOpen}
                 data={data}
                 index={index}
                 acceptHandler={acceptTaskHandler}
-                />}
+            />}
         </>
     )
 }
