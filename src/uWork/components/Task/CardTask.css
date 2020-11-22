@@ -12,6 +12,10 @@
     background-color: white;
 }
 
+.card:hover {
+    cursor: pointer;
+}
+
 .card__info {
     display: flex;
     flex-direction: column;

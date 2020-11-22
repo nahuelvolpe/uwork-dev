@@ -66,12 +66,12 @@ const useStyles = makeStyles((theme) => ({
     },
     warningIcon: {
         margin: '0px !important',
-        padding: '0 0 6px 0 !important',
+        padding: '0 0 3px 0 !important',
         color: '#ffc107'
     },
     checkIcon: {
         margin: '0px !important',
-        padding: '3px 0 0 0 !important',
+        padding: '2px 0 0 0 !important',
     }
 }))
 
@@ -131,21 +131,22 @@ const CardTask = (props) => {
                             </>
                             :
                             <>
-                                <h3>{data.titulo}</h3>                                
-                                <h4 style={{color: "#e93e3e"}}>{`Vencimiento: ${data.fechaLimite}`}</h4>
-                                {/* <h4>Vencimiento: <span style={{color: "#e93e3e"}}>{data.fechaLimite}</span></h4> */}                         
-                                {/* <h4>Vencimiento: <span style={{color: "#e93e3e"}}>{data.fechaLimite}</span> <WarningIcon className={classes.warningIcon}/></h4> */}
-                                {/* <div className="check">
-                                    <h4>{`Vencimiento: ${data.fechaLimite}`}</h4>
-                                    <WarningIcon className={classes.warningIcon}/>
-                                </div> */}
+                                <div className="check">
+                                    <h3>{data.titulo}</h3>
+                                    <WarningIcon className={classes.warningIcon}/> 
+                                </div>
+                                
+                                
+                                {/* <h4>{`Vencimiento: ${data.fechaLimite}`}</h4> */}
+                                <h4 style={{color: "#e93e3e"}}>{`Vencimiento: ${data.fechaLimite}`}</h4>                         
+                                {/* <h4>Vencimiento: <span style={{color: "#e93e3e"}}>{data.fechaLimite}</span> <WarningIcon className={classes.warningIcon}/></h4> */} 
                             </>
                     )
                         :
                         <>
                             <div className="check">
                                 <h3>{`${data.titulo}`}</h3>
-                                <CheckCircleIcon color="secondary" fontSize="small" className={classes.checkIcon} />
+                                <CheckCircleIcon color="secondary" className={classes.checkIcon} />
                             </div>  
                             <h4>{`Vencimiento: ${data.fechaLimite}`}</h4>
                         </>

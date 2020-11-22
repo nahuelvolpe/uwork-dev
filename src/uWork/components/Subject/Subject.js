@@ -14,7 +14,8 @@ import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
 import CardTask from '../Task/CardTask';
 import Task from '../Task/Task';
 import moment from 'moment'
-import AlertTaskDialog from './AlertTaskDialog';
+import AlertTaskDialog from './AlertTaskDialog'
+import LinealLoading from '../LoadingPage/LinealLoading'
 
 const useStyles = makeStyles((theme) => ({   
     floatingButtons: {
@@ -57,8 +58,6 @@ const useStyles = makeStyles((theme) => ({
     },
     sizeSmallPadding: {
         padding: 8
-    },
-    appbar: {
     }
 }));
 
@@ -109,12 +108,14 @@ const Subject = (props) => {
     const [cantColabs, setCantColabs] = useState(0)
     const [value, setValue] = useState(0)
     const [showInfo, setShowInfo] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     const [openSuccessBar, setOpenSuccessBar] = useState(false)
     const [message, setMessage] = useState('')
 
     useEffect(() => {
         async function setSubjectData() {
+            setLoading(true)
             const materia = await MateriasService.getSubjectById(materiaId)
             setLink(materia.link)
             setSubjectName(materia.nombre)
@@ -134,9 +135,10 @@ const Subject = (props) => {
                     )
                 }
             })
+            setLoading(false)
         }
-        cargarTareas();
-        setSubjectData();
+        setSubjectData()
+        cargarTareas()
     }, [materiaId, setSubjectId, setSubjectName])
 
     const handleChange = (event, newValue) => {
@@ -161,12 +163,10 @@ const Subject = (props) => {
         setOpenSuccessBar(false);
     }
 
-    const acceptDelete = (taskId, materiaId) => {
-        TaskService.deleteTask(taskId, materiaId)
-        .then(() => {
-            setPendientes(prevState => prevState.filter(e => e.tareaId !== taskId))
-        })
-        .catch((e) => { console.log(e) })
+    const onTaskDelete = (taskId) => {
+        setMessage('La tarea ha sido eliminada correctamente')
+        setOpenSuccessBar(true)
+        setPendientes(prevState => prevState.filter(e => e.tareaId !== taskId))
     }
 
     const handleDelete = (taskId, colaboradores) => {
@@ -207,28 +207,19 @@ const Subject = (props) => {
             })
     }
 
-    const createTask = (task, isEdition, index) => {
-        if (!isEdition) {
-            TaskService.createTask(task, materiaId)
-                .then(async (doc) => {
-                    let task = await doc.get()
-                    task = task.data()
-                    setPendientes(prevState =>
-                        [...prevState, { tareaId: doc.id, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.colaboradores, fechaLimite: moment(task.fechaLimite.toDate()).format('L'), estado: task.estado }]
-                    )
-                }).catch( (e) => {
-                    console.log(e)
-                })
+    const onCreationSuccess = (id, task, index) => {
+        if (index === undefined) {
+            setMessage('Tarea creada con éxito!')
+            setOpenSuccessBar(true)
+            setPendientes(prevState =>
+                [...prevState, { tareaId: id, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.colaboradores, fechaLimite: moment(task.fechaLimite.toDate()).format('L'), estado: task.estado }]
+            )
         } else {
-            TaskService.updateTask(task.tareaId, task)
-                .then(() => {
-                    if (index !== undefined) {
-                        const newPendientes = pendientes.slice() //copy the array
-                        newPendientes[index] = { tareaId: task.tareaId, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.aCargo, fechaLimite: moment(task.fechaLimite).format('L'), estado: task.estado } //execute the manipulations
-                        setPendientes(newPendientes)
-                    }
-                })
-                .catch(e => console.log(e))
+            setMessage('Tarea editada con éxito!')
+            setOpenSuccessBar(true)
+            const newPendientes = pendientes.slice()
+            newPendientes[index] = { tareaId: task.tareaId, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.aCargo, fechaLimite: moment(task.fechaLimite).format('L'), estado: task.estado }
+            setPendientes(newPendientes)
         }
     }
 
@@ -252,7 +243,7 @@ const Subject = (props) => {
             {openTask && <Task
                 open={openTask}
                 setOpen={setOpenTask}
-                acceptHandler={createTask}
+                acceptHandler={onCreationSuccess}
             />}
             {openAlert && <AlertTaskDialog
                 open={openAlert}
@@ -260,9 +251,11 @@ const Subject = (props) => {
                 taskId={tareaId}
                 subjectId={materiaId}
                 cantColaboradores={cantColabs}
-                acceptHandler={acceptDelete}
+                acceptHandler={onTaskDelete}
             />}
-            {showInfo && <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
+            { loading ?
+                <LinealLoading>Cargando sus tareas...</LinealLoading>
+            : <>{showInfo && <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
                 <p>Para encontrar apuntes, exámenes, trabajos prácticos y más información sobre esta materia, ingresá al <a href={link} style={{textDecoration: 'none'}} rel="noopener noreferrer" target="_blank">foro de la UNO</a></p>
                 <Close onClick={closeLinkInfo}/>
             </Paper>}
@@ -272,7 +265,7 @@ const Subject = (props) => {
                     <Button style={{marginLeft: 8}} variant="outlined" startIcon={<PersonAddIcon />} color="primary" onClick={handleClickOpenInvite}>Añadir colaborador</Button>
                 </div>
             </Hidden>
-            <AppBar position="static" className={classes.appbar}>
+            <AppBar position="static" style={{marginTop: showInfo ? 0 : 16}}>
                 <Tabs value={value} onChange={handleChange} variant="fullWidth" aria-label="simple tabs example">
                 <Tab label="Tareas pendientes" {...a11yProps(0)} />
                 <Tab label="Tareas finalizadas" {...a11yProps(1)} />
@@ -282,7 +275,7 @@ const Subject = (props) => {
                 <Grid container spacing={1}>
                     {pendientes && pendientes.map((task, index) =>
                         <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                            <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} finishedHandler={handleFinished} index={index}/>
+                            <CardTask data={task} history={props.history} acceptTaskHandler={onCreationSuccess} deleteHandler={handleDelete} finishedHandler={handleFinished} index={index}/>
                         </Grid>
                         )
                     }
@@ -292,7 +285,7 @@ const Subject = (props) => {
                 <Grid container spacing={1}>
                     {finalizadas && finalizadas.map((task, index) =>
                         <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                            <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} pendienteHandler={handlePendiente} index={index}/>
+                            <CardTask data={task} history={props.history} acceptTaskHandler={onCreationSuccess} deleteHandler={handleDelete} pendienteHandler={handlePendiente} index={index}/>
                         </Grid>
                         )
                     }
@@ -317,7 +310,8 @@ const Subject = (props) => {
                         <PostAddIcon style={{ fontSize: "28px" }} />
                     </IconButton>
                 </div>
-            </Hidden>
+            </Hidden></>
+            }
             <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
                 {message}
             </CustomizedSnackbars>
