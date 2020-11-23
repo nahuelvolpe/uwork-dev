@@ -1,25 +1,29 @@
 import 'date-fns';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, Fragment } from 'react';
 import moment from 'moment'
-import { makeStyles } from '@material-ui/core/styles';
+import MomentUtils from "@date-io/moment"
 import { Button, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction,
   Checkbox, Dialog, DialogActions, DialogContent, Accordion, AccordionSummary,
-  AccordionDetails, Typography, Grid } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, KeyboardDatePicker} from '@material-ui/pickers';
-import * as MateriasService from '../../services/MateriasService';
-import { Formik, Form, Field, FieldArray } from 'formik';
-import * as Yup from 'yup'
+  AccordionDetails, Typography, Grid, IconButton, makeStyles } from '@material-ui/core'
+import { ExpandMore, Create, Close } from '@material-ui/icons'
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
+import { Formik, Form, Field, FieldArray } from 'formik'
 import FormikField from '../FormikField/FormikField'
 import { SubjectContext } from '../../context/subject'
+import AdornedButton from '../AdornedButton/AdornedButton'
+import LinealLoading from '../LoadingPage/LinealLoading'
+import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
+import * as MateriasService from '../../services/MateriasService'
+import * as TaskService from '../../services/TaskService'
+import * as Yup from 'yup'
+import 'moment/locale/es-mx'
+moment.locale('es-mx')
 
 const useStyles = makeStyles((theme) => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
-    margin: 'auto',
-    width: 'fit-content',
+    margin: 'auto'
   },
   formControl: {
     marginTop: theme.spacing(2),
@@ -57,6 +61,15 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     alignContent: 'center',
     textAlign: 'center'
+  },
+  botonAccept: {
+    color: 'white'
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
   }
 }));
 
@@ -74,8 +87,11 @@ const DatePickerField = ({ field, form, ...other }) => {
       disabled={other.disabled}
       name={field.name}
       value={field.value}
-      label="Fecha de vencimiento"
-      format="dd/MM/yyyy"
+      disableToolbar
+      variant="dialog"
+      id="date-picker-dialog"
+      format="DD/MM/yyyy"
+      label="Fecha de Vencimiento"
       helperText={currentError}
       error={Boolean(currentError)}
       onError={error => {
@@ -101,27 +117,33 @@ export default function Task(props) {
   const [colaboradores, setColaborares] = useState([]);
   const [isViewMode, setIsViewMode] = useState(Boolean(data.tareaId))
   const [isEditMode, setIsEditMode] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [creating, setCreating] = useState(false)
+  const [openErrorSnack, setOpenErrorSnack] = useState(false)
+  const [message, setMessage] = useState('Error al crear la tarea.')
   const [formData, setFormData] = useState({
     titulo: '',
     descripcion: '',
     aCargo: [],
-    fechaLimite: new Date()
+    fechaLimite: moment()
   })
   
   useEffect(() => {
     const cargarDatos = async () => {
-        if(subjectId) {
-            const collabs = await MateriasService.getCollabsFromSubject(subjectId)
-            setColaborares(collabs)
-            if (isViewMode) {
-              setFormData({
-                titulo: data.titulo,
-                descripcion: data.descripcion,
-                aCargo: getColaboradores(data.colaboradores),
-                fechaLimite: data.fechaLimite
-              })
-            }
+      setLoading(true)
+      if(subjectId) {
+        const collabs = await MateriasService.getCollabsFromSubject(subjectId)
+        setColaborares(collabs)
+        if (isViewMode) {
+          setFormData({
+            titulo: data.titulo,
+            descripcion: data.descripcion,
+            aCargo: getColaboradores(data.colaboradores),
+            fechaLimite: moment(data.fechaLimite, 'DD-MM-YYYY')
+          })
         }
+        setLoading(false)
+      }
     }
     cargarDatos()
   }, [])
@@ -130,9 +152,16 @@ export default function Task(props) {
     return Object.keys(colabsFromData)
   }
 
+  const handleCloseSnackError = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenErrorSnack(false);
+  }
+
   const handleClose = () => {
-    setOwnOpen(false);
     setOpen(false)
+    setOwnOpen(false)
   };
 
   const changeEdition = () => {
@@ -141,10 +170,15 @@ export default function Task(props) {
   }
 
   const onSubmit = (values) => {
+    setCreating(true)
     let collabs = {};
-    let colaborador = {};
-    values.aCargo.forEach((colab)=>{
-      colaborador = {[colab]: new Date()}
+    values.aCargo.forEach(selectedColab => {
+      let colaborador = {};
+      colaboradores.forEach(colab => {
+        if(colab.uid === selectedColab) {
+          colaborador = { [selectedColab]: { photoURL: colab.photoURL, name: `${colab.firstName} ${colab.lastName}` } }
+        }
+      })
       collabs = {...collabs, ...colaborador}
     })
     const task = {
@@ -155,12 +189,44 @@ export default function Task(props) {
       fechaLimite: moment(values.fechaLimite).toDate(),
       estado: 'pendiente'
     }
-    acceptHandler(task, isEditMode, index)
-    setOwnOpen(false)
-  } 
-  
+    createTask(task, index)
+  }
+
+  const createTask = (task, index) => {
+    if (!isEditMode) {
+      TaskService.createTask(task, subjectId)
+        .then(async (doc) => {
+            let task = await doc.get()
+            task = task.data()
+            setCreating(false)
+            acceptHandler(doc.id, task)
+            setOwnOpen(false)
+            setOpen(false)
+        }).catch(e => {
+          console.log(e)
+          setCreating(false)
+          setMessage('Error al crear la tarea.')
+          setOpenErrorSnack(true)
+        })
+    } else {
+      TaskService.updateTask(task.tareaId, task)
+        .then(() => {
+          setCreating(false)
+          acceptHandler(task.tareaId, task, index)
+          setOwnOpen(false)
+          setOpen(false)
+        })
+        .catch(e => {
+          console.log(e)
+          setCreating(false)
+          setMessage('Error al editar la tarea.')
+          setOpenErrorSnack(true)
+        })
+    }
+  }
 
   return (
+    <Fragment>
       <Formik
         enableReinitialize
         initialValues={formData}
@@ -173,19 +239,21 @@ export default function Task(props) {
             open={ownOpen}
             onClose={handleClose}
             aria-labelledby="dialog-title">
-            <Form className={classes.form} noValidate>
+            <Form className={classes.form} style={{width: loading ? '250px' : 'fit-content'}} noValidate>
               <h2 className={classes.dialogTitle}>{isViewMode ? "Ver Tarea" : (isEditMode ? "Editar Tarea" : "Nueva Tarea")}</h2>
-              <DialogContent>
+              {
+                loading ? <LinealLoading height="30vh" width="50%">Cargando tarea...</LinealLoading>
+              : <><DialogContent>
                 <FormikField className={classes.titulo} required label="Titulo" id="title" name="titulo"
                 type="text" variant="outlined" error={errors.titulo && touched.titulo} disabled={isViewMode} fullWidth />
                 <FormikField label="Descripción" id="description" name="descripcion"
                 type="text" variant="outlined" multiline rows={4} error={errors.descripcion && touched.descripcion} disabled={isViewMode} fullWidth />
                 <Accordion className={classes.collabAccordion}>
                   <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
+                    expandIcon={<ExpandMore />}
                     aria-controls="panel1a-content"
                     id="panel1a-header">
-                    <Typography className={classes.heading}>Seleccionar colabodores</Typography>
+                    <Typography className={classes.heading}>Seleccionar colaboradores</Typography>
                   </AccordionSummary>
                   <AccordionDetails>
                     <FieldArray name="aCargo"
@@ -221,40 +289,53 @@ export default function Task(props) {
                       )}/>
                   </AccordionDetails>
                 </Accordion>
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils} locale="es">
                   <Grid container className={classes.keyboardDate} justify="space-around">
                     <Field name="fechaLimite" component={DatePickerField} disabled={isViewMode} />
                   </Grid>
                 </MuiPickersUtilsProvider>
               </DialogContent>
+              
               <DialogActions>
               {
                 !isViewMode ? <>
-                    <Button type="submit" color="primary">
+                    <AdornedButton
+                      className={classes.botonAccept}
+                      type="submit"
+                      variant="contained"
+                      color="secondary"
+                      loading={creating}
+                      disabled={creating}
+                      >
                       Aceptar
-                    </Button>
-                    <Button onClick={handleClose} color="primary">
-                      Cerrar
-                    </Button>
+                    </AdornedButton>
+                    <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                      <Close />
+                    </IconButton>
                 </>
                 : <>
                   <Button type="submit" color="primary" style={{display: 'none'}}>
                   </Button>
                   {data.estado === 'pendiente' ? 
-                  <Button onClick={changeEdition} color="primary">
-                    Editar
+                  <Button onClick={changeEdition} variant="outlined" color="primary">
+                    <Create fontSize="small"/> Editar
                   </Button>:
                   null
-                  }  
-                  <Button onClick={handleClose} color="primary">
-                    Cerrar
-                  </Button>
+                  }
+                  <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+                    <Close />
+                  </IconButton>
                 </>
               }
-              </DialogActions>
+              </DialogActions></>
+              }
             </Form>
           </Dialog>
         )}}
       </Formik>
+      <CustomizedSnackbars open={openErrorSnack} handleClose={handleCloseSnackError} severity="error">
+        {message}
+      </CustomizedSnackbars>
+    </Fragment>
   );
 }

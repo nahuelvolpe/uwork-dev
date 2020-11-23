@@ -1,9 +1,11 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import PropTypes from 'prop-types';
-import { Grid, IconButton, makeStyles, Button, Paper, AppBar, Tabs, Tab, Typography, Box } from '@material-ui/core';
+import { Grid, IconButton, makeStyles, Paper, AppBar, Tabs, Tab, Box, Button, Hidden } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PostAddIcon from '@material-ui/icons/PostAdd';
+import AddCircleIcon from '@material-ui/icons/AddCircle'
+import Close from '@material-ui/icons/Close'
 import Invite from './Invite';
 import { SubjectContext } from '../../context/subject';
 import * as MateriasService from '../../services/MateriasService'
@@ -12,83 +14,87 @@ import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
 import CardTask from '../Task/CardTask';
 import Task from '../Task/Task';
 import moment from 'moment'
-import AlertTaskDialog from './AlertTaskDialog';
+import AlertTaskDialog from './AlertTaskDialog'
+import LinealLoading from '../LoadingPage/LinealLoading'
 
 const useStyles = makeStyles((theme) => ({   
-    floatingButtonInvite: {
+    floatingButtons: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         position: 'fixed',
-        bottom: 0,
         right: 0,
-        marginBottom: '12px',
-        marginRight: '8px',
-        color: 'white',
-        backgroundColor: theme.palette.primary.dark
+        bottom: 0,
+        marginRight: 8,
+        marginBottom: 8
     },
     floatingButtonAddTask: {
-        position: 'fixed',
-        bottom: 80,
-        right: 0,
         color: 'white',
-        marginRight: '8px',
-        backgroundColor: theme.palette.primary.light
+        backgroundColor: theme.palette.success.main
+    },
+    floatingButtonInvite: {
+        color: 'white',
+        marginBottom: '8px',
+        backgroundColor: theme.palette.primary.dark
     },
     info: {
-        margin: '5px',
+        margin: '5px 5px 5px 5px',
         padding: '5px 5px 5px 10px',
-        fontSize: '0.6rem',
+        fontSize: '13px',
         fontWeight: 'bold',
         backgroundColor: '#F5F5F5',
-        width: '100%'
+        flexDirection: 'row',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     container: {
         marginTop: '5px',
         padding: '10px',
-
     },
     root: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
     },
-    appbar: {
+    sizeSmallPadding: {
+        padding: 8
     }
 }));
 
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
-  
     return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box p={2}>
-            {children}
-          </Box>
-        )}
-      </div>
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+            <Box p={2}>
+                {children}
+            </Box>
+            )}
+        </div>
     );
-  }
-  
-  TabPanel.propTypes = {
+}
+
+TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,
     value: PropTypes.any.isRequired,
-  };
+};
 
-  function a11yProps(index) {
+function a11yProps(index) {
     return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
     };
-  }
+}
 
 const Subject = (props) => {
- 
     const classes = useStyles();
     const { materiaId } = useParams();
     const { setSubjectId, setSubjectName } = useContext(SubjectContext)
@@ -97,17 +103,19 @@ const Subject = (props) => {
     const [openTask, setOpenTask] = useState(false);
     const [pendientes, setPendientes] = useState([]);
     const [finalizadas, setFinalizadas] = useState([]);
-    const [openAlert, setOpenAlert] = React.useState(false);
+    const [openAlert, setOpenAlert] = useState(false);
     const [tareaId, setTareaId] = useState('')
     const [cantColabs, setCantColabs] = useState(0)
-
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(0)
+    const [showInfo, setShowInfo] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     const [openSuccessBar, setOpenSuccessBar] = useState(false)
     const [message, setMessage] = useState('')
 
     useEffect(() => {
         async function setSubjectData() {
+            setLoading(true)
             const materia = await MateriasService.getSubjectById(materiaId)
             setLink(materia.link)
             setSubjectName(materia.nombre)
@@ -116,7 +124,7 @@ const Subject = (props) => {
         async function cargarTareas() {
             let tasksSubject = [];
             tasksSubject = await TaskService.getTasks(materiaId)
-            tasksSubject.map( (task) => {
+            tasksSubject.forEach( (task) => {
                 if(task.estado === 'pendiente'){
                     setPendientes(prevState =>
                         [...prevState, task]
@@ -127,18 +135,19 @@ const Subject = (props) => {
                     )
                 }
             })
+            setLoading(false)
         }
-        cargarTareas();
-        setSubjectData();
+        setSubjectData()
+        cargarTareas()
     }, [materiaId, setSubjectId, setSubjectName])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-    };
+    }
 
     const handleClickOpenInvite = () => {
         setOpenInvite(true);
-    };
+    }
 
     const handleClickOpenTask = async () => {
         if (openTask) {
@@ -152,16 +161,12 @@ const Subject = (props) => {
             return;
         }
         setOpenSuccessBar(false);
-    };
+    }
 
-    const acceptDelete = (taskId, materiaId) => {
-        console.log(taskId)
-        console.log(materiaId)
-        TaskService.deleteTask(taskId, materiaId)
-        .then(() => {
-            setPendientes(prevState => prevState.filter(e => e.tareaId !== taskId))
-        })
-        .catch((e) => { console.log(e) })
+    const onTaskDelete = (taskId) => {
+        setMessage('La tarea ha sido eliminada correctamente')
+        setOpenSuccessBar(true)
+        setPendientes(prevState => prevState.filter(e => e.tareaId !== taskId))
     }
 
     const handleDelete = (taskId, colaboradores) => {
@@ -202,42 +207,43 @@ const Subject = (props) => {
             })
     }
 
-    const createTask = (task, isEdition, index) => {
-        if (!isEdition) {
-            TaskService.createTask(task, materiaId)
-                .then(async (doc) => {
-                    let task = await doc.get()
-                    task = task.data()
-                    setPendientes(prevState =>
-                        [...prevState, { tareaId: doc.id, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.colaboradores, fechaLimite: moment(task.fechaLimite.toDate()).format('L'), estado: task.estado }]
-                    )
-                }).catch( (e) => {
-                    console.log(e)
-                })
+    const onCreationSuccess = (id, task, index) => {
+        if (index === undefined) {
+            setMessage('Tarea creada con éxito!')
+            setOpenSuccessBar(true)
+            setPendientes(prevState =>
+                [...prevState, { tareaId: id, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.colaboradores, fechaLimite: moment(task.fechaLimite.toDate()).format('L'), estado: task.estado }]
+            )
         } else {
-            TaskService.updateTask(task.tareaId, task)
-                .then(() => {
-                    if (index !== undefined) {
-                        const newPendientes = pendientes.slice() //copy the array
-                        newPendientes[index] = { tareaId: task.tareaId, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.aCargo, fechaLimite: moment(task.fechaLimite).format('L'), estado: task.estado } //execute the manipulations
-                        setPendientes(newPendientes)
-                    }
-                })
-                .catch(e => console.log(e))
+            setMessage('Tarea editada con éxito!')
+            setOpenSuccessBar(true)
+            const newPendientes = pendientes.slice()
+            newPendientes[index] = { tareaId: task.tareaId, titulo: task.titulo, descripcion: task.descripcion, colaboradores: task.aCargo, fechaLimite: moment(task.fechaLimite).format('L'), estado: task.estado }
+            setPendientes(newPendientes)
         }
     }
- 
+
+    const onSuccessInvitation = () => {
+        setMessage('Invitación enviada!')
+        setOpenSuccessBar(true)
+    }
+
+    const closeLinkInfo = () => {
+        setShowInfo(false)
+    }
+
     return (
         <>
             {openInvite && <Invite 
                 open={openInvite}
                 setOpen={setOpenInvite}
                 materiaId={materiaId}
+                successHandler={onSuccessInvitation}
             />}
             {openTask && <Task
                 open={openTask}
                 setOpen={setOpenTask}
-                acceptHandler={createTask}
+                acceptHandler={onCreationSuccess}
             />}
             {openAlert && <AlertTaskDialog
                 open={openAlert}
@@ -245,50 +251,67 @@ const Subject = (props) => {
                 taskId={tareaId}
                 subjectId={materiaId}
                 cantColaboradores={cantColabs}
-                acceptHandler={acceptDelete}
+                acceptHandler={onTaskDelete}
             />}
-                <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
-                    <p>Link al foro donde podés encontrar apuntes, examenes, trabajos practicos y más información de la materia <a href={link}  target="_blank">{link}</a></p>
-                </Paper>    
-                    <AppBar position="static" className={classes.appbar}>
-                        <Tabs value={value} onChange={handleChange} variant="fullWidth" aria-label="simple tabs example">
-                        <Tab label="Tareas pendientes" {...a11yProps(0)} />
-                        <Tab label="Tareas finalizadas" {...a11yProps(1)} />
-                        </Tabs>
-                    </AppBar>
-                    <TabPanel value={value} index={0}>
-                    <Grid container spacing={1}>
-                        {pendientes && pendientes.map((task, index) =>
-                            <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                                <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} finishedHandler={handleFinished} index={index}/>
-                            </Grid>
-                            )
-                        }
-                     </Grid>
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                    <Grid container spacing={1}>
-                        {finalizadas && finalizadas.map((task, index) =>
-                            <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
-                                <CardTask data={task} history={props.history} acceptTaskHandler={createTask} deleteHandler={handleDelete} pendienteHandler={handlePendiente} index={index}/>
-                            </Grid>
-                            )
-                        }
-                     </Grid>
-                    </TabPanel>
-
-            <IconButton
-                className={classes.floatingButtonInvite}
-                arial-label="Agregar colaborador"
-                onClick={handleClickOpenInvite}
-            >
-                <PersonAddIcon style={{ fontSize: "28px" }} />
-            </IconButton>
-            <IconButton variant="contained"
-                    className={classes.floatingButtonAddTask}
-                    onClick={handleClickOpenTask}>
-                    <PostAddIcon style={{ fontSize: "28px" }} />
-            </IconButton>
+            { loading ?
+                <LinealLoading>Cargando sus tareas...</LinealLoading>
+            : <>{showInfo && <Paper xs={12} sm={6} md={4} className={classes.info} variant="outlined" >
+                <p>Para encontrar apuntes, exámenes, trabajos prácticos y más información sobre esta materia, ingresá al <a href={link} style={{textDecoration: 'none'}} rel="noopener noreferrer" target="_blank">foro de la UNO</a></p>
+                <Close onClick={closeLinkInfo}/>
+            </Paper>}
+            <Hidden smDown>
+                <div style={{ width: '100%', marginBottom: 8, marginLeft: 4, marginTop: showInfo ? 8 : 16}}>
+                    <Button style={{ color: 'white' }} variant="contained" startIcon={<AddCircleIcon />} color="secondary" onClick={handleClickOpenTask}>Agregar Tarea</Button>
+                    <Button style={{marginLeft: 8}} variant="outlined" startIcon={<PersonAddIcon />} color="primary" onClick={handleClickOpenInvite}>Añadir colaborador</Button>
+                </div>
+            </Hidden>
+            <AppBar position="static" style={{marginTop: showInfo ? 0 : 16}}>
+                <Tabs value={value} onChange={handleChange} variant="fullWidth" aria-label="simple tabs example">
+                <Tab label="Tareas pendientes" {...a11yProps(0)} />
+                <Tab label="Tareas finalizadas" {...a11yProps(1)} />
+                </Tabs>
+            </AppBar>
+            <TabPanel value={value} index={0}>
+                <Grid container spacing={1}>
+                    {pendientes && pendientes.map((task, index) =>
+                        <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
+                            <CardTask data={task} history={props.history} acceptTaskHandler={onCreationSuccess} deleteHandler={handleDelete} finishedHandler={handleFinished} index={index}/>
+                        </Grid>
+                        )
+                    }
+                </Grid>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <Grid container spacing={1}>
+                    {finalizadas && finalizadas.map((task, index) =>
+                        <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
+                            <CardTask data={task} history={props.history} acceptTaskHandler={onCreationSuccess} deleteHandler={handleDelete} pendienteHandler={handlePendiente} index={index}/>
+                        </Grid>
+                        )
+                    }
+                </Grid>
+            </TabPanel>
+            <Hidden mdUp>
+                <div className={classes.floatingButtons}>
+                    <IconButton
+                        className={classes.floatingButtonInvite}
+                        arial-label="Agregar colaborador"
+                        onClick={handleClickOpenInvite}
+                        size="small"
+                        classes={{
+                            sizeSmall: classes.sizeSmallPadding
+                        }}
+                    >
+                        <PersonAddIcon style={{ fontSize: "24px" }} />
+                    </IconButton>
+                    <IconButton variant="contained"
+                        className={classes.floatingButtonAddTask}
+                        onClick={handleClickOpenTask}>
+                        <PostAddIcon style={{ fontSize: "28px" }} />
+                    </IconButton>
+                </div>
+            </Hidden></>
+            }
             <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
                 {message}
             </CustomizedSnackbars>

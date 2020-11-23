@@ -1,6 +1,7 @@
-import React, { Fragment, useContext, useState } from 'react'
-import { AppBar, Container, Toolbar, IconButton, Typography, makeStyles, Hidden, MenuList, MenuItem, Drawer, CssBaseline, ListItemIcon } from '@material-ui/core'
+import React, { Fragment, useContext, useState, useEffect } from 'react'
+import { AppBar, Container, Toolbar, IconButton, Typography, makeStyles, Avatar, MenuList, MenuItem, Drawer, CssBaseline, ListItemIcon } from '@material-ui/core'
 import AuthenticationService from '../../services/AuthenticationService'
+import * as UserService from '../../services/UserService'
 import MenuIcon from '@material-ui/icons/Menu'
 import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
@@ -15,26 +16,25 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     zIndex: 1,
-    overflow: 'hidden',
     position: 'relative',
     display: 'flex',
     width: '100%'
   },
   menuButton: {
-    color: 'white'
+    color: theme.palette.primary.main,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
   title: {
     flexGrow: 1,
-    color: 'white',
+    color: theme.palette.primary.main,
     cursor: 'pointer',
     textDecoration: 'none'
   },
   actualPage: {
     flexGrow: 1,
-    color: 'white'
+    color: theme.palette.primary.main,
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
@@ -42,6 +42,17 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   toolbar: theme.mixins.toolbar,
+  userData: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginLeft: 12,
+    marginTop: 12,
+  },
+  avatar: {
+    width: theme.spacing(8),
+    height: theme.spacing(8),
+  },
   drawerPaper: {
     width: drawerWidth,
     backgroundColor: theme.palette.primary.main,
@@ -50,16 +61,37 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
+  },
+  logo: {
+    maxWidth: 40,
+  },
+  icons: {
+    color: 'white'
   }
 }));
 
 const Layout = (props) => {
 
+  
   const [openDrawer, setOpenDrawer] = useState(false)
   const [openPopCollab, setOpenCollab] = useState(false)
+  const [userData, setUserData] = useState({})
   const classes = useStyles();
   const { location: { pathname }, children } = props;
   const { subjectId, subjectName } = useContext(SubjectContext)
+
+  useEffect(() => {
+    const loadUserData = async () => {
+      const id = AuthenticationService.getSessionUserId()
+      try {
+        const user = await UserService.getUserDataById(id)
+        setUserData(user)
+      } catch (err) {
+        console.log(err)
+      }
+    } 
+    loadUserData()
+  }, [])
 
   const handleOpenCollab = () => {
     setOpenCollab(!openPopCollab)
@@ -90,19 +122,22 @@ const Layout = (props) => {
 
   const drawer = (
     <div>
-      <Hidden smDown>
-        <div className={classes.toolbar} />
-      </Hidden>
+      <div className={`${classes.toolbar} ${classes.userData}`}>
+        <Avatar className={classes.avatar} alt='' src={userData.photoURL}/>
+        <div>
+          <Typography style={{marginLeft: 8}} variant="body1">{`${userData.firstName} ${userData.lastName}`}</Typography>
+        </div>
+      </div>
       <MenuList>
         <MenuItem component={Link} to="/dashboard" selected={'/dashboard' === pathname}>
           <ListItemIcon>
-            <MenuBookRoundedIcon fontSize="small" />
+            <MenuBookRoundedIcon className={classes.icons} fontSize="small" />
           </ListItemIcon>
           Mis Materias
         </MenuItem>
         <MenuItem component={Link} to="/edit_profile" selected={'/edit_profile' === pathname}>
           <ListItemIcon>
-            <AccountCircleRoundedIcon fontSize="small" />
+            <AccountCircleRoundedIcon className={classes.icons} fontSize="small" />
           </ListItemIcon>
           Editar Perfil
         </MenuItem>
@@ -110,7 +145,7 @@ const Layout = (props) => {
           pathname.includes('/subject') ?
           <MenuItem onClick={handleOpenCollab}>
             <ListItemIcon>
-              <GroupIcon fontSize="small" />
+              <GroupIcon className={classes.icons} fontSize="small" />
             </ListItemIcon>
             Ver colaboradores
             {openPopCollab && <Collabs open={openPopCollab} setOpen={setOpenCollab}/>}
@@ -119,7 +154,7 @@ const Layout = (props) => {
         }
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
-            <ReplyRoundedIcon fontSize="small" />
+            <ReplyRoundedIcon className={classes.icons} fontSize="small" />
           </ListItemIcon>
           Cerrar Sesión
         </MenuItem>
@@ -133,10 +168,10 @@ const Layout = (props) => {
       <Fragment>
         <CssBaseline />
         <div className={classes.root}>
-          <AppBar position="static">
+          <AppBar color='default' position="static" className={classes.appBar}>
             <Toolbar>
-              <Typography variant="h6" className={classes.title} component={Link} to="/dashboard">
-                uWork
+              <Typography className={classes.title} component={Link} to="/dashboard">
+                <img src='https://firebasestorage.googleapis.com/v0/b/uwork-dev-beta.appspot.com/o/assets%2FuWork.png?alt=media&token=ea6dd5fe-9312-4fac-8c50-c7964cc91939' alt='' className={classes.logo}></img>
               </Typography>
               <Typography variant="h6" className={classes.actualPage}>
                 {getCurrentPageName()}

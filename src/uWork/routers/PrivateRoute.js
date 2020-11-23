@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { AuthContext } from '../context/auth'
 import { Route, Redirect } from 'react-router-dom';
 import AuthenticationService from '../services/AuthenticationService'
-import LoadingPage from '../components/LoadingPage/LoadingPage';
-import { auth } from '../services/firebase';
 
 export const PrivateRoute = ({
     component: Component,
@@ -16,7 +14,7 @@ export const PrivateRoute = ({
 
     return (
         <Fragment>
-            { authReady ?
+            { authReady &&
                 <Route {...rest}
                     component={(props) => (
                         (currentUser)
@@ -24,7 +22,7 @@ export const PrivateRoute = ({
                             : (<Redirect to="/login" />)
                     )}
 
-                /> : <LoadingPage />}
+                />}
         </Fragment>
     )
 }

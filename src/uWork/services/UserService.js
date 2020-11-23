@@ -91,11 +91,11 @@ export const getUserSubjects = async (id) => {
   return user.materias;
 }
 
-export const existSubject = async (subject, userID) => {
+export const existSubject = async (subject, career, userID) => {
   const userMaterias = await MateriasService.getSubjects(userID)
   let exist = false;
-  userMaterias.map(materia => {
-    if(materia.nombre === subject.subject){
+  userMaterias.forEach(materia => {
+    if (materia.nombre === subject && materia.carrera === career) {
       exist = true;
     }
   })

@@ -88,7 +88,7 @@ export const deleteMateriaAdmin = async (materiaId, user) => {
                 [materiaId]: firebase.firestore.FieldValue.delete(),
             }       
         }, {merge: true})
-        .then(()=>{console.log('usuario eliminado:' + userid)})
+        .then(()=>{})
         .catch((e) => {console.log(e)})
     })
     
@@ -167,16 +167,15 @@ export const getSubjectTasks = async (materiaId) => {
     try {
         materia = await getSubjectById(materiaId)
     } catch (err) {
-      throw new Error(err)
+        throw new Error(err)
     }
-  
     return materia.tareas;
-  }
+}
 
-  export const verificarColaboradores = async (email, subjectId) => {
+export const verificarColaboradores = async (email, subjectId) => {
     const usuarios = await getCollabsFromSubject(subjectId)
     let response = false;
-    usuarios.map( (user) => {
+    usuarios.forEach( (user) => {
         if(user.email === email){
             response = true
         }

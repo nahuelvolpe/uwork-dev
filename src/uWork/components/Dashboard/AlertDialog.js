@@ -1,12 +1,10 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import { makeStyles } from '@material-ui/core/styles';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DeleteIcon from '@material-ui/icons/Delete';
+import React, { useState } from 'react'
+import { makeStyles, Dialog, Button, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
+import DeleteIcon from '@material-ui/icons/Delete'
+import AdornedButton from '../AdornedButton/AdornedButton'
+
+import AuthenticationService from '../../services/AuthenticationService'
+import * as MateriasService from '../../services/MateriasService'
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -17,20 +15,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AlertDialog(props) {
-
-  
-
-  const {open, setOpen, subjectId, acceptHandler} = props;
+  const { open, setOpen, subjectId, acceptHandler, errorHandler } = props;
   const classes = useStyles();
-
+  const userId = AuthenticationService.getSessionUserId()
+  const [loading, setLoading] = useState(false)
 
   const handleClose = () => {
     setOpen(false);
   };
 
   const handleAccept = () => {
-    acceptHandler(subjectId)
-    setOpen(false)
+    setLoading(true)
+    MateriasService.deleteMateriaAdmin(subjectId, userId)
+        .then(() => {
+          setLoading(false)
+          acceptHandler(subjectId)
+          setOpen(false)
+        })
+        .catch((e) => {
+          console.log(e)
+          setLoading(false)
+          errorHandler()
+        })
   }
 
   return (
@@ -45,19 +51,20 @@ export default function AlertDialog(props) {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
               Posiblemente haya colaborares en esta matería y se eliminará tambien de sus cuentas.
-              Esta seguro que desea eliminarla?
+              <strong>¿Está seguro que desea eliminarla?</strong>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button
-          variant="contained"
-          className={classes.button}
-          startIcon={<DeleteIcon />}
-          onClick={handleAccept}
-          autoFocus >
+          <AdornedButton
+            variant="contained"
+            className={classes.button}
+            startIcon={<DeleteIcon />}
+            onClick={handleAccept}
+            loading={loading}
+            disabled={loading}
+          >
             Eliminar
-          </Button>
-
+          </AdornedButton>
           <Button onClick={handleClose} color="primary">
             Cancelar
           </Button>

@@ -6,14 +6,23 @@ import { BrowserRouter } from 'react-router-dom'
 
 const theme = createMuiTheme({
   palette: {
-    primary: { 
+    /* primary: { 
       light: '#18C7FF',
       main: '#14A7D6',
       dark: '#148EB5',
       contrastText: '#fff'
-     },
+    }, */
+    primary: {
+      light: '#c232db',
+      main: '#8b34a7',
+      dark: '#731e82',
+      contrastText: '#fff'
+    },
     secondary: { 
-      main: '#6c757d',
+      main: '#2ab182',
+    },
+    tertiary: {
+      main: 'white'
     },
     action: {
       main: '#007bff'
@@ -22,13 +31,20 @@ const theme = createMuiTheme({
       main: '#ffc107'
     },
     success: {
-      main: '#28a745'
+      main: '#2ab182'
+      //verde para botones
     },
     info:{
       main: '#17a2b8'
     },
     danger: {
       main: '#dc3545'
+    },
+    background: {
+      default: '#ebebeb'
+    },
+    gradient: {
+      main: 'linear-gradient(45deg, #8f34a4 15%, #a53493)'
     }
   }
 })
