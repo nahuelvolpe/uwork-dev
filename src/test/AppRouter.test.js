@@ -10,12 +10,14 @@ import Register from '../uWork/components/Register/Register'
 import { PublicRoute } from '../uWork/routers/PublicRoute'
 import AuthenticationService from '../uWork/services/AuthenticationService'
 import * as MateriasService from '../uWork/services/MateriasService'
+import * as UserService from '../uWork/services/UserService'
 import { PrivateRoute } from '../uWork/routers/PrivateRoute';
 import Dashboard from '../uWork/components/Dashboard/Dashboard';
 import Layout from '../uWork/components/Layout/Layout';
 
 jest.mock('../uWork/services/AuthenticationService')
 jest.mock('../uWork/services/MateriasService')
+jest.mock('../uWork/services/UserService')
 
 configure({ adapter: new Adapter() });
 
@@ -68,7 +70,9 @@ describe('App Router', () => {
         authReady: true
       }
       AuthenticationService.getCurrentUser.mockReturnValue({ uid: 'id' })
+      AuthenticationService.getSessionUserId.mockReturnValue('id')
       MateriasService.getSubjects.mockResolvedValue([{ materiaId: 'asdasd' }])
+      UserService.getUserDataById.mockResolvedValue({ photoURL: 'photo', firstName: 'Pepe', lastName: 'Perez' })
       const wrapper = renderAppRouter('/dashboard', context)
       await wait(() => {
         expect(wrapper.find(PrivateRoute)).toHaveLength(3)
@@ -76,7 +80,10 @@ describe('App Router', () => {
         expect(wrapper.find(Dashboard)).toHaveLength(1)
       })
       expect(AuthenticationService.getCurrentUser).toHaveBeenCalled()
+      expect(AuthenticationService.getSessionUserId).toHaveBeenCalled()
       expect(MateriasService.getSubjects).toHaveBeenCalled()
+      expect(UserService.getUserDataById).toHaveBeenCalled()
+      expect(UserService.getUserDataById).toHaveBeenCalledWith('id')
     })
   })
 

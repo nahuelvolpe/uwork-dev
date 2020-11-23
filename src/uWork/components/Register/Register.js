@@ -165,7 +165,7 @@ const Register = (props) => {
                   </Button>}
                   <Divider className={classes.divider} variant="middle" />
                   <Button className={classes.botonGoogle} variant="contained"
-                    color="primary" onClick={() => handleLoginSocial(googleAuthProvider)}>
+                    type="button" color="primary" onClick={() => handleLoginSocial(googleAuthProvider)}>
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
                       alt="logo"

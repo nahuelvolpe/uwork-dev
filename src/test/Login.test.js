@@ -11,7 +11,7 @@ import AuthenticationService from '../uWork/services/AuthenticationService'
 
 jest.mock('../uWork/services/AuthenticationService')
 
-configure({ adapter: new Adapter() });
+configure({ adapter: new Adapter() })
 
 afterEach(cleanup)
 
