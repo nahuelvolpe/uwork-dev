@@ -1,6 +1,6 @@
 import React from 'react'
 import '@testing-library/react'
-import { render, cleanup, screen, fireEvent, wait, queryByAttribute } from '@testing-library/react'
+import { render, cleanup, fireEvent, wait, queryByAttribute } from '@testing-library/react'
 import Register from '../uWork/components/Register/Register'
 import { MemoryRouter } from 'react-router-dom'
 import { mount, configure } from 'enzyme'

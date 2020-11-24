@@ -98,11 +98,16 @@ const EditProfile = (props) => {
   useEffect(() => {
     const id = AuthenticationService.getSessionUserId()
     const loadData = async (userID) => {
-      const data = await UserService.getUserDataById(userID)
-      if(data !== undefined){
-        setNombre(nombre => data.firstName ? data.firstName : nombre)
-        setApellido(apellido => data.lastName ? data.lastName : apellido)
-        setuserImg(userImg => data.photoURL ? data.photoURL : userImg)
+      try {
+        const response = await UserService.getUserData(userID);
+        const data = response.data()
+        if(data !== undefined){
+          setNombre(nombre => data.firstName ? data.firstName : nombre)
+          setApellido(apellido => data.lastName ? data.lastName : apellido)
+          setuserImg(userImg => data.photoURL ? data.photoURL : userImg)
+        }
+      } catch(err) {
+        throw new Error(err)
       }
     }
     loadData(id)
@@ -146,7 +151,7 @@ const EditProfile = (props) => {
     const onComplete = function () {
       StorageService.getDownloadUrl(url).then(imgUrl => {
         setFieldValue("userImg", imgUrl)
-      })
+      }).catch(err => console.log(err))
     }
     var file = e.target.files[0]
     setFieldValue("file", file)
