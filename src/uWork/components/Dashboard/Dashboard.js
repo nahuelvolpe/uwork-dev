@@ -143,7 +143,7 @@ const Dashboard = (props) => {
                     <Grid container>
                         <Hidden smDown>
                             <div style={{ width: '100%', marginTop: 16, marginLeft: 8 }}>
-                                <Button variant="outlined" startIcon={<AddCircleIcon />} color="primary" onClick={handleClickOpen}>Agregar Materia</Button>
+                                <Button variant="outlined" startIcon={<AddCircleIcon />} color="primary" label="Agregar Materia" onClick={handleClickOpen}>Agregar Materia</Button>
                             </div>
                         </Hidden>
                         {materias && materias.map((materia) =>
@@ -152,7 +152,7 @@ const Dashboard = (props) => {
                             </Grid>)
                         }
                         <Hidden mdUp>
-                            <Tooltip classes={{ tooltip: classes.tooltip }} placement="left" title="Agregar Materia" enterTouchDelay={400}>
+                            <Tooltip classes={{ tooltip: classes.tooltip }} placement="left" title="Agregar Materia" label="Add Subject" enterTouchDelay={400}>
                                 <IconButton
                                     className={classes.floatingButton}
                                     arial-label="Add"

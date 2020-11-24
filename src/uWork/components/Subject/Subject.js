@@ -261,8 +261,8 @@ const Subject = (props) => {
             </Paper>}
             <Hidden smDown>
                 <div style={{ width: '100%', marginBottom: 8, marginLeft: 4, marginTop: showInfo ? 8 : 16}}>
-                    <Button style={{ color: 'white' }} variant="contained" startIcon={<AddCircleIcon />} color="secondary" onClick={handleClickOpenTask}>Agregar Tarea</Button>
-                    <Button style={{marginLeft: 8}} variant="outlined" startIcon={<PersonAddIcon />} color="primary" onClick={handleClickOpenInvite}>Añadir colaborador</Button>
+                    <Button style={{ color: 'white' }} variant="contained" startIcon={<AddCircleIcon />} color="secondary" label="Agregar Tarea" onClick={handleClickOpenTask}>Agregar Tarea</Button>
+                    <Button style={{marginLeft: 8}} variant="outlined" startIcon={<PersonAddIcon />} color="primary" label="Añadir Colaborador" onClick={handleClickOpenInvite}>Añadir colaborador</Button>
                 </div>
             </Hidden>
             <AppBar position="static" style={{marginTop: showInfo ? 0 : 16}}>
