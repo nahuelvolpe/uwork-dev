@@ -51,12 +51,12 @@ describe('Dashboard', () => {
       jest.setTimeout(20000)
       AuthenticationService.getSessionUserId.mockReturnValue('id')
       MateriasService.getSubjects.mockResolvedValue([])
-      const wrapper = shallow(<MemoryRouter><Dashboard /></MemoryRouter>)
+      const wrapper = render(<MemoryRouter><Dashboard /></MemoryRouter>)
 
       await wait(() => {
         expect(wrapper.find(Button)).toHaveLength(1)
         expect(wrapper.find(Alert)).toHaveLength(1)
       })
-    })  */
+    }) */  
   })
 }) 
