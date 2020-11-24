@@ -98,8 +98,7 @@ const EditProfile = (props) => {
   useEffect(() => {
     const id = AuthenticationService.getSessionUserId()
     const loadData = async (userID) => {
-      const response = await UserService.getUserData(userID);
-      const data = response.data()
+      const data = await UserService.getUserDataById(userID)
       if(data !== undefined){
         setNombre(nombre => data.firstName ? data.firstName : nombre)
         setApellido(apellido => data.lastName ? data.lastName : apellido)
