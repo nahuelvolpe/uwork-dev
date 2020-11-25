@@ -16,6 +16,7 @@ import * as TaskService from '../uWork/services/TaskService'
 jest.mock('../uWork/services/AuthenticationService')
 jest.mock('../uWork/services/MateriasService')
 jest.mock('../uWork/services/UserService')
+jest.mock('../uWork/services/TaskService')
 
 configure({ adapter: new Adapter() })
 
@@ -42,8 +43,8 @@ describe('Subject', () => {
         expect(wrapper.find(Subject)).toHaveLength(1)
         expect(MateriasService.getSubjectById).toHaveBeenCalled()
         expect(TaskService.getTasks).toHaveBeenCalled()
-      })W
-    }) */
+      })
+    }) */ 
 
   })
 }) 
