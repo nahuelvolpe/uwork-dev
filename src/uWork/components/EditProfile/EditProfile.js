@@ -98,12 +98,16 @@ const EditProfile = (props) => {
   useEffect(() => {
     const id = AuthenticationService.getSessionUserId()
     const loadData = async (userID) => {
-      const response = await UserService.getUserData(userID);
-      const data = response.data()
-      if(data !== undefined){
-        setNombre(nombre => data.firstName ? data.firstName : nombre)
-        setApellido(apellido => data.lastName ? data.lastName : apellido)
-        setuserImg(userImg => data.photoURL ? data.photoURL : userImg)
+      try {
+        const response = await UserService.getUserData(userID);
+        const data = response.data()
+        if(data !== undefined){
+          setNombre(nombre => data.firstName ? data.firstName : nombre)
+          setApellido(apellido => data.lastName ? data.lastName : apellido)
+          setuserImg(userImg => data.photoURL ? data.photoURL : userImg)
+        }
+      } catch(err) {
+        throw new Error(err)
       }
     }
     loadData(id)
@@ -147,7 +151,7 @@ const EditProfile = (props) => {
     const onComplete = function () {
       StorageService.getDownloadUrl(url).then(imgUrl => {
         setFieldValue("userImg", imgUrl)
-      })
+      }).catch(err => console.log(err))
     }
     var file = e.target.files[0]
     setFieldValue("file", file)
@@ -212,7 +216,7 @@ const EditProfile = (props) => {
                   disabled={(!dirty || !isValid) || saving}>
                   Guardar
                 </Button>
-                {saving && <LinearProgress />}
+                {saving && <LinearProgress id="edit-profile-linear-progress"/>}
               </Form>
               
             )}
@@ -220,10 +224,10 @@ const EditProfile = (props) => {
           <div style={{ textAlign: "center", width: "100%" }}>
             <p ><Link className={classes.link} to='/dashboard'>Ir a Mis Materias</Link></p>
           </div>
-          <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
+          <CustomizedSnackbars id="edit-profile-success" open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
             Datos guardados!
           </CustomizedSnackbars>
-          <CustomizedSnackbars open={errorSaving} handleClose={handleCloseSnackBarError} severity="error">
+          <CustomizedSnackbars id="edit-profile-error" open={errorSaving} handleClose={handleCloseSnackBarError} severity="error">
             Error al guardar los datos.
           </CustomizedSnackbars>
         </Grid>
