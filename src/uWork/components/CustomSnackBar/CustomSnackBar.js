@@ -10,7 +10,7 @@ const CustomizedSnackbars = (props) => {
   return (
     <div>
       <Snackbar open={props.open} autoHideDuration={6000} onClose={props.handleClose}>
-        <Alert onClose={props.handleClose} severity={props.severity}>
+        <Alert id={props.id} onClose={props.handleClose} severity={props.severity}>
           {props.children}
         </Alert>
       </Snackbar>
