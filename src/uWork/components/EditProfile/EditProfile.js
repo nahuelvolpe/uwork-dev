@@ -216,7 +216,7 @@ const EditProfile = (props) => {
                   disabled={(!dirty || !isValid) || saving}>
                   Guardar
                 </Button>
-                {saving && <LinearProgress />}
+                {saving && <LinearProgress id="edit-profile-linear-progress"/>}
               </Form>
               
             )}
@@ -224,10 +224,10 @@ const EditProfile = (props) => {
           <div style={{ textAlign: "center", width: "100%" }}>
             <p ><Link className={classes.link} to='/dashboard'>Ir a Mis Materias</Link></p>
           </div>
-          <CustomizedSnackbars open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
+          <CustomizedSnackbars id="edit-profile-success" open={openSuccessBar} handleClose={handleCloseSnackBarSuccess} severity="success">
             Datos guardados!
           </CustomizedSnackbars>
-          <CustomizedSnackbars open={errorSaving} handleClose={handleCloseSnackBarError} severity="error">
+          <CustomizedSnackbars id="edit-profile-error" open={errorSaving} handleClose={handleCloseSnackBarError} severity="error">
             Error al guardar los datos.
           </CustomizedSnackbars>
         </Grid>

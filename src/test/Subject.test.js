@@ -34,8 +34,8 @@ const setUp = () => {
 describe('Subject', () => {
   describe('When user is register', () => {
 
-    /* it('should renders Subject correctly', async () => {
-      jest.setTimeout(10000)
+    it('should renders Subject correctly', async () => {
+      /* jest.setTimeout(10000)
       MateriasService.getSubjectById.mockResolvedValue({materiaId: 'id', carrera: 'carrera', nombre: 'nombre', roles: {id: 'rol'}, link:'link', tarea:{id: 'url'}})
       TaskService.getTasks.mockResolvedValue([]);
       const wrapper = mount(<MemoryRouter><Subject /></MemoryRouter>)
@@ -43,8 +43,13 @@ describe('Subject', () => {
         expect(wrapper.find(Subject)).toHaveLength(1)
         expect(MateriasService.getSubjectById).toHaveBeenCalled()
         expect(TaskService.getTasks).toHaveBeenCalled()
+<<<<<<< HEAD
       })
     }) */ 
+=======
+      }) */
+    })
+>>>>>>> 82f7f02e867c365ed2d199fafca4c9622f1fa793
 
   })
 }) 

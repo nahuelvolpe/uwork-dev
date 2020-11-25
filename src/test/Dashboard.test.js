@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, cleanup, fireEvent, wait, queryByAttribute } from '@testing-library/react'
+import { render, cleanup, fireEvent, queryByAttribute, wait } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { mount, configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
