@@ -13,8 +13,6 @@ import * as MateriasService from '../uWork/services/MateriasService'
 import * as UserService from '../uWork/services/UserService'
 import LinealLoading from '../uWork/components/LoadingPage/LinealLoading'
 
-
-
 jest.mock('../uWork/services/AuthenticationService')
 jest.mock('../uWork/services/MateriasService')
 jest.mock('../uWork/services/UserService')
@@ -47,16 +45,17 @@ describe('Dashboard', () => {
       })
     })
 
-    /* it('has a Alert and a Button', async () => {
-      jest.setTimeout(20000)
+    it('has a Alert and a Button', async () => {
+      //jest.setTimeout(20000)
+      const { container, getById } = setUp()
       AuthenticationService.getSessionUserId.mockReturnValue('id')
-      MateriasService.getSubjects.mockResolvedValue([])
-      const wrapper = render(<MemoryRouter><Dashboard /></MemoryRouter>)
-
+      MateriasService.getSubjects.mockResolvedValueOnce([])
+      //const { container } = render(/* <MemoryRouter> */<Dashboard />/* </MemoryRouter> */)
+      let alert
       await wait(() => {
-        expect(wrapper.find(Button)).toHaveLength(1)
-        expect(wrapper.find(Alert)).toHaveLength(1)
+        alert = getById(container, "guide-alert")
       })
-    }) */  
+      expect(alert).toHaveTextContent("No tenés materias asignadas! Para agregar tu primer materia hacé click en el botón '+' de abajo a la derecha")
+    })
   })
 }) 

@@ -125,7 +125,7 @@ const Dashboard = (props) => {
                 </Fragment> :
                 <Fragment>
                     {guide &&
-                        <Alert severity="info">No tenés materias asignadas! Para agregar tu primer materia hacé click en el botón '+' de abajo a la derecha</Alert>
+                        <Alert id="guide-alert" severity="info">No tenés materias asignadas! Para agregar tu primer materia hacé click en el botón '+' de abajo a la derecha</Alert>
                     }
                     {open && <AddSubject
                         open={open}
