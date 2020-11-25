@@ -1,0 +1,52 @@
+.card {
+    display: flex;
+    height: auto;
+    min-height: 90px;
+    flex: 1 100%;
+    border-radius: 5px;
+    box-shadow:0 1px 1px rgba(0,0,0,0.10),
+    0 2px 2px rgba(0,0,0,0.10),0 2px 2px rgba(0,0,0,0.10),
+    0 2px 2px rgba(0,0,0,0.10);
+    padding: 8px 5px 5px 8px;
+    flex-direction: row;
+    background-color: white;
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.card__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.card__info h3{
+    display: flex;
+    margin: 2px 0 0 0;
+    padding: 0px;
+}
+.card__info h4{
+    display: flex;
+    margin: 0 0 10px 0;
+    padding: 0px;
+    font-weight: lighter;
+}
+
+.card__avatars {
+    display: flex;
+    align-self: center;
+    margin: 0 0 0 auto;
+}
+
+.card__menu {
+    display: flex;
+    align-self: flex-start;
+    
+}
+
+.check {
+    display: flex;
+    flex-direction: row;
+}

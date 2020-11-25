@@ -1,13 +1,23 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Card, CardContent, Typography, CardActions,
+import {
+    Card, CardContent, Typography, CardActions,
     makeStyles, Avatar, Box, CardActionArea, IconButton,
-    Tooltip, Chip } from '@material-ui/core'
+    Tooltip, Chip, Menu, MenuItem
+} from '@material-ui/core'
 import { VisibilityRounded, Delete, CheckCircle, Timer, TimerOff, Undo } from '@material-ui/icons'
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import WarningIcon from '@material-ui/icons/Warning';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ReplyIcon from '@material-ui/icons/Reply';
+import MoreVertIcon from '@material-ui/icons/MoreVert'
 import AvatarGroup from '@material-ui/lab/AvatarGroup'
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import Task from './Task'
 import { SubjectContext } from '../../context/subject';
 import moment from 'moment'
 import 'moment/locale/es-mx'
+import './CardTask.css'
 moment().locale('es-mx')
 
 const useStyles = makeStyles((theme) => ({
@@ -18,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
     cardContent: {
         paddingTop: '4px',
-        paddingBottom: '4px'        
+        paddingBottom: '4px'
     },
     descripcion: {
         marginBottom: 0,
@@ -53,6 +63,15 @@ const useStyles = makeStyles((theme) => ({
     chipLabelExpired: {
         color: 'rgb(152 8 8)',
         fontWeight: 'bold'
+    },
+    warningIcon: {
+        margin: '0px !important',
+        padding: '0 0 3px 0 !important',
+        color: '#ffc107'
+    },
+    checkIcon: {
+        margin: '0px !important',
+        padding: '2px 0 0 0 !important',
     }
 }))
 
@@ -61,6 +80,8 @@ const CardTask = (props) => {
     const { data, acceptTaskHandler, deleteHandler, index } = props
     const [open, setOpen] = useState(false)
     const { subjectId } = useContext(SubjectContext)
+    const [anchorEl, setAnchorEl] = useState(null)
+    const openMenu = Boolean(anchorEl)
 
     useEffect(() => {
         setOpen(false)
@@ -74,86 +95,130 @@ const CardTask = (props) => {
         setOpen(true);
     }
 
-    const handleFinished = () => {
+    const handleFinished = (event) => {
         props.finishedHandler(data.tareaId, subjectId)
+        event.stopPropagation()
+        setAnchorEl(null)
     }
 
-    const handlePendiente = () => {
+    const handlePendiente = (event) => {
         props.pendienteHandler(data.tareaId, subjectId)
+        event.stopPropagation()
+        setAnchorEl(null)
+    }
+
+    const handleClick = (event) => {
+        event.stopPropagation()
+        setAnchorEl(event.currentTarget)
+    }
+
+    const handleClose = (event) => {
+        event.stopPropagation()
+        setAnchorEl(null)
     }
 
     return (
         <>
-            <Card>
-                <CardActionArea onClick={handleView}>
-                    <CardContent className={classes.cardContent}>
-                        <Box display="flex" flexDirection="row" alignItems="center">
-                            <Box flexGrow={1} style={{width: '50%'}}>
-                                <Typography className={classes.textTarea} noWrap variant="body1" component="h2" align="left">
-                                    {data.titulo}
-                                </Typography>
-                                <Typography className={classes.descripcion}>
-                                    {`Fecha límite: ${data.fechaLimite}`}
-                                </Typography>
-                            </Box>
-                            <AvatarGroup max={3}>
-                                {
-                                    Object.keys(data.colaboradores).map(id => {
-                                        return <Avatar key={id} alt={data.colaboradores[id].name} src={data.colaboradores[id].photoURL} />
-                                    })
-                                }
-                            </AvatarGroup>
-                        </Box>
-                    </CardContent>
-                </CardActionArea>
-                <CardActions disableSpacing className={classes.actionArea}>
-                    <Tooltip classes={{tooltip: classes.tooltip}} title="Ver" enterTouchDelay={400}>
-                        <IconButton className={classes.actionButtons} onClick={handleView}>
-                            <VisibilityRounded fontSize="large" />
-                        </IconButton>
-                    </Tooltip>
-                    {
-                        data.estado === 'pendiente' ?
+            <div className="card" onClick={() => handleView()}>
+                <div className="card__info">
+
+                    {data.estado === 'pendiente' ? (
+                        (moment().isBefore(moment(data.fechaLimite, 'DD-MM-YYYY'))) ?
                             <>
-                                <Tooltip classes={{tooltip: classes.tooltip}} title="Finalizar" enterTouchDelay={400}>
-                                    <IconButton className={`${classes.actionButtons} ${classes.finalizarButton}`} onClick={handleFinished}>
-                                        <CheckCircle fontSize="large" />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip classes={{tooltip: classes.tooltip}} title="Eliminar" enterTouchDelay={400}>
-                                    <IconButton className={classes.actionButtons} onClick={() => {deleteHandler(data.tareaId, Object.keys(data.colaboradores).length)}}>
-                                        <Delete fontSize="large" color="error" />
-                                    </IconButton>
-                                </Tooltip>
+                                <h3>{data.titulo}</h3>
+                                <h4>{`Vencimiento: ${data.fechaLimite}`}</h4>
+                                {/* <h4>Vencimiento: <span>{data.fechaLimite}</span></h4> */}
                             </>
-                            :   <Tooltip classes={{tooltip: classes.tooltip}} title="Volver a pendiente" enterTouchDelay={400}>
-                                    <IconButton className={classes.actionButtons} onClick={handlePendiente}>
-                                        <Undo fontSize="large" />
-                                    </IconButton>
-                                </Tooltip>
+                            :
+                            <>
+                                <h3>{data.titulo} <WarningIcon className={classes.warningIcon}/> </h3>
+                                
+                                {/* <h4>{`Vencimiento: ${data.fechaLimite}`}</h4> */}
+                                <h4>Vencimiento: <span style={{color: "#e93e3e"}}>{data.fechaLimite}</span></h4>                         
+                                {/* <h4>Vencimiento: <span style={{color: "#e93e3e"}}>{data.fechaLimite}</span> <WarningIcon className={classes.warningIcon}/></h4> */} 
+                            </>
+                    )
+                        :
+                        <>
+                            <div className="check">
+                                <h3>{`${data.titulo}`}</h3>
+                                <CheckCircleIcon color="secondary" className={classes.checkIcon} />
+                            </div>  
+                            <h4>{`Vencimiento: ${data.fechaLimite}`}</h4>
+                        </>
                     }
-                    {(moment().isBefore(moment(data.fechaLimite, 'DD-MM-YYYY'))) ?
-                        <Chip classes={{
-                                outlined: classes.chipOutline,
-                                root: classes.chipLabel}}
-                            variant="outlined"
-                            label={data.fechaLimite}
-                            icon={<Timer />} />
-                    : <Chip classes={{
-                                outlined: classes.chipOutlineExpired,
-                                root: classes.chipLabelExpired}}
-                            variant="outlined"
-                            label={data.fechaLimite}
-                            icon={<TimerOff />} />}
-                </CardActions>
-            </Card>
+                </div>
+
+                <div className="card__avatars">
+                    <AvatarGroup max={3}>
+                        {
+                            Object.keys(data.colaboradores).map(id => {
+                                return <Avatar key={id} alt={data.colaboradores[id].name} src={data.colaboradores[id].photoURL} />
+                            })
+                        }
+                    </AvatarGroup>
+                </div>
+
+                <div className="card__menu">
+                    <IconButton
+                        aria-label="more"
+                        aria-controls="long-menu"
+                        aria-haspopup="true"
+                        onClick={handleClick}
+                        style={{ float: 'right', padding: 0, color: 'black' }}
+                    >
+                        <MoreVertIcon />
+                    </IconButton>
+
+                </div>
+
+            </div>
+
+            <Menu
+                id="long-menu"
+                anchorEl={anchorEl}
+                getContentAnchorEl={null}
+                keepMounted
+                open={openMenu}
+                onClose={handleClose}
+                PaperProps={{
+                    style: {
+                        maxHeight: 48 * 4.5,
+                        width: '20ch',
+                    },
+                }}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+            >
+                {data.estado === 'pendiente' ?
+                    <div>
+                        <MenuItem onClick={handleFinished}>
+                            <CheckBoxIcon /> Finalizar
+                                         </MenuItem>
+                        <MenuItem onClick={() => { deleteHandler(data.tareaId, Object.keys(data.colaboradores).length) }}>
+                            <DeleteIcon /> Eliminar
+                                         </MenuItem>
+                    </div>
+                    :
+                    <MenuItem onClick={handlePendiente}>
+                        <KeyboardReturnIcon /> Pendiente
+                                    </MenuItem>
+                }
+            </Menu>
+
             {open && <Task
                 open={open}
                 setOpen={setOpen}
                 data={data}
                 index={index}
                 acceptHandler={acceptTaskHandler}
-                />}
+            />}
         </>
     )
 }

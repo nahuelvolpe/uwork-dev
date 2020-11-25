@@ -20,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
     },
     carrera: {
         marginBottom: 0,
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        fontWeight: 'lighter'
     },
     button: {
         color: '#FFF',
