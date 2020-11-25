@@ -11,7 +11,8 @@ import Dashboard from '../uWork/components/Dashboard/Dashboard'
 import AuthenticationService from '../uWork/services/AuthenticationService'
 import * as MateriasService from '../uWork/services/MateriasService'
 import * as UserService from '../uWork/services/UserService'
-import LinealLoading from '../uWork/components/LoadingPage/LinealLoading'
+import CardSubject from '../uWork/components/Subject/CardSubject';
+
 
 jest.mock('../uWork/services/AuthenticationService')
 jest.mock('../uWork/services/MateriasService')
@@ -57,5 +58,23 @@ describe('Dashboard', () => {
       })
       expect(alert).toHaveTextContent("No tenés materias asignadas! Para agregar tu primer materia hacé click en el botón '+' de abajo a la derecha")
     })
+
+    it('has a CardSubject when Subject is added', async () => {
+        //jest.setTimeout(20000)      
+        const materias = [{materiaId: '123', carrera: 'Licenciatura en Informatica', nombre: 'Tecnologia Aplicada', link: 'link'}];
+        const { container, getById } = setUp()
+        AuthenticationService.getSessionUserId.mockReturnValue('id')
+        MateriasService.getSubjects.mockResolvedValueOnce(materias)
+
+        await wait(() => expect(getById(container, "grid-task")).toBeInTheDocument());
+
+        let cardSubject;
+        await wait(() => {
+            expect(screen.getByText(materias[0].nombre)).toBeInTheDocument()
+            cardSubject = getById(container, "123")
+        })
+        
+        expect(cardSubject).toBeInTheDocument()
+      })
   })
 }) 

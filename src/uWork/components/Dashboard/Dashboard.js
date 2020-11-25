@@ -140,7 +140,7 @@ const Dashboard = (props) => {
                         acceptHandler={acceptDelete}
                         errorHandler={onDeleteError}
                     />}
-                    <Grid container>
+                    <Grid container id="grid-task">
                         <Hidden smDown>
                             <div style={{ width: '100%', marginTop: 16, marginLeft: 8 }}>
                                 <Button variant="outlined" startIcon={<AddCircleIcon />} color="primary" label="Agregar Materia" onClick={handleClickOpen}>Agregar Materia</Button>
@@ -148,7 +148,7 @@ const Dashboard = (props) => {
                         </Hidden>
                         {materias && materias.map((materia) =>
                             <Grid item xs={12} sm={6} md={4} key={materia.materiaId} style={{ padding: '0px 8px 8px 0px' }}>
-                                <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history} />
+                                <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history} id={materia.materiaId} />
                             </Grid>)
                         }
                         <Hidden mdUp>
