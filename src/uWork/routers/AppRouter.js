@@ -10,6 +10,7 @@ import Dashboard from '../components/Dashboard/Dashboard'
 import EditProfile from '../components/EditProfile/EditProfile'
 import Layout from '../components/Layout/Layout'
 import Subject from '../components/Subject/Subject'
+import NotFound from '../components/NotFound/NotFound'
 
 const AppRouter = () => {
 
@@ -23,6 +24,7 @@ const AppRouter = () => {
                     <PublicRoute exact path="/" component={Login} />
                     <PublicRoute exact path="/login" component={Login} />
                     <PublicRoute exact path="/register" component={Register} />
+                    <PublicRoute exact path="/notfound" component={NotFound} />
                         <Layout>
                             <PrivateRoute exact path="/edit_profile" component={EditProfile} />
                             <PrivateRoute exact path="/dashboard" component={Dashboard} />
