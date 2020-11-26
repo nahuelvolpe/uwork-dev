@@ -125,7 +125,7 @@ const Dashboard = (props) => {
                 </Fragment> :
                 <Fragment>
                     {guide &&
-                        <Alert severity="info">No tenés materias asignadas! Para agregar tu primer materia hacé click en el botón '+' de abajo a la derecha</Alert>
+                        <Alert id="guide-alert" severity="info">No tenés materias asignadas! Para agregar tu primer materia hacé click en el botón '+' de abajo a la derecha</Alert>
                     }
                     {open && <AddSubject
                         open={open}
@@ -140,19 +140,19 @@ const Dashboard = (props) => {
                         acceptHandler={acceptDelete}
                         errorHandler={onDeleteError}
                     />}
-                    <Grid container>
+                    <Grid container id="grid-task">
                         <Hidden smDown>
                             <div style={{ width: '100%', marginTop: 16, marginLeft: 8 }}>
-                                <Button variant="outlined" startIcon={<AddCircleIcon />} color="primary" onClick={handleClickOpen}>Agregar Materia</Button>
+                                <Button variant="outlined" startIcon={<AddCircleIcon />} color="primary" label="Agregar Materia" onClick={handleClickOpen}>Agregar Materia</Button>
                             </div>
                         </Hidden>
                         {materias && materias.map((materia) =>
                             <Grid item xs={12} sm={6} md={4} key={materia.materiaId} style={{ padding: '0px 8px 8px 0px' }}>
-                                <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history} />
+                                <CardSubject data={materia} deleteHandler={handleDelete} exitHandler={handleExit} history={props.history} id={materia.materiaId} />
                             </Grid>)
                         }
                         <Hidden mdUp>
-                            <Tooltip classes={{ tooltip: classes.tooltip }} placement="left" title="Agregar Materia" enterTouchDelay={400}>
+                            <Tooltip classes={{ tooltip: classes.tooltip }} placement="left" title="Agregar Materia" label="Add Subject" enterTouchDelay={400}>
                                 <IconButton
                                     className={classes.floatingButton}
                                     arial-label="Add"

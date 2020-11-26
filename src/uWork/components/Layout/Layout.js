@@ -5,8 +5,10 @@ import * as UserService from '../../services/UserService'
 import MenuIcon from '@material-ui/icons/Menu'
 import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
-import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
+import ReplyIcon from '@material-ui/icons/Reply';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import OpenInBrowserIcon from '@material-ui/icons/OpenInBrowser';
 import { Link } from 'react-router-dom'
 import Collabs from '../Subject/Collabs'
 import { SubjectContext } from '../../context/subject';
@@ -67,6 +69,11 @@ const useStyles = makeStyles((theme) => ({
   },
   icons: {
     color: 'white'
+  },
+  footer:{
+    position: 'absolute',
+    bottom: 0,
+    left: '25%'
   }
 }));
 
@@ -147,19 +154,29 @@ const Layout = (props) => {
             <ListItemIcon>
               <GroupIcon className={classes.icons} fontSize="small" />
             </ListItemIcon>
-            Ver colaboradores
+            Ver Colaboradores
             {openPopCollab && <Collabs open={openPopCollab} setOpen={setOpenCollab}/>}
+          </MenuItem>
+        : [] 
+        }
+        {
+          pathname.includes('/subject') ?
+          <MenuItem component="a"  href='https://forouno.org/' target="_blank">
+            <ListItemIcon>
+              <OpenInBrowserIcon className={classes.icons} fontSize="small" />
+            </ListItemIcon>
+            Ir al Foro
           </MenuItem>
         : [] 
         }
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
-            <ReplyRoundedIcon className={classes.icons} fontSize="small" />
+            <MeetingRoomIcon className={classes.icons} fontSize="small" />
           </ListItemIcon>
           Cerrar Sesión
         </MenuItem>
       </MenuList>
-      
+      <p className={classes.footer}> uWork &copy; - Beta v0.9 </p>
     </div>
   )
 
