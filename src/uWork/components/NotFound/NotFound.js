@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { ReactComponent as Empty} from '../NotFound/empty.svg';
+import React from "react";
 import { Link, withRouter } from 'react-router-dom';
-import { Button, Grid, Paper, makeStyles, Divider } from "@material-ui/core";
+import { Button, makeStyles } from "@material-ui/core";
 import empty from './empty.svg'
 import './NotFound.css'
 
