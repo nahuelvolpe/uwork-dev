@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { AuthContext } from '../context/auth'
 import { Route, Redirect } from 'react-router-dom';
 import AuthenticationService from '../services/AuthenticationService'
+import Layout from '../components/Layout/Layout';
 
 export const PrivateRoute = ({
     component: Component,
@@ -18,7 +19,7 @@ export const PrivateRoute = ({
                 <Route {...rest}
                     component={(props) => (
                         (currentUser)
-                            ? (<Component {...props} />)
+                            ? (<Layout {...rest} ><Component {...props} /></Layout>)
                             : (<Redirect to="/login" />)
                     )}
 
