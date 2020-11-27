@@ -1,3 +1,7 @@
+body {
+    overflow-y:hidden;
+}
+
 .container {
     display: flex;
     height: 100vh;
