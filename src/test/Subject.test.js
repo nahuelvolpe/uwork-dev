@@ -8,9 +8,12 @@ import FormikField from '../uWork/components/FormikField/FormikField'
 import { Form, Formik } from 'formik'
 import { Button, Alert } from "@material-ui/core";
 import Subject from '../uWork/components/Subject/Subject'
+import { AuthContext, AuthContextProvider } from '../uWork/context/auth'
+import AppRouter from '../uWork/routers/AppRouter';
 import AuthenticationService from '../uWork/services/AuthenticationService'
 import * as MateriasService from '../uWork/services/MateriasService'
 import * as TaskService from '../uWork/services/TaskService'
+import * as UserService from '../uWork/services/UserService'
 
 
 jest.mock('../uWork/services/AuthenticationService')
@@ -35,21 +38,31 @@ describe('Subject', () => {
   describe('When user is register', () => {
 
     it('should renders Subject correctly', async () => {
-      /* jest.setTimeout(10000)
+      jest.setTimeout(10000)
+      const context = {
+        authReady: true
+      }
+      AuthenticationService.getSessionUserId.mockReturnValue('id')
+      UserService.getUserDataById.mockResolvedValue({ photoURL: 'photo', firstName: 'Pepe', lastName: 'Perez' })
       MateriasService.getSubjectById.mockResolvedValue({materiaId: 'id', carrera: 'carrera', nombre: 'nombre', roles: {id: 'rol'}, link:'link', tarea:{id: 'url'}})
       TaskService.getTasks.mockResolvedValue([]);
-      const wrapper = mount(<MemoryRouter><Subject /></MemoryRouter>)
+      const wrapper = renderAppRouter('/subject:materiaId', context)
       await wait(() => {
-        expect(wrapper.find(Subject)).toHaveLength(1)
-        expect(MateriasService.getSubjectById).toHaveBeenCalled()
-        expect(TaskService.getTasks).toHaveBeenCalled()
-<<<<<<< HEAD
-      })
-    }) */ 
-=======
-      }) */
+        //expect(wrapper.find(Subject)).toHaveLength(1)
+        //expect(MateriasService.getSubjectById).toHaveBeenCalled()
+        //expect(TaskService.getTasks).toHaveBeenCalled()
+      }) 
     })
->>>>>>> 82f7f02e867c365ed2d199fafca4c9622f1fa793
 
   })
 }) 
+
+function renderAppRouter(route, state) {
+  return mount(
+    <MemoryRouter initialEntries={[route]}>
+      <AuthContext.Provider value={state}>
+        <AppRouter />
+      </AuthContext.Provider>
+    </MemoryRouter>
+  )
+}
