@@ -75,7 +75,7 @@ describe('App Router', () => {
       UserService.getUserDataById.mockResolvedValue({ photoURL: 'photo', firstName: 'Pepe', lastName: 'Perez' })
       const wrapper = renderAppRouter('/dashboard', context)
       await wait(() => {
-        expect(wrapper.find(PrivateRoute)).toHaveLength(3)
+        expect(wrapper.find(PrivateRoute)).toHaveLength(1)
         expect(wrapper.find(Layout)).toHaveLength(1)
         expect(wrapper.find(Dashboard)).toHaveLength(1)
       })
