@@ -61,8 +61,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
-function TabPanel(props) {
+export function TabPanel(props) {
     const { children, value, index, ...other } = props;
     return (
         <div
@@ -267,8 +266,8 @@ const Subject = (props) => {
             </Hidden>
             <AppBar position="static" style={{marginTop: showInfo ? 0 : 16}}>
                 <Tabs value={value} onChange={handleChange} variant="fullWidth" aria-label="simple tabs example">
-                <Tab label="Tareas pendientes" {...a11yProps(0)} />
-                <Tab label="Tareas finalizadas" {...a11yProps(1)} />
+                    <Tab label="Tareas pendientes" {...a11yProps(0)} />
+                    <Tab label="Tareas finalizadas" {...a11yProps(1)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
@@ -305,6 +304,7 @@ const Subject = (props) => {
                         <PersonAddIcon style={{ fontSize: "24px" }} />
                     </IconButton>
                     <IconButton variant="contained"
+                        arial-label="Agregar tarea"
                         className={classes.floatingButtonAddTask}
                         onClick={handleClickOpenTask}>
                         <PostAddIcon style={{ fontSize: "28px" }} />
