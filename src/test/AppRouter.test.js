@@ -35,15 +35,6 @@ describe('App Router', () => {
     )
   })
 
-  it('should render Public Route and Login component when path is /', () => {
-    const context = {
-      authReady: true
-    }
-    const wrapper = renderAppRouter('/', context)
-    expect(wrapper.find(PublicRoute)).toHaveLength(1);
-    expect(wrapper.find(Login)).toHaveLength(1);
-  })
-
   it('should render Public Route and Login component when path is /login', () => {
     const context = {
       authReady: true

@@ -2,7 +2,7 @@ import React from 'react'
 import { mount, configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import { wait } from '@testing-library/react'
-import AlertDialog from '../uWork/components/Dashboard/AlertDialog'
+import AlertDeleteDialog from '../uWork/components/Dashboard/AlertDeleteDialog'
 import { DialogContentText } from '@material-ui/core'
 import AdornedButton from '../uWork/components/AdornedButton/AdornedButton'
 import * as MateriasService from '../uWork/services/MateriasService'
@@ -23,7 +23,7 @@ describe('Alert dialog modal', () => {
   const acceptHandler = jest.fn()
   const errorHandler = jest.fn()
   beforeEach(() => {
-    wrapper = mount(<AlertDialog
+    wrapper = mount(<AlertDeleteDialog
       open
       setOpen={setOpen}
       subjectId={subjectId}
@@ -35,7 +35,7 @@ describe('Alert dialog modal', () => {
     wrapper.unmount()
   })
   it('renders correctly', () => {
-    expect(wrapper.find(AlertDialog).exists()).toBeTruthy()
+    expect(wrapper.find(AlertDeleteDialog).exists()).toBeTruthy()
   })
 
   it('has dialog text content', () => {
