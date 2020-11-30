@@ -2,13 +2,15 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { Grid, makeStyles, IconButton, Hidden, Button, Tooltip } from '@material-ui/core'
 import AddSubject from './AddSubject'
 import CardSubject from '../Subject/CardSubject'
-import AlertDialog from './AlertDialog'
+import AlertDeleteDialog from './AlertDeleteDialog'
+import AlertExitDialog from './AlertExitDialog'
 import Alert from '@material-ui/lab/Alert'
 import LinealLoading from '../LoadingPage/LinealLoading'
 import CustomizedSnackbars from '../CustomSnackBar/CustomSnackBar'
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import * as MateriasService from '../../services/MateriasService';
 import AuthenticationService from '../../services/AuthenticationService'
+
 
 const useStyles = makeStyles((theme) => ({
     materiaContent: {
@@ -45,7 +47,8 @@ const Dashboard = (props) => {
 
     const [loading, setLoading] = useState(false)
     const [open, setOpen] = React.useState(false)
-    const [openAlert, setOpenAlert] = React.useState(false)
+    const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false)
+    const [openExitAlert, setOpenExitAlert] = React.useState(false)
     const [guide, setGuide] = useState(false)
     const [creationSuccess, setCreationSuccess] = useState(false)
     const [creationFailed, setCreationFailed] = useState(false)
@@ -79,15 +82,12 @@ const Dashboard = (props) => {
 
     const handleDelete = (materiaId) => {
         setMateriaId(materiaId)
-        setOpenAlert(true)
+        setOpenDeleteAlert(true)
     }
 
     const handleExit = (materiaId) => {
-        MateriasService.exitMateria(materiaId, userId)
-            .then(() => {
-                setMaterias(prevState => prevState.filter(e => e.materiaId !== materiaId))
-            })
-            .catch((e) => { console.log(e) })
+        setMateriaId(materiaId)
+        setOpenExitAlert(true)   
     }
 
     const handleClickOpen = () => {
@@ -133,9 +133,16 @@ const Dashboard = (props) => {
                         acceptHandler={onCreationSuccess}
                         errorHandler={onCreationFailed}
                     />}
-                    {openAlert && <AlertDialog
-                        open={openAlert}
-                        setOpen={setOpenAlert}
+                    {openDeleteAlert && <AlertDeleteDialog
+                        open={openDeleteAlert}
+                        setOpen={setOpenDeleteAlert}
+                        subjectId={materiaId}
+                        acceptHandler={acceptDelete}
+                        errorHandler={onDeleteError}
+                    />}
+                     {openExitAlert && <AlertExitDialog
+                        open={openExitAlert}
+                        setOpen={setOpenExitAlert}
                         subjectId={materiaId}
                         acceptHandler={acceptDelete}
                         errorHandler={onDeleteError}

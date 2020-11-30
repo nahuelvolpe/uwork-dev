@@ -1,15 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import {
-    Card, CardContent, Typography, CardActions,
-    makeStyles, Avatar, Box, CardActionArea, IconButton,
-    Tooltip, Chip, Menu, MenuItem
-} from '@material-ui/core'
-import { VisibilityRounded, Delete, CheckCircle, Timer, TimerOff, Undo } from '@material-ui/icons'
+import { makeStyles, Avatar, IconButton, Menu, MenuItem } from '@material-ui/core'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import WarningIcon from '@material-ui/icons/Warning';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ReplyIcon from '@material-ui/icons/Reply';
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';

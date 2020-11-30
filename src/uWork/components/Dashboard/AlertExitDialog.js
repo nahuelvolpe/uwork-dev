@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AlertDialog(props) {
+export default function AlertExitDialog(props) {
   const { open, setOpen, subjectId, acceptHandler, errorHandler } = props;
   const classes = useStyles();
   const userId = AuthenticationService.getSessionUserId()
@@ -26,16 +26,16 @@ export default function AlertDialog(props) {
 
   const handleAccept = () => {
     setLoading(true)
-    MateriasService.deleteMateriaAdmin(subjectId, userId)
+    MateriasService.exitMateria(subjectId, userId)
         .then(() => {
-          setLoading(false)
-          acceptHandler(subjectId)
-          setOpen(false)
+            setLoading(false)
+            acceptHandler(subjectId)
+            setOpen(false)
         })
         .catch((e) => {
-          console.log(e)
-          setLoading(false)
-          errorHandler()
+            console.log(e) 
+            setLoading(false)
+            errorHandler()
         })
   }
 
@@ -50,8 +50,7 @@ export default function AlertDialog(props) {
         <DialogTitle id="alert-dialog-title">Advertencia</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-              Posiblemente haya colaborares en esta matería y se eliminará tambien de sus cuentas.
-              <strong>¿Está seguro que desea eliminarla?</strong>
+              <strong>¿Está seguro que desea salir de esta materia?</strong>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -62,8 +61,8 @@ export default function AlertDialog(props) {
             onClick={handleAccept}
             loading={loading}
             disabled={loading}
-          >
-            Eliminar
+          > 
+            Salir
           </AdornedButton>
           <Button onClick={handleClose} color="primary">
             Cancelar

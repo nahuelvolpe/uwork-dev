@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types';
-import { Grid, IconButton, makeStyles, Paper, AppBar, Tabs, Tab, Box, Button, Hidden } from '@material-ui/core';
+import { Grid, IconButton, makeStyles, Paper, AppBar, Tabs, Tab, Box, Button, Hidden, Tooltip } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert'
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PostAddIcon from '@material-ui/icons/PostAdd';
@@ -337,23 +337,27 @@ const Subject = (props) => {
             </TabPanel>
             <Hidden mdUp>
                 <div className={classes.floatingButtons}>
-                    <IconButton
-                        className={classes.floatingButtonInvite}
-                        arial-label="Agregar colaborador"
-                        onClick={handleClickOpenInvite}
-                        size="small"
-                        classes={{
-                            sizeSmall: classes.sizeSmallPadding
-                        }}
-                    >
-                        <PersonAddIcon style={{ fontSize: "24px" }} />
-                    </IconButton>
-                    <IconButton variant="contained"
-                        arial-label="Agregar tarea"
-                        className={classes.floatingButtonAddTask}
-                        onClick={handleClickOpenTask}>
-                        <PostAddIcon style={{ fontSize: "28px" }} />
-                    </IconButton>
+                    <Tooltip classes={{ tooltip: classes.tooltip }} placement="left" title="Invitar Colaborador" label="Add Colab" enterTouchDelay={400}>
+                        <IconButton
+                            className={classes.floatingButtonInvite}
+                            arial-label="Agregar colaborador"
+                            onClick={handleClickOpenInvite}
+                            size="small"
+                            classes={{
+                                sizeSmall: classes.sizeSmallPadding
+                            }}
+                        >
+                            <PersonAddIcon style={{ fontSize: "24px" }} />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip classes={{ tooltip: classes.tooltip }} placement="left" title="Agregar Tarea" label="Add Tarea" enterTouchDelay={400}>
+                        <IconButton variant="contained"
+                            arial-label="Agregar tarea"
+                            className={classes.floatingButtonAddTask}
+                            onClick={handleClickOpenTask}>
+                            <PostAddIcon style={{ fontSize: "28px" }} />
+                        </IconButton>
+                    </Tooltip>
                 </div>
             </Hidden></>
             }

@@ -21,10 +21,9 @@ const AppRouter = () => {
             {authReady &&
             <SubjectProvider>
                 <Switch>
-                    <PublicRoute exact path="/" component={Login} />
+                    <PublicRoute exact path="/" component={Welcome} />
                     <PublicRoute exact path="/login" component={Login} />
                     <PublicRoute exact path="/register" component={Register} />
-                    <PublicRoute exact path="/welcome" component={Welcome} />
                     <Route exact path="/404" component={NotFound} />
                     <PrivateRoute exact path="/edit_profile" component={EditProfile} />
                     <PrivateRoute exact path="/dashboard" component={Dashboard} />

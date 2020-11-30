@@ -5,7 +5,6 @@ import * as UserService from '../../services/UserService'
 import MenuIcon from '@material-ui/icons/Menu'
 import GroupIcon from '@material-ui/icons/Group';
 import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
-import ReplyIcon from '@material-ui/icons/Reply';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import OpenInBrowserIcon from '@material-ui/icons/OpenInBrowser';
