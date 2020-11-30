@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react'
-import { useParams } from 'react-router-dom'
+import { Redirect, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { Grid, IconButton, makeStyles, Paper, AppBar, Tabs, Tab, Box, Button, Hidden } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
@@ -108,36 +108,56 @@ const Subject = (props) => {
     const [value, setValue] = useState(0)
     const [showInfo, setShowInfo] = useState(true)
     const [loading, setLoading] = useState(false)
+    const [notFound, setNotFound] = useState(false)
 
     const [openSuccessBar, setOpenSuccessBar] = useState(false)
     const [message, setMessage] = useState('')
 
     useEffect(() => {
+        let mounted = true
         async function setSubjectData() {
             setLoading(true)
-            const materia = await MateriasService.getSubjectById(materiaId)
-            setLink(materia.link)
-            setSubjectName(materia.nombre)
-            setSubjectId(materiaId)
+            try {
+                const materia = await MateriasService.getSubjectById(materiaId)
+                if(mounted) {
+                    setLink(materia.link)
+                    setSubjectName(materia.nombre)
+                    setSubjectId(materiaId)
+                }
+            } catch (err) {
+                if (mounted) {
+                    setNotFound(true)
+                }
+            }
         }
         async function cargarTareas() {
-            let tasksSubject = [];
-            tasksSubject = await TaskService.getTasks(materiaId)
-            tasksSubject.forEach( (task) => {
-                if(task.estado === 'pendiente'){
-                    setPendientes(prevState =>
-                        [...prevState, task]
-                    )
-                }else if(task.estado === 'finalizada'){
-                    setFinalizadas(prevState =>
-                        [...prevState, task]
-                    )
+            let tasksSubject = []
+            try {
+                tasksSubject = await TaskService.getTasks(materiaId)
+                if(mounted) {
+                    tasksSubject.forEach( (task) => {
+                        if(task.estado === 'pendiente'){
+                            setPendientes(prevState =>
+                                [...prevState, task]
+                            )
+                        }else if(task.estado === 'finalizada'){
+                            setFinalizadas(prevState =>
+                                [...prevState, task]
+                            )
+                        }
+                    })
+                    setLoading(false)
                 }
-            })
-            setLoading(false)
+            } catch(err) {
+                if (mounted) {
+                    setNotFound(true)
+                }
+            }
         }
         setSubjectData()
         cargarTareas()
+
+        return () => mounted = false
     }, [materiaId, setSubjectId, setSubjectName])
 
     const handleChange = (event, newValue) => {
@@ -229,6 +249,10 @@ const Subject = (props) => {
 
     const closeLinkInfo = () => {
         setShowInfo(false)
+    }
+
+    if(notFound) {
+        return (<Redirect to="/404"></Redirect>)
     }
 
     return (

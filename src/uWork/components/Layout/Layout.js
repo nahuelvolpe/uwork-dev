@@ -88,16 +88,21 @@ const Layout = (props) => {
   const { subjectId, subjectName } = useContext(SubjectContext)
 
   useEffect(() => {
+    let mounted = true
     const loadUserData = async () => {
       const id = AuthenticationService.getSessionUserId()
       try {
         const user = await UserService.getUserDataById(id)
-        setUserData(user)
+        if (mounted) {
+          setUserData(user)
+        }
       } catch (err) {
         console.log(err)
       }
-    } 
+    }
     loadUserData()
+
+    return () => mounted = false
   }, [])
 
   const handleOpenCollab = () => {

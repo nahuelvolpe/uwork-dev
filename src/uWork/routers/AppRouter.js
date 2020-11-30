@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import { SubjectProvider } from '../context/subject'
 import { AuthContext } from '../context/auth'
 import { PrivateRoute } from './PrivateRoute'
@@ -23,10 +23,11 @@ const AppRouter = () => {
                     <PublicRoute exact path="/" component={Login} />
                     <PublicRoute exact path="/login" component={Login} />
                     <PublicRoute exact path="/register" component={Register} />
+                    <Route exact path="/404" component={NotFound} />
                     <PrivateRoute exact path="/edit_profile" component={EditProfile} />
                     <PrivateRoute exact path="/dashboard" component={Dashboard} />
                     <PrivateRoute exact path="/subject/:materiaId" component={Subject} />
-                    <Route component={NotFound} />
+                    <Redirect to="/404" />
                 </Switch>
             </SubjectProvider>
             }
