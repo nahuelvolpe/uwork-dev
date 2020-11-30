@@ -192,7 +192,8 @@ const EditProfile = (props) => {
                     <span className={classes.imageSrc} />
                     <img src={values.userImg} alt="" height="100%"
                       width="100%" style={{
-                        borderRadius: "50%"
+                        borderRadius: "50%",
+                        objectFit: 'cover'
                       }} />
                     <span className={classes.imageBackdrop} />
                   </ButtonBase>

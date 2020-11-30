@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { Grid, IconButton, makeStyles, Paper, AppBar, Tabs, Tab, Box, Button, Hidden } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert'
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import AddCircleIcon from '@material-ui/icons/AddCircle'
@@ -109,6 +110,7 @@ const Subject = (props) => {
     const [showInfo, setShowInfo] = useState(true)
     const [loading, setLoading] = useState(false)
     const [notFound, setNotFound] = useState(false)
+    const [guide, setGuide] = useState(false)
 
     const [openSuccessBar, setOpenSuccessBar] = useState(false)
     const [message, setMessage] = useState('')
@@ -134,19 +136,26 @@ const Subject = (props) => {
             let tasksSubject = []
             try {
                 tasksSubject = await TaskService.getTasks(materiaId)
+                console.log(tasksSubject)
                 if(mounted) {
-                    tasksSubject.forEach( (task) => {
-                        if(task.estado === 'pendiente'){
-                            setPendientes(prevState =>
-                                [...prevState, task]
-                            )
-                        }else if(task.estado === 'finalizada'){
-                            setFinalizadas(prevState =>
-                                [...prevState, task]
-                            )
-                        }
-                    })
-                    setLoading(false)
+                    if(tasksSubject.length < 1){
+                        setGuide(true);
+                        setLoading(false)
+                    }else{
+                        tasksSubject.forEach( (task) => {
+                            if(task.estado === 'pendiente'){
+                                setPendientes(prevState =>
+                                    [...prevState, task]
+                                )
+                            }else if(task.estado === 'finalizada'){
+                                setFinalizadas(prevState =>
+                                    [...prevState, task]
+                                )
+                            }
+                        })
+                        setLoading(false)
+                    }
+                    
                 }
             } catch(err) {
                 if (mounted) {
@@ -228,6 +237,7 @@ const Subject = (props) => {
 
     const onCreationSuccess = (id, task, index) => {
         if (index === undefined) {
+            setGuide(false);
             setMessage('Tarea creada con éxito!')
             setOpenSuccessBar(true)
             setPendientes(prevState =>
@@ -296,6 +306,17 @@ const Subject = (props) => {
             </AppBar>
             <TabPanel value={value} index={0}>
                 <Grid container spacing={1}>
+                    {guide &&
+                            <>
+                                <Hidden smDown>
+                                    <Alert id="guide-alert" severity="info">No tenés tareas pendientes! Para agregar una tarea hacé click en el botón "+ AGREGAR TAREA" de arriba a la izquierda</Alert>
+                                </Hidden>
+                                <Hidden mdUp>
+                                    <Alert id="guide-alert" severity="info">No tenés tareas pendientes! Para agregar una tarea hacé click en el botón <PostAddIcon /> de abajo a la derecha</Alert>
+                                </Hidden>
+                            </>
+                            
+                    }
                     {pendientes && pendientes.map((task, index) =>
                         <Grid item xs={12} sm={6} md={4}  key={task.tareaId}>
                             <CardTask data={task} history={props.history} acceptTaskHandler={onCreationSuccess} deleteHandler={handleDelete} finishedHandler={handleFinished} index={index}/>
