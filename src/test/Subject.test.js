@@ -141,7 +141,6 @@ describe('Subject component', () => {
     await wait(() => {
       wrapper.update()
       expect(wrapper.find(Paper).exists()).toBeTruthy()
-      expect(wrapper.find(Paper)).toHaveLength(2)
       expect(wrapper.find(Paper).at(0).getDOMNode()).toHaveTextContent("Para encontrar apuntes, exámenes, trabajos prácticos y más información sobre esta materia, ingresá al foro de la UNO")
     })
   })
@@ -151,9 +150,9 @@ describe('Subject component', () => {
     wrapper = renderSubject('/subject/id')
     await wait(() => {
       wrapper.update()
+      expect(wrapper.find(Close).exists()).toBeTruthy()
       wrapper.find(Close).props().onClick()
       wrapper.update()
-      expect(wrapper.find(Paper)).toHaveLength(1)
       expect(wrapper.find(Paper).at(0).getDOMNode()).not.toHaveTextContent("Para encontrar apuntes, exámenes, trabajos prácticos y más información sobre esta materia, ingresá al foro de la UNO")
     })
   })
@@ -191,7 +190,6 @@ describe('Subject component', () => {
     })
   })
   it('cards are shown in corresponding tab', async () => {
-    jest.setTimeout(10000)
     MateriasService.getSubjectById.mockResolvedValue(materiaMock)
     TaskService.getTasks.mockResolvedValue(oneAndOneTasks)
     wrapper = renderSubject('/subject/id')
@@ -242,7 +240,6 @@ describe('Subject component', () => {
     })
   })
   it('shows Invite component when "Añadir colaborador" floating button is clicked', async () => {
-    jest.setTimeout(10000)
     MateriasService.getSubjectById.mockResolvedValue(materiaMock)
     TaskService.getTasks.mockResolvedValue([])
     wrapper = renderSubject('/subject/id', 'sm')
@@ -258,7 +255,6 @@ describe('Subject component', () => {
     })
   })
   it('shows Task component when "Agregar tarea" floating button is clicked', async () => {
-    jest.setTimeout(10000)
     MateriasService.getSubjectById.mockResolvedValue(materiaMock)
     TaskService.getTasks.mockResolvedValue([])
     wrapper = renderSubject('/subject/id', 'sm')

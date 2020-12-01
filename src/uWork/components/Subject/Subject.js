@@ -136,7 +136,6 @@ const Subject = (props) => {
             let tasksSubject = []
             try {
                 tasksSubject = await TaskService.getTasks(materiaId)
-                console.log(tasksSubject)
                 if(mounted) {
                     if(tasksSubject.length < 1){
                         setGuide(true);
