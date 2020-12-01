@@ -14,7 +14,9 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 const useStyles = makeStyles((theme) => ({
   boton: {
     color: 'white',
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   },
   root: {
     minWidth: 275,
