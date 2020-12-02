@@ -34,59 +34,31 @@ const Welcome = () => {
   return (
 
     <div className="container">
-      <div className="logoInfo">
-        <div className="logo">
-          <img src='https://firebasestorage.googleapis.com/v0/b/uwork-dev-beta.appspot.com/o/assets%2FuWork.png?alt=media&token=ea6dd5fe-9312-4fac-8c50-c7964cc91939' alt='' className="imagenLogo"></img>
-          <h1 className="textoLogo"> uWork</h1>
+      <div>
+        <div className="logoInfo">
+          <div className="logo">
+            <img src='https://firebasestorage.googleapis.com/v0/b/uwork-dev-beta.appspot.com/o/assets%2FuWork.png?alt=media&token=ea6dd5fe-9312-4fac-8c50-c7964cc91939' alt='' className="imagenLogo"></img>
+            <h1 className="textoLogo"> uWork</h1>
+          </div>
+          <div className="info">
+            <h2>BIENVENIDO</h2>
+            <h3>Tu aplicación para organizar tus tareas universitarias de manera colaborativa</h3>
+            
+          </div>
         </div>
-        <div className="info">
-          <h2>BIENVENIDO</h2>
-          <h3>Tu aplicación para organizar tus tareas universitarias de manera colaborativa</h3>
-          
+        <div className="appInfo">
+          <h3><EmailIcon/> Registrate sólo con tu eMail</h3>
+          <h3><AddCircleIcon/> Asignate la/s materia/s que estés cursando</h3>
+          <h3><GroupAddIcon/> Agregá a tus compañeros de grupo</h3>
+          <h3><MenuBookIcon/> Crea las tareas que tienen que hacer</h3>
+          <h4>¡Listo! Ya pueden organizar las tareas de la materia de manera colaborativa</h4>
+          <Button className={classes.boton} component={Link} to="/login">INGRESAR</Button>
         </div>
       </div>
-      <Grid container style={{ minHeight: "100vh" }}>
-        <Grid
-          container
-          item xs={12} sm={6}
-          alignItems="center"
-          direction="column"
-          justify="center"
-        >
-          <div className="illustracion">
-        <img src={task} alt='' className="illustracionLogo"></img>
-          </div>
 
-        </Grid>
-
-        <Grid 
-        container item xs={12} sm={6}
-        alignItems="center"
-        direction="column"
-        justify="center"
-        >
-          <Card className={classes.root}>
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          <EmailIcon/> Registrate sólo con tu eMail
-        </Typography>
-        <Typography variant="h5" component="h2">
-          <AddCircleIcon/> Asignate la/s materia/s que estés cursando
-        </Typography>
-        <Typography variant="h5" component="h2">
-          <GroupAddIcon/> Agregá a tus compañeros de grupo
-        </Typography>
-        <Typography variant="h5" component="h2">
-          <MenuBookIcon/> Crea las tareas que tienen que hacer
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          ¡Listo! Ya pueden organizar las tareas de la materia de manera colaborativa
-        </Typography>
-        </CardContent>
-    </Card>
-    <Button className={classes.boton} component={Link} to="/login">INGRESAR</Button>
-          </Grid>
-      </Grid>
+      <div className="illustracion">
+       {/*  <img src={task} alt='' className="illustracionLogo"></img> */}
+      </div>
     </div>
 
     
