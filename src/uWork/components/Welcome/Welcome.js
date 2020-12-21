@@ -1,11 +1,7 @@
 import React from "react";
 import { Link, withRouter } from 'react-router-dom';
-import { Button, makeStyles, Grid } from "@material-ui/core";
-import task from './task.svg'
+import { Button, makeStyles } from "@material-ui/core";
 import './Welcome.css'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import EmailIcon from '@material-ui/icons/Email';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
