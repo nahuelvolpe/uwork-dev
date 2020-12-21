@@ -39,7 +39,7 @@ describe('Alert dialog modal', () => {
   })
 
   it('has dialog text content', () => {
-    expect(wrapper.find(DialogContentText).getDOMNode()).toHaveTextContent("Posiblemente haya colaborares en esta matería y se eliminará tambien de sus cuentas.¿Está seguro que desea eliminarla?")
+    expect(wrapper.find(DialogContentText).getDOMNode()).toHaveTextContent("Posiblemente haya colaboradores en esta matería y se eliminará tambien de sus cuentas.¿Estás seguro que deseas eliminarla?")
   })
 
   it('has a confirmation button', () => {
