@@ -4,7 +4,10 @@
 ## Aplicación para organizar tareas universitarias de manera colaborativa
 **uWork** es trata de una **app web responsive** diseñada para los alumnos y alumnas de la **Universidad Nacional del Oeste**, los cuales podrán usar esta para organizar sus deberes. La aplicación se organiza por tareas que se relacionan con cada materia de sus respectivas carreras, esta es colaborativa por lo que pueden participar varios integrantes en una tarea, los alumnos se registran, pueden agregar a sus compañeros en un grupo de trabajo, y desde allí asignar tareas para cada integrante. Así un grupo de estudiantes de una materia podrá organizarse y asignar tareas a través de la aplicación para que puedan tener un mejor control y organización con el fin de **mejorar la productividad del grupo de trabajo**.
 
-###Link de la aplicación [uWork app](https://uwork-dev-beta.web.app)
+[Ir a la aplicación!][id/name] 
+[id/name]: https://uwork-dev-beta.web.app/
+
+
 ## Inicio de sesión:
 
 ![Login](https://github.com/nahuelvolpe/uwork-dev/blob/master/doc/images/login.gif?raw=true)
