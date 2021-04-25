@@ -8,7 +8,7 @@
 
 ## Agregar una materia desde el Dashboard:
 
-![AddSubject](https://github.com/nahuelvolpe/uwork-dev/blob/master/doc/images/crear-materia.gif?raw=true)
+![AddSubject](https://github.com/nahuelvolpe/uwork-dev/blob/master/doc/images/agregar-materia.gif?raw=true)
 
 ## Editar perfil:
 
@@ -16,7 +16,7 @@
 
 ## Agregar una tarea:
 
-![AddTask](https://github.com/nahuelvolpe/uwork-dev/blob/master/doc/images/crear-tarea.gif?raw=true)
+![AddTask](https://github.com/nahuelvolpe/uwork-dev/blob/master/doc/images/agregar-tarea.gif?raw=true)
 
 ## Agregar un colaborador:
 
